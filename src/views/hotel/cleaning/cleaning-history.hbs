@@ -1,0 +1,97 @@
+<section class="section__all--views">
+  <div class="content__views">
+    <div class="container views__container">
+      <div class="card__items">
+        <div class="items__elements__title">
+          <h5 class="items__name">Historial de Limpieza Intermedia</h5>
+        </div>
+        <div class="sub__header">
+          <div class="sub__header__container">
+            <article class="sub__header__content">
+              <section class="section__sub__header">
+                <article class="article__sub__header sub__header__actions">
+                  <div class="sub__header__actions__container">
+                    <div class="sub__header__action">
+                      <a href="/cleanings" class="sub__header__link">
+                        <figure class="sub__header__figure">
+                          <img src="/assets/icon-back.svg" alt="Icon Back" class="sub__header__img">
+                        </figure>
+                      </a>
+                      <span class="sub__header__span">Volver</span>
+                    </div>
+                  </div>
+                </article>
+              </section>
+            </article>
+          </div>
+        </div>
+        {{#if cleaningHistory}}
+          {{#if userRole}}
+            {{#if (eq userRole "Admin")}}
+              <section class="items">
+                <div class="items__container__elements">
+                  <section class="views__container--elements view__scrollbar">
+                    <div class="views__content--elements items__container cleanings__history">
+                      <article class="items__header items__grid cleanings__history">
+                        <div class="flex-c-c">Tipo Historial:</div>
+                        <div class="flex-c-c">Agregado por:</div>
+                        <div class="flex-c-c">Número:</div>
+                        <div class="flex-c-c">Comentarios:</div>
+                        <div class="flex-c-c">Fecha Inicio:</div>
+                        <div class="flex-c-c">Fecha Fin:</div>
+                      </article>
+                      <div class="items__data--values">
+                        {{#each cleaningHistory}}
+                          <div class="container__data">
+                            <article class="items__data items__grid cleanings__history">
+                              <div class="flex-c-c"><span class="span__data__item tipo__historial">{{this.tipoHistorial}}</span></div>
+                              <div class="flex-c-c">{{this.limpiezaHistorial.usuarioRegistroLimpieza.usuario}}</div>
+                              <div class="flex-c-c">
+                                {{#if this.limpiezaHistorial.referenciaEntidad.habitacionOcupacion}}
+                                  {{this.limpiezaHistorial.referenciaEntidad.habitacionOcupacion.numeroHabitacion}}
+                                {{else if this.limpiezaHistorial.referenciaEntidad.habitacionReserva}}
+                                  {{this.limpiezaHistorial.referenciaEntidad.habitacionReserva.numeroHabitacion}}
+                                {{else}}
+                                  Sin número
+                                {{/if}}
+                              </div>
+                              <div class="flex-c-c">{{this.limpiezaHistorial.comentariosLimpieza}}</div>
+                              <div class="flex-c-c">{{formatDateTime this.limpiezaHistorial.createdAt}}</div>
+                              <div class="flex-c-c">{{#if limpiezaHistorial.fechaFinLimpieza}} {{formatDateTime limpiezaHistorial.fechaFinLimpieza}} {{else}} Sin fecha {{/if}}</div>
+                            </article>
+                          </div>
+                        {{/each}}
+                      </div>
+                    </div>
+                  </section>
+                </div>
+              </section>
+            {{/if}}
+          {{/if}}
+        {{else}}
+          <h5 class="items__empty">No hay Historial de Limpiezas para mostrar 😿</h5>
+        {{/if}}
+      </div>
+    </div>
+  </div>
+</section>
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const $tipoHistorial = document.querySelectorAll(".tipo__historial");
+
+    function tipoHistorial() {
+      $tipoHistorial.forEach(item => {
+        const estado = item.textContent;
+        if (estado === "Registro") {
+          item.style.backgroundColor = "#58b56d";
+          item.style.color = "#fff"
+        } else if (estado === "Finalización" || estado === "Finalizado" || estado === "Eliminado") {
+          item.style.backgroundColor = "#ad2831";
+          item.style.color = "#fff"
+        }
+      });
+    };
+
+    tipoHistorial();
+  });
+</script>

@@ -1,0 +1,66 @@
+<section class="section__all--views">
+  <div class="content__views">
+    <div class="container">
+      <div class="view__modal__container">
+        <article class="delete__content">
+          <div class="items__elements__title">
+            <h5 class="items__name">Eliminar Estado</h5>
+          </div>
+          <div class="sub__header">
+            <div class="sub__header__container">
+              <article class="sub__header__content">
+                <section class="section__sub__header">
+                  <article class="article__sub__header sub__header__actions">
+                    <div class="sub__header__actions__container">
+                      <div class="sub__header__action">
+                        <a href="/status-room" class="sub__header__link">
+                          <figure class="sub__header__figure">
+                            <img src="/assets/icon-back.svg" alt="Icon Back" class="sub__header__img">
+                          </figure>
+                        </a>
+                        <span class="sub__header__span">Volver</span>
+                      </div>
+                    </div>
+                  </article>
+                </section>
+              </article>
+            </div>
+          </div>
+          <section class="items">
+            <div class="items__container__elements">
+              <section class="views__container--elements view__scrollbar">
+                <div class="views__content--elements view__scrollbar status__room">
+                  <div class="item__info status__room">
+                    <article class="items__header items__grid status__room">
+                      <div class="flex-c-c">Registrado por:</div>
+                      <div class="flex-c-c">Nombre:</div>
+                      <div class="flex-c-c">Descripción:</div>
+                      <div class="flex-c-c">Trabajos en Habitación:</div>
+                      <div class="flex-c-c">Fecha Registro:</div>
+                    </article>
+                    <article class="items__data items__grid status__room">
+                      <div class="flex-c-c">{{statusRoom.usuarioRegistroEstadoHabitacion.usuario}}</div>
+                      <div class="flex-c-c">{{statusRoom.nombreEstadoHabitacion}}</div>
+                      <div class="flex-c-c">{{statusRoom.descripcionEstadoHabitacion}}</div>
+                      <div class="flex-c-c">{{statusRoom.trabajosEnHabitacion}}</div>
+                      <div class="flex-c-c">{{formatDateTime statusRoom.createdAt}}</div>
+                    </article>
+                  </div>
+                </div>
+              </section>
+            </div>
+          </section>
+        </article>
+        <section class="flex-c-c modal__delete">
+          <article class="modal__delete--content">
+            <h4 class="modal__delete--title">¿Estás seguro que deseas eliminar este estado?</h4>
+            <div class="modal__delete--btns">
+              <a href="/status-room" class="modal__delete--btn">Cancelar</a>
+              <a href="/status-room/{{statusRoom._id}}/delete" class="modal__delete--btn delete__btn">Eliminar</a>
+            </div>
+          </article>
+        </section>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,216 @@
+<section class="section__all--views">
+  <div class="content__views">
+    <div class="container views__container">
+      <div class="card__items">
+        <div class="items__elements__title">
+          <h5 class="items__name">Checkouts</h5>
+        </div>
+        <div class="sub__header">
+          <div class="sub__header__container">
+            <article class="sub__header__content">
+              <section class="section__sub__header">
+                <article class="article__sub__header sub__header__actions">
+                  <div class="sub__header__actions__container">
+                    <div class="sub__header__action">
+                      <a href="/hotel" class="sub__header__link">
+                        <figure class="sub__header__figure">
+                          <img src="/assets/icon-back.svg" alt="Icon Back" class="sub__header__img">
+                        </figure>
+                      </a>
+                      <span class="sub__header__span">Volver</span>
+                    </div>
+                    <div class="sub__header__action">
+                      <a href="/checkouts/history" class="sub__header__link">
+                        <figure class="sub__header__figure">
+                          <img src="/assets/icon-history.svg" alt="Icon History" class="sub__header__img">
+                        </figure>
+                      </a>
+                      <span class="sub__header__span">Historial</span>
+                    </div>
+                  </div>
+                </article>
+                {{#if checkOutsHotel}}
+                  <article class="article__sub__header sub__header__buttons">
+                    <div class="sub__header__buttons__container">
+                      <article class="items__actions">
+                        <div class="flex-c-c confirm__sales btn__close__checkouts"><span class="span__confirm">Cerrar Checkouts</span></div>
+                      </article>
+                    </div>
+                  </article>
+                {{/if}}
+              </section>
+            </article>
+          </div>
+        </div>
+        {{#if checkOutsHotel}}
+          {{#if userRole}}
+            {{#if (eq userRole "Admin")}}
+              <section class="items">
+                <div class="items__container__elements">
+                  <section class="views__container--elements view__scrollbar">
+                    <div class="views__content--elements items__container checkouts">
+                      <article class="items__header items__grid checkouts">
+                        <div class="flex-c-c">Registrado por</div>
+                        <div class="flex-c-c">Tipo CheckOut</div>
+                        <div class="flex-c-c">Habitación</div>
+                        <div class="flex-c-c">Comentarios</div>
+                        <div class="flex-c-c">Importe Servicio</div>
+                        <div class="flex-c-c">Adelanto Servicio</div>
+                        <div class="flex-c-c">Restante Servicio</div>
+                        <div class="flex-c-c">Adicional</div>
+                        <div class="flex-c-c">Dscto</div>
+                        <div class="flex-c-c">Total Ventas</div>
+                        <div class="flex-c-c">Adel Ventas</div>
+                        <div class="flec-c-c">Dscto Ventas</div>
+                        <div class="flex-c-c">Rest Ventas</div>
+                        <div class="flex-c-c">Pago al salir</div>
+                        <div class="flex-c-c">Importe Total</div>
+                        <div class="flex-c-c">Fecha Registro</div>
+                        <div class="flex-c-c">Ver</div>
+                      </article>
+                      <div class="items__data--values">
+                        {{#each checkOutsHotel}}
+                          <div class="container__data">
+                            <article class="items__data items__grid checkouts">
+                              <div class="flex-c-c">{{usuarioRegistroCheckOut.usuario}}</div>
+                              <div class="flex-c-c"><span class="span__data__item status__checkout">{{tipoUsoCheckOut}}</span></div>
+                              <div class="flex-c-c">{{#if referenciaCheckOut.habitacionOcupacion}}{{referenciaCheckOut.habitacionOcupacion.numeroHabitacion}}{{else}}{{referenciaCheckOut.habitacionReserva.numeroHabitacion}}{{/if}}</div>
+                              <div class="flex-c-c">{{comentariosCheckOut}}</div>
+                              <div class="flex-c-c">{{#if referenciaCheckOut.habitacionOcupacion}}S/{{formatCurrency referenciaCheckOut.importeOcupacion}}{{else}}S/{{formatCurrency referenciaCheckOut.importeReserva}}{{/if}}</div>
+                              <div class="flex-c-c">{{#if referenciaCheckOut.habitacionOcupacion}}S/{{formatCurrency referenciaCheckOut.adelantoOcupacion}}{{else}}S/{{formatCurrency referenciaCheckOut.adelantoReserva}}{{/if}}</div>
+                              <div class="flex-c-c">{{#if referenciaCheckOut.habitacionOcupacion}}S/{{formatCurrency referenciaCheckOut.restanteOcupacion}}{{else}}S/{{formatCurrency referenciaCheckOut.restanteReserva}}{{/if}}</div>
+                              <div class="flex-c-c">S/{{formatCurrency importeAdicionalCheckOut}}</div>
+                              <div class="flex-c-c">-S/{{formatCurrency descuentoCheckOut}}</div>
+                              <div class="flex-c-c">S/{{formatCurrency totalVentaHotelCheckOut}}</div>
+                              <div class="flex-c-c">S/{{formatCurrency adelantoVentaHotelCheckOut}}</div>
+                              <div class="flex-c-c">-S/{{formatCurrency descuentoVentaHotelCheckOut}}</div>
+                              <div class="flex-c-c">S/{{formatCurrency restanteVentaHotelCheckOut}}</div>
+                              <div class="flex-c-c">S/{{formatCurrency pagoAlSalirCheckOut}}</div>
+                              <div class="flex-c-c"><span class="span__data__item total__checkout">S/{{formatCurrency importeTotalCheckOut}}</span></div>
+                              <div class="flex-c-c">{{formatDateTime createdAt}}</div>
+                              <div class="flex-c-c items__data--options">
+                                <a href="/checkout/{{_id}}/details" class="options__action">
+                                  <figure class="options__figure">
+                                    <img src="/assets/icon-edit.svg" alt="Icon Details" class="options__img">
+                                  </figure>
+                                  <span class="span__detail">Detalles</span>
+                                </a>
+                              </div>
+                            </article>
+                          </div>
+                        {{/each}}
+                      </div>
+                    </div>
+                  </section>
+                </div>
+              </section>
+            {{else}}
+              <section class="items">
+                <div class="items__container__elements">
+                  <section class="views__container--elements view__scrollbar">
+                    <div class="views__content--elements items__container checkouts">
+                      <article class="items__header items__grid checkouts">
+                        <div class="flex-c-c">Registrado por:</div>
+                        <div class="flex-c-c">Tipo CheckOut:</div>
+                        <div class="flex-c-c">Habitación:</div>
+                        <div class="flex-c-c">Comentarios:</div>
+                        <div class="flex-c-c">Adicional:</div>
+                        <div class="flex-c-c">Descuento:</div>
+                        <div class="flex-c-c">Importe Total:</div>
+                        <div class="flex-c-c">Fecha Registro:</div>
+                      </article>
+                      <div class="items__data--values">
+                        {{#each checkOutsHotel}}
+                          <div class="container__data">
+                            <article class="items__data items__grid checkouts">
+                              <div class="flex-c-c">{{usuarioRegistroCheckOut.usuario}}</div>
+                              <div class="flex-c-c"><span class="span__data__item status__checkout">{{tipoUsoCheckOut}}</span></div>
+                              <div class="flex-c-c">{{#if referenciaCheckOut.habitacionOcupacion}}{{referenciaCheckOut.habitacionOcupacion.numeroHabitacion}}{{else}}{{referenciaCheckOut.habitacionReserva.numeroHabitacion}}{{/if}}</div>
+                              <div class="flex-c-c">{{comentariosCheckOut}}</div>
+                              <div class="flex-c-c">S/{{formatCurrency importeAdicionalCheckOut}}</div>
+                              <div class="flex-c-c">-S/{{formatCurrency descuentoCheckOut}}</div>
+                              <div class="flex-c-c">S/{{formatCurrency importeTotalCheckOut}}</div>
+                              <div class="flex-c-c">{{formatDateTime createdAt}}</div>
+                            </article>
+                          </div>
+                        {{/each}}
+                      </div>
+                    </div>
+                  </section>
+                </div>
+              </section>
+            {{/if}}
+          {{/if}}
+        {{else}}
+          <h5 class="items__empty">No hay Checkouts para mostrar 😿</h5>
+        {{/if}}
+      </div>
+    </div>
+  </div>
+</section>
+<section class="modal__fixed">
+  <div class="flex-c-c modal modal__close__checkouts">
+    <article class="article__modal">
+      <div class="modal__title">
+        <h5 class="modal__title--title">¿Desea cerrar todos los Checkouts?</h5>
+        <span class="modal__title--span">(Esta acción no se puede deshacer)</span>
+      </div>
+      <div class="flex-c-c modal_btns">
+        <button type="button" class="btn__modal__action modal__cancel--close__checkouts">Cancelar</button>
+        <a href="/checkouts/close" class="btn__modal__action action--close__checkouts">Confirmar</a>
+      </div>
+      <div class="close__modal close__modal--close__checkouts">
+        <figure class="close__figure">
+          <img src="/assets/icon-close.svg" alt="" class="close__img">
+        </figure>
+      </div>
+    </article>
+  </div>
+</section>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const $statusCheckouts = document.querySelectorAll(".status__checkout");
+
+    const $btnCloseCheckouts = document.querySelector(".btn__close__checkouts");
+    const $modalCloseCheckouts = document.querySelector(".modal__close__checkouts");
+    const $cancelCloseCheckouts = document.querySelector(".modal__cancel--close__checkouts");
+    const $closeModalCloseCheckouts = document.querySelector(".close__modal--close__checkouts");
+
+    function statusCheckouts(){
+      if ($statusCheckouts) {
+        $statusCheckouts.forEach(stat => {
+          const item = stat.textContent;
+          if (item === "Ocupacion") {
+            stat.style.color = "#fff";
+            stat.style.backgroundColor = "#772600";
+          } else if (item === "Reservacion") {
+            stat.style.color = "#fff";
+            stat.style.backgroundColor = "#0b214a";
+          } else if (item === "Anulacion") {
+            stat.style.color = "#fff";
+            stat.style.backgroundColor = "#f00";
+          }
+        })
+      }
+    }
+
+    statusCheckouts();
+
+    function showModalCloseCheckouts(e) {
+      e.stopPropagation();
+      $modalCloseCheckouts.classList.add("modal__show");
+    }
+
+    function closeModalCloseCheckouts(e) {
+      e.stopPropagation();
+      $modalCloseCheckouts.classList.remove("modal__show");
+    }
+
+    if ($btnCloseCheckouts){
+      console.log("Boton para cerrar checkouts: ", $btnCloseCheckouts)
+      $btnCloseCheckouts.addEventListener("click", showModalCloseCheckouts);
+      $cancelCloseCheckouts.addEventListener("click", closeModalCloseCheckouts);
+      $closeModalCloseCheckouts.addEventListener("click", closeModalCloseCheckouts);
+    }
+  });
+</script>

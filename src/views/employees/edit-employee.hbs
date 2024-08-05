@@ -1,0 +1,109 @@
+<div class="sub__header sub__header--fixed">
+  <div class="sub__header__container">
+    <article class="sub__header__content">
+      <section class="section__sub__header">
+        <article class="article__sub__header sub__header__actions">
+          <div class="sub__header__actions__container">
+            <div class="sub__header__action">
+              <a href="/employees" class="sub__header__link">
+                <figure class="sub__header__figure">
+                  <img src="/assets/icon-back.svg" alt="Icon Back" class="sub__header__img">
+                </figure>
+              </a>
+              <span class="sub__header__span">Volver</span>
+            </div>
+          </div>
+        </article>
+      </section>
+    </article>
+  </div>
+</div>
+<section class="section__all--forms">
+  <div class="container__form__container">
+    <div class="container">
+      <section class="section__form">
+        <form action="/employees/{{employee._id}}/edit" method="POST" class="form">
+          <div class="form__content">
+            <h2 class="form__title">Editar Trabajador</h2>
+            <div class="form__img">
+              <figure class="login__figure">
+                <img src="/assets/logo-aprendedor.webp" alt="Logo Aprendedor" class="login__img">
+              </figure>
+            </div>
+            <section class="form__container">
+              <article class="form__group">
+                <select name="rolTrabajador" id="edit_rol_trabajador" class="form__input" required>
+                  <option disabled value="">Elige un rol:</option>
+                  {{#each roles}}
+                    <option value="{{_id}}" {{#if (eq _id ../employee.rolTrabajador._id)}} selected{{/if}}>{{nombreRol}}</option>
+                  {{/each}}
+                </select>
+              </article>
+              <article class="form__group">
+                <input type="number" class="form__input" name="dniTrabajador" id="edit_dni_trabajador" placeholder=" " title="Ingresar DNI del trabajador" onkeypress="return validarDNI(event);" value="{{employee.dniTrabajador}}" required>
+                <label for="edit_dni_trabajador" class="form__label">DNI:</label>
+                <span class="form__line"></span>
+              </article>  
+              <article class="form__group">
+                <input type="text" class="form__input" name="nombreTrabajador" id="edit_nombre_trabajador" placeholder=" " title="Ingresar Nombre del trabajador" value="{{employee.nombreTrabajador}}" required>
+                <label for="edit_nombre_trabajador" class="form__label">Nombres:</label>
+                <span class="form__line"></span>
+              </article>
+              <article class="form__group">
+                <input type="text" class="form__input" name="apellidosTrabajador" id="edit_apellidos_trabajador" placeholder=" " title="Ingresar Apellidos del trabajador" value="{{employee.apellidosTrabajador}}" required>
+                <label for="edit_apellidos_trabajador" class="form__label">Apellidos:</label>
+                <span class="form__line"></span>
+              </article>
+              <article class="form__group">
+                <input type="number" class="form__input" name="celularTrabajador" id="edit_celular_trabajador" placeholder=" " title="Ingresar Celular del trabajador" onkeypress="return validarCelular(event);" value="{{employee.celularTrabajador}}" required>
+                <label for="edit_celular_trabajador" class="form__label">Celular:</label>
+                <span class="form__line"></span>
+              </article>  
+              <article class="form__group">
+                <input type="email" class="form__input" name="correoTrabajador" id="edit_correo_trabajador" placeholder=" " title="Ingresar Correo del trabajador" value="{{employee.correoTrabajador}}" required>
+                <label for="edit_correo_trabajador" class="form__label">Correo:</label>
+                <span class="form__line"></span>
+              </article>
+              <article class="form__group">
+                <select name="estadoTrabajador" id="estado_trabajador" class="form__input">
+                  <option disabled>Estado:</option>
+                  {{#if (eq "activo" employee.estadoTrabajador)}}
+                    <option value="activo" selected>Activo</option>
+                    <option value="inactivo">Inactivo</option>
+                  {{else}}
+                    <option value="activo">Activo</option>
+                    <option value="inactivo" selected>Inactivo</option>
+                  {{/if}}
+                </select>
+              </article>
+              <button class="form__submit">Actualizar</button>
+            </section>
+          </div>
+        </form>
+      </section>
+    </div>
+  </div>
+</section>
+<script>
+  function validarDNI(evt){
+    let code = (evt.which) ? evt.which : evt.keyCode;
+    if (code == 8){
+      return true;
+    } else if(code>=48 && code<=57) {
+      return evt.target.value.length < 8;
+    } else{
+      return false;
+    }
+  }
+
+  function validarCelular(evt) {
+    let code = (evt.which) ? evt.which : evt.keyCode;
+    if (code == 9) {
+      return true;
+    } else if (code >= 48 && code <= 57) {
+      return evt.target.value.length < 9;
+    } else {
+      return false;
+    }
+  }
+</script>

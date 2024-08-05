@@ -1,0 +1,51 @@
+<div class="sub__header sub__header--fixed">
+  <div class="sub__header__container">
+    <article class="sub__header__content">
+      <section class="section__sub__header">
+        <article class="article__sub__header sub__header__actions">
+          <div class="sub__header__actions__container">
+            <div class="sub__header__action">
+              <a href="/stock-locations" class="sub__header__link">
+                <figure class="sub__header__figure">
+                  <img src="/assets/icon-back.svg" alt="Icon Back" class="sub__header__img">
+                </figure>
+              </a>
+              <span class="sub__header__span">Volver</span>
+            </div>
+          </div>
+        </article>
+      </section>
+    </article>
+  </div>
+</div>
+<section class="section__all--forms">
+  <div class="container__form__container">
+    <div class="container">
+      <section class="section__form">
+        <form action="/stock-locations/register" method="POST" class="form">
+          <div class="form__content">
+            <h2 class="form__title">Registro de Ubicación de Stock</h2>
+            <div class="form__img">
+              <figure class="login__figure">
+                <img src="/assets/logo-aprendedor.webp" alt="Logo Aprendedor" class="login__img">
+              </figure>
+            </div>
+            <section class="form__container">
+              <article class="form__group">
+                <input class="form__input" type="text" name="nombreStockUbicacion" id="nombre_stock_ubicacion" placeholder=" " title="Nombre de la ubicación" required>
+                <label for="nombre_stock_ubicacion" class="form__label">Ubicación:</label>
+                <span class="form__line"></span>
+              </article>
+              <article class="form__group">
+                <textarea class="form__input form__textarea" name="descripcionStockUbicacion" id="descripcion_stock_ubicacion" placeholder=" " title="Descripción de la ubicación" required></textarea>
+                <label for="descripcion_stock_ubicacion" class="form__label">Descripción:</label>
+                <span class="form__line"></span>
+              </article>
+              <button class="form__submit">Crear Ubicación</button>
+            </section>
+          </div>
+        </form>
+      </section>
+    </div>
+  </div>
+</section>

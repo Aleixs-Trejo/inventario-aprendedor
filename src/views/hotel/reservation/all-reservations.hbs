@@ -1,0 +1,164 @@
+<section class="section__all--views">
+  <div class="content__views">
+    <div class="container views__container">
+      <div class="card__items">
+        <div class="items__elements__title">
+          <h5 class="items__name">Reservas</h5>
+        </div>
+        <div class="sub__header">
+          <div class="sub__header__container">
+            <article class="sub__header__content">
+              <section class="section__sub__header">
+                <article class="article__sub__header sub__header__actions">
+                  <div class="sub__header__actions__container">
+                    <div class="sub__header__action">
+                      <a href="/hotel" class="sub__header__link">
+                        <figure class="sub__header__figure">
+                          <img src="/assets/icon-back.svg" alt="Icon Back" class="sub__header__img">
+                        </figure>
+                      </a>
+                      <span class="sub__header__span">Volver</span>
+                    </div>
+                    <div class="sub__header__action">
+                      <a href="/reservations/history" class="sub__header__link">
+                        <figure class="sub__header__figure">
+                          <img src="/assets/icon-history.svg" alt="Icon History" class="sub__header__img">
+                        </figure>
+                      </a>
+                      <span class="sub__header__span">Historial</span>
+                    </div>
+                  </div>
+                </article>
+              </section>
+            </article>
+          </div>
+        </div>
+        {{#if reservations}}
+          {{#if userRole}}
+            {{#if (eq userRole "Admin")}}
+              <section class="items">
+                <div class="items__container__elements">
+                  <section class="views__container--elements view__scrollbar">
+                    <div class="views__content--elements items__container reservations">
+                      <article class="items__header items__grid reservations">
+                        <div class="flex-c-c">Estado:</div>
+                        <div class="flex-c-c">Agregado por:</div>
+                        <div class="flex-c-c">Cliente:</div>
+                        <div class="flex-c-c">Piso:</div>
+                        <div class="flex-c-c">Número:</div>
+                        <div class="flex-c-c">Categoría:</div>
+                        <div class="flex-c-c">Comentarios:</div>
+                        <div class="flex-c-c">Adelanto:</div>
+                        <div class="flex-c-c">Importe:</div>
+                        <div class="flex-c-c">Fecha Registro:</div>
+                        <div class="flex-c-c">Opciones:</div>
+                      </article>
+                      <div class="items__data--values">
+                        {{#each reservations}}
+                          <div class="container__data">
+                            <article class="items__data items__grid reservations">
+                              <div class="flex-c-c"><span class="span__data__item status__reservation">{{estadoReserva}}</span></div>
+                              <div class="flex-c-c">{{usuarioReserva.usuario}}</div>
+                              <div class="flex-c-c">{{nombreClienteReserva}}</div>
+                              <div class="flex-c-c">{{habitacionReserva.pisoHabitacion.numeroPiso}}</div>
+                              <div class="flex-c-c">{{habitacionReserva.numeroHabitacion}}</div>
+                              <div class="flex-c-c">{{habitacionReserva.categoriaHabitacion.nombreCategoriaHabitacion}}</div>
+                              <div class="flex-c-c">{{observacionesReserva}}</div>
+                              <div class="flex-c-c">S/ {{formatCurrency adelantoReserva}}</div>
+                              <div class="flex-c-c">S/ {{formatCurrency importeReserva}}</div>
+                              <div class="flex-c-c">{{formatDateTime createdAt}}</div>
+                              <div class="flex-c-c items__data--options">
+                                <a href="/reservation/{{_id}}/details" class="options__action--span">
+                                  <span class="span__details">Detalles</span>
+                                </a>
+                              </div>
+                            </article>
+                          </div>
+                        {{/each}}
+                      </div>
+                    </div>
+                  </section>
+                </div>
+              </section>
+            {{else}}
+              <section class="items">
+                <div class="items__container__elements">
+                  <section class="views__container--elements view__scrollbar">
+                    <div class="views__content--elements items__container reservations">
+                      <article class="items__header items__grid reservations">
+                        <div class="flex-c-c">Estado:</div>
+                        <div class="flex-c-c">Agregado por:</div>
+                        <div class="flex-c-c">Cliente:</div>
+                        <div class="flex-c-c">Piso:</div>
+                        <div class="flex-c-c">Número:</div>
+                        <div class="flex-c-c">Categoría:</div>
+                        <div class="flex-c-c">Comentarios:</div>
+                        <div class="flex-c-c">Adelanto:</div>
+                        <div class="flex-c-c">Importe:</div>
+                        <div class="flex-c-c">Fecha Registro:</div>
+                        <div class="flex-c-c">Opciones:</div>
+                      </article>
+                      <div class="items__data--values">
+                        {{#each reservations}}
+                          <div class="container__data">
+                            <article class="items__data items__grid reservations">
+                              <div class="flex-c-c"><span class="span__data__item status__reservation">{{estadoReserva}}</span></div>
+                              <div class="flex-c-c">{{usuarioReserva.usuario}}</div>
+                              <div class="flex-c-c">{{nombreClienteReserva}}</div>
+                              <div class="flex-c-c">{{habitacionReserva.pisoHabitacion.numeroPiso}}</div>
+                              <div class="flex-c-c">{{habitacionReserva.numeroHabitacion}}</div>
+                              <div class="flex-c-c">{{habitacionReserva.categoriaHabitacion.nombreCategoriaHabitacion}}</div>
+                              <div class="flex-c-c">{{observacionesReserva}}</div>
+                              <div class="flex-c-c">S/ {{formatCurrency adelantoReserva}}</div>
+                              <div class="flex-c-c">S/ {{formatCurrency importeReserva}}</div>
+                              <div class="flex-c-c">{{formatDateTime createdAt}}</div>
+                              <div class="flex-c-c items__data--options">
+                                <a href="/reservation/{{_id}}/details" class="options__action--span">
+                                  <span class="span__details">Detalles</span>
+                                </a>
+                              </div>
+                            </article>
+                          </div>
+                        {{/each}}
+                      </div>
+                    </div>
+                  </section>
+                </div>
+              </section>
+            {{/if}}
+          {{/if}}
+        {{else}}
+          <h5 class="items__empty">No hay Reservas para mostrar 😿</h5>
+        {{/if}}
+      </div>
+    </div>
+  </div>
+</section>
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const $statusReservation = document.querySelectorAll(".status__reservation");
+
+    function statusReservation() {
+      $statusReservation.forEach(item => {
+        const estado = item.textContent;
+        if (estado === "Pendiente") {
+          item.style.backgroundColor = "#ff6700";
+          item.style.color = "#fff"
+        } else if (estado === "Confirmada") {
+          item.style.backgroundColor = "#0077b6";
+          item.style.color = "#fff"
+        } else if (estado === "Proxima") {
+          item.style.backgroundColor = "#1b263b";
+          item.style.color = "#fff"
+        } else if (estado === "Ocupada") {
+          item.style.backgroundColor = "#444";
+          item.style.color = "#fff"
+        } else if (estado === "Extendida") {
+          item.style.backgroundColor = "#ad2831";
+          item.style.color = "#fff"
+        }
+      });
+    };
+    statusReservation();
+  });
+</script>

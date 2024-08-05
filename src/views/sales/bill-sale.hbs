@@ -1,0 +1,132 @@
+<section class="bill">
+  <div class="bill__container">
+    {{#if sale}}
+      <div class="bill__content">
+        <section class="bill__info">
+          <article class="sale__company">
+            <div class="bill__logo">
+              <figure class="bill__figure">
+                <img src="/assets/logo-aprendedor.webp" alt="Logo Aprendedor" class="bill__img">
+              </figure>
+            </div>
+            <div class="bill__company">
+              <span class="company__name">Nombre del negocio</span>
+              <span class="company__ruc">20563529378</span>
+              <span class="company__address">CC. El Hueco, Stand C8-9 / Av. Abancay 837, Lima 15001</span>
+              <span class="company__email">company@email.com</span>
+            </div>
+          </article>
+          <article class="bill__sale--info">
+            <div class="bill__description">
+              <h5 class="company__ruc">R.U.C. N° 20563529378</h5>
+              <h5 class="bill__title">BOLETA DE VENTA ELECTRÓNICA</h5>
+              <h5 class="bill__id">{{sale._id}}</h5>
+            </div>
+            <div class="sale__info sale__info--bill">
+              <span class="sale__data">Fecha<span>: {{formatDateTime sale.createdAt}}</span></span>
+              <span class="sale__data">Vendedor<span>: {{sale.usuarioVenta.trabajadorUsuario.nombreTrabajador}} {{sale.usuarioVenta.trabajadorUsuario.apellidosTrabajador}}</span></span>
+              <span class="sale__data">Cliente<span>: {{sale.clienteVenta.nombreCliente}}</span></span>
+              <span class="sale__data">DNI/RUC<span>: {{sale.clienteVenta.dniCliente}}</span></span>
+            </div>
+          </article>
+        </section>
+        <section class="bill__sale--details">
+          <article class="bill__sale--data">
+            <article class="data__header items__grid bill__sale">
+              <div class="flex-c-c">Cod.</div>
+              <div class="flex-c-c">Descr.</div>
+              <div class="flex-c-c">Precio Unit.</div>
+              <div class="flex-c-c">Cant.</div>
+              <div class="flex-c-c">Dscto.</div>
+              <div class="flex-c-c">Precio con Dscto.</div>
+            </article>
+
+            {{#each sale.productosVenta}}
+              <article class="data__body items__grid bill__sale">
+                <div class="flex-c-c descripcion">{{productoVenta.almacenProducto.cod}}</div>
+                <div class="flex-c-c descripcion">{{productoVenta.almacenProducto.descripcionProducto}}</div>
+                <div class="flex-c-c precio">S/{{formatCurrency productoVenta.almacenProducto.precioProducto}}</div>
+                <div class="flex-c-c cantidad">{{cantidadVenta}}</div>
+                <div class="flex-c-c descuento">-S/{{formatCurrency descuentoProductoVenta}}</div>
+                <div class="flex-c-c precio__descuento">S/{{formatCurrency precioTotalProducto}}</div>
+              </article>
+            {{/each}}
+
+          </article>
+          <article class="bill__sale--params">
+            <div class="sale__param"><span>Sub-Total:</span><span class="sub__total">S/{{formatCurrency subTotal}}</span></div>
+            <div class="sale__param"><span>IGV (18%):</span><span class="igv" data-igv="18">S/{{formatCurrency igv}}</span></div>
+            <div class="sale__param"><span>Total a pagar:</span><span class="total__venta" data-total="{{sale.precioTotalVenta}}">S/{{formatCurrency total}}</span></div>
+          </article>
+        </section>
+        <section class="bill__return__policy">
+          <article class="policy">
+            <h5 class="policy__title">Política de devolución</h5>
+            <p class="policy__text">En este establecimiento, valoramos tu satisfacción como cliente. Por ello, hemos establecido una política de devolcuión que te brinda tranquilidad en tus compras. A continuación, te presentamos los detalles, términos y condiciones de nuestra política de devolución:</p>
+            <ol class="policy__list">
+              <li class="policy__list__item">
+                <p class="policy__list__item__text"><strong>Plazo de devolución: </strong>Los productos adquiridos pueden ser devueltos dentro de los 30 días posteriores a la fecha de la compra.</p>
+              </li>
+              <li class="policy__list__item">
+                <p class="policy__list__item__text"><strong>Lugar de devolución: </strong>Las devoluciones solo pueden realizarse en el mismo establecimiento donde se efectuó la compra.</p>
+              </li>
+              <li class="policy__list__item">
+                <p class="policy__list__item__text"><strong>Condiciones de devolución: </strong>Los productos deben estar en perfectas condiciones, no deben haber sido reparados o modificados, sin daños evidentes o alteraciones.</p>
+              </li>
+              <li class="policy__list__item">
+                <p class="policy__list__item__text"><strong>Documentación Requerida: </strong>Para procesar la devolución, se requiere presentar la boleta de compra original y DNI de la persona que realizó la compra.</p>
+              </li>
+              <li class="policy__list__item">
+                <p class="policy__list__item__text"><strong>Proceso de Reembolso: </strong>El reembolso se realizará de manera inmediata en el mismo método de pago utilizado en la compra original. No se requieren procesos prolongados ni trámites adicionales.</p>
+              </li>
+            </ol>
+            <p class="policy__notice">
+              Por favor, ten en cuenta que nuestra política de devolución está sujeta a cambios, por lo que es importante que revise la información actualizada al momento de realizar la compra. Si tiene alguna pregunta o necesita más información, no dude en contactarnos.
+            </p>
+          </article>
+        </section>
+      </div>
+    {{/if}}
+  </div>
+</section>
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const header = document.querySelector(".header");
+    const aside = document.querySelector(".aside");
+    const main = document.querySelector(".main");
+    const mainContent = document.querySelector(".main__content");
+    const subTotal = document.querySelector(".sub__total");
+    const igvVenta = document.querySelector(".igv");
+    const totalVenta = document.querySelector(".total__venta");
+
+    function styleBill(){
+      console.log("mainContent: ", mainContent);
+      header.remove();
+      aside.remove();
+      main.style.minHeight = "100dvh";
+      main.style.margin = "0";
+      main.style.height = "max-content";
+      mainContent.style.height = "100%";
+      main.style.backgroundColor = "transparent";
+      mainContent.style.backgroundColor = "transparent";
+    };
+
+    /*
+    Ecuaciones para sacar IGV = {
+      - totalVenta * 9/50 = igv
+      - totalVenta * 0.82 = subTotal
+    */
+
+    function calculateIGV() {
+      const totalVentaValue = Math.round(parseFloat(totalVenta.textContent).toFixed(2));
+      totalVenta.textContent = `S/ ${totalVentaValue.toFixed(2)}`;
+      const subTotalValue = (totalVentaValue * 0.82).toFixed(2);
+      subTotal.textContent = `S/ ${subTotalValue}`;
+      const igvValue = (totalVentaValue * igvVenta.dataset.igv / 100).toFixed(2);
+      igvVenta.textContent = `S/ ${igvValue}`;
+    }
+
+    styleBill();
+    calculateIGV();
+  })
+</script>

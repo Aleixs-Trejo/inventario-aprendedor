@@ -1,0 +1,80 @@
+<section class="section__all--views">
+  <div class="content__views">
+    <div class="container views__container">
+      <div class="card__items">
+        <div class="items__elements__title">
+          <h5 class="items__name">Historial Productos</h5>
+        </div>
+        <div class="sub__header">
+          <div class="sub__header__container">
+            <article class="sub__header__content">
+              <section class="section__sub__header">
+                <article class="article__sub__header sub__header__actions">
+                  <div class="sub__header__actions__container">
+                    <div class="sub__header__action">
+                      <a href="/products" class="sub__header__link">
+                        <figure class="sub__header__figure">
+                          <img src="/assets/icon-back.svg" alt="Icon Back" class="sub__header__img">
+                        </figure>
+                      </a>
+                      <span class="sub__header__span">Volver</span>
+                    </div>
+                    <div class="sub__header__action">
+                      <a href="/products/register" class="sub__header__link">
+                        <figure class="sub__header__figure">
+                          <img src="/assets/icon-add.svg" alt="Icon Add" class="sub__header__img">
+                        </figure>
+                      </a>
+                      <span class="sub__header__span">Nuevo Producto</span>
+                    </div>
+                  </div>
+                </article>
+              </section>
+            </article>
+          </div>
+        </div>
+        {{#if productsHistory}}
+          <section class="items">
+            <div class="items__container__elements">
+              <section class="views__container--elements view__scrollbar">
+                <div class="views__content--elements items__container products__history">
+                  <article class="items__header items__grid products__history">
+                    <div class="flex-c-c">Tipo de Registro:</div>
+                    <div class="flex-c-c">Hecho por:</div>
+                    <div class="flex-c-c">Cod:</div>
+                    <div class="flex-c-c">Producto:</div>
+                    <div class="flex-c-c">Descripción:</div>
+                    <div class="flex-c-c">Proveedor:</div>
+                    <div class="flex-c-c">Categoría:</div>
+                    <div class="flex-c-c">Precio:</div>
+                    <div class="flex-c-c">Fecha:</div>
+                  </article>
+                  <div class="items__data--values" id="data-container">
+                    {{#each productsHistory}}
+                      <div class="container__data">
+                        <article class="items__data items__grid products__history">
+                          <div class="flex-c-c"><span class="span__data__item tipo__historial">{{tipoHistorial}}</span></div>
+                          <div class="flex-c-c">{{productoHistorial.usuarioProducto.usuario}}</div>
+                          <div class="flex-c-c">{{productoHistorial.cod}}</div>
+                          <div class="flex-c-c">{{productoHistorial.nombreProducto}}</div>
+                          <div class="flex-c-c">{{productoHistorial.descripcionProducto}}</div>
+                          <div class="flex-c-c">{{productoHistorial.proveedorProducto.nombreProveedor}}</div>
+                          <div class="flex-c-c">{{productoHistorial.categoriaProducto.nombreCategoria}}</div>
+                          <div class="flex-c-c">S/{{formatCurrency productoHistorial.precioProducto}}</div>
+                          <div class="flex-c-c">{{formatDateTime productoHistorial.createdAt}}</div>
+                        </article>
+                      </div>
+                    {{/each}}
+                  </div>
+                  <div id="sentinel"></div>
+                </div>
+              </section>
+            </div>
+          </section>
+        {{else}}
+          <h5 class="items__empty">No hay historial para mostrar 😿</h5>
+        {{/if}}
+      </div>
+    </div>
+  </div>
+</section>

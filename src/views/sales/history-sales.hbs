@@ -1,0 +1,96 @@
+<section class="section__all--views">
+  <div class="content__views">
+    <div class="container views__container">
+      <div class="card__items">
+        <div class="items__elements__title">
+          <h5 class="items__name">Historial De Cierre Ventas</h5>
+        </div>
+        <div class="sub__header">
+          <div class="sub__header__container">
+            <article class="sub__header__content">
+              <section class="section__sub__header">
+                <article class="article__sub__header sub__header__actions">
+                  <div class="sub__header__actions__container">
+                    <div class="sub__header__action">
+                      <a href="/sales" class="sub__header__link">
+                        <figure class="sub__header__figure">
+                          <img src="/assets/icon-back.svg" alt="Icon Back" class="sub__header__img">
+                        </figure>
+                      </a>
+                      <span class="sub__header__span">Volver</span>
+                    </div>
+                    <div class="sub__header__action">
+                      <a href="/sales/register" class="sub__header__link">
+                        <figure class="sub__header__figure">
+                          <img src="/assets/icon-add.svg" alt="Icon Add" class="sub__header__img">
+                        </figure>
+                      </a>
+                      <span class="sub__header__span">Nueva Venta</span>
+                    </div>
+                    <div class="sub__header__action">
+                      <a href="/sales/balance" class="sub__header__link">
+                        <figure class="sub__header__figure">
+                          <img src="/assets/icon-balance.svg" alt="Icon Balance" class="sub__header__img">
+                        </figure>
+                      </a> 
+                      <span class="sub__header__span">Balances</span>
+                    </div>
+                  </div>
+                </article>
+              </section>
+            </article>
+          </div>
+        </div>
+        {{#if salesHistory}}
+          <section class="items">
+            <div class="items__container__elements">
+              <section class="views__container--elements view__scrollbar">
+                <div class="views__content--elements items__container sales__history">
+                  <article class="items__header items__grid sales__history">
+                    <div class="flex-c-c">Tipo de Registro:</div>
+                    <div class="flex-c-c">Hecho por:</div>
+                    <div class="flex-c-c">ID Cierre:</div>
+                    <div class="flex-c-c">Ventas:</div>
+                    <div class="flex-c-c">Ventas Confirmadas:</div>
+                    <div class="flex-c-c">Ventas Canceladas:</div>
+                    <div class="flex-c-c">Total Descuentos:</div>
+                    <div class="flex-c-c">Total Balance:</div>
+                    <div class="flex-c-c">Fecha Venta:</div>
+                    <div class="flex-c-c">Ver:</div>
+                  </article>
+                  <div class="items__data--values">
+                    {{#each salesHistory}}
+                      <div class="container__data">
+                        <article class="items__data items__grid sales__history">
+                          <div class="flex-c-c">{{tipoHistorial}}</div>
+                          <div class="flex-c-c">{{usuarioCierreVenta.usuario}}</div>
+                          <div class="flex-c-c">{{_id}}</div>
+                          <div class="flex-c-c">{{cantidadCierreVentas}}</div>
+                          <div class="flex-c-c">{{totalVentasConfirmadas}}</div>
+                          <div class="flex-c-c">{{totalVentasCanceladas}}</div>
+                          <div class="flex-c-c">-S/{{formatCurrency totalDescuentosVentas}}</div>
+                          <div class="flex-c-c">S/{{formatCurrency totalCierreVentas}}</div>
+                          <div class="flex-c-c">{{formatDateTime createdAt}}</div>
+                          <div class="flex-c-c items__data--options">
+                            <a href="/sales-history/{{_id}}/detail-close-register" class="options__action">
+                              <figure class="options__figure">
+                                <img src="../assets/icon-edit.svg" alt="Icon Edit" class="options__img">
+                              </figure>
+                              <span class="span__detail">Detalles</span>
+                            </a>
+                          </div>
+                        </article>
+                      </div>
+                    {{/each}}
+                  </div>
+                </div>
+              </section>
+            </div>
+          </section>
+        {{else}}
+          <h5 class="items__empty">No hay Ventas para mostrar 😿</h5>
+        {{/if}}
+      </div>
+    </div>
+  </div>
+</section>

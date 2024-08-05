@@ -1,0 +1,64 @@
+<div class="sub__header sub__header--fixed">
+  <div class="sub__header__container">
+    <article class="sub__header__content">
+      <section class="section__sub__header">
+        <article class="article__sub__header sub__header__actions">
+          <div class="sub__header__actions__container">
+            <div class="sub__header__action">
+              <a href="/status-room" class="sub__header__link">
+                <figure class="sub__header__figure">
+                  <img src="/assets/icon-back.svg" alt="Icon Back" class="sub__header__img">
+                </figure>
+              </a>
+              <span class="sub__header__span">Volver</span>
+            </div>
+          </div>
+        </article>
+      </section>
+    </article>
+  </div>
+</div>
+<section class="section__all--forms">
+  <div class="container__form__container">
+    <div class="container">
+      <section class="section__form">
+        <form action="/status-room/{{statusRoom._id}}/edit" method="POST" class="form">
+          <div class="form__content">
+            <h2 class="form__title">Editar Estado</h2>
+            <div class="form__img">
+              <figure class="login__figure">
+                <img src="/assets/logo-aprendedor.webp" alt="Logo Aprendedor" class="login__img">
+              </figure>
+            </div>
+            <section class="form__container">
+              <article class="form__group">
+                <input class="form__input" type="text" name="nombreEstadoHabitacion" id="edit_nombre_estado_habitacion" placeholder=" " title="Define el nombre del Estado" value="{{statusRoom.nombreEstadoHabitacion}}" required>
+                <label for="edit_nombre_estado_habitacion" class="form__label">Estado:</label>
+                <span class="form__line"></span>
+              </article>
+              <article class="form__group">
+                <textarea class="form__input form__textarea" name="descripcionEstadoHabitacion" id="edit_descripcion_estado_habitacion" placeholder=" " title="Descrpción de la categoría" required>{{statusRoom.descripcionEstadoHabitacion}}</textarea>
+                <label for="edit_descripcion_estado_habitacion" class="form__label">Descripción:</label>
+                <span class="form__line"></span>
+              </article>
+              <article class="form__group form__group--select">
+                <label for="trabajos_habitacion" class="form__label--select">¿Incluye trabajos en habitación?</label>
+                <select class="form__input" name="trabajosEnHabitacion" id="trabajos_habitacion" required>
+                  <option value="" disabled selected>Selecciona una opción:</option>
+                  {{#if (eq "no" statusRoom.trabajosEnHabitacion)}}
+                    <option value="no" selected>No</option>
+                    <option value="yes">Sí</option>
+                  {{else}}
+                    <option value="no">No</option>
+                    <option value="yes" selected>Sí</option>
+                  {{/if}}
+                </select>
+              </article>
+              <button class="form__submit">Actualizar</button>
+            </section>
+          </div>
+        </form>
+      </section>
+    </div>
+  </div>
+</section>

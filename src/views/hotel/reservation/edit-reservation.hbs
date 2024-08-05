@@ -1,0 +1,189 @@
+<div class="sub__header sub__header--fixed">
+  <div class="sub__header__container">
+    <article class="sub__header__content">
+      <section class="section__sub__header">
+        <article class="article__sub__header sub__header__actions">
+          <div class="sub__header__actions__container">
+            <div class="sub__header__action">
+              <a href="/hotel" class="sub__header__link">
+                <figure class="sub__header__action__figure">
+                  <img src="/assets/icon-back.svg" alt="Icon Back" class="sub__header__action__img">
+                </figure>
+              </a>
+              <span class="sub__header__span">Volver</span>
+            </div>
+          </div>
+        </article>
+      </section>
+    </article>
+  </div>
+</div>
+<section class="section__all--forms">
+  <div class="container__form__container">
+    <div class="container">
+      <section class="section__form">
+        <form action="/reservation/{{reservation._id}}/edit" method="POST" class="form">
+          <div class="form__content">
+            <h2 class="form__title">Actualizar reserva</h2>
+            <div class="form__img">
+              <figure class="login__figure">
+                <img src="/assets/logo-aprendedor.webp" alt="Logo Aprendedor" class="login__img">
+              </figure>
+            </div>
+            <section class="form__container">
+              <article class="form__group form__group--select us__sel">
+                <label for="edit_habitacion_reserva" class="form__label--select">Habitación:</label>
+                <select name="habitacionReserva" class="form__input us__sel" id="edit_habitacion_reserva">
+                  <option data-precio="{{room.precioHabitacion}}" value="{{room._id}}" selected>{{room.numeroHabitacion}}</option>
+                </select>
+              </article>
+              <article class="form__group">
+                <input type="text" name="dniClienteReserva" id="dni_cliente_reserva" class="form__input" placeholder=" " title="DNI" required value="{{reservation.dniClienteReserva}}">
+                <label for="dni_cliente_reserva" class="form__label">DNI:</label>
+                <span class="form__line"></span>
+              </article>
+              <article class="form__group">
+                <input type="text" name="nombreClienteReserva" id="nombre_cliente_reserva" class="form__input" placeholder=" " title="Nombre" required value="{{reservation.nombreClienteReserva}}">
+                <label for="nombre_cliente_reserva" class="form__label">Nombre:</label>
+                <span class="form__line"></span>
+              </article>
+              <article class="form__group">
+                <input type="text" name="celularClienteReserva" id="celular_cliente_reserva" class="form__input" placeholder=" " title="Celular" value="{{reservation.celularClienteReserva}}">
+                <label for="celular_cliente_reserva" class="form__label">Celular:</label>
+                <span class="form__line"></span>
+              </article>
+              <article class="form__group">
+                <input type="email" name="correoClienteReserva" id="correo_cliente_reserva" class="form__input" placeholder=" " title="Correo" value="{{reservation.correoClienteReserva}}">
+                <label for="correo_cliente_reserva" class="form__label">Correo:</label>
+                <span class="form__line"></span>
+              </article>
+              <article class="form__group form__group--date">
+                <div class="content__date__time">
+                  <label for="edit_fecha_inicio_reserva" class="form__label--select">Fecha de inicio:</label>
+                  <input class="form__input" type="datetime-local" name="fechaInicioReserva" id="edit_fecha_inicio_reserva" data-inicio="{{reservation.fechaInicioReserva}}" placeholder=" " title="Fecha de inicio" required>
+                </div>
+                <div class="content__date__time">
+                  <label for="edit_fecha_fin_reserva" class="form__label--select">Fecha de fin:</label>
+                  <input class="form__input" type="datetime-local" name="fechaFinReserva" id="edit_fecha_fin_reserva" data-fin="{{reservation.fechaFinReserva}}" placeholder=" " title="Fecha de fin" required>
+                </div>
+              </article>
+              <article class="form__group us__sel">
+                <input class="form__input" type="number" name="nochesReserva" id="edit_noches_reserva" placeholder=" " title="Cantidad de noches" required>
+                <label for="edit_noches_reserva" class="form__label">Cantidad de noches:</label>
+                <span class="form__line"></span>
+              </article>
+              <article class="form__group us__sel">
+                <input class="form__input" type="number" name="importeReserva" id="edit_importe_reserva" placeholder=" " title="Importe" required>
+                <label for="edit_importe_reserva" class="form__label">Importe:</label>
+                <span class="form__line"></span>
+              </article>
+              <article class="form__group">
+                <input class="form__input" type="number" name="adelantoReserva" id="edit_adelanto_reserva" placeholder=" " title="Cantidad de noches" value="{{reservation.adelantoReserva}}">
+                <label for="edit_adelanto_reserva" class="form__label">Adelanto:</label>
+                <span class="form__line"></span>
+              </article>
+              <article class="form__group">
+                <textarea class="form__input form__textarea" name="observacionesReserva" id="edit_observaciones_reserva" placeholder=" " title="Observaciones">{{reservation.observacionesReserva}}</textarea>
+                <label for="edit_observaciones_reserva" class="form__label">Observaciones:</label>
+                <span class="form__line"></span>
+              </article>
+              <button class="form__submit">Actualizar</button>
+            </section>
+          </div>
+        </form>
+      </section>
+    </div>
+  </div>
+</section>
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const $fechaInicioReservaInput = document.getElementById("edit_fecha_inicio_reserva");
+    const $fechaFinReservaInput = document.getElementById("edit_fecha_fin_reserva");
+    const $cantidadNochesInput = document.getElementById("edit_noches_reserva");
+    const $importeReservaInput = document.getElementById("edit_importe_reserva");
+
+    const $fechaInicioReserva = $fechaInicioReservaInput.dataset.inicio;
+    const $fechaFinReserva = $fechaFinReservaInput.dataset.fin;
+
+    const fechaInicioReserva = new Date($fechaInicioReserva);
+    const fechaFinReserva = new Date($fechaFinReserva);
+
+    $fechaInicioReservaInput.value = formatearFecha(fechaInicioReserva);
+    $fechaFinReservaInput.value = formatearFecha(fechaFinReserva);
+
+    function formatearFecha(fecha) {
+      const year = fecha.getFullYear();
+      const mes = String(fecha.getMonth() + 1).padStart(2, "0");
+      const dia = String(fecha.getDate()).padStart(2, "0");
+      const hora = String(fecha.getHours()).padStart(2, "0");
+      const minuto = String(fecha.getMinutes()).padStart(2, "0");
+
+      const fechaFormateada = `${year}-${mes}-${dia}T${hora}:${minuto}`;
+      return fechaFormateada;
+    }
+
+    function sumarDias(fecha, dias) {
+      const fechaAux = new Date(fecha);
+      fechaAux.setDate(fechaAux.getDate() + dias);
+      fechaAux.setHours(12, 0, 0, 0); // A las 00:00
+      return fechaAux;
+    }
+
+    function establecerRestriccionesFechaInicio() {
+      const fechaMinInicio = sumarDias($fechaInicioReservaInput.value, 0);
+      $fechaInicioReservaInput.min = formatearFecha(fechaMinInicio);
+    }
+
+    function establecerRestriccionesFechaFin() {
+      const fechaInicio = new Date($fechaInicioReservaInput.value);
+      const fechaMin = sumarDias(fechaInicio, 1);
+      $fechaFinReservaInput.min = formatearFecha(fechaMin);
+      $fechaFinReservaInput.value = formatearFecha(fechaMin);
+      calcularTotalNoches();
+    }
+
+    function calcularTotalNoches() {
+      const fechaInicio = new Date($fechaInicioReservaInput.value);
+      const fechaFin = new Date($fechaFinReservaInput.value);
+
+      // Diferencia en horas
+      const diferenciaMilisegundos = fechaFin.getTime() - fechaInicio.getTime();
+      console.log("Diferencia Milisegundos:", diferenciaMilisegundos);
+      const horasDiferencia = diferenciaMilisegundos / (1000 * 60 * 60);
+      console.log("Horas Diferencia:", horasDiferencia);
+
+      let totalNoches = Math.ceil(horasDiferencia / 24);
+
+      // Mínimo sea 1 noche
+      totalNoches = Math.max(totalNoches, 1);
+      $cantidadNochesInput.value = totalNoches;
+      console.log("Total Noches:", totalNoches);
+      calcularImporteTotal();
+    }
+
+    function actualizarFechaFin() {
+      const fechaInicio = new Date($fechaInicioReservaInput.value);
+      const noches = parseInt($cantidadNochesInput.value);
+      const nuevaFechaFin = sumarDias(fechaInicio, noches);
+      $fechaFinReservaInput.value = formatearFecha(nuevaFechaFin);
+      calcularTotalNoches();
+    }
+
+    function calcularImporteTotal() {
+      const totalNoches = parseInt($cantidadNochesInput.value);
+      const precio = parseFloat(document.getElementById("edit_habitacion_reserva").querySelector("option:checked").dataset.precio);
+      const importeTotal = totalNoches * precio;
+      $importeReservaInput.value = importeTotal;
+      console.log("Importe Total:", importeTotal);
+    }
+
+    // Establecimiento de restricciones para la fecha de fin
+    establecerRestriccionesFechaInicio();
+    establecerRestriccionesFechaFin();
+
+    $fechaInicioReservaInput.addEventListener("change", establecerRestriccionesFechaFin);
+    $fechaFinReservaInput.addEventListener("change", calcularTotalNoches);
+    $cantidadNochesInput.addEventListener("change", actualizarFechaFin);
+    $importeReservaInput.addEventListener("change", calcularImporteTotal);
+  });
+</script>

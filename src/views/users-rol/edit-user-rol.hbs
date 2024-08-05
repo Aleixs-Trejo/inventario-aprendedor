@@ -1,0 +1,51 @@
+<div class="sub__header sub__header--fixed">
+  <div class="sub__header__container">
+    <article class="sub__header__content">
+      <section class="section__sub__header">
+        <article class="article__sub__header sub__header__actions">
+          <div class="sub__header__actions__container">
+            <div class="sub__header__action">
+              <a href="/users-rol" class="sub__header__link">
+                <figure class="sub__header__figure">
+                  <img src="/assets/icon-back.svg" alt="Icon Back" class="sub__header__img">
+                </figure>
+              </a>
+              <span class="sub__header__span">Volver</span>
+            </div>
+          </div>
+        </article>
+      </section>
+    </article>
+  </div>
+</div>
+<section class="section__all--forms">
+  <div class="container__form__container">
+    <div class="container">
+      <section class="section__form">
+        <form action="/users-rol/{{userRol._id}}/edit" method="POST" class="form">
+          <div class="form__contentn">
+            <h2 class="form__title">Editar Rol</h2>
+            <div class="form__img">
+              <figure class="login__figure">
+                <img src="/assets/logo-aprendedor.webp" alt="Logo Aprendedor" class="login__img">
+              </figure>
+            </div>
+            <section class="form__container">
+              <article class="form__group">
+                <input class="form__input" type="text" name="nombreRol" id="edit_nombre_rol" placeholder=" " title="Define el nombre del Rol" value="{{userRol.nombreRol}}" required>
+                <label for="edit_nombre_rol" class="form__label">Rol:</label>
+                <span class="form__line"></span>
+              </article>
+              <article class="form__group">
+                <textarea class="form__input form__textarea" name="descripcionRol" id="edit_descripcion_rol" placeholder=" " title="Describe el trabajo del rol" required>{{userRol.descripcionRol}}</textarea>
+                <label for="edit_descripcion_rol" class="form__label">Descripción:</label>
+                <span class="form__line"></span>
+              </article>
+              <button class="form__submit">Actualizar</button>
+            </section>
+          </div>
+        </form>
+      </section>
+    </div>
+  </div>
+</section>

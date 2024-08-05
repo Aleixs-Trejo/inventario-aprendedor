@@ -1,0 +1,231 @@
+<section class="section__all--details">
+  <div class="content__views">
+    <div class="container views__container">
+      <div class="card__items">
+        <div class="items__elements__title">
+          <h5 class="items__name">Detalles de la venta: {{saleHotel._id}}</h5>
+        </div>
+        {{#if saleHotel}}
+          <div class="details__container">
+            <div class="sub__header">
+              <div class="sub__header__container">
+                <article class="sub__header__content">
+                  <section class="section__sub__header">
+                    <article class="article__sub__header sub__header__actions">
+                      <div class="sub__header__actions__container">
+                        <div class="sub__header__action">
+                          <a href="/hotel/sales" class="sub__header__link">
+                            <figure class="sub__header__figure">
+                              <img src="/assets/icon-back.svg" alt="Icon Back" class="sub__header__img">
+                            </figure>
+                          </a>
+                          <span class="sub__header__span">Volver</span>
+                        </div>
+                        <div class="sub__header__action">
+                          <a href="/hotel/sales/history" class="sub__header__link">
+                            <figure class="sub__header__figure">
+                              <img src="/assets/icon-history.svg" alt="Icon History" class="sub__header__img">
+                            </figure>
+                          </a>
+                          <span class="sub__header__span">Historial</span>
+                        </div>
+                      </div>
+                    </article>
+                  </section>
+                </article>
+              </div>
+            </div>
+          </div>
+          <article class="article__details">
+            <section class="details__header">
+              <div class="details__header__container">
+                <div class="details__header__container">
+                  <h4 class="details__header__title">General</h4>
+                </div>
+              </div>
+            </section>
+            <section class="details__body">
+              <div class="details__body__container">
+                <div class="details__body__content">
+                  <div class="cards__container cards__container--details__sale">
+                    <section class="section__cards section__cards--details__sale">
+                      <article class="card__content">
+                        <div class="card card__info card__info__details__sale">
+                          <div class="card__header">
+                            <h5 class="card__title">Información de la venta</h5>
+                          </div>
+                        </div>
+                        <div class="card__body">
+                          <div class="card__body__content">
+                            <ul class="card__body__content__ul ul__details__sale">
+                              <li class="content__li">
+                                <span class="content__li__span">Estado</span>
+                                <span class="content__li__span content__li__span--data">{{saleHotel.estadoVentaHotel}}</span>
+                              </li>
+                              <li class="content__li">
+                                <span class="content__li__span">Vendedor</span>
+                                <span class="content__li__span content__li__span--data">{{saleHotel.usuarioRegistroVentaHotel.trabajadorUsuario.nombreTrabajador}} {{saleHotel.usuarioRegistroVentaHotel.trabajadorUsuario.apellidosTrabajador}}</span>
+                              </li>
+                              <li class="content__li">
+                                <span class="content__li__span">Cliente</span>
+                                <span class="content__li__span content__li__span--data">{{#if entidad.habitacionOcupacion}}{{entidad.nombreClienteOcupacion}}{{else}}{{entidad.nombreClienteReserva}}{{/if}}</span>
+                              </li>
+                              <li class="content__li">
+                                <span class="content__li__span">Cant Prodcts</span>
+                                <span class="content__li__span content__li__span--data">{{saleHotel.cantidadProductosVentaHotel}}</span>
+                              </li>
+                              <li class="content__li">
+                                <span class="content__li__span">Comentarios</span>
+                                <span class="content__li__span content__li__span--data">{{saleHotel.comentariosVentaHotel}}</span>
+                              </li>
+                              <li class="content__li">
+                                <span class="content__li__span">Descuento</span>
+                                <span class="content__li__span content__li__span--data">-S/{{formatCurrency saleHotel.descuentoTotalVentaHotel}}</span>
+                              </li>
+                              <li class="content__li">
+                                <span class="content__li__span">Importe</span>
+                                <span class="content__li__span content__li__span--data">S/{{formatCurrency saleHotel.precioTotalVentaHotel}}</span>
+                              </li>
+                              <li class="content__li">
+                                <span class="content__li__span">Habitación</span>
+                                <span class="content__li__span content__li__span--data">{{#if entidad.habitacionOcupacion}}{{entidad.habitacionOcupacion.numeroHabitacion}}{{else}}{{entidad.habitacionReserva.numeroHabitacion}}{{/if}}</span>
+                              </li>
+                              <li class="content__li">
+                                <span class="content__li__span">Actividad</span>
+                                <span class="content__li__span content__li__span--data">{{#if entidad.habitacionOcupacion}}Ocupación{{else}}Reserva{{/if}}</span>
+                              </li>
+                              <li class="content__li">
+                                <span class="content__li__span">Fecha</span>
+                                <span class="content__li__span content__li__span--data">{{formatDateTime saleHotel.createdAt}}</span>
+                              </li>
+                            </ul>
+                          </div>
+                        </div>
+                      </article>
+                      <article class="card__content">
+                        <div class="card card__info card__info__employee--sale">
+                          <div class="card__header">
+                            <h5 class="card__title">Información del Vendedor</h5>
+                          </div>
+                          <div class="card__body">
+                            <div class="card__body__content">
+                              <ul class="card__body__content__ul ul__emloyee__sale">
+                                <li class="content__li">
+                                  <span class="content__li__span">Documento</span>
+                                  <span class="content__li__span content__li__span--data">{{saleHotel.usuarioRegistroVentaHotel.trabajadorUsuario.dniTrabajador}}</span>
+                                </li>
+                                <li class="content__li">
+                                  <span class="content__li__span">Nombres</span>
+                                  <span class="content__li__span content__li__span--data">{{saleHotel.usuarioRegistroVentaHotel.trabajadorUsuario.nombreTrabajador}} {{saleHotel.usuarioRegistroVentaHotel.trabajadorUsuario.apellidosTrabajador}}</span>
+                                </li>
+                                <li class="content__li">
+                                  <span class="content__li__span">Celular</span>
+                                  <span class="content__li__span content__li__span--data">{{#if saleHotel.usuarioRegistroVentaHotel.trabajadorUsuario.celularTrabajador}}{{saleHotel.usuarioRegistroVentaHotel.trabajadorUsuario.celularTrabajador}}{{else}}-{{/if}}</span>
+                                </li>
+                                <li class="content__li">
+                                  <span class="content__li__span">Correo</span>
+                                  <span class="content__li__span content__li__span--data">{{#if saleHotel.usuarioRegistroVentaHotel.trabajadorUsuario.correoTrabajador}}{{saleHotel.usuarioRegistroVentaHotel.trabajadorUsuario.correoTrabajador}}{{else}}-{{/if}}</span>
+                                </li>
+                              </ul>
+                            </div>
+                          </div>
+                        </div>
+                      </article>
+                      <article class="card__content">
+                        <div class="card card__info card__info__client--sale">
+                          <div class="card__header">
+                            <h5 class="card__title">Información del Cliente</h5>
+                          </div>
+                          <div class="card__body">
+                            <div class="card__body__content">
+                              <ul class="card__body__content__ul ul__client__sale">
+                                <li class="content__li">
+                                  <span class="content__li__span">Documento</span>
+                                  <span class="content__li__span content__li__span--data">{{#if entidad.habitacionOcupacion}}{{entidad.dniClienteOcupacion}}{{else}}{{entidad.dniClienteReserva}}{{/if}}</span>
+                                </li>
+                                <li class="content__li">
+                                  <span class="content__li__span">Nombres</span>
+                                  <span class="content__li__span content__li__span--data">{{#if entidad.habitacionOcupacion}}{{entidad.nombreClienteOcupacion}}{{else}}{{entidad.nombreClienteReserva}}{{/if}}</span>
+                                </li>
+                                <li class="content__li">
+                                  <span class="content__li__span">Celular</span>
+                                  <span class="content__li__span content__li__span--data">{{#if entidad.habitacionOcupacion}}{{#if entidad.celularClienteOcupacion}}{{entidad.celularClienteOcupacion}}{{else}}-{{/if}}{{else}}{{#if entidad.celularClienteReserva}}{{entidad.celularClienteReserva}}{{else}}-{{/if}}{{/if}}</span>
+                                </li>
+                                <li class="content__li">
+                                  <span class="content__li__span">Correo</span>
+                                  <span class="content__li__span content__li__span--data">{{#if entidad.habitacionOcupacion}}{{#if entidad.correoClienteOcupacion}}{{entidad.correoClienteOcupacion}}{{else}}-{{/if}}{{else}}{{#if entidad.correoClienteReserva}}{{entidad.correoClienteReserva}}{{else}}-{{/if}}{{/if}}</span>
+                                </li>
+                              </ul>
+                            </div>
+                          </div>
+                        </div>
+                      </article>
+                    </section>
+                  </div>
+                  {{#if saleHotel.productosVentaHotel}}
+                    <div class="cards__container cards__container--products__sale">
+                      <div class="section__cards__title__container">
+                        <h5 class="section__cards__title">Productos</h5>
+                      </div>
+                      <section class="section__cards section__cards--products__sale">
+                        {{#each saleHotel.productosVentaHotel}}
+                          <article class="card__content">
+                            <div class="card card__info card__info__product__sale">
+                              <div class="card__header">
+                                <h5 class="card__title">Producto</h5>
+                              </div>
+                              <div class="card__body">
+                                <div class="card__body__content">
+                                  <ul class="card__body__content__ul ul__product__sale">
+                                    <li class="content__li">
+                                      <span class="content__li__span">Codigo</span>
+                                      <span class="content__li__span content__li__span--data">{{productoVentaHotel.productoAlmacenHotel.cod}}</span>
+                                    </li>
+                                    <li class="content__li">
+                                      <span class="content__li__span">Descripción</span>
+                                      <span class="content__li__span content__li__span--data">{{productoVentaHotel.productoAlmacenHotel.descripcionProducto}}</span>
+                                    </li>
+                                    <li class="content__li">
+                                      <span class="content__li__span">Cantidad</span>
+                                      <span class="content__li__span content__li__span--data">{{cantidadVentaHotel}}</span>
+                                    </li>
+                                    <li class="content__li">
+                                      <span class="content__li__span">Proveedor</span>
+                                      <span class="content__li__span content__li__span--data">{{productoVentaHotel.productoAlmacenHotel.proveedorProducto.nombreProveedor}}</span>
+                                    </li>
+                                    <li class="content__li">
+                                      <span class="content__li__span">Categoria</span>
+                                      <span class="content__li__span content__li__span--data">{{productoVentaHotel.productoAlmacenHotel.categoriaProducto.nombreCategoria}}</span>
+                                    </li>
+                                    <li class="content__li">
+                                      <span class="content__li__span">Precio Unitario</span>
+                                      <span class="content__li__span content__li__span--data">S/{{formatCurrency productoVentaHotel.productoAlmacenHotel.precioProducto}}</span>
+                                    </li>
+                                    <li class="content__li">
+                                      <span class="content__li__span">Descuento</span>
+                                      <span class="content__li__span content__li__span--data">- S/{{formatCurrency descuentoProductoVentaHotel}}</span>
+                                    </li>
+                                    <li class="content__li">
+                                      <span class="content__li__span">Importe</span>
+                                      <span class="content__li__span content__li__span--data">S/{{formatCurrency precioTotalProductoVentaHotel}}</span>
+                                    </li>
+                                  </ul>
+                                </div>
+                              </div>
+                            </div>
+                          </article>
+                        {{/each}}
+                      </section>
+                    </div>
+                  {{/if}}
+                </div>
+              </div>
+            </section>
+          </article>
+        {{else}}
+          <h5 class="items__empty">No existe esta venta 😿</h5>
+        {{/if}}
+      </div>
+    </div>
+  </div>
+</section>

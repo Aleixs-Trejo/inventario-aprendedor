@@ -1,0 +1,227 @@
+<section class="section__all--views">
+  <div class="content__views">
+    <div class="container views__container">
+      <div class="card__items">
+        <div class="items__elements__title">
+          <h5 class="items__name">Balance de Ventas</h5>
+        </div>
+        <div class="sub__header">
+          <div class="sub__header__container">
+            <article class="sub__header__content">
+              <section class="section__sub__header">
+                <article class="article__sub__header sub__header__actions">
+                  <div class="sub__header__actions__container">
+                    <div class="sub__header__action">
+                      <a href="/sales" class="sub__header__link">
+                        <figure class="sub__header__figure">
+                          <img src="/assets/icon-back.svg" alt="Icon Back" class="sub__header__img">
+                        </figure>
+                      </a>
+                      <span class="sub__header__span">Volver</span>
+                    </div>
+                    {{#if (eq userRole "Admin")}}
+                      <div class="sub__header__action action__export--excel">
+                        <button class="sub__header__link" id="exportExcel">
+                          <figure class="sub__header__figure">
+                            <img src="/assets/icon-excel.svg" alt="Icon History" class="sub__header__img">
+                          </figure>
+                        </button>
+                        <span class="sub__header__span">Exportar</span>
+                      </div>
+                    {{/if}}
+                  </div>
+                </article>
+              </section>
+            </article>
+          </div>
+        </div>
+        {{#if balances}}
+          {{#if userRole}}
+            {{#if (eq userRole "Admin")}}
+              <article class="items__actions">
+                <div class="filter__data--balance">
+                  <h5 class="filter__title">Ver balances entre:</h5>
+                  <article class="flex-c-c data__balance">
+                    <div class="filter__data">
+                      <label for="fechaInicial" class="filter__label">Fecha inicial:</label>
+                      <input type="date" id="fechaInicial" name="fechaInicial" class="input__data--balance">
+                    </div>
+                    <div class="filter__data">
+                      <label for="fechaFinal" class="filter__label">Fecha Final:</label>
+                      <input type="date" id="fechaFinal" name="fechaFinal" class="input__data--balance">
+                    </div>
+                    <button type="button" id="filterButton" class="filter__button">Filtrar</button>
+                  </article>
+                </div>
+                <div class="total__balances us__sel">
+                  <span class="total__balance--title">Total: S/ <span class="total__close__register"></span></span>
+                </div>
+              </article>
+              <section class="items" id="balancesContainer">
+                <div class="items__container__elements">
+                  <section class="views__container--elements view__scrollbar">
+                    <div class="views__content--elements items__container balances">
+                      <article class="items__header items__grid balances">
+                        <div class="flex-c-c">Usuario:</div>
+                        <div class="flex-c-c">Total de Ventas:</div>
+                        <div class="flex-c-c">Ingresos:</div>
+                        <div class="flex-c-c">Fecha de Cierre:</div>
+                      </article>
+                      <div class="balances__data--views" id="balancesData">
+                        {{#each balances}}
+                          <div class="balance__views">
+                            <article class="items__data items__grid balances balance__data">
+                              <div class="flex-c-c">{{usuarioRegistroBalance.usuario}}</div>
+                              <div class="flex-c-c">{{ventasBalance.totalVentasConfirmadas}}</div>
+                              <div class="flex-c-c">S/ <span class="ganancias__netas">{{formatCurrency ventasBalance.totalCierreVentas}}</span></div>
+                              <div class="flex-c-c fecha__balance">{{formatDateTime ventasBalance.createdAt}}</div>
+                            </article>
+                          </div>
+                        {{/each}}
+                      </div>
+                    </div>
+                  </section>
+                </div>
+              </section>
+            {{/if}}
+          {{/if}}
+        {{else}}
+          <h5 class="items__empty">No hay Balances para mostrar 😿</h5>
+        {{/if}}
+        <h5 class="balance__empty">No hay balances para mostrar</h5>
+      </div>
+    </div>
+  </div>
+</section>
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const fechaInicialInput = document.getElementById("fechaInicial");
+    const fechaFinalInput = document.getElementById("fechaFinal");
+    const filterButton = document.getElementById("filterButton");
+    const noBalances = document.querySelector(".balance__empty");
+    const totalCloseRegister = document.querySelector(".total__close__register");
+    const gananciasNetas = document.querySelectorAll(".ganancias__netas");
+
+    // Actualizar URL con los parámetros de fecha
+    function updateURL(fechaInicial, fechaFinal) {
+      const url = new URL(window.location.href);
+      url.searchParams.set("fechaInicial", fechaInicial);
+      url.searchParams.set("fechaFinal", fechaFinal);
+      window.history.replaceState({}, "", url);
+    }
+
+    // Obtener los parámetros de fecha del URL
+    function getURLParams() {
+      const urlParams = new URLSearchParams(window.location.search);
+      return {
+        fechaInicial: urlParams.get("fechaInicial"),
+        fechaFinal: urlParams.get("fechaFinal")
+      };
+    }
+
+    // Establecer fechas inicial y final como el primer y último día del mes actual
+    function setInitialAndFinalDate() {
+      const today = new Date();
+      const firstDayOfMonth = new Date(today.getFullYear(), today.getMonth(), 1);
+      const lastDayOfMonth = new Date(today.getFullYear(), today.getMonth() + 1, 0);
+
+      if (filterButton) {
+        fechaInicialInput.value = firstDayOfMonth.toISOString().split("T")[0];
+        fechaFinalInput.value = lastDayOfMonth.toISOString().split("T")[0];
+      }
+    }
+
+    function initialize() {
+      noBalances.style.display = "none";
+
+      // Leer parámetro de la url y establecer los valores de los campos de fecha
+      const {fechaInicial, fechaFinal} = getURLParams();
+      if (fechaInicial && fechaFinal) {
+        fechaInicialInput.value = fechaInicial;
+        fechaFinalInput.value = fechaFinal;
+      } else {
+        setInitialAndFinalDate();
+      }
+
+      // Calcular el total de ingresos por cada cierre de caja
+      let totalIngresos = 0;
+
+      gananciasNetas.forEach(gananciaNeta => {
+        totalIngresos += parseFloat(gananciaNeta.textContent);
+      });
+
+      totalIngresos = totalIngresos.toFixed(2);
+
+      if (totalCloseRegister) {
+        totalCloseRegister.textContent = `${(totalIngresos)}`;
+      }
+
+      // Filtrar balances por fecha
+      if (fechaInicial && fechaFinal) {
+        filterBalances(new Date(fechaInicial), new Date(fechaFinal));
+      }
+    }
+
+    // Función para filtrar balances
+    function filterBalances(fechaInicial, fechaFinal) {
+      const balances = document.querySelectorAll(".balance__views");
+      balances.forEach(balance => {
+        const balanceDateString = balance.querySelector(".fecha__balance").textContent;
+        const parts = balanceDateString.split(", ")[0].split("/"); // Dividir la cadena en fecha y hora, y luego dividir la fecha en partes [DD, MM, AAAA]
+        const formattedBalanceDate = `${parts[2]}-${parts[1]}-${parts[0]}`;
+        const balanceDate = new Date(formattedBalanceDate); // Crear un nuevo objeto Date con el formato correcto (AAAA-MM-DD)
+
+        balanceDate.setHours(0, 0, 0, 0);
+        if (balanceDate >= fechaInicial && balanceDate <= fechaFinal) {
+          balance.style.display = "block";
+        } else {
+          balance.style.display = "none";
+        }
+      });
+
+      // Mostrar mensaje si no hay balances para mostrar
+      const visibleBalances = document.querySelectorAll(".balance__views[style='display: block;']");
+      if (visibleBalances.length === 0) {
+        noBalances.style.display = "block";
+      } else {
+        noBalances.style.display = "none";
+      }
+    }
+
+    initialize();
+
+    if (fechaInicialInput && fechaFinalInput && filterButton) {
+      filterButton.addEventListener("click", () => {
+        const fechaInicial = fechaInicialInput.value;
+        const fechaFinal = fechaFinalInput.value;
+
+        // Actualizar URL con los parámetros de fecha
+        updateURL(fechaInicial, fechaFinal);
+
+        // Filtrar balances por fecha
+        if (fechaInicial && fechaFinal) {
+          filterBalances(new Date(fechaInicial), new Date(fechaFinal));
+        }
+      });
+    }
+
+    const exportExcel = document.getElementById("exportExcel");
+
+    if (exportExcel) {
+      exportExcel.addEventListener("click", () => {
+        const fechaInicial = fechaInicialInput.value;
+        const fechaFinal = fechaFinalInput.value;
+
+        // Validar que ambas fechas esté seleccionadas
+        if (!fechaInicial || !fechaFinal) {
+          alert("Por favor, selecciona ambas fechas.");
+          return
+        }
+
+        const url = `/sales/balance/export-excel?fechaInicial=${fechaInicial}&fechaFinal=${fechaFinal}`;
+        window.location.href = url;
+        console.log("URL de exportación de Excel: ", url);
+      });
+    }
+  });
+</script>

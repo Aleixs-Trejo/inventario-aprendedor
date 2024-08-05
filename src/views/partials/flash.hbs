@@ -1,0 +1,42 @@
+{{#if success}}
+  <article class="alert__flash alert__flash--active">
+    <div class="mssg__flash">
+      {{success}}
+    </div>
+    <button class="close__flash">
+      <span>&times;</span>
+    </button>
+  </article>
+{{/if}}
+
+{{#if wrong}}
+  <article class="alert__flash alert__flash--red alert__flash--active">
+    <div class="mssg__flash">
+      {{wrong}}
+    </div>
+    <button class="close__flash">
+      <span>&times;</span>
+    </button>
+  </article>
+{{/if}}
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const flashElements = document.querySelectorAll(".alert__flash");
+
+    // Agregamos el tiempo
+    flashElements.forEach(flashElement => {
+      setTimeout(() => {
+        flashElement.classList.remove("alert__flash--active")
+      }, 3000);
+    });
+
+    const closeButtons = document.querySelectorAll('.close__flash');
+
+    closeButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        const flash = button.closest('.alert__flash');
+        flash.classList.remove('alert__flash--active');
+      });
+    });
+  });
+</script>

@@ -1,0 +1,116 @@
+<section class="section__all--views">
+  <div class="content__views">
+    <div class="container views__container">
+      <div class="card__items">
+        <div class="items__elements__title">
+          <h5 class="items__name">Detalles de la habitación: {{maintenanceRoom.habitacionMantenimiento.numeroHabitacion}}</h5>
+        </div>
+        <div class="sub__header">
+          <div class="sub__header__container">
+            <article class="sub__header__content">
+              <section class="section__sub__header">
+                <article class="article__sub__header sub__header__actions">
+                  <div class="sub__header__actions__container">
+                    <div class="sub__header__action">
+                      <a href="/hotel" class="sub__header__link">
+                        <figure class="sub__header__figure">
+                          <img src="/assets/icon-back.svg" alt="Icon Back" class="sub__header__img">
+                        </figure>
+                      </a>
+                      <span class="sub__header__span">Volver</span>
+                    </div>
+                  </div>
+                </article>
+              </section>
+            </article>
+          </div>
+        </div>
+        {{#if maintenanceRoom}}
+          <section class="sale__names--confirm">
+            <article class="sale__names">
+              <div class="sale__name">Usuario: <span class="span__sale--name">{{maintenanceRoom.usuarioMantenimiento.usuario}}</span></div>
+              <div class="sale__name">Estado: <span class="span__sale--name">{{maintenanceRoom.tipoMantenimiento}}</span></div>
+            </article>
+            <article class="sale__confirm">
+              <div class="price__container finalize__container">
+                <span class="price__title">Acciones:</span>
+                <button class="btn__action btn__action--finalize btn__open__modal">
+                  Finalizar Servicio
+                </button>
+              </div>
+            </article>
+          </section>
+          <section class="items">
+            <div class="items__container__elements">
+              <section class="views__container--elements view__scrollbar">
+                <div class="views__content--elemetns items__container detail__maintenance">
+                  <article class="items__header items__grid detail__maintenance">
+                    <div class="flex-c-c">Registrado por:</div>
+                    <div class="flex-c-c">Habitación:</div>
+                    <div class="flex-c-c">A cargo de:</div>
+                    <div class="flex-c-c">Comentarios:</div>
+                    <div class="flex-c-c">Fecha:</div>
+                  </article>
+                  <div class="items__data--values">
+                    <div class="container__data">
+                      <article class="items__data items__grid detail__maintenance">
+                        <div class="flex-c-c">{{maintenanceRoom.usuarioRegistroMantenimiento.usuario}}</div>
+                        <div class="flex-c-c">{{maintenanceRoom.habitacionMantenimiento.numeroHabitacion}}</div>
+                        <div class="flex-c-c">{{maintenanceRoom.usuarioMantenimiento.usuario}}</div>
+                        <div class="flex-c-c">{{maintenanceRoom.descripcionMantenimiento}}</div>
+                        <div class="flex-c-c">{{formatDateTime maintenanceRoom.createdAt}}</div>
+                      </article>
+                    </div>
+                  </div>
+                </div>
+              </section>
+            </div>
+          </section>
+        {{else}}
+          <h5 class="items__empty">No hay Mantenimiento para mostrar 😿</h5>
+        {{/if}}
+      </div>
+    </div>
+  </div>
+</section>
+<section class="modal__fixed">
+  <div class="flex-c-c modal modal__fin__mantenimiento">
+    <article class="flex-c-c article__modal">
+      <h5 class="modal__title">¿Desea finalizar?</h5>
+      <div class="flex-c-c modal__btns">
+        <button type="button" class="btn__modal__action btn__modal__action--cancelar">Cancelar</button>
+        <a href="/maintenance/{{maintenanceRoom._id}}/finalize" class="btn__modal__action btn__modal__action--confirmar">Finalizar</a>
+      </div>
+      <div class="close__modal close__modal--finalize">
+        <figure class="close__figure">
+          <img src="/assets/icon-close.svg" alt="Icon Close" class="close__img">
+        </figure>
+      </div>
+    </article>
+  </div>
+</section>
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const $btnModalFinalize = document.querySelector(".btn__action--finalize");
+    const $modalFinalize = document.querySelector(".modal__fin__mantenimiento");
+    const $modalCancelar = document.querySelector(".btn__modal__action--cancelar");
+    const $modalClose = document.querySelector(".close__modal--finalize");
+
+    function showModal(event) {
+      event.stopPropagation();
+      console.log("Abriendo Modal")
+      $modalFinalize.classList.add("modal__show");
+    }
+
+    function closeModal(event) {
+      event.stopPropagation();
+      console.log("Cerrando Modal")
+      $modalFinalize.classList.remove("modal__show");
+    }
+
+    $btnModalFinalize.addEventListener("click", showModal);
+    $modalCancelar.addEventListener("click", closeModal);
+    $modalClose.addEventListener("click", closeModal);
+
+  });
+</script>

@@ -1,0 +1,67 @@
+<div class="sub__header sub__header--fixed">
+  <div class="sub__header__container">
+    <article class="sub__header__content">
+      <section class="section__sub__header">
+        <article class="article__sub__header sub__header__actions">
+          <div class="sub__header__actions__container">
+            <div class="sub__header__action">
+              <a href="/stores" class="sub__header__link">
+                <figure class="sub__header__figure">
+                  <img src="/assets/icon-back.svg" alt="Icon Back" class="sub__header__img">
+                </figure>
+              </a>
+              <span class="sub__header__span">Volver</span>
+            </div>
+          </div>
+        </article>
+      </section>
+    </article>
+  </div>
+</div>
+<section class="section__all--forms">
+  <div class="container__form__container">
+    <div class="container">
+      <section class="section__form">
+        <form action="/stores/{{store._id}}/edit" method="POST" class="form">
+          <div class="form__content">
+            <h2 class="form__title">Editar producto</h2>
+            <div class="form__img">
+              <figure class="login__figure">
+                <img src="/assets/logo-aprendedor.webp" alt="Logo Aprendedor" class="login__img">
+              </figure>
+            </div>
+            <section class="form__container">
+              <article class="form__group">
+                <select name="almacenProducto" id="edit_almacen_producto" class="form__input" required>
+                  <option disabled value="">Producto:</option>
+                  {{#each products}}
+                    <option value="{{_id}}" {{#if (eq ../store.almacenProducto._id _id)}} selected{{/if}}>{{nombreProducto}}//{{proveedorProducto.nombreProveedor}}//{{categoriaProducto.nombreCategoria}}</option>
+                  {{/each}}
+                </select>
+              </article>
+              <article class="form__group">
+                <select name="almacenStockUbicacion" id="edit_almacen_stock_ubicacion" class="form__input" required>
+                  <option disabled value="">Ubicación Stock:</option>
+                  {{#each stockLocations}}
+                    <option value="{{_id}}" {{#if (eq ../store.almacenStockUbicacion._id _id)}} selected{{/if}}>{{nombreStockUbicacion}}</option>
+                  {{/each}}
+                </select>
+              </article>
+              <article class="form__group">
+                <input class="form__input" type="number" name="almacenStock" id="edit_almacen_stock" placeholder=" " title="Stock" value="{{store.almacenStock}}" required>
+                <label for="edit_almacen_stock" class="form__label">Stock:</label>
+                <span class="form__line"></span>
+              </article>
+              <article class="form__group">
+                <input class="form__input" type="number" name="almacenMinStock" id="edit_almacen_min_stock" placeholder=" " title="Mínimo Stock" value="{{store.almacenMinStock}}" required>
+                <label for="edit_almacen_min_stock" class="form__label">Min Stock:</label>
+                <span class="form__line"></span>
+              </article>
+              <button class="form__submit">Actualizar</button>
+            </section>
+          </div>
+        </form>
+      </section>
+    </div>
+  </div>
+</section>

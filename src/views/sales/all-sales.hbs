@@ -1,0 +1,242 @@
+<section class="section__all--details">
+  <div class="content__views">
+    <div class="container views__container">
+      <div class="card__items">
+        <div class="items__elements__title">
+          <h5 class="items__name us__sel">Ventas</h5>
+        </div>
+        <div class="details__container">
+          <div class="sub__header">
+            <div class="sub__header__container">
+              <article class="sub__header__content">
+                <section class="section__sub__header">
+                  <article class="article__sub__header sub__header__actions">
+                    <div class="sub__header__actions__container">
+                      <div class="sub__header__action">
+                        <a href="/" class="sub__header__link">
+                          <figure class="sub__header__figure">
+                            <img src="/assets/icon-back.svg" alt="Icon Back" class="sub__header__img">
+                          </figure>
+                        </a>
+                        <span class="sub__header__span">Volver</span>
+                      </div>
+                      <div class="sub__header__action">
+                        <a href="/sales/register" class="sub__header__link">
+                          <figure class="sub__header__figure">
+                            <img src="/assets/icon-add.svg" alt="Icon Add" class="sub__header__img">
+                          </figure>
+                        </a>
+                        <span class="sub__header__span">Nueva Venta</span>
+                      </div>
+                      <div class="sub__header__action">
+                        <a href="/sales/history" class="sub__header__link">
+                          <figure class="sub__header__figure">
+                            <img src="/assets/icon-history.svg" alt="Icon History" class="sub__header__img">
+                          </figure>
+                        </a>
+                        <span class="sub__header__span">Historial</span>
+                      </div>
+                      {{#if sales}}
+                        <div class="sub__header__action action__export--excel">
+                          <a href="/sales/export-excel" class="sub__header__link">
+                            <figure class="sub__header__figure">
+                              <img src="/assets/icon-excel.svg" alt="Icon Excel" class="sub__header__img">
+                            </figure>
+                          </a>
+                          <span class="sub__header__span">Exportar Excel</span>
+                        </div>
+                      {{/if}}
+                      <div class="sub__header__action">
+                        <a href="/sales/balance" class="sub__header__link">
+                          <figure class="sub__header__figure">
+                            <img src="/assets/icon-balance.svg" alt="Icon Balance" class="sub__header__img">
+                          </figure>
+                        </a>
+                        <span class="sub__header__span">Balances</span>
+                      </div>
+                    </div>
+                  </article>
+                  {{#if sales}}
+                    <article class="article__sub__header sub__header__buttons">
+                      <div class="sub__header__buttons__container">
+                        <article class="items__actions">
+                          <div class="flex-c-c confirm__sales"><span class="span__confirm">Cerrar Caja</span></div>
+                        </article>
+                      </div>
+                    </article>
+                  {{/if}}
+                </section>
+              </article>
+            </div>
+          </div>
+          {{#if sales}}
+            <article class="article__details article__details--sales">
+              <section class="details__header">
+                <div class="details__header__container">
+                  <h4 class="details__header__title">Información de las ventas</h4>
+                </div>
+              </section>
+              <section class="details__body">
+                <div class="details__body__container">
+                  <div class="details__body__content">
+                    <div class="cards__container cards__container--sales">
+                      {{#each sales}}
+                        <article class="card__content">
+                          <div class="card card__info card__info__sale">
+                            <div class="card__header">
+                              <h5 class="card__title">Venta:
+                                <span class="span__card__title">{{_id}}</span>
+                              </h5>
+                            </div>
+                            <div class="card__body">
+                              <div class="card__body__content">
+                                <ul class="card__body__ul">
+                                  <li class="content__li">
+                                    <span class="content__li__span">Estado:</span>
+                                    <span class="content__li__span content__li__span--data">{{estadoVenta}}</span>
+                                  </li>
+                                  <li class="content__li">
+                                    <span class="content__li__span">Vendedor:</span>
+                                    <span class="content__li__span content__li__span--data">{{usuarioVenta.trabajadorUsuario.nombreTrabajador}} {{usuarioVenta.trabajadorUsuario.apellidosTrabajador}}</span>
+                                  </li>
+                                  <li class="content__li">
+                                    <span class="content__li__span">Cliente:</span>
+                                    <span class="content__li__span content__li__span--data">{{clienteVenta.nombreCliente}}</span>
+                                  </li>
+                                  <li class="content__li">
+                                    <span class="content__li__span">Cant. Prod:</span>
+                                    <span class="content__li__span content__li__span--data">{{tipoProductosVenta}}</span>
+                                  </li>
+                                  <li class="content__li">
+                                    <span class="content__li__span">Importe:</span>
+                                    <span class="content__li__span content__li__span--data">S/{{formatCurrency precioTotalVenta}}</span>
+                                  </li>
+                                  <li class="content__li">
+                                    <span class="content__li__span">Descuento:</span>
+                                    <span class="content__li__span content__li__span--data">-S/{{formatCurrency descuentoTotalVenta}}</span>
+                                  </li>
+                                  <li class="content__li">
+                                    <span class="content__li__span">Fecha:</span>
+                                    <span class="content__li__span content__li__span--data">{{formatDateTime createdAt}}</span>
+                                  </li>
+                                </ul>
+                              </div>
+                            </div>
+                            <div class="card__footer">
+                              <div class="card__footer__content">
+                                <div class="card__footer__actions">
+                                  <div class="links__actions">
+                                    <a href="/sales/{{_id}}/details" class="link__action">
+                                      <div class="link__action__content">
+                                        <figure class="link__action__figure">
+                                          <img src="/assets/icon-details-white.svg" alt="Icon Details" class="link__action__img">
+                                        </figure>
+                                        <span class="link__action__span">Detalles</span>
+                                      </div>
+                                    </a>
+                                    <a href="/sales/{{_id}}/voucher" class="link__action link__action--pending">
+                                      <div class="link__action__content">
+                                        <figure class="link__action__figure">
+                                          <img src="/assets/icon-ticket-white.svg" alt="Icon Ticket" class="link__action__img">
+                                        </figure>
+                                        <span class="link__action__span">Ticket</span>
+                                      </div>
+                                    </a>
+                                    <a href="/sales/{{_id}}/download" class="link__action link__action--pending">
+                                      <div class="link__action__content">
+                                        <figure class="link__action__figure">
+                                          <img src="/assets/icon-pdf.svg" alt="Icon Bill" class="link__action__img">
+                                        </figure>
+                                        <span class="link__action__span">Boleta</span>
+                                      </div>
+                                    </a>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </article>
+                      {{/each}}
+                    </div>
+                  </div>
+                </div>
+              </section>
+            </article>
+          {{else}}
+            <h5 class="items__empty">No hay Ventas para mostrar 😿</h5>
+          {{/if}}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="modal__fixed">
+  <div class="flex-c-c modal modal__confirm">
+    <article class="article__modal">
+      <div class="modal__title">
+        <h5 class="modal__title--title">¿Desea confirmar todas la Ventas?</h5>
+        <span class="modal__title--span">(Esta acción no se puede deshacer)</span>
+      </div>
+      <div class="flex-c-c modal_btns">
+        <button type="button" class="btn__modal__action cancel__modal--confirm">Cerrar</button>
+        <a href="/sales/confirm-all" class="btn__modal__action">Confirmar</a>
+      </div>
+      <div class="close__modal">
+        <figure class="close__figure">
+          <img src="/assets/icon-close.svg" alt="" class="close__img">
+        </figure>
+      </div>
+    </article>
+  </div>
+</section>
+<script>
+  document.addEventListener("DOMContentLoaded", ()  => {
+    function initialize() {
+      const confirmSales = document.querySelector(".confirm__sales");
+      const modalConfirm = document.querySelector(".modal__confirm");
+      const estadoVentas = document.querySelectorAll(".estado__venta");
+      const voucherType = document.querySelectorAll(".voucher__type");
+      const cardItems = document.querySelector(".card__items");
+      const cardChilds = document.querySelector(".cards__container--sales");
+
+      estadoVentas.forEach(estadoVenta => {
+        if (estadoVenta.textContent === "Pendiente") {
+          estadoVenta.style.color = "#e76f51";
+        } else if (estadoVenta.textContent === "Confirmada") {
+          estadoVenta.style.color = "#1fb141";
+        } else if (estadoVenta.textContent === "Cancelada") {
+          estadoVenta.style.color = "#777";
+          estadoVenta.style.textDecoration = "line-through";
+        }
+      })
+
+      voucherType.forEach(voucher => {
+        voucher.addEventListener("click", showModalVoucher);
+      })
+    
+      // Confirmar todas las ventas
+      function showModalConfirm(event) {
+        event.stopPropagation();
+        cardItems.style.position = "static";
+        modalConfirm.classList.add("modal__show");
+      }
+
+      if (confirmSales) {
+      confirmSales.addEventListener("click", showModalConfirm);
+      }
+
+      if (modalConfirm){
+        window.addEventListener("click", () => modalConfirm.classList.remove("modal__show"));
+      }
+
+      // Agregar clase cards__container--childs si los hijos de cardChilds sean mayor a 4 elementos
+      if (cardChilds) {
+        if (cardChilds.children.length > 4) {
+          cardChilds.classList.add("cards__container--childs");
+        }
+      }
+    }
+
+    initialize();
+  })
+</script>

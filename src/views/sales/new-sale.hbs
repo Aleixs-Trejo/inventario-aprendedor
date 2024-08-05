@@ -1,0 +1,706 @@
+<div class="sub__header sub__header--fixed">
+  <div class="sub__header__container">
+    <article class="sub__header__content">
+      <section class="section__sub__header">
+        <article class="article__sub__header sub__header__actions">
+          <div class="sub__header__actions__container">
+            <div class="sub__header__action">
+              <a href="/sales" class="sub__header__link">
+                <figure class="sub__header__figure">
+                  <img src="/assets/icon-back.svg" alt="Icon Back" class="sub__header__img">
+                </figure>
+              </a>
+              <span class="sub__header__span">Volver</span>
+            </div>
+          </div>
+        </article>
+      </section>
+    </article>
+  </div>
+</div>
+<section class="section__all--details">
+  <section class="flex-c-c section__sales">
+    <section class="section__form">
+      <form action="/sales/register" method="POST" class="form form__sale" id="form_vender">
+        <h2 class="form__title">Nueva Venta</h2>
+        <section class="form__container form__container--sale">
+          <div class="container__articles--sale container__cart">
+            <article class="form__group form__group--sale product__search">
+              <section class="section__sale">
+                <div class="product__sale--input">
+                  <span class="product__sale--text">Producto:</span>
+                  <div class="input__product--container">
+                    <input type="text" id="text_product" autocomplete="off" class="input__product--sale">
+                  </div>
+                </div>
+                <div class="product__sale--dropdown view__scrollbar" style="display: none;">
+                  <section class="section__products--dropdown">
+                    <article class="flex-c-c sale__dropdown--header view__sale dropdown__sale">
+                      <div class="sale__dropdown--item">Cod:</div>
+                      <div class="sale__dropdown--item">Producto:</div>
+                      <div class="sale__dropdown--item">Proveedor:</div>
+                      <div class="sale__dropdown--item">Stock:</div>
+                      <div class="sale__dropdown--item">Precio:</div>
+                    </article>
+                    <div class="products__container--dropdown">
+                      {{#each stores}}
+                        <div class="product__item--container">
+                          <article class="flex-c-c sale__dropdown--data view__sale dropdown__sale id__producto" data-id="{{_id}}">
+                            <div class="sale__dropdown--item cod__producto" data-cod="{{almacenProducto.cod}}">{{almacenProducto.cod}}</div>
+                            <div class="sale__dropdown--item nombre__producto" data-nombre="{{almacenProducto.descripcionProducto}}">{{almacenProducto.descripcionProducto}}</div>
+                            <div class="sale__dropdown--item proveedor__producto" data-proveedor="{{almacenProducto.proveedorProducto.nombreProveedor}}">{{almacenProducto.proveedorProducto.nombreProveedor}}</div>
+                            <div class="sale__dropdown--item stock__producto" data-stock="{{almacenStock}}">{{almacenStock}}</div>
+                            <div class="sale__dropdown--item precio__producto" data-precio="{{almacenProducto.precioProducto}}">S/{{formatCurrency almacenProducto.precioProducto}}</div>
+                          </article>
+                        </div>
+                      {{/each}}
+                    </div>
+                    <span class="empty__cart empty__product" style="display: none;">No existe el producto</span>
+                  </section>
+                </div>
+              </section>
+            </article>
+            <article class="form__group form__group--sale">
+              <section class="products__list--container section__views--sales view__scrollbar">
+                <div class="products__list views__sales">
+                  <article class="products__list--header view__grid--sale view__sale--header">
+                    <div class="product__list--item">Cod</div>
+                    <div class="product__list--item">Producto</div>
+                    <div class="product__list--item">Cant</div>
+                    <div class="product__list--item">Precio</div>
+                    <div class="product__list--item">Dscto</div>
+                    <div class="product__list--item">Importe</div>
+                    <div class="product__list--item">Opciones</div>
+                  </article>
+                  <div class="products__store__list--container">
+                    <span class="empty__cart no__products">No hay productos en el carrito.</span>
+                  </div>
+                </div>
+              </section>
+              <section class="us__sel sale__footer--container">
+                <div class="user__sale--container">
+                  <span class="user__text">Vendedor: </span>
+                  <span class="user__text user__name" id="usuario_venta" data-id="{{currentUser._id}}">{{currentUser.usuario}}</span>
+                </div>
+                <div class="total__sale--container">
+                  <span class="total__text">Total: S/</span>
+                  <span class="total__sale--amount">0.00</span>
+                </div>
+              </section>
+            </article>
+          </div>
+          <div class="container__articles--sale">
+            <article class="form__group form__group--sale">
+              <section class="section__client--sale">
+                <div class="client__sale--container">
+                  <div class="client__document--search">
+                    <span class="client__span">Documento:</span>
+                    <div class="input__client--container">
+                      <input type="text" autocomplete="off" id="input__client_document" class="input__client input__client--document" minlength="8" maxlength="8" onkeypress="return event.charCode >= 48 && event.charCode <= 57">
+                      <button type="button" class="flex-c-c btn__search--client" id="btn_search_client">
+                        <figure class="btn__search--client__figure">
+                          <img src="/assets/icon-search.svg" alt="Icon Search" class="btn__search--client__img">
+                      </button>
+                    </div>
+                  </div>
+                  <div class="client__name--searched">
+                    <span class="client__span">Cliente:</span>
+                    <input data-id="" type="text" id="cliente_venta" class="us__sel input__client input__client--name" autocomplete="off" readonly>
+                  </div>
+                </div>
+              </section>
+              <section class="section__options">
+                <button type="button" id="btn_clear_cart" class="flex-c-c button__option">
+                  <div class="btn__opcion">
+                    <figure class="btn__opcion__figure">
+                      <img src="/assets/icon-delete.svg" alt="Icon Delete" class="btn__opcion__img">
+                    </figure>
+                    <span class="button__span">Limpar carrito</span>
+                  </div>
+                </button>
+                <button type="button" id="btn_vender" class="flex-c-c button__option">
+                  <div class="btn__opcion">
+                    <figure class="btn__opcion__figure">
+                      <img src="/assets/icon-money.svg" alt="Icon Check" class="btn__opcion__img">
+                    </figure>
+                    <span class="button__span">Vender</span>
+                  </div>
+                </button>
+              </section>
+            </article>
+          </div>
+        </section>
+        <section class="modal__fixed">
+          <div class="flex-c-c modal modal__empty--cart">
+            <article class="flex-c-c article__modal">
+              <h4 class="modal__title">¿Desea vaciar el carrito?</h4>
+              <div class="modal__btns">
+                <button type="button" class="modal__btn modal__btn--cancel">Cancelar</button>
+                <button type="button" class="modal__btn drop__cart">Vaciar</button>
+              </div>
+            </article>
+          </div>
+        </section>
+      </form>
+    </section>
+  </section>
+</section>
+<section class="modal__fixed">
+  <div class="flex-c-c modal modal__vender">
+    <article class="flex-c-c article__modal">
+      <h4 class="modal__title">¿Desea finalizar el proceso de venta?</h4>
+      <div class="flex-c-c modal__btns">
+        <button type="button" class="btn__modal__action modal__btn--comprar">Cancelar</button>
+        <button form="form_vender" type="submit" class="btn__modal__action btn__vender">Confirmar</button>
+      </div>
+    </article>
+  </div>
+</section>
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const defaultClientDocument = "00000000"
+    const $inputProduct = document.getElementById("text_product");
+    const $btnSearchClient = document.getElementById("btn_search_client");
+    const $inputDocumentClient = document.getElementById("input__client_document");
+    const $inputNameClient = document.getElementById("cliente_venta");
+    const $productDropdown = document.querySelector(".product__sale--dropdown");
+    const $dropdownItems = document.querySelectorAll(".product__item--container");
+    const $emptyProduct = document.querySelector(".empty__product");
+    const $noProducts = document.querySelector(".no__products");
+    const $deleteItemBtns = document.querySelectorAll(".delete__item");
+    const $btnConfirmClearCart = document.getElementById("btn_clear_cart");
+    const $btnConfirmSale = document.getElementById("btn_vender");
+    const $modalEmptyCart = document.querySelector(".modal__empty--cart");
+    const $btnCancelEmptyCart = document.querySelector(".modal__btn--cancel");
+    const $btnEmptyCart = document.querySelector(".drop__cart");
+    const $modalVender = document.querySelector(".modal__vender");
+    const $btnComprar = document.querySelector(".modal__btn--comprar");
+    const $btnVender = document.querySelector(".btn__vender");
+    const $contenedorCarrito = document.querySelector(".products__store__list--container");
+    const $totalSale = document.querySelector(".total__sale--amount");
+    
+    // Buscar cliente
+    const searchClient = async (documentValue) => {
+      if (documentValue.length >= 8 && documentValue.length <= 11) {
+        try{
+          const response = await fetch(`/sales/search-client/${documentValue}`);
+          const data = await response.json();
+          if (data.success) {
+            $inputNameClient.value = data.cliente.nombreCliente;
+            $inputNameClient.dataset.id = data.cliente._id;
+            console.log("ID de cliente: ", $inputNameClient.dataset.id);
+          } else {
+            alert("El DNI o RUC no existe");
+            $inputDocumentClient.value = defaultClientDocument;
+            searchClient(defaultClientDocument)
+          }
+        } catch (error) {
+          console.error("Error al buscar cliente:", error);
+          $inputDocumentClient.value = "defaultClientDocument";
+          searchClient(defaultClientDocument);
+        }
+      } else {
+        alert("Ingrese correctamente el documento del cliente");
+      }
+    };
+
+    /* const searchClient = async (documentValue) => {
+      if (documentValue.length < 8) {
+        alert("Ingrese correctamente el documento del cliente");
+        return;
+      }
+      try{
+        const response = await fetch(`https://apiperu.dev/api/dni/${documentValue}?api_token=674fe727095da28033c2935ae3c1c0f7a286d986a59f7b865c4a10845f1faab6`);
+        const data = await response.json();
+        if (data.success) {
+          $inputNameClient.value = data.data.nombre_completo;
+          console.log("data: ", data);
+          console.log("Cliente: ", $inputNameClient.value);
+        } else {
+          alert("El DNI no existe");
+          $inputDocumentClient.value = defaultClientDocument;
+        }
+      } catch (error) {
+        console.error("Error al buscar cliente:", error);
+      }
+    } */
+
+    // Ejecutar búsqueda del cliente por defecto al cargar la página
+    $inputDocumentClient.value = defaultClientDocument;
+    // $inputNameClient.value = "Cliente Varios";
+    searchClient(defaultClientDocument);
+
+    // Ejecutar búsqueda del cliente
+    $btnSearchClient.addEventListener("click", () => {
+      const documentValue = $inputDocumentClient.value.trim();
+      searchClient(documentValue);
+    });
+
+    // Filtrar productos por data-nombre en el dropdown según el texto de busqueda
+    $inputProduct.addEventListener("input", () => {
+      const inputValue = $inputProduct.value.trim().toLowerCase();
+      if ($inputProduct.value.length > 0) {
+        $productDropdown.style.display = "block";
+        let productFound = false;
+        $dropdownItems.forEach(item => {
+          const productName = item.querySelector(".sale__dropdown--item[data-nombre]").dataset.nombre.toLowerCase();
+          if (productName.includes(inputValue)) {
+            item.style.display = "block";
+            productFound = true;
+          } else {
+            item.style.display = "none";
+          }
+        });
+        $emptyProduct.style.display = productFound ? "none" : "block";
+      } else {
+        $productDropdown.style.display = "none";
+        $emptyProduct.style.display = "none";
+      }
+    });
+
+    // Ocultar el dropdown de productos si se hace click fuera del input
+    document.addEventListener("click", e => {
+      if (!e.target.closest(".input__product--sale") && !e.target.closest(".product__sale--dropdown")) {
+        $productDropdown.style.display = "none";
+        $inputProduct.value = "";
+      }
+    });
+
+    // Prevenir la desaparición del dropdown de productos al hacer click dentro de él
+    $productDropdown.addEventListener("click", e => {
+      e.stopPropagation();
+    });
+
+    // Añadir productos al carrito
+    const addProductToCart = (productoVenta) => {
+      const {idProducto, codProducto, nombreProducto, stockProducto, precioProducto} = productoVenta;
+      let productoExistente = null;
+      const productosEnCarrito = document.querySelectorAll(".products__store--list");
+
+      // verificar si hay en el carrito
+      productosEnCarrito.forEach(producto => {
+        const productoId = producto.querySelector(".id__producto--cart").dataset.id;
+        if (productoId.toString() === productoVenta.idProducto.toString()) {
+          productoExistente = producto;
+        }
+      });
+
+      if (productoExistente) {
+        console.log("Producto en carrito, Incrementando cantidad");
+        const productoExistenteChild = productoExistente.querySelector(".products__list--data");
+
+        console.log("Valor actual de cantidad: ", productoExistenteChild.querySelector(".cantidad__input").value);
+        
+        // Incrementar cantidad si está en el carrito
+        const cantidadElement = productoExistenteChild.querySelector(".cantidad__container");
+        const cantidadInput = cantidadElement.querySelector(".cantidad__input");
+        const descuentoELement = productoExistenteChild.querySelector(".descuento__container");
+        const descuentoInput = descuentoELement.querySelector(".descuento__input");
+        let cantidadActual = parseInt(cantidadInput.value);
+        let descuentoActual = parseInt(descuentoInput.value);
+
+        if (cantidadActual < stockProducto) {
+          cantidadActual++;
+          cantidadInput.value = cantidadActual;
+        } else {
+          cantidadInput.value = stockProducto;
+          alert("No hay suficiente Stock del producto 😿");
+          console.log("No hay suficiente Stock del producto 😿: ", cantidadActual, stockProducto);
+        }
+
+        const precioProductoActual = parseFloat(productoExistenteChild.querySelector(".precio__producto").textContent);
+        const importeProducto = (precioProductoActual * cantidadActual) - descuentoActual;
+        productoExistenteChild.querySelector(".importe__producto").textContent = importeProducto.toFixed(2);
+        
+      } else {
+        // Crear nuevo elemento para el producto en el carrito
+        const nuevoProducto = document.createElement("div");
+        nuevoProducto.classList.add("products__store--list");
+
+        let cantidad = 1;
+        let descuento = 0;
+        const importe = (precioProducto * cantidad) - descuento;
+
+        // Crear contenido para el nuevo elemento
+        nuevoProducto.innerHTML = `
+          <article class="products__list--data view__grid--sale view__sale--data id__producto--cart" data-id="${productoVenta.idProducto}">
+            <div class="flex-c-c product__list--item cod__producto" data-cod="${productoVenta.codProducto}">${productoVenta.codProducto}</div>
+            <div class="flex-c-c product__list--item nombre__producto" data-nombre="${productoVenta.nombreProducto}">${productoVenta.nombreProducto}</div>
+            <div class="flex-c-c product__list--item cantidad__container">
+              <input type="text" value="${cantidad}" class="cantidad__input" data-cant minlength="1" maxlength="2" onkeypress="return event.charCode >= 48 && event.charCode <= 57">
+            </div>
+            <div class="flex-c-c product__list--item precio__producto" data-precio="${productoVenta.precioProducto}">${productoVenta.precioProducto.toFixed(2)}</div>
+            <div class="flex-c-c product__list--item descuento__container">
+              <input type="text" value="${descuento}" class="descuento__input" data-descuento minlength="1" maxlength="4">
+            </div>
+            <div class="flex-c-c product__list--item importe__producto" data-importe="${importe}">${importe.toFixed(2)}</div>
+            <div class="flex-c-c product__list--item stock__producto" style="display: none;" data-stock="${productoVenta.stockProducto}">${productoVenta.stockProducto}</div>
+            <button type="button" class="flex-c-c product__list--item delete__product--cart delete__item">
+              <figure class="options__figure">
+                <img src="../assets/icon-delete.svg" alt="Icon Delete" class="options__img">
+              </figure>
+            </button>
+          </article>
+        `;
+        $contenedorCarrito.appendChild(nuevoProducto);
+
+        updateButtonsStates();
+
+        // Agregar nuevo elemento al carrito
+        const $nuevoProductoChild = nuevoProducto.querySelector(".products__list--data");
+        const $cantidadInput = $nuevoProductoChild.querySelector(".cantidad__input");
+        const $descuentoInput = $nuevoProductoChild.querySelector(".descuento__input");
+
+        // Eventos dentro del carrito
+        $cantidadInput.addEventListener("input", handleCantidadInput);
+        $cantidadInput.addEventListener("blur", handleCantidadBlur);
+        $descuentoInput.addEventListener("input", handleDescuentoInput);
+        $descuentoInput.addEventListener("blur", handleDescuentoBlur);
+      }
+      updateTotalSale();
+      $noProducts.style.display = "none";
+    };
+
+    // Validar datos del producto agregado
+    const handleCantidadInput = e => {
+      const cantidadInput = e.target;
+      let cantidadValue = cantidadInput.value.trim();
+      const producto = cantidadInput.closest(".products__list--data");
+      const stock = parseInt(producto.querySelector(".stock__producto").textContent);
+      const precioElement = parseFloat(producto.querySelector(".precio__producto").textContent);
+      const descuentoElement = producto.querySelector(".descuento__input");
+      let descuentoValue = descuentoElement.value.trim() || 0;
+
+      if (cantidadValue === "") {
+        cantidadInput.value = "";
+        producto.querySelector(".importe__producto").textContent = "0.00";
+        updateTotalSale();
+        return
+      }
+
+      let cantidad = parseInt(cantidadValue);
+
+      if (isNaN(cantidadValue)) {
+        cantidadInput.value = "";
+        producto.querySelector(".importe__producto").textContent = "0.00";
+        updateTotalSale();
+        return
+      }
+
+      if (isNaN(cantidad)) {
+        cantidadInput.value = "";
+        producto.querySelector(".importe__producto").textContent = "0.00";
+        updateTotalSale();
+        return
+      }
+
+      if (cantidad === 0) {
+        cantidad = 1;
+        cantidadInput.value = cantidad;
+      }
+
+      if (cantidad > stock) {
+        cantidad = stock;
+        cantidadInput.value = cantidad;
+        alert("No hay suficiente Stock del producto 😿");
+      }
+
+      const maxDescuento = cantidad * precioElement;
+      if (descuentoValue > maxDescuento) {
+        descuentoValue = maxDescuento;
+        descuentoElement.value = descuentoValue;
+      }
+
+      const importe = (precioElement * cantidad) - descuentoValue;
+      producto.querySelector(".importe__producto").textContent = `${importe.toFixed(2)}`;
+
+      updateTotalSale();
+    };
+
+    const handleCantidadBlur = e => {
+      const cantidadInput = e.target;
+      let cantidadValue = cantidadInput.value.trim();
+
+      let cantidad = parseInt(cantidadValue);
+
+      if (isNaN(cantidad) || cantidad === 0) {
+        cantidadInput.value = 1;
+        cantidadValue = 1;
+        handleCantidadInput(e);
+      }
+    };
+
+    const handleDescuentoInput = e => {
+      const descuentoInput = e.target;
+      let descuentoValue = descuentoInput.value.trim();
+      const producto = descuentoInput.closest(".products__list--data");
+      const precioElement = parseFloat(producto.querySelector(".precio__producto").textContent);
+      const cantidadElement = parseInt(producto.querySelector(".cantidad__input").value);
+      const importeSinDescuento = (precioElement * cantidadElement);
+
+      if (descuentoValue === "") {
+        producto.querySelector(".importe__producto").textContent = `${importeSinDescuento.toFixed(2)}`;
+        updateTotalSale();
+        return
+      }
+
+      if (isNaN(descuentoValue)) {
+        descuentoInput.value = "";
+        producto.querySelector(".importe__producto").textContent = `${importeSinDescuento.toFixed(2)}`;
+        updateTotalSale();
+        return
+      }
+
+      let descuento = parseFloat(descuentoValue);
+
+      if (isNaN(descuento) || descuento < 0) {
+        descuentoInput.value = 0;
+        producto.querySelector(".importe__producto").textContent = `${importeSinDescuento.toFixed(2)}`;
+        updateTotalSale();
+        return
+      }
+
+      if (descuento > importeSinDescuento) {
+        descuento = importeSinDescuento;
+        descuentoInput.value = descuento;
+      }
+
+      const importeConDescuento = importeSinDescuento - descuento;
+      producto.querySelector(".importe__producto").textContent = `${importeConDescuento.toFixed(2)}`;
+
+      updateTotalSale();
+    };
+
+    const handleDescuentoBlur = e => {
+      const descuentoInput = e.target;
+      let descuentoValue = descuentoInput.value.trim();
+
+      let descuento = parseFloat(descuentoValue);
+
+      // Redondear el descuento a la décima más cercana
+      descuento = Math.round(descuento * 10) / 10;
+      descuentoInput.value = descuento.toFixed(1);
+
+      if (isNaN(descuento) || descuento < 0) {
+        descuentoInput.value = 0;
+        descuentoValue = 0;
+      }
+      handleDescuentoInput(e);
+    };
+
+    // Funcion para actualizar el total de la venta
+    const updateTotalSale = () => {
+      let totalVenta = 0;
+
+      // Obtener todos los productos en el carrito
+      const productosEnCarrito = document.querySelectorAll(".products__store--list");
+
+      // Iterar sobre los productos y sumar los precios
+      productosEnCarrito.forEach(producto => {
+        const precioProducto = parseFloat(producto.querySelector(".importe__producto").textContent);
+        totalVenta += precioProducto;
+      });
+
+      // Actualizar el total de la venta
+      $totalSale.textContent = `${totalVenta.toFixed(2)}`;
+    };
+
+    updateTotalSale();
+
+    // Funcion para eliminar un producto del carrito
+    const removeProductFromCart = (productElement) => {
+      // Verificar si el producto existe en el carrito
+      if ($contenedorCarrito.contains(productElement)) {
+        // Eliminar el producto del carrito
+        $contenedorCarrito.removeChild(productElement);
+        updateTotalSale();
+        // Verificar si el carrito está vacío
+        if ($contenedorCarrito.childElementCount === 1) {
+          $noProducts.style.display = "block";
+        }
+      } else {
+        console.log("El producto no existe en el carrito");
+      }
+
+      updateButtonsStates();
+    };
+
+    // Remover producto del carrito
+    $contenedorCarrito.addEventListener("click", e => {
+      const contenedorProductoCarrito = e.target;
+      if (contenedorProductoCarrito.classList.contains("delete__item")) {
+        const productElement = contenedorProductoCarrito.closest(".products__store--list");
+        removeProductFromCart(productElement);
+      }
+      updateButtonsStates();
+    });
+
+    // Darle la funcionalidad de agregar al carrito
+    $dropdownItems.forEach(item => {
+      item.addEventListener("click", () => {
+        const itemChild = item.querySelector(".dropdown__sale");
+        // Obtener los datos del producto seleccionado
+        const idProducto = item.querySelector(".id__producto").dataset.id;
+        const codProducto = itemChild.querySelector(".cod__producto").dataset.cod;
+        const descripcionProducto = itemChild.querySelector(".nombre__producto").dataset.nombre;
+        const precioProducto = parseFloat(itemChild.querySelector(".precio__producto").dataset.precio);
+        const stockProducto = parseInt(itemChild.querySelector(".stock__producto").dataset.stock);
+
+        // Crear objeto con la información del producto
+        const productoVenta = {
+          idProducto,
+          codProducto,
+          nombreProducto: descripcionProducto,
+          precioProducto,
+          stockProducto
+        };
+
+        console.log("Producto de venta: ", productoVenta);
+
+        // Agregar el producto al carrito
+        addProductToCart(productoVenta);
+        $contenedorCarrito.querySelectorAll(".products__store--list").forEach(producto => {
+          const productElement = producto.querySelector(".products__list--data");
+        });
+        $inputProduct.value = "";
+        $productDropdown.style.display = "none";
+      });
+    });
+
+    // Función para vaciar el carrito
+    const clearCart = () => {
+      $contenedorCarrito.innerHTML = "";
+      $contenedorCarrito.appendChild($noProducts);
+      // Mostrar carrito vacio
+      $noProducts.style.display = "block";
+      updateTotalSale();
+      updateButtonsStates();
+    };
+
+    // Evento para confirmar el vaciado del carrito
+    $btnConfirmClearCart.addEventListener("click", () => {
+      // mostrar modal
+      $modalEmptyCart.classList.add("modal__show");
+    });
+
+    // Cancelar evento para cancelar el vaciado del carrito
+    $btnCancelEmptyCart.addEventListener("click", () => {
+      $modalEmptyCart.classList.remove("modal__show");
+    });
+
+    // Confirmar vaciado del carrito
+    $btnEmptyCart.addEventListener("click", () => {
+      clearCart();
+      $modalEmptyCart.classList.remove("modal__show");
+    });
+
+    const updateButtonsStates = () => {
+      const $isEmptyCart = $contenedorCarrito.querySelectorAll(".products__store--list").length === 0;
+      const $btnClearCart = document.getElementById("btn_clear_cart");
+      const $btnVender = document.getElementById("btn_vender");
+
+      $btnClearCart.disabled = $isEmptyCart;
+      $btnVender.disabled = $isEmptyCart;
+    };
+    updateButtonsStates();
+
+    // Evento para confirmación la venta
+    $btnConfirmSale.addEventListener("click", () => {
+      $modalVender.classList.add("modal__show");
+    });
+
+    // Evento para cancelar la venta
+    $btnComprar.addEventListener("click", () => {
+      $modalVender.classList.remove("modal__show");
+    });
+
+    // Evento para confirmar la venta
+    $btnVender.addEventListener("click", (e) => {
+      e.preventDefault();
+      confirmarVenta();
+    });
+
+    // Obtener los productos del carrito
+    const obtenerProductosCarrito = () => {
+      const productosVenta = [];
+      const $productElements = $contenedorCarrito.querySelectorAll(".products__store--list");
+
+      $productElements.forEach(producto => {
+        const $idProducto = producto.querySelector(".products__list--data").dataset.id;
+        const $cantidadProducto = parseInt(producto.querySelector(".cantidad__input").value);
+        const $precioProducto = parseFloat(producto.querySelector(".precio__producto").textContent);
+        const $descuentoProducto = parseFloat(producto.querySelector(".descuento__input").value);
+        const $importeProducto = parseFloat(producto.querySelector(".importe__producto").textContent);
+
+        const productoVenta = {
+          idProducto: $idProducto,
+          cantidadProducto: $cantidadProducto,
+          precioProducto: $precioProducto,
+          descuentoProducto: $descuentoProducto,
+          importeProducto: $importeProducto
+        };
+
+        productosVenta.push(productoVenta);
+        console.log("productosVenta: ", productosVenta);
+      });
+      return productosVenta;
+    };
+
+    // Calcular la cantidad de productos en el carrito
+    const calcularTipoProductosVenta = (productosVenta) => {
+      return productosVenta.length;
+    };
+
+    // Calcular el total de la venta
+    const calcularTotalVenta = (productosVenta) => {
+      return productosVenta.reduce((total, producto) => total + producto.importeProducto, 0);
+    };
+
+    // Evento para confirmar la venta
+    const confirmarVenta = async () => {
+      try {
+        const productosCarrito = obtenerProductosCarrito();
+        console.log("productosCarrito: ", productosCarrito);
+        const productosVenta = productosCarrito.map(producto => ({
+          productoVenta: producto.idProducto,
+          cantidadVenta: producto.cantidadProducto,
+          precioProducto: producto.precioProducto,
+          descuentoProducto: producto.descuentoProducto,
+          importeProducto: producto.importeProducto
+        }));
+
+        const tipoProductosVenta = calcularTipoProductosVenta(productosCarrito);
+        const precioTotalVenta = calcularTotalVenta(productosCarrito);
+        const clienteVenta = document.getElementById("cliente_venta").dataset.id;
+        const usuarioVenta = document.getElementById("usuario_venta").dataset.id;
+
+        const detallesVenta = {
+          clienteVenta,
+          tipoProductosVenta,
+          productosVenta
+        };
+
+        console.log("detallesVenta: ", detallesVenta);
+
+        const response = await fetch('/sales/register', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(detallesVenta)
+        });
+
+        if (response.ok) {
+          console.log('Venta registrada exitosamente');
+          // Actualizar la interfaz 
+          $modalVender.classList.remove("modal__show");
+          window.location.href = "/sales";
+        } else {
+          throw new Error('Error al registrar la venta');
+        }
+      } catch (error) {
+        console.error("Error al procesar la solicitud:", error);
+      }
+    };
+  });
+</script>

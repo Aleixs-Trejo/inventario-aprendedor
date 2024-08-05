@@ -1,0 +1,93 @@
+<section class="section__all--views">
+  <div class="content__views">
+    <div class="container views__container">
+      <div class="card__items">
+        <div class="items__elements__title">
+          <h5 class="items__name">Historial Almacén</h5>
+        </div>
+        <div class="sub__header">
+          <div class="sub__header__container">
+            <article class="sub__header__content">
+              <section class="section__sub__header">
+                <article class="article__sub__header sub__header__actions">
+                  <div class="sub__header__actions__container">
+                    <div class="sub__header__action">
+                      <a href="/stores" class="sub__header__link">
+                        <figure class="sub__header__figure">
+                          <img src="/assets/icon-back.svg" alt="Icon Back" class="sub__header__img">
+                        </figure>
+                      </a>
+                      <span class="sub__header__span">Volver</span>
+                    </div>
+                    <div class="sub__header__action">
+                      <a href="/stores/register" class="sub__header__link">
+                        <figure class="sub__header__figure">
+                          <img src="/assets/icon-add.svg" alt="Icon Add" class="sub__header__img">
+                        </figure>
+                      </a>
+                      <span class="sub__header__span">Agregar Producto</span>
+                    </div>
+                    <div class="sub__header__action">
+                      <a href="/stores/export-excel" class="sub__header__link">
+                        <figure class="sub__header__figure">
+                          <img src="/assets/icon-excel.svg" alt="Icon History" class="sub__header__img">
+                        </figure>
+                      </a>
+                      <span class="sub__header__span">Exportar</span>
+                    </div>
+                  </div>
+                </article>
+              </section>
+            </article>
+          </div>
+        </div>
+        {{#if storeHistory}}
+          <section class="items">
+            <div class="items__container__elements">
+              <section class="views__container--elements view__scrollbar">
+                <div class="views__content--elements items__container store__history">
+                  <article class="items__header items__grid store__history">
+                    <div class="flex-c-c">Tipo de Registro:</div>
+                    <div class="flex-c-c">Registrado por:</div>
+                    <div class="flex-c-c">Cod:</div>
+                    <div class="flex-c-c">Producto:</div>
+                    <div class="flex-c-c">Descripción:</div>
+                    <div class="flex-c-c">Proveedor:</div>
+                    <div class="flex-c-c">Categoría:</div>
+                    <div class="flex-c-c">Ubicacion:</div>
+                    <div class="flex-c-c">Precio:</div>
+                    <div class="flex-c-c">Stock Total:</div>
+                    <div class="flex-c-c">Min-Stock:</div>
+                    <div class="flex-c-c">Fecha Registro:</div>
+                  </article>
+                  <div class="items__data--values">
+                    {{#each storeHistory}}
+                      <div class="container__data">
+                        <article class="items__data items__grid store__history">
+                          <div class="flex-c-c"><span class="span__data__item tipo__historial">{{tipoHistorial}}</span></div>
+                          <div class="flex-c-c">{{almacenHistorial.almacenUsuario.usuario}}</div>
+                          <div class="flex-c-c">{{almacenHistorial.almacenProducto.cod}}</div>
+                          <div class="flex-c-c">{{almacenHistorial.almacenProducto.nombreProducto}}</div>
+                          <div class="flex-c-c">{{almacenHistorial.almacenProducto.descripcionProducto}}</div>
+                          <div class="flex-c-c">{{almacenHistorial.almacenProducto.proveedorProducto.nombreProveedor}}</div>
+                          <div class="flex-c-c">{{almacenHistorial.almacenProducto.categoriaProducto.nombreCategoria}}</div>
+                          <div class="flex-c-c">{{almacenHistorial.almacenStockUbicacion.nombreStockUbicacion}}</div>
+                          <div class="flex-c-c">S/{{formatCurrency almacenHistorial.almacenProducto.precioProducto}}</div>
+                          <div class="flex-c-c">{{almacenHistorial.almacenStock}}</div>
+                          <div class="flex-c-c">{{almacenHistorial.almacenMinStock}}</div>
+                          <div class="flex-c-c">{{formatDateTime almacenHistorial.createdAt}}</div>
+                        </article>
+                      </div>
+                    {{/each}}
+                  </div>
+                </div>
+              </section>
+            </div>
+          </section>
+        {{else}}
+          <h5 class="items__empty">No hay historial para mostrar 😿</h5>
+        {{/if}}
+      </div>
+    </div>
+  </div>
+</section>

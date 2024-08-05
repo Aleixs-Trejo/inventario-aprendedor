@@ -1,0 +1,314 @@
+<header class="header">
+  <nav class="nav container">
+    <a href="/" class="nav__cta">{NOMBRE_NEGOCIO}</a>
+    {{#if user}}
+      <section class="profile__content">
+        <article class="profile">
+          <div class="profile__details">
+            <div class="profile__logo">
+              <figure class="profile__figure">
+                <img src="/assets/icon-account.svg" alt="Icon Account" class="profile__img">
+              </figure>
+            </div>
+            <div class="profile__data">
+              <div class="profile__name">
+                {{#if user}}
+                  <div class="name">Usuario: {{user.usuario}}</div>
+                  {{#if user.trabajadorUsuario}}
+                    <div class="rol">Rol: {{user.trabajadorUsuario.rolTrabajador.nombreRol}}</div>
+                  {{else}}
+                    <div class="rol">Rol: -</div>
+                  {{/if}}
+                {{else}}
+                  <div class="name">Usuario: -</div>
+                  <div class="rol">Rol: -</div>
+                {{/if}}
+              </div>
+              <div class="flex-c-c profile__photo">
+                <figure class="photo__figure">
+                  <img src="/assets/logo-aprendedor.webp" alt="Icon Account" class="photo__img">
+                </figure>
+              </div>
+              {{#if user}}
+                <a href="/users/logout" class="profile__logout">
+                  <span class="logout__span">Cerrar Sesión</span>
+                  <figure class="logout__figure">
+                    <img src="/assets/icon-logout.svg" id="logout" alt="Icon Logout" class="logout__img">
+                  </figure>
+                </a>
+              {{/if}}
+            </div>
+          </div>
+        </article>
+      </section>
+    {{/if}}
+  </nav>
+</header>
+{{#if user}}
+  <aside class="aside aside--active">
+    <section class="sidebar">
+      <article class="sidebar__logo us__sel">
+        <div class="logo__content">
+          <figure class="logo__figure">
+            <img src="/assets/logo-aprendedor.webp" alt="Logo Aprendedor" class="logo__img">
+          </figure>
+        </div>
+        <h4 class="logo__name us__sel">Aprendedor</h4>
+      </article>
+      <div class="sidebar__menu">
+        <figure class="menu__figure us__sel">
+          <img src="/assets/icon-hamburger.svg" alt="Icon Hamburguer" class="menu__img">
+        </figure>
+      </div>
+    </section>
+    <ul class="nav__list">
+      {{#if (eq user.trabajadorUsuario.rolTrabajador.nombreRol "Admin")}}
+        <li class="nav__element">
+          <a href="/clients" class="nav__link">
+            <div class="figure__content">
+              <figure class="nav__figure">
+                <img src="/assets/icon-clients.svg" alt="Icon Clients" class="nav__img">
+              </figure>
+            </div>
+            <span class="element__span">Clientes</span>
+          </a>
+          <span class="tooltip">Clientes</span>
+        </li>
+        <li class="nav__element">
+          <a href="/sales" class="nav__link">
+            <div class="figure__content">
+              <figure class="nav__figure">
+                <img src="/assets/icon-buy-bag.svg" alt="Icon Sales" class="nav__img">
+              </figure>
+            </div>
+            <span class="element__span">Ventas</span>
+          </a>
+          <span class="tooltip">Ventas</span>
+        </li>
+        <li class="nav__element element__store">
+          <a href="/stores" class="nav__link nav__link--store">
+            <div class="figure__content">
+              <figure class="nav__figure">
+                <img src="/assets/icon-cart.svg" alt="Icon Cart" class="nav__img">
+              </figure>
+            </div>
+            <span class="element__span">Almacén</span>
+          </a>
+          <span class="tooltip">Almacén</span>
+        </li>
+        <li class="nav__element">
+          <a href="/providers" class="nav__link">
+            <div class="figure__content">
+              <figure class="nav__figure">
+                <img src="/assets/icon-provider.svg" alt="Icon Provider" class="nav__img">
+              </figure>
+            </div>
+            <span class="element__span">Proveedores</span>
+          </a>
+          <span class="tooltip">Proveedores</span>
+        </li>
+        <li class="nav__element">
+          <a href="/stock-locations" class="nav__link">
+            <div class="figure__content">
+              <figure class="nav__figure">
+                <img src="/assets/icon-store.svg" alt="Icon Location" class="nav__img">
+              </figure>
+            </div>
+            <span class="element__span">Sucursales</span>
+          </a>
+          <span class="tooltip">Sucursales</span>
+        </li>
+        <li class="nav__element">
+          <a href="/categories" class="nav__link">
+            <div class="figure__content">
+              <figure class="nav__figure">
+                <img src="/assets/icon-computer-cell.svg" alt="Icon Categories" class="nav__img">
+              </figure>
+            </div>
+            <span class="element__span">Categorías</span>
+          </a>
+          <span class="tooltip">Categorías</span>
+        </li>
+        <li class="nav__element">
+          <a href="/products" class="nav__link">
+            <div class="figure__content">
+              <figure class="nav__figure">
+                <img src="/assets/icon-products.svg" alt="Icon Employees" class="nav__img">
+              </figure>
+            </div>
+            <span class="element__span">Productos</span>
+          </a>
+          <span class="tooltip">Productos</span>
+        </li>
+        <li class="nav__element">
+          <a href="/users-rol" class="nav__link">
+            <div class="figure__content">
+              <figure class="nav__figure">
+                <img src="/assets/icon-verified.svg" alt="Icon Roles" class="nav__img">
+              </figure>
+            </div>
+            <span class="element__span">Roles</span>
+          </a>
+          <span class="tooltip">Roles</span>
+        </li>
+        <li class="nav__element">
+          <a href="/users" class="nav__link">
+            <div class="figure__content">
+              <figure class="nav__figure">
+                <img src="/assets/icon-user-security.svg" alt="Icon Users" class="nav__img">
+              </figure>
+            </div>
+            <span class="element__span">Usuarios</span>
+          </a>
+          <span class="tooltip">Usuarios</span>
+        </li>
+        <li class="nav__element">
+          <a href="/employees" class="nav__link">
+            <div class="figure__content">
+              <figure class="nav__figure">
+                <img src="/assets/icon-employee.svg" alt="Icon Employees" class="nav__img">
+              </figure>
+            </div>
+            <span class="element__span">Empleados</span>
+          </a>
+          <span class="tooltip">Empleados</span>
+        </li>
+        <li class="nav__element">
+          <a href="/hotel" class="nav__link">
+            <div class="figure__content">
+              <figure class="nav__figure">
+                <img src="/assets/icon-room.svg" alt="Icon Records" class="nav__img">
+              </figure>
+            </div>
+            <span class="element__span">Hotel</span>
+          </a>
+          <span class="tooltip">Hotel</span>
+        </li>
+      {{/if}}
+      {{#if (eq user.trabajadorUsuario.rolTrabajador.nombreRol "Vendedor")}}
+        <li class="nav__element">
+          <a href="/clients" class="nav__link">
+            <div class="figure__content">
+              <figure class="nav__figure">
+                <img src="/assets/icon-clients.svg" alt="Icon Clients" class="nav__img">
+              </figure>
+            </div>
+            <span class="element__span">Clientes</span>
+          </a>
+          <span class="tooltip">Clientes</span>
+        </li>
+        <li class="nav__element">
+          <a href="/sales" class="nav__link">
+            <div class="figure__content">
+              <figure class="nav__figure">
+                <img src="/assets/icon-buy-bag.svg" alt="Icon Sales" class="nav__img">
+              </figure>
+            </div>
+            <span class="element__span">Ventas</span>
+          </a>
+          <span class="tooltip">Ventas</span>
+        </li>
+        <li class="nav__element">
+          <a href="/products" class="nav__link">
+            <div class="figure__content">
+              <figure class="nav__figure">
+                <img src="/assets/icon-products.svg" alt="Icon Employees" class="nav__img">
+              </figure>
+            </div>
+            <span class="element__span">Productos</span>
+          </a>
+          <span class="tooltip">Productos</span>
+        </li>
+        <li class="nav__element element__store">
+          <a href="/stores" class="nav__link nav__link--store">
+            <div class="figure__content">
+              <figure class="nav__figure">
+                <img src="/assets/icon-cart.svg" alt="Icon Cart" class="nav__img">
+              </figure>
+            </div>
+            <span class="element__span">Almacén</span>
+          </a>
+          <span class="tooltip">Almacén</span>
+        </li>
+      {{/if}}
+      {{#if (eq user.trabajadorUsuario.rolTrabajador.nombreRol "Almacen")}}
+        <li class="nav__element element__store">
+          <a href="/stores" class="nav__link nav__link--store">
+            <div class="figure__content">
+              <figure class="nav__figure">
+                <img src="/assets/icon-cart.svg" alt="Icon Cart" class="nav__img">
+              </figure>
+            </div>
+            <span class="element__span">Almacén</span>
+          </a>
+          <span class="tooltip">Almacén</span>
+        </li>
+        <li class="nav__element">
+          <a href="/providers" class="nav__link">
+            <div class="figure__content">
+              <figure class="nav__figure">
+                <img src="/assets/icon-provider.svg" alt="Icon Provider" class="nav__img">
+              </figure>
+            </div>
+            <span class="element__span">Proveedores</span>
+          </a>
+          <span class="tooltip">Proveedores</span>
+        </li>
+        <li class="nav__element">
+          <a href="/stock-locations" class="nav__link">
+            <div class="figure__content">
+              <figure class="nav__figure">
+                <img src="/assets/icon-store.svg" alt="Icon Location" class="nav__img">
+              </figure>
+            </div>
+            <span class="element__span">Sucursales</span>
+          </a>
+          <span class="tooltip">Sucursales</span>
+        </li>
+        <li class="nav__element">
+          <a href="/categories" class="nav__link">
+            <div class="figure__content">
+              <figure class="nav__figure">
+                <img src="/assets/icon-computer-cell.svg" alt="Icon Categories" class="nav__img">
+              </figure>
+            </div>
+            <span class="element__span">Categorías</span>
+          </a>
+          <span class="tooltip">Categorías</span>
+        </li>
+        <li class="nav__element">
+          <a href="/products" class="nav__link">
+            <div class="figure__content">
+              <figure class="nav__figure">
+                <img src="/assets/icon-products.svg" alt="Icon Employees" class="nav__img">
+              </figure>
+            </div>
+            <span class="element__span">Productos</span>
+          </a>
+          <span class="tooltip">Productos</span>
+        </li>
+      {{/if}}
+    </ul>
+  </aside>
+{{/if}}
+<script>
+  document.addEventListener("DOMContentLoaded", async () => {
+    try{
+      const response = await fetch(`/stores/low-stock-count`);
+      const data = await response.json();
+
+      const lowStockCount = data.lowStockProducts || 0;
+
+      const listElement = document.querySelector(".element__store");
+      if (lowStockCount > 0) {
+        listElement.classList.add("stock__alert__min");
+        const spanElement = document.createElement("span");
+        spanElement.classList.add("stock__count");
+        spanElement.textContent = lowStockCount;
+        listElement.appendChild(spanElement);
+      }
+    } catch (error) {
+      console.error("Error: ", error);
+    }
+  });
+</script>

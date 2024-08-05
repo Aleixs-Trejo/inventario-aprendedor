@@ -1,0 +1,104 @@
+<div class="sub__header sub__header--fixed">
+  <div class="sub__header__container">
+    <article class="sub__header__content">
+      <section class="section__sub__header">
+        <article class="article__sub__header sub__header__actions">
+          <div class="sub__header__actions__container">
+            <div class="sub__header__action">
+              <a href="/users" class="sub__header__link">
+                <figure class="sub__header__figure">
+                  <img src="/assets/icon-back.svg" alt="Icon Back" class="sub__header__img">
+                </figure>
+              </a>
+              <span class="sub__header__span">Volver</span>
+            </div>
+          </div>
+        </article>
+      </section>
+    </article>
+  </div>
+</div>
+<section class="section__all--forms">
+  <div class="container__form__container">
+    <div class="container">
+      <section class="section__form">
+        <form action="/users/register" method="POST" class="form">
+          <div class="form__content">
+            <h2 class="form__title">Registrar usuario</h2>
+            <div class="form__img">
+              <figure class="login__figure">
+                <img src="/assets/logo-aprendedor.webp" alt="Logo Aprendedor" class="login__img">
+              </figure>
+            </div>
+            <section class="form__container">
+              <article class="form__group form__group--select">
+                <label for="trabajador_user" class="form__label--select">Selecciona el Trabajador:</label>
+                <select name="trabajadorUsuario" id="trabajador_user" class="form__input">
+                  <option selected disabled value="selecciona">Trabajador:</option>
+                  {{#each employees}}
+                    <option value="{{_id}}" data-dni="{{dniTrabajador}}" data-nombre="{{nombreTrabajador}}" data-apellido="{{apellidosTrabajador}}">{{dniTrabajador}}/{{nombreTrabajador}}/{{rolTrabajador.nombreRol}}</option>
+                  {{/each}}
+                </select>
+                <span class="form__span--select">¿No encuentras al Trabajador? <a class="select__cta" href="/employees/register">Regístralo aquí</a></span>
+              </article>
+              <article class="form__group">
+                <input class="form__input" type="text" name="usuario" id="user"
+                title="Ingresa el nombre de usuario" placeholder=" " required>
+                <label for="user" class="form__label">Usuario:</label>
+                <span class="form__line"></span>
+              </article>
+              <article class="form__group">
+                <input class="form__input" type="password" name="password" id="password_user" placeholder=" " required>
+                <label for="password_user" class="form__label">Contraseña:</label>
+                <span class="form__line"></span>
+              </article>
+              <article class="form__group">
+                <input class="form__input" type="password" name="confirm_password" id="confirm_password_user" placeholder=" " required>
+                <label for="confirm_password_user" class="form__label">Confirmar contraseña:</label>
+                <span class="form__line"></span>
+                <input class="togglePassword" type="checkbox" name="mostrarPassword" id="togglePassword">
+              </article>
+              <button class="form__submit">Registrar</button>
+            </section>
+          </div>
+        </form>
+      </section>
+    </div>
+  </div>
+</section>
+<script>
+  const trabajadorSelect = document.getElementById('trabajador_user');
+  const usuarioInput = document.getElementById('user');
+
+  trabajadorSelect.addEventListener('change', () => {
+    const selectedOption = trabajadorSelect.options[trabajadorSelect.selectedIndex];
+    const nombre = selectedOption.getAttribute('data-nombre');
+    const apellido = selectedOption.getAttribute('data-apellido').split(" ")[0];
+    const dni = selectedOption.getAttribute('data-dni').slice(-4);
+
+    // Generar nombre de usuario
+    const nombreUsuario = (nombre.charAt(0) + apellido + dni).toLowerCase();
+
+    // Verificar si hay usuario esixtente
+    let usernameCount = 1;
+    let username = nombreUsuario;
+    while (document.querySelector(`option[value="${username}"]`) !== null) {
+      usernameCount++;
+      username = `${nombreUsuario}${usernameCount}`;
+    }
+
+    // Asignar el nombre de usuario al input
+    usuarioInput.value = username;
+  });
+
+  // Cambiar de tipo password a text
+  const passwordInput = document.getElementById('password_user');
+  const confirmInput = document.getElementById('confirm_password_user');
+  const togglePasswordCheckbox = document.getElementById('togglePassword');
+
+  togglePasswordCheckbox.addEventListener('change', function () {
+    const type = this.checked ? 'text' : 'password';
+    passwordInput.setAttribute('type', type);
+    confirmInput.setAttribute('type', type);
+  });
+</script>

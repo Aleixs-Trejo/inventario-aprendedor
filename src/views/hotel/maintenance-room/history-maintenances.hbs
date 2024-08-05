@@ -1,0 +1,100 @@
+<section class="section__all--views">
+  <div class="content__views">
+    <div class="container views__container">
+      <div class="card__items">
+        <div class="items__elements__title">
+          <h5 class="items__name">Historial Mantenimientos</h5>
+        </div>
+        <div class="sub__header">
+          <div class="sub__header__container">
+            <article class="sub__header__content">
+              <section class="section__sub__header">
+                <article class="article__sub__header sub__header__actions">
+                  <div class="sub__header__actions__container">
+                    <div class="sub__header__action">
+                      <a href="/maintenances" class="sub__header__link">
+                        <figure class="sub__header__figure">
+                          <img src="/assets/icon-back.svg" alt="Icon Back" class="sub__header__img">
+                        </figure>
+                      </a>
+                      <span class="sub__header__span">Volver</span>
+                    </div>
+                  </div>
+                </article>
+              </section>
+            </article>
+          </div>
+        </div>
+        {{#if maintenancesHistory}}
+          <section class="items">
+            <div class="items__container__elements">
+              <section class="views__container--elements view__scrollbar">
+                <div class="views__content--elements items__container maintenances__history">
+                  <article class="items__header items__grid maintenances__history">
+                    <div class="flex-c-c">Tipo de Registro:</div>
+                    <div class="flex-c-c">Hecho por:</div>
+                    <div class="flex-c-c">Habitación:</div>
+                    <div class="flex-c-c">Tipo:</div>
+                    <div class="flex-c-c">Obs:</div>
+                    <div class="flex-c-c">A cargo de:</div>
+                    <div class="flex-c-c">Fecha Registro:</div>
+                  </article>
+                  <div class="items__data--values">
+                    {{#each maintenancesHistory}}
+                      <div class="container__data">
+                        <article class="items__data items__grid maintenances__history">
+                          <div class="flex-c-c"><span class="span__data__item tipo__historial">{{tipoHistorial}}</span></div>
+                          <div class="flex-c-c">{{mantenimientoHabitacionHistorial.usuarioRegistroMantenimiento.usuario}}</div>
+                          <div class="flex-c-c">{{mantenimientoHabitacionHistorial.habitacionMantenimiento.numeroHabitacion}}</div>
+                          <div class="flex-c-c"><span class="span__data__item status__maintenance">{{mantenimientoHabitacionHistorial.tipoMantenimiento}}</span></div>
+                          <div class="flex-c-c">{{mantenimientoHabitacionHistorial.descripcionMantenimiento}}</div>
+                          <div class="flex-c-c">{{mantenimientoHabitacionHistorial.usuarioMantenimiento.usuario}}</div>
+                          <div class="flex-c-c">{{formatDateTime createdAt}}</div>
+                        </article>
+                      </div>
+                    {{/each}}
+                  </div>
+                </div>
+              </section>
+            </div>
+          </section>
+        {{else}}
+          <h5 class="items__empty">No hay historial para mostrar 😿</h5>
+        {{/if}}
+      </div>
+    </div>
+  </div>
+</section>
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const $statusMaintenance = document.querySelectorAll(".status__maintenance");
+    const $tipoHistorial = document.querySelectorAll(".tipo__historial");
+
+    function statusMaintenance() {
+      $statusMaintenance.forEach(item => {
+        const estado = item.textContent;
+        if (estado === "En Limpieza" || estado === "Limpieza") {
+          item.style.backgroundColor = "#ffbd00";
+          item.style.color = "#fff"
+        } else if (estado === "En Mantenimiento" || estado === "Mantenimiento") {
+          item.style.backgroundColor = "#ad2831";
+          item.style.color = "#fff"
+        }
+      });
+    };
+    function tipoHistorial() {
+      $tipoHistorial.forEach(item => {
+        const estado = item.textContent;
+        if (estado === "Registro") {
+          item.style.backgroundColor = "#58b56d";
+          item.style.color = "#fff"
+        } else if (estado === "Finalización") {
+          item.style.backgroundColor = "#ad2831";
+          item.style.color = "#fff"
+        }
+      });
+    };
+    statusMaintenance();
+    tipoHistorial();
+  });
+</script>

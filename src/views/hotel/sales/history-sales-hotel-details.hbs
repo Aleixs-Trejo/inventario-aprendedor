@@ -1,0 +1,82 @@
+<section class="section__all--views">
+  <div class="content__views">
+    <div class="container views__container">
+      <div class="card__items">
+        <div class="items__elements__title">
+          <h5 class="items__name">Detalles del cierre de caja de venta {{saleHotelHistory._id}}</h5>
+        </div>
+        <div class="sub__header">
+          <div class="sub__header__container">
+            <article class="sub__header__content">
+              <section class="section__sub__header">
+                <article class="article__sub__header sub__header__actions">
+                  <div class="sub__header__actions__container">
+                    <div class="sub__header__action">
+                      <a href="/hotel/sales/history" class="sub__header__link">
+                        <figure class="sub__header__figure">
+                          <img src="/assets/icon-back.svg" alt="Icon Back" class="sub__header__img">
+                        </figure>
+                      </a>
+                      <span class="sub__header__span">Volver</span>
+                    </div>
+                  </div>
+                </article>
+              </section>
+            </article>
+          </div>
+        </div>
+        {{#if saleHotelHistory.ventaHotelHistorial}}
+          <section class="items">
+            <div class="items__container__elements">
+              <section class="views__container--elements view__scrollbar">
+                <div class="views__content--elements items__container sales__hotel__history__details">
+                  <article class="items__header items__grid sales__hotel__history__details">
+                    <div class="flex-c-c">Estado</div>
+                    <div class="flex-c-c">ID Venta</div>
+                    <div class="flex-c-c">Vendedor</div>
+                    <div class="flex-c-c">Cliente</div>
+                    <div class="flex-c-c">Comentarios</div>
+                    <div class="flex-c-c">Hab.</div>
+                    <div class="flex-c-c">Num Prod</div>
+                    <div class="flex-c-c">Dscto</div>
+                    <div class="flex-c-c">Importe</div>
+                    <div class="flex-c-c">Fecha</div>
+                    <div class="flex-c-c">Ver</div>
+                  </article>
+                  <div class="items__data--values" id="data-container">
+                    {{#each saleHotelHistory.ventaHotelHistorial}}
+                      <div class="container__data">
+                        <article class="items__data items__grid sales__hotel__history__details">
+                          <div class="flex-c-c"><span class="span__data__item tipo__historial">{{cierreVentasHotel.estadoVentaHotel}}</span></div>
+                          <div class="flex-c-c">{{cierreVentasHotel._id}}</div>
+                          <div class="flex-c-c">{{cierreVentasHotel.usuarioRegistroVentaHotel.usuario}}</div>
+                          <div class="flex-c-c">{{#if entidad.habitacionOcupacion}}{{entidad.nombreClienteOcupacion}}{{else}}{{entidad.nombreClienteReserva}}{{/if}}</div>
+                          <div class="flex-c-c">{{cierreVentasHotel.comentariosVentaHotel}}</div>
+                          <div class="flex-c-c">{{#if entidad.habitacionOcupacion}}{{entidad.habitacionOcupacion.numeroHabitacion}}{{else}}{{entidad.habitacionReserva.numeroHabitacion}}{{/if}}</div>
+                          <div class="flex-c-c">{{cierreVentasHotel.cantidadProductosVentaHotel}}</div>
+                          <div class="flex-c-c">-S/{{formatCurrency cierreVentasHotel.descuentoTotalVentaHotel}}</div>
+                          <div class="flex-c-c">S/{{formatCurrency cierreVentasHotel.precioTotalVentaHotel}}</div>
+                          <div class="flex-c-c">{{formatDateTime cierreVentasHotel.createdAt}}</div>
+                          <div class="flex-c-c items__data__options">
+                            <a href="/hotel/sales/{{cierreVentasHotel._id}}/details" class="options__action">
+                              <figure class="options__figure">
+                                <img src="/assets/icon-edit.svg" alt="Icon Edit" class="options__img">
+                              </figure>
+                              <span class="span__detail">Detalles</span>
+                            </a>
+                          </div>
+                        </article>
+                      </div>
+                    {{/each}}
+                  </div>
+                </div>
+              </section>
+            </div>
+          </section>
+        {{else}}
+          <h5 class="items__empty">No hay detalles para mostrar 😿</h5>
+        {{/if}}
+      </div>
+    </div>
+  </div>
+</section>

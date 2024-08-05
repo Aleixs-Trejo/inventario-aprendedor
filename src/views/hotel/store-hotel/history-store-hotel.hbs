@@ -1,0 +1,103 @@
+<section class="section__all--views">
+  <div class="content__views">
+    <div class="container views__container">
+      <div class="card__items">
+        <div class="items__elements__title">
+          <h5 class="items__name">Historial de Almacén</h5>
+        </div>
+        <div class="sub__header">
+          <div class="sub__header__container">
+            <article class="sub__header__content">
+              <section class="section__sub__header">
+                <article class="article__sub__header sub__header__actions">
+                  <div class="sub__header__actions__container">
+                    <div class="sub__header__action">
+                      <a href="/store-hotel" class="sub__header__link">
+                        <figure class="sub__header__figure">
+                          <img src="/assets/icon-back.svg" alt="Icon Back" class="sub__header__img">
+                        </figure>
+                      </a>
+                      <span class="sub__header__span">Volver</span>
+                    </div>
+                    <div class="sub__header__action">
+                      <a href="/store-hotel/register" class="sub__header__link">
+                        <figure class="sub__header__figure">
+                          <img src="/assets/icon-add.svg" alt="Icon Add" class="sub__header__img">
+                        </figure>
+                      </a>
+                      <span class="sub__header__span">Agregar Producto</span>
+                    </div>
+                  </div>
+                </article>
+              </section>
+            </article>
+          </div>
+        </div>
+        {{#if storeHotelHistory}}
+          <section class="items">
+            <div class="items__container__elements">
+              <section class="views__container--elements view__scrollbar">
+                <div class="views__content--elements items__container store__hotel__history">
+                  <article class="items__header items__grid store__hotel__history">
+                    <div class="flex-c-c">Tipo de Registro:</div>
+                    <div class="flex-c-c">Hecho por:</div>
+                    <div class="flex-c-c">Cod:</div>
+                    <div class="flex-c-c">Producto:</div>
+                    <div class="flex-c-c">Descripción:</div>
+                    <div class="flex-c-c">Proveedor:</div>
+                    <div class="flex-c-c">Categoría:</div>
+                    <div class="flex-c-c">Precio:</div>
+                    <div class="flex-c-c">Stock:</div>
+                    <div class="flex-c-c">Min-Stock:</div>
+                    <div class="flex-c-c">Fecha Actividad:</div>
+                  </article>
+                  <div class="items__data--values">
+                    {{#each storeHotelHistory}}
+                      <div class="container__data">
+                        <article class="items__data items__grid store__hotel__history">
+                          <div class="flex-c-c"><span class="span__data__item tipo__historial">{{tipoHistorial}}</span></div>
+                          <div class="flex-c-c">{{almacenHotelHistorial.usuarioRegistroAlmacenHotel.usuario}}</div>
+                          <div class="flex-c-c">{{almacenHotelHistorial.productoAlmacenHotel.cod}}</div>
+                          <div class="flex-c-c">{{almacenHotelHistorial.productoAlmacenHotel.nombreProducto}}</div>
+                          <div class="flex-c-c">{{almacenHotelHistorial.productoAlmacenHotel.descripcionProducto}}</div>
+                          <div class="flex-c-c">{{almacenHotelHistorial.productoAlmacenHotel.proveedorProducto.nombreProveedor}}</div>
+                          <div class="flex-c-c">{{almacenHotelHistorial.productoAlmacenHotel.categoriaProducto.nombreCategoria}}</div>
+                          <div class="flex-c-c">S/ {{formatCurrency almacenHotelHistorial.productoAlmacenHotel.precioProducto}}</div>
+                          <div class="flex-c-c">{{almacenHotelHistorial.stockProductoAlmacenHotel}}</div>
+                          <div class="flex-c-c">{{almacenHotelHistorial.minStockProductoAlmacenHotel}}</div>
+                          <div class="flex-c-c">{{formatDateTime createdAt}}</div>
+                        </article>
+                      </div>
+                    {{/each}}
+                  </div>
+                </div>
+              </section>
+            </div>
+          </section>
+        {{else}}
+          <h5 class="items__empty">No hay historial para mostrar 😿</h5>
+        {{/if}}
+      </div>
+    </div>
+  </div>
+</section>
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const $tipoHistorial = document.querySelectorAll(".tipo__historial");
+
+    function tipoHistorial() {
+      $tipoHistorial.forEach(item => {
+        const estado = item.textContent;
+        if (estado === "Registro") {
+          item.style.backgroundColor = "#58b56d";
+          item.style.color = "#fff"
+        } else if (estado === "Finalización" || estado === "Eliminación" || estado === "Eliminado") {
+          item.style.backgroundColor = "#ad2831";
+          item.style.color = "#fff"
+        }
+      });
+    };
+
+    tipoHistorial();
+  });
+</script>

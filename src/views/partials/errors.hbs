@@ -1,0 +1,20 @@
+{{#if error}}
+  <article class="flex-c-c alert__flash alert__flash--red">
+    <div class="mssg__flash">
+      {{error}}
+    </div>
+    <button class="close__flash">
+      <span>&times;</span>
+    </button>
+  </article>
+{{/if}}
+{{#each errors}}
+  <article class="flex-c-c alert__flash alert__flash--red">
+    <div class="mssg__flash">
+      {{text}}
+    </div>
+    <button class="close__flash">
+      <span>&times;</span>
+    </button>
+  </article>
+{{/each}}

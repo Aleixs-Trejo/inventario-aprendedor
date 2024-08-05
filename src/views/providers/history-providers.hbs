@@ -1,0 +1,77 @@
+<section class="section__all--views">
+  <div class="content__views">
+    <div class="container views__container">
+      <div class="card__items">
+        <div class="items__elements__title">
+          <h5 class="items__name">Historial Proveedores</h5>
+        </div>
+        <div class="sub__header">
+          <div class="sub__header__container">
+            <article class="sub__header__content">
+              <section class="section__sub__header">
+                <article class="article__sub__header sub__header__actions">
+                  <div class="sub__header__actions__container">
+                    <div class="sub__header__action">
+                      <a href="/providers" class="sub__header__link">
+                        <figure class="sub__header__figure">
+                          <img src="/assets/icon-back.svg" alt="Icon Back" class="sub__header__img">
+                        </figure>
+                      </a>
+                      <span class="sub__header__span">Volver</span>
+                    </div>
+                    <div class="sub__header__action">
+                      <a href="/providers/register" class="sub__header__link">
+                        <figure class="sub__header__figure">
+                          <img src="/assets/icon-add.svg" alt="Icon Add" class="sub__header__img">
+                        </figure>
+                      </a>
+                      <span class="sub__header__span">Nuevo Proveedor</span>
+                    </div>
+                  </div>
+                </article>
+              </section>
+            </article>
+          </div>
+        </div>
+        {{#if providersHistory}}
+          <section class="items">
+            <div class="items__container__elements">
+              <section class="views__container--elements view__scrollbar">
+                <div class="views__content--elements items__container providers__history">
+                  <article class="items__header items__grid providers__history">
+                    <div class="flex-c-c">Tipo de Registro:</div>
+                    <div class="flex-c-c">Hecho por:</div>
+                    <div class="flex-c-c">DNI/RUC:</div>
+                    <div class="flex-c-c">Nombres:</div>
+                    <div class="flex-c-c">Celular:</div>
+                    <div class="flex-c-c">Correo:</div>
+                    <div class="flex-c-c">Dirección:</div>
+                    <div class="flex-c-c">Fecha Registro:</div>
+                  </article>
+                  <div class="items__data--values">
+                    {{#each providersHistory}}
+                      <div class="container__data">
+                        <article class="items__data items__grid providers__history">
+                          <div class="flex-c-c"><span class="span__data__item tipo__historial">{{tipoHistorial}}</span></div>
+                          <div class="flex-c-c">{{proveedorHistorial.usuarioRegistroProveedor.usuario}}</div>
+                          <div class="flex-c-c">{{proveedorHistorial.dniProveedor}}</div>
+                          <div class="flex-c-c">{{proveedorHistorial.nombreProveedor}}</div>
+                          <div class="flex-c-c">{{proveedorHistorial.celularProveedor}}</div>
+                          <div class="flex-c-c">{{proveedorHistorial.correoProveedor}}</div>
+                          <div class="flex-c-c">{{proveedorHistorial.direccionProveedor}}</div>
+                          <div class="flex-c-c">{{formatDateTime proveedorHistorial.createdAt}}</div>
+                        </article>
+                      </div>
+                    {{/each}}
+                  </div>
+                </div>
+              </section>
+            </div>
+          </section>
+        {{else}}
+          <h5 class="items__empty">No hay historial para mostrar 😿</h5>
+        {{/if}}
+      </div>
+    </div>
+  </div>
+</section>

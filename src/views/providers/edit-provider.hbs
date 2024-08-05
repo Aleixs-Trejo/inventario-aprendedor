@@ -1,0 +1,89 @@
+<div class="sub__header sub__header--fixed">
+  <div class="sub__header__container">
+    <article class="sub__header__content">
+      <section class="section__sub__header">
+        <article class="article__sub__header sub__header__actions">
+          <div class="sub__header__actions__container">
+            <div class="sub__header__action">
+              <a href="/providers" class="sub__header__link">
+                <figure class="sub__header__figure">
+                  <img src="/assets/icon-back.svg" alt="Icon Back" class="sub__header__img">
+                </figure>
+              </a>
+              <span class="sub__header__span">Volver</span>
+            </div>
+          </div>
+        </article>
+      </section>
+    </article>
+  </div>
+</div>
+<section class="section__all--forms">
+  <div class="container__form__container">
+    <div class="container">
+      <section class="section__form">
+        <form action="/providers/{{provider._id}}/edit" method="POST" class="form">
+          <div class="form__content">
+            <h2 class="form__title">Editar Proveedor</h2>
+            <div class="form__img">
+              <figure class="login__figure">
+                <img src="/assets/logo-aprendedor.webp" alt="Logo Aprendedor" class="login__img">
+              </figure>
+            </div>
+            <section class="form__container">
+              <article class="form__group">
+                <input class="form__input" type="number" name="dniProveedor" id="dni_proveedor" placeholder=" " value="{{provider.dniProveedor}}" title="DNI del proveedor" onkeypress="return validarDNI(event);" required>
+                <label for="dni_proveedor" class="form__label">DNI/RUC:</label>
+                <span class="form__line"></span>
+              </article>
+              <article class="form__group">
+                <input class="form__input" type="text" name="nombreProveedor" id="nombre_proveedor" placeholder=" " value="{{provider.nombreProveedor}}" title="Nombre del Proveedor" required>
+                <label for="nombre_proveedor" class="form__label">Nombres:</label>
+                <span class="form__line"></span>
+              </article>
+              <article class="form__group">
+                <input class="form__input" type="number" name="celularProveedor" id="celular_proveedor" placeholder=" " value="{{provider.celularProveedor}}" title="Celular del Proveedor" onkeypress="return validarCelular(event);" required>
+                <label for="celular_proveedor" class="form__label">Celular:</label>
+                <span class="form__line"></span>
+              </article>
+              <article class="form__group">
+                <input class="form__input" type="email" name="correoProveedor" id="correo_proveedor" placeholder=" " value="{{provider.correoProveedor}}" title="Correo del Proveedor" required>
+                <label for="correo_proveedor" class="form__label">Correo:</label>
+                <span class="form__line"></span>
+              </article>
+              <article class="form__group">
+                <textarea class="form__input form__textarea" name="direccionProveedor" id="direccion_proveedor" placeholder=" " title="Dirección del Proveedor">{{provider.direccionProveedor}}</textarea>
+                <label for="direccion_proveedor" class="form__label">Direccion:</label>
+                <span class="form__line"></span>
+              </article>
+              <button class="form__submit">Actualizar</button>
+            </section>
+          </div>
+        </form>
+      </section>
+    </div>
+  </div>
+</section>
+<script>
+  function validarDNI(evt){
+    let code = (evt.which) ? evt.which : evt.keyCode;
+    if (code == 11){
+      return true;
+    } else if(code>=48 && code<=57) {
+      return evt.target.value.length < 11;
+    } else{
+      return false;
+    }
+  }
+
+  function validarCelular(evt) {
+    let code = (evt.which) ? evt.which : evt.keyCode;
+    if (code == 9) {
+      return true;
+    } else if (code >= 48 && code <= 57) {
+      return evt.target.value.length < 9;
+    } else {
+      return false;
+    }
+  }
+</script>

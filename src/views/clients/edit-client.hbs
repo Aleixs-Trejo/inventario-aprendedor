@@ -1,0 +1,84 @@
+<div class="sub__header sub__header--fixed">
+  <div class="sub__header__container">
+    <article class="sub__header__content">
+      <section class="section__sub__header">
+        <article class="article__sub__header sub__header__actions">
+          <div class="sub__header__actions__container">
+            <div class="sub__header__action">
+              <a href="/clients" class="sub__header__link">
+                <figure class="sub__header__figure">
+                  <img src="/assets/icon-back.svg" alt="Icon Back" class="sub__header__img">
+                </figure>
+              </a>
+              <span class="sub__header__span">Volver</span>
+            </div>
+          </div>
+        </article>
+      </section>
+    </article>
+  </div>
+</div>
+<section class="section__all--forms">
+  <div class="container__form__container">
+    <div class="container">
+      <section class="section__form">
+        <form action="/clients/{{client._id}}/edit" method="POST" class="form">
+          <div class="form__content">
+            <h2 class="form__title">Editar Cliente</h2>
+            <div class="form__img">
+              <figure class="login__figure">
+                <img src="/assets/logo-aprendedor.webp" alt="Logo Aprendedor" class="login__img">
+              </figure>
+            </div>
+            <section class="form__container">
+              <article class="form__group">
+                <input class="form__input" onkeypress="return validarDNI(event);" type="number" name="dniCliente" id="edit_dni" placeholder=" " required value="{{client.dniCliente}}">
+                <label for="edit_dni" class="form__label">DNI/RUC:</label>
+                <span class="form__line"></span>
+              </article>
+              <article class="form__group">
+                <input class="form__input" type="text" name="nombreCliente" id="edit_name" placeholder=" " required value="{{client.nombreCliente}}">
+                <label for="edit_name" class="form__label">Nombres:</label>
+                <span class="form__line"></span>
+              </article>
+              <article class="form__group">
+                <input class="form__input" onkeypress="return validarCelular(event);" type="number" name="celularCliente" id="edit_celular" placeholder=" " required value="{{client.celularCliente}}">
+                <label for="edit_celular" class="form__label">Celular:</label>
+                <span class="form__line"></span>
+              </article>
+              <article class="form__group">
+                <input class="form__input" type="email" name="correoCliente" id="edit_celular" placeholder=" " value="{{client.correoCliente}}">
+                <label for="edit_celular" class="form__label">Correo:</label>
+                <span class="form__line"></span>
+              </article>
+              <button class="form__submit">Actualizar</button>
+            </section>
+          </div>
+        </form>
+      </section>
+    </div>
+  </div>
+</section>
+<script>
+  function validarDNI(evt){
+    let code = (evt.which) ? evt.which : evt.keyCode;
+    if (code == 11){
+      return true;
+    } else if(code>=48 && code<=57) {
+      return evt.target.value.length < 11;
+    } else{
+      return false;
+    }
+  }
+
+  function validarCelular(evt) {
+    let code = (evt.which) ? evt.which : evt.keyCode;
+    if (code == 9) {
+      return true;
+    } else if (code >= 48 && code <= 57) {
+      return evt.target.value.length < 9;
+    } else {
+      return false;
+    }
+  }
+</script>

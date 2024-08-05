@@ -1,0 +1,544 @@
+<div class="index__main">
+  <section class="section__index">
+    {{#if user}}
+      <section class="section__container">
+        <div class="section__content">
+          <div class="container">
+            <article class="article__primary">
+              <div class="primary__content">
+                <h5 class="section__title">Acceso rápido:</h5>
+                <ul class="fast__btns">
+                  {{#if user.trabajadorUsuario}}
+                    {{#if (eq user.trabajadorUsuario.rolTrabajador.nombreRol "Admin")}}
+                      <li class="fast__btn fast__btn--productos" style="--color__area: #fb5607">
+                        <a href="/categories-room" class="fast__link">
+                          <div class="fast__icon">
+                            <figure class="fast__figure">
+                              <img src="/assets/icon-category-room.svg" alt="Icon Category" class="fast__img">
+                            </figure>
+                          </div>
+                          <h4 class="fast__title">Categorías</h4>
+                        </a>
+                      </li>
+                      <li class="fast__btn fast__btn--productos" style="--color__area: #3a86ff">
+                        <a href="/status-room" class="fast__link">
+                          <div class="fast__icon">
+                            <figure class="fast__figure">
+                              <img src="/assets/icon-status-room.svg" alt="Icon Status" class="fast__img">
+                            </figure>
+                          </div>
+                          <h4 class="fast__title">Estados</h4>
+                        </a>
+                      </li>
+                      <li class="fast__btn fast__btn--productos" style="--color__area: #ffbd00">
+                        <a href="/rooms" class="fast__link">
+                          <div class="fast__icon">
+                            <figure class="fast__figure">
+                              <img src="/assets/icon-bed.svg" alt="Icon Bed" class="fast__img">
+                            </figure>
+                          </div>
+                          <h4 class="fast__title">Habitaciones</h4>
+                        </a>
+                      </li>
+                      <li class="fast__btn fast__btn--productos" style="--color__area: #ad2831">
+                        <a href="/maintenances" class="fast__link">
+                          <div class="fast__icon">
+                            <figure class="fast__figure">
+                              <img src="/assets/icon-tools.svg" alt="Icon Tools" class="fast__img">
+                            </figure>
+                          </div>
+                          <h4 class="fast__title">Mantenimientos</h4>
+                        </a>
+                      </li>
+                      <li class="fast__btn fast__btn--productos" style="--color__area: #3a0ca3">
+                        <a href="/reservations" class="fast__link">
+                          <div class="fast__icon">
+                            <figure class="fast__figure">
+                              <img src="/assets/icon-room.svg" alt="Icon Floor" class="fast__img">
+                            </figure>
+                          </div>
+                          <h4 class="fast__title">Reservas</h4>
+                        </a>
+                      </li>
+                      <li class="fast__btn fast__btn--productos" style="--color__area: #14213d">
+                        <a href="/store-hotel" class="fast__link">
+                          <div class="fast__icon">
+                            <figure class="fast__figure">
+                              <img src="/assets/icon-store.svg" alt="Icon Store" class="fast__img">
+                            </figure>
+                          </div>
+                          <h4 class="fast__title">Almacén</h4>
+                        </a>
+                      </li>
+                      <li class="fast__btn fast__btn--productos" style="--color__area: #386641">
+                        <a href="/occupations" class="fast__link">
+                          <div class="fast__icon">
+                            <figure class="fast__figure">
+                              <img src="/assets/icon-occupation.svg" alt="Icon Occupation" class="fast__img">
+                            </figure>
+                          </div>
+                          <h4 class="fast__title">Ocupados</h4>
+                        </a>
+                      </li>
+                      <li class="fast__btn fast__btn--productos" style="--color__area: #023047">
+                        <a href="/cleanings" class="fast__link">
+                          <div class="fast__icon">
+                            <figure class="fast__figure">
+                              <img src="/assets/icon-clean.svg" alt="Icon Clean" class="fast__img">
+                            </figure>
+                          </div>
+                          <h4 class="fast__title">Uso-Limpieza</h4>
+                        </a>
+                      </li>
+                      <li class="fast__btn fast__btn--productos" style="--color__area: #ff006e">
+                        <a href="/checkouts" class="fast__link">
+                          <div class="fast__icon">
+                            <figure class="fast__figure">
+                              <img src="/assets/icon-check-white.svg" alt="Icon Checkout" class="fast__img">
+                            </figure>
+                          </div>
+                          <h4 class="fast__title">Salidas</h4>
+                        </a>
+                      </li>
+                      <li class="fast__btn fast__btn--productos" style="--color__area: #8338ec">
+                        <a href="/hotel/balance" class="fast__link">
+                          <div class="fast__icon">
+                            <figure class="fast__figure">
+                              <img src="/assets/icon-balance.svg" alt="Icon Balance" class="fast__img">
+                            </figure>
+                          </div>
+                          <h4 class="fast__title">Balances</h4>
+                        </a>
+                      </li>
+                      <li class="fast__btn fast__btn--productos" style="--color__area: #06d6a0">
+                        <a href="/hotel/sales" class="fast__link">
+                          <div class="fast__icon">
+                            <figure class="fast__figure">
+                              <img src="/assets/icon-cart.svg" alt="Icon Sales" class="fast__img">
+                            </figure>
+                          </div>
+                          <h4 class="fast__title">Ventas</h4>
+                        </a>
+                      </li>
+                    {{/if}}
+                  {{/if}}
+                </ul>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+      <section class="section__container">
+        <div class="section__content">
+          <div class="container">
+            <article class="article__primary">
+              <div class="primary__content">
+                <h5 class="section__title">Recepción:</h5>
+                {{#if rooms}}
+                  <div class="stats__container">
+                    <section class="stats stats__header">
+                      <div class="stats__header__container">
+                        <div class="stats__header--stat stat__header--selected" data-filter="all">
+                          <span class="stat__span">Total Habitaciones:</span>
+                          <span class="stat__span">{{rooms.length}}</span>
+                        </div>
+                        <div class="stats__header--stat" data-filter="disponible">
+                          <span class="stat__span">Disponibles:</span>
+                          <span class="stat__span">{{roomsDisponible}}</span>
+                        </div>
+                        <div class="stats__header--stat" data-filter="ocupado">
+                          <span class="stat__span">Ocupadas:</span>
+                          <span class="stat__span">{{roomsOcupada}}</span>
+                        </div>
+                        <div class="stats__header--stat" data-filter="reservado">
+                          <span class="stat__span">Reservadas:</span>
+                          <span class="stat__span">{{roomsReservada}}</span>
+                        </div>
+                        <div class="stats__header--stat" data-filter="limpieza">
+                          <span class="stat__span">En Limpieza:</span>
+                          <span class="stat__span">{{roomsEnLimpieza}}</span>
+                        </div>
+                        <div class="stats__header--stat" data-filter="mantenimiento">
+                          <span class="stat__span">En Mantenimiento:</span>
+                          <span class="stat__span">{{roomsEnMantenimiento}}</span>
+                        </div>
+                        <div class="stats__header--stat" data-filter="limpiezaPendiente">
+                          <span class="stat__span">Limpieza Pendiente:</span>
+                          <span class="stat__span">{{roomsLimpiezaPendiente}}</span>
+                        </div>
+                      </div>
+                    </section>
+                    <section class="stats stats__body">
+                      <div class="stats__body--rooms items__grid items__rooms__hotel">
+                        {{#each rooms}}
+                          <article class="card__container" {{#if (eq estadoHabitacion "Disponible")}} data-estado="disponible"{{/if}}{{#if (eq estadoHabitacion "Ocupado")}} data-estado="ocupado"{{/if}}{{#if (eq estadoHabitacion "Reservado")}} data-estado="reservado"{{/if}}{{#if (eq estadoHabitacion "Limpieza")}} data-estado="limpieza"{{/if}}{{#if (eq estadoHabitacion "Mantenimiento")}} data-estado="mantenimiento"{{/if}} {{#if (eq estadoHabitacion "Limpieza Pendiente")}} data-estado="limpiezaPendiente"{{/if}}>
+                            <div class="card">
+                              <div class="card__content bg__card" style="--bg__card: url('../../assets/room.webp');">
+                                <span class="span__bg__card">Habitación: {{numeroHabitacion}}</span>
+                              </div>
+                              <div class="flex-c-c card__texts" {{#if (eq estadoHabitacion "Disponible")}}style='--bg__card__texts: #185f2988;'{{/if}}{{#if (eq estadoHabitacion "Ocupado")}}style='--bg__card__texts: #77260088;'{{/if}}{{#if (eq estadoHabitacion "Reservado")}}style='--bg__card__texts: #0b214a88;'{{/if}}{{#if (eq estadoHabitacion "Limpieza")}}style='--bg__card__texts: #46340288;'{{/if}}{{#if (eq estadoHabitacion "Mantenimiento")}}style='--bg__card__texts: #4e060b88;'{{/if}} {{#if (eq estadoHabitacion "Limpieza Pendiente")}}style='--bg__card__texts: #219ebc88;'{{/if}}>
+                                <div class="room__info">
+                                  <div class="info__container">
+                                    <div class="info__item">
+                                      <span class="info__item__title">Habitación:</span>
+                                      <span class="info__item__value">{{numeroHabitacion}}</span>
+                                    </div>
+                                    <div class="info__item">
+                                      <span class="info__item__title">Categoría:</span>
+                                      <span class="info__item__value">{{categoriaHabitacion.nombreCategoriaHabitacion}}</span>
+                                    </div>
+                                    <div class="info__item">
+                                      <span class="info__item__title">Precio:</span>
+                                      <span class="info__item__value">S/{{formatCurrency precioHabitacion}}</span>
+                                    </div>
+                                    <div class="info__item">
+                                      <span class="info__item__title">Estado:</span>
+                                      <span class="info__item__value">{{estadoHabitacion}}</span>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <section class="modal__fixed">
+                              <div class="flex-c-c modal modal__disponible">
+                                <article class="flex-c-c article__modal">
+                                  <h5 class="modal__title">Selecciona Opción</h5>
+                                  <div class="flex-c-c modal__btns">
+                                    <a href="/occupation/{{_id}}/register" class="btn__modal__action action--occupation">Ocupar</a>
+                                    <a href="/maintenance/{{_id}}/register" class="btn__modal__action action--mantenimiento">Mantenimiento</a>
+                                    <a href="/reservation/{{_id}}/register" class="btn__modal__action action--reservar">Reservar</a>
+                                  </div>
+                                  <div class="close__modal close__modal__disponible">
+                                    <figure class="close__figure">
+                                      <img src="/assets/icon-close.svg" alt="Icon Close" class="close__img">
+                                    </figure>
+                                  </div>
+                                </article>
+                              </div>
+                            </section>
+                            <section class="modal__fixed">
+                              <div class="flex-c-c modal modal__mantenimiento">
+                                <article class="flex-c-c article__modal">
+                                  <h5 class="modal__title">Selecciona Opción</h5>
+                                  <div class="flex-c-c modal__btns">
+                                    <button type="button" class="btn__modal__action modal__cancel--mantenimiento">Cancelar</button>
+                                    <a href="/maintenance/{{maintenanceRoomId}}/details" class="btn__modal__action action--mantenimiento">Detalles</a>
+                                  </div>
+                                  <div class="close__modal close__modal__mantenimiento">
+                                    <figure class="close__figure">
+                                      <img src="/assets/icon-close.svg" alt="Icon Close" class="close__img">
+                                    </figure>
+                                  </div>
+                                </article>
+                              </div>
+                            </section>
+                            <section class="modal__fixed">
+                              <div class="flex-c-c modal modal__limpieza">
+                                <article class="flex-c-c article__modal">
+                                  <h5 class="modal__title">Selecciona Opción</h5>
+                                  <div class="flex-c-c modal__btns">
+                                    <button type="button" class="btn__modal__action modal__cancel--limpieza">Cancelar</button>
+                                    <a href="/maintenance/{{_id}}/register" class="btn__modal__action action--mantenimiento">Mantenimiento</a>
+                                  </div>
+                                  <div class="close__modal close__modal__limpieza">
+                                    <figure class="close__figure">
+                                      <img src="/assets/icon-close.svg" alt="Icon Close" class="close__img">
+                                    </figure>
+                                  </div>
+                                </article>
+                              </div>
+                            </section>
+                            <section class="modal__fixed">
+                              <div class="flex-c-c modal modal__reservado">
+                                <article class="flex-c-c article__modal">
+                                  <h5 class="modal__title">Selecciona Opción</h5>
+                                  <div class="flex-c-c modal__btns">
+                                    <button type="button" class="btn__modal__action modal__cancel--reservado">Cancelar</button>
+                                    <a href="/reservation/{{reservationId}}/details" class="btn__modal__action action--reservar">Detalles</a>
+                                  </div>
+                                  <div class="close__modal close__modal__reservado">
+                                    <figure class="close__figure">
+                                      <img src="/assets/icon-close.svg" alt="Icon Close" class="close__img">
+                                    </figure>
+                                  </div>
+                                </article>
+                              </div>
+                            </section>
+                            <section class="modal__fixed">
+                              <div class="flex-c-c modal modal__ocupado">
+                                <article class="flex-c-c article__modal">
+                                  <h5 class="modal__title">Selecciona Opción</h5>
+                                  <div class="flex-c-c modal__btns">
+                                    <button type="button" class="btn__modal__action modal__cancel--ocupado">Cancelar</button>
+                                    <a href="/occupation/{{occupationId}}/details" class="btn__modal__action action--actividad">Detalles</a>
+                                  </div>
+                                  <div class="close__modal close__modal__ocupado">
+                                    <figure class="close__figure">
+                                      <img src="/assets/icon-close.svg" alt="Icon Close" class="close__img">
+                                    </figure>
+                                  </div>
+                                </article>
+                              </div>
+                            </section>
+                          </article>
+                        {{/each}}
+                        <h5 class="filter__empty" style="display: none;">No hay habitaciones para mostrar 😿</h5>
+                      </div>
+                    </section>
+                  </div>
+                {{else}}
+                  <h5 class="items__empty">No hay Habitaciones para mostrar 😿</h5>
+                {{/if}}
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+      <section class="section__container">
+        <div class="section__content">
+          <div class="container">
+            <article class="article__primary">
+              <div class="primary__content">
+                <h5 class="section__title">Historial de habitaciones:</h5>
+                {{#if roomsHistory}}
+                  <section class="items">
+                    <div class="items__container__elements">
+                      <section class="views__container--elements view__scrollbar">
+                        <div class="views__content--elements items__container index__room__history">
+                          <article class="items__header items__grid index__room__history">
+                            <div class="flex-c-c">Tipo de Registro:</div>
+                            <div class="flex-c-c">Registrado por:</div>
+                            <div class="flex-c-c">Habitación:</div>
+                            <div class="flex-c-c">Descripción:</div>
+                            <div class="flex-c-c">Categoría:</div>
+                            <div class="flex-c-c">Precio:</div>
+                            <div class="flex-c-c">Estado:</div>
+                            <div class="flex-c-c">Fecha Registro:</div>
+                          </article>
+                          <div class="items__data--values">
+                            {{#each roomsHistory}}
+                              <div class="container__data">
+                                <article class="items__data items__grid index__room__history">
+                                  <div class="flex-c-c"><span class="span__data__item tipo__historial">{{tipoHistorial}}</span></div>
+                                  <div class="flex-c-c">{{habitacionHistorial.usuarioRegistroHabitacion.usuario}}</div>
+                                  <div class="flex-c-c">{{habitacionHistorial.numeroHabitacion}}</div>
+                                  <div class="flex-c-c">{{habitacionHistorial.descripcionHabitacion}}</div>
+                                  <div class="flex-c-c">{{habitacionHistorial.categoriaHabitacion.nombreCategoriaHabitacion}}</div>
+                                  <div class="flex-c-c">S/ {{formatCurrency habitacionHistorial.precioHabitacion}}</div>
+                                  <div class="flex-c-c"><span class="span__data__item status__room">{{habitacionHistorial.estadoHabitacion}}</span></div>
+                                  <div class="flex-c-c">{{formatDateTime habitacionHistorial.createdAt}}</div>
+                                </article>
+                              </div>
+                            {{/each}}
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </section>
+                {{else}}
+                  <h5 class="items__empty">No hay historial de habitaciones para mostrar 😿</h5>
+                {{/if}}
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+    {{/if}}
+  </section>
+</div>
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const $stats = document.querySelectorAll(".stats__header--stat");
+    const $cards = document.querySelectorAll(".card__container");
+    const $mainContent = document.querySelector(".main__content");
+    const $filterEmpty = document.querySelector(".filter__empty");
+    const $statusRoom = document.querySelectorAll(".status__room");
+    const $tipoHistorial = document.querySelectorAll(".tipo__historial");
+
+    function statusRoom() {
+      $statusRoom.forEach(item => {
+        const estado = item.textContent;
+        if (estado === "Disponible") {
+          item.style.backgroundColor = "#58b56d";
+          item.style.color = "#fff"
+        } else if (estado === "Ocupado") {
+          item.style.backgroundColor = "#fb5607";
+          item.style.color = "#fff"
+        } else if (estado === "Reservado") {
+          item.style.backgroundColor = "#1b263b";
+          item.style.color = "#fff"
+        } else if (estado === "En Limpieza" || estado === "Limpieza") {
+          item.style.backgroundColor = "#ffbd00";
+          item.style.color = "#fff"
+        } else if (estado === "En Mantenimiento" || estado === "Mantenimiento") {
+          item.style.backgroundColor = "#ad2831";
+          item.style.color = "#fff"
+        } else if (estado === "Limpieza Pendiente") {
+          item.style.backgroundColor = "#219ebc";
+          item.style.color = "#fff"
+        }
+      });
+    };
+
+    function tipoHistorial() {
+      $tipoHistorial.forEach(item => {
+        const estado = item.textContent;
+        if (estado === "Registro") {
+          item.style.backgroundColor = "#58b56d";
+          item.style.color = "#fff"
+        } else if (estado === "Finalización" || estado === "Finalizado" || estado === "Eliminado") {
+          item.style.backgroundColor = "#ad2831";
+          item.style.color = "#fff"
+        }
+      });
+    };
+
+    tipoHistorial();
+    statusRoom();
+
+    // Añadir evento click a las opciones de estadísticas para filtros
+    $stats.forEach($stat => {
+      $stat.addEventListener("click", () => {
+        resetFocus();
+        $stat.classList.add("stat__header--selected");
+        filterRooms($stat.dataset.filter);
+      });
+    });
+
+    // Función para eliminar la clase "stat__header--selected" de las opciones
+    function resetFocus() {
+      $stats.forEach($stat => $stat.classList.remove("stat__header--selected"));
+    }
+
+    // Función para filtrar las habitaciones en función de la opción seleccionada
+    function filterRooms(filter) {
+      let allHidden = true;
+      $cards.forEach($card => {
+        // Obtener el estado de la habitación actual
+        const estado = $card.dataset.estado;
+        // Mostrar u ocultar la tarjeta basada en el filtro
+        if (estado === filter || filter === "all") {
+          $card.style.display = "flex";
+          allHidden = false;
+        } else {
+          $card.style.display = "none";
+        }
+      });
+
+      if ($filterEmpty){
+        if (allHidden) {
+          $filterEmpty.style.display = "block";
+          $filterEmpty.classList.add("items__empty");
+        } else {
+          $filterEmpty.style.display = "none";
+          $filterEmpty.classList.remove("items__empty");
+        }
+      }
+    }
+
+    // Inicializar el filtro por "all"
+    filterRooms("all");
+
+    // Evento para mostrar modal
+    $cards.forEach($card => {
+      const $modalDisponible = $card.querySelector(".modal__disponible");
+      const $modalMantenimiento = $card.querySelector(".modal__mantenimiento");
+      const $modalLimpieza = $card.querySelector(".modal__limpieza");
+      const $modalReservado = $card.querySelector(".modal__reservado");
+      const $modalOcupado = $card.querySelector(".modal__ocupado");
+
+      const $modal = $card.querySelector(".modal");
+
+      const $closeModalDisponible = $modalDisponible.querySelector(".close__modal__disponible");
+      const $closeModalMantenimiento = $modalMantenimiento.querySelector(".close__modal__mantenimiento");
+      const $closeModalLimpieza = $modalLimpieza.querySelector(".close__modal__limpieza");
+      const $closeModalReservado = $modalReservado.querySelector(".close__modal__reservado");
+      const $closeModalOcupado = $modalOcupado.querySelector(".close__modal__ocupado");
+
+      const $cancelModalMantenimiento = $modalMantenimiento.querySelector(".modal__cancel--mantenimiento");
+      const $cancelModalLimpieza = $modalLimpieza.querySelector(".modal__cancel--limpieza");
+      const $cancelModalReservado = $modalReservado.querySelector(".modal__cancel--reservado");
+      const $cancelModalOcupado = $modalOcupado.querySelector(".modal__cancel--ocupado");
+
+      $card.addEventListener("click", function showModal(event) {
+        event.stopPropagation();
+        const estado = $card.dataset.estado;
+
+        // Mostrar modal correspondiente según el estado de la habitación
+        switch (estado) {
+          case "disponible":
+            $modalDisponible.classList.add("modal__show");
+            break;
+          case "mantenimiento":
+            $modalMantenimiento.classList.add("modal__show");
+            break;
+          case "limpieza":
+            $modalMantenimiento.classList.add("modal__show");
+            break;
+          case "reservado":
+            $modalReservado.classList.add("modal__show");
+            break;
+          case "ocupado":
+            $modalOcupado.classList.add("modal__show");
+            break;
+          case "limpiezaPendiente":
+            $modalLimpieza.classList.add("modal__show");
+            break;
+          default:
+            break;
+        }
+      });
+      $closeModalDisponible.addEventListener("click", function closeModal(event) {
+        event.stopPropagation();
+        $modalDisponible.classList.remove("modal__show");
+      });
+      $closeModalMantenimiento.addEventListener("click", function closeModal(event) {
+        event.stopPropagation();
+        $modalMantenimiento.classList.remove("modal__show");
+      });
+      $closeModalLimpieza.addEventListener("click", function closeModal(event) {
+        event.stopPropagation();
+        $modalLimpieza.classList.remove("modal__show");
+      });
+      $closeModalReservado.addEventListener("click", function closeModal(event) {
+        event.stopPropagation();
+        $modalReservado.classList.remove("modal__show");
+      });
+      $closeModalOcupado.addEventListener("click", function closeModal(event) {
+        event.stopPropagation();
+        $modalOcupado.classList.remove("modal__show");
+      });
+      $cancelModalMantenimiento.addEventListener("click", function closeModal(event) {
+        event.stopPropagation();
+        $modalMantenimiento.classList.remove("modal__show");
+      });
+      $cancelModalLimpieza.addEventListener("click", function closeModal(event) {
+        event.stopPropagation();
+        $modalLimpieza.classList.remove("modal__show");
+      });
+      $cancelModalReservado.addEventListener("click", function closeModal(event) {
+        event.stopPropagation();
+        $modalReservado.classList.remove("modal__show");
+      });
+      $cancelModalOcupado.addEventListener("click", function closeModal(event) {
+        event.stopPropagation();
+        $modalOcupado.classList.remove("modal__show");
+      });
+    });
+  
+    // Clase auxiliar para agregar la clase items__rooms__hotel--child cuando los hijos de items__rooms__hotel sean mayor a 4 elementos si estos tienen el display flex
+    const $itemsRoomsHotel = document.querySelector(".items__rooms__hotel");
+
+    // Filtrar los hijos que tengan el display flex
+    const $itemsRoomsHotelChildren = Array.from($itemsRoomsHotel.children);
+    console.log("Hijos de items__rooms__hotel: ", $itemsRoomsHotelChildren);
+    console.log("Colección de elementos HTML hijos de roomsHotel: ", $itemsRoomsHotel.children);
+    const $itemsRoomsHotelChildrenFlex = $itemsRoomsHotelChildren.filter(child => child.style.display === "flex");
+
+    if ($itemsRoomsHotelChildrenFlex.length > 6) {
+      $itemsRoomsHotel.classList.add("items__rooms__hotel--child");
+    } else {
+      $itemsRoomsHotel.classList.remove("items__rooms__hotel--child");
+    }
+  });
+</script>

@@ -1,0 +1,420 @@
+<div class="index__main">
+  <section class="section__index">
+    {{#if user}}
+      <section class="section__container">
+        <div class="section__content">
+          <div class="container">
+            <article class="article__primary">
+              <div class="primary__content">
+                <h5 class="section__title">Acceso rápido:</h5>
+                <ul class="fast__btns">
+                  {{#if user.trabajadorUsuario}}
+                    {{#if (eq user.trabajadorUsuario.rolTrabajador.nombreRol "Admin")}}
+                      <li class="fast__btn fast__btn--clientes" style="--color__area: #f44336">
+                        <a href="/clients" class="fast__link">
+                          <div class="fast__icon">
+                            <figure class="fast__figure">
+                              <img src="/assets/icon-users.svg" alt="Icon Clientes" class="fast__img">
+                            </figure>
+                          </div>
+                          <h4 class="fast__title">Clientes</h4>
+                        </a>
+                      </li>
+                      <li class="fast__btn fast__btn--ventas" style="--color__area: #2196f3">
+                        <a href="/sales" class="fast__link">
+                          <div class="fast__icon">
+                            <figure class="fast__figure">
+                              <img src="/assets/icon-buy-bag.svg" alt="Icon Cart" class="fast__img">
+                            </figure>
+                          </div>
+                          <h4 class="fast__title">Ventas</h4>
+                        </a>
+                      </li>
+                      <li class="fast__btn fast__btn--proveedores" style="--color__area: #3f51b5">
+                        <a href="/providers" class="fast__link">
+                          <div class="fast__icon">
+                            <figure class="fast__figure">
+                              <img src="/assets/icon-provider.svg" alt="Icon Provider" class="fast__img">
+                            </figure>
+                          </div>
+                          <h4 class="fast__title">Proveedores</h4>
+                        </a>
+                      </li>
+                      <li class="fast__btn fast__btn--productos" style="--color__area: #ffb703">
+                        <a href="/products" class="fast__link">
+                          <div class="fast__icon">
+                            <figure class="fast__figure">
+                              <img src="/assets/icon-products.svg" alt="Icon Procuts" class="fast__img">
+                            </figure>
+                          </div>
+                          <h4 class="fast__title">Productos</h4>
+                        </a>
+                      </li>
+                      <li class="fast__btn fast__btn--categorias" style="--color__area: #ff006e">
+                        <a href="/categories" class="fast__link">
+                          <div class="fast__icon">
+                            <figure class="fast__figure">
+                              <img src="/assets/icon-computer-cell.svg" alt="Icon Categories" class="fast__img">
+                            </figure>
+                          </div>
+                          <h4 class="fast__title">Categorías</h4>
+                        </a>
+                      </li>
+                      <li class="fast__btn fast__btn--almacen" style="--color__area: #9c27b0">
+                        <a href="/stores" class="fast__link">
+                          <div class="fast__icon">
+                            <figure class="fast__figure">
+                              <img src="/assets/icon-cart.svg" alt="Icon Clientes" class="fast__img">
+                            </figure>
+                          </div>
+                          <h4 class="fast__title">Almacen</h4>
+                        </a>
+                      </li>
+                      <li class="fast__btn fast__btn--empleados" style="--color__area: #4fb128">
+                        <a href="/employees" class="fast__link">
+                          <div class="fast__icon">
+                            <figure class="fast__figure">
+                              <img src="/assets/icon-employee.svg" alt="Icon Employees" class="fast__img">
+                            </figure>
+                          </div>
+                          <h4 class="fast__title">Empleados</h4>
+                        </a>
+                      </li>
+                      <li class="fast__btn fast__btn--usuarios" style="--color__area: #002d88">
+                        <a href="/users" class="fast__link">
+                          <div class="fast__icon">
+                            <figure class="fast__figure">
+                              <img src="/assets/icon-users.svg" alt="Icon Users" class="fast__img">
+                            </figure>
+                          </div>
+                          <h4 class="fast__title">Usuarios</h4>
+                        </a>
+                      </li>
+                    {{/if}}
+                    {{#if (eq user.trabajadorUsuario.rolTrabajador.nombreRol "Vendedor")}}
+                      <li class="fast__btn fast__btn--clientes" style="--color__area: #f44336">
+                        <a href="/clients" class="fast__link">
+                          <div class="fast__icon">
+                            <figure class="fast__figure">
+                              <img src="/assets/icon-users.svg" alt="Icon Clientes" class="fast__img">
+                            </figure>
+                          </div>
+                          <h4 class="fast__title">Clientes</h4>
+                        </a>
+                      </li>
+                      <li class="fast__btn fast__btn--ventas" style="--color__area: #2196f3">
+                        <a href="/sales" class="fast__link">
+                          <div class="fast__icon">
+                            <figure class="fast__figure">
+                              <img src="/assets/icon-buy-bag.svg" alt="Icon Cart" class="fast__img">
+                            </figure>
+                          </div>
+                          <h4 class="fast__title">Ventas</h4>
+                        </a>
+                      </li>
+                      <li class="fast__btn fast__btn--productos" style="--color__area: #3f51b5">
+                        <a href="/products" class="fast__link">
+                          <div class="fast__icon">
+                            <figure class="fast__figure">
+                              <img src="/assets/icon-products.svg" alt="Icon Procuts" class="fast__img">
+                            </figure>
+                          </div>
+                          <h4 class="fast__title">Productos</h4>
+                        </a>
+                      </li>
+                      <li class="fast__btn fast__btn--almacen" style="--color__area: #9c27b0">
+                        <a href="/stores" class="fast__link">
+                          <div class="fast__icon">
+                            <figure class="fast__figure">
+                              <img src="/assets/icon-cart.svg" alt="Icon Clientes" class="fast__img">
+                            </figure>
+                          </div>
+                          <h4 class="fast__title">Almacen</h4>
+                        </a>
+                      </li>
+                    {{/if}}
+                    {{#if (eq user.trabajadorUsuario.rolTrabajador.nombreRol "Almacen")}}
+                      <li class="fast__btn fast__btn--proveedores" style="--color__area: #3f51b5">
+                        <a href="/providers" class="fast__link">
+                          <div class="fast__icon">
+                            <figure class="fast__figure">
+                              <img src="/assets/icon-provider.svg" alt="Icon Provider" class="fast__img">
+                            </figure>
+                          </div>
+                          <h4 class="fast__title">Proveedores</h4>
+                        </a>
+                      </li>
+                      <li class="fast__btn fast__btn--almacen" style="--color__area: #9c27b0">
+                        <a href="/stores" class="fast__link">
+                          <div class="fast__icon">
+                            <figure class="fast__figure">
+                              <img src="/assets/icon-cart.svg" alt="Icon Clientes" class="fast__img">
+                            </figure>
+                          </div>
+                          <h4 class="fast__title">Almacen</h4>
+                        </a>
+                      </li>
+                      <li class="fast__btn fast__btn--productos" style="--color__area: #ffb703">
+                        <a href="/products" class="fast__link">
+                          <div class="fast__icon">
+                            <figure class="fast__figure">
+                              <img src="/assets/icon-products.svg" alt="Icon Products" class="fast__img">
+                            </figure>
+                          </div>
+                          <h4 class="fast__title">Productos</h4>
+                        </a>
+                      </li>
+                      <li class="fast__btn fast__btn--categorias" style="--color__area: #ff006e">
+                        <a href="/categories" class="fast__link">
+                          <div class="fast__icon">
+                            <figure class="fast__figure">
+                              <img src="/assets/icon-computer-cell.svg" alt="Icon Categories" class="fast__img">
+                            </figure>
+                          </div>
+                          <h4 class="fast__title">Categorías</h4>
+                        </a>
+                      </li>
+                    {{/if}}
+                  {{/if}}
+                </ul>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+      <section class="section__container">
+        <div class="section__content">
+          <div class="container">
+            <article class="article__primary">
+              <div class="primary__content">
+                <h5 class="section__title">Estado de ventas en la semana:</h5>
+                {{#if sales}}
+                  <section class="items">
+                    <div class="items__container__elements">
+                      <section class="views__container--elements view__scrollbar">
+                        <div class="views__content--elements items__container sales__index">
+                          <article class="items__header items__grid sales__index">
+                            <div class="flex-c-c">Estado</div>
+                            <div class="flex-c-c">ID</div>
+                            <div class="flex-c-c">Vendedor</div>
+                            <div class="flex-c-c">Cliente</div>
+                            <div class="flex-c-c">Cant</div>
+                            <div class="flex-c-c">Total</div>
+                            <div class="flex-c-c">Fecha</div>
+                          </article>
+                          <div class="items__data--values">
+                            {{#each sales}}
+                              <div class="container__data">
+                                <article class="items__data items__grid sales__index">
+                                  <div class="flex-c-c"><span class="estado__venta">{{estadoVenta}}</span></div>
+                                  <div class="flex-c-c">{{_id}}</div>
+                                  <div class="flex-c-c">{{usuarioVenta.trabajadorUsuario.nombreTrabajador}} {{usuarioVenta.trabajadorUsuario.apellidosTrabajador}}</div>
+                                  <div class="flex-c-c">{{clienteVenta.nombreCliente}}</div>
+                                  <div class="flex-c-c">{{tipoProductosVenta}}</div>
+                                  <div class="flex-c-c total__venta">S/ {{formatCurrency precioTotalVenta}}</div>
+                                  <div class="flex-c-c">{{formatDateTime createdAt}}</div>
+                                </article>
+                              </div>
+                            {{/each}}
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </section>
+                {{else}}
+                  <h5 class="items__empty">No hay Ventas para mostrar 😿</h5>
+                {{/if}}
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+      <section class="section__container">
+        <div class="section__content">
+          <div class="container">
+            <article class="article__primary">
+              <div class="primary__content">
+                <h5 class="section__title">Productos ingresados al almacen en la semana:</h5>
+                {{#if stores}}
+                  <section class="items">
+                    <div class="items__container__elements">
+                      <section class="views__container--elements view__scrollbar">
+                        <div class="views__content--elements items__container store__history__index">
+                          <article class="items__header items__grid store__history__index">
+                            <div class="flex-c-c">Tipo:</div>
+                            <div class="flex-c-c">Reg por:</div>
+                            <div class="flex-c-c">Cod:</div>
+                            <div class="flex-c-c">Descr:</div>
+                            <div class="flex-c-c">Prov:</div>
+                            <div class="flex-c-c">Cat:</div>
+                            <div class="flex-c-c">Ubic:</div>
+                            <div class="flex-c-c">Precio:</div>
+                            <div class="flex-c-c">Stock:</div>
+                            <div class="flex-c-c">Min:</div>
+                            <div class="flex-c-c">Fecha:</div>
+                          </article>
+                          <div class="items__data--values">
+                            {{#each stores}}
+                              <div class="container__data">
+                                <article class="items__data items__grid store__history__index">
+                                  <div class="flex-c-c"><span class="registros">{{tipoHistorial}}</span></div>
+                                  <div class="flex-c-c">{{almacenHistorial.almacenUsuario.usuario}}</div>
+                                  <div class="flex-c-c">{{almacenHistorial.almacenProducto.cod}}</div>
+                                  <div class="flex-c-c">{{almacenHistorial.almacenProducto.descripcionProducto}}</div>
+                                  <div class="flex-c-c">{{almacenHistorial.almacenProducto.proveedorProducto.nombreProveedor}}</div>
+                                  <div class="flex-c-c">{{almacenHistorial.almacenProducto.categoriaProducto.nombreCategoria}}</div>
+                                  <div class="flex-c-c">{{almacenHistorial.almacenStockUbicacion.nombreStockUbicacion}}</div>
+                                  <div class="flex-c-c">S/{{formatCurrency almacenHistorial.almacenProducto.precioProducto}}</div>
+                                  <div class="flex-c-c">{{almacenHistorial.almacenStock}}</div>
+                                  <div class="flex-c-c">{{almacenHistorial.almacenMinStock}}</div>
+                                  <div class="flex-c-c">{{formatDateTime almacenHistorial.createdAt}}</div>
+                                </article>
+                              </div>
+                            {{/each}}
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </section>
+                {{else}}
+                  <h5 class="items__empty">No hay productos ingresados al almacen en la semana 😿</h5>
+                {{/if}}
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+      <section class="section__container">
+        <div class="section__content">
+          <div class="container">
+            <article class="article__primary">
+              <div class="primary__content">
+                <h5 class="section__title">Productos registrados en la semana:</h5>
+                {{#if products}}
+                  <section class="items">
+                    <div class="items__container__elements">
+                      <section class="views__container--elements view__scrollbar">
+                        <div class="views__content--elements items__container products__history__index">
+                          <article class="items__header items__grid products__history__index">
+                            <div class="flex-c-c">Tipo:</div>
+                            <div class="flex-c-c">Reg por:</div>
+                            <div class="flex-c-c">Cod:</div>
+                            <div class="flex-c-c">Nombre:</div>
+                            <div class="flex-c-c">Descr:</div>
+                            <div class="flex-c-c">Prov:</div>
+                            <div class="flex-c-c">Cat:</div>
+                            <div class="flex-c-c">Precio:</div>
+                            <div class="flex-c-c">Fecha:</div>
+                          </article>
+                          <div class="items__data--values">
+                            {{#each products}}
+                              <div class="container__data">
+                                <article class="items__data items__grid products__history__index">
+                                  <div class="flex-c-c"><span class="registros">{{tipoHistorial}}</span></div>
+                                  <div class="flex-c-c">{{productoHistorial.usuarioProducto.usuario}}</div>
+                                  <div class="flex-c-c">{{productoHistorial.cod}}</div>
+                                  <div class="flex-c-c">{{productoHistorial.nombreProducto}}</div>
+                                  <div class="flex-c-c">{{productoHistorial.descripcionProducto}}</div>
+                                  <div class="flex-c-c">{{productoHistorial.proveedorProducto.nombreProveedor}}</div>
+                                  <div class="flex-c-c">{{productoHistorial.categoriaProducto.nombreCategoria}}</div>
+                                  <div class="flex-c-c">S/{{formatCurrency productoHistorial.precioProducto}}</div>
+                                  <div class="flex-c-c">{{formatDateTime productoHistorial.createdAt}}</div>
+                                </article>
+                              </div>
+                            {{/each}}
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </section>
+                {{else}}
+                  <h5 class="items__empty">No hay productos registrados en la semana 😿</h5>
+                {{/if}}
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+      <section class="section__container">
+        <div class="section__content">
+          <div class="container">
+            <article class="article__primary">
+              <div class="primary__content">
+                <h5 class="section__title">Usuarios, roles y actividades:</h5>
+                {{#if users}}
+                  <section class="items">
+                    <div class="items__container__elements">
+                      <section class="views__container--elements view__scrollbar">
+                        <div class="views__content--elements items__container users__history__index">
+                          <article class="items__header items__grid users__history__index">
+                            <div class="flex-c-c">Tipo:</div>
+                            <div class="flex-c-c">Rol:</div>
+                            <div class="flex-c-c">DNI:</div>
+                            <div class="flex-c-c">Nombre:</div>
+                            <div class="flex-c-c">Celular:</div>
+                            <div class="flex-c-c">Correo:</div>
+                            <div class="flex-c-c">Usuario:</div>
+                            <div class="flex-c-c">Fecha:</div>
+                          </article>
+                          <div class="items__data--values">
+                            {{#each users}}
+                              <div class="container__data">
+                                <article class="items__data items__grid users__history__index">
+                                  <div class="flex-c-c"><span class="registros">{{tipoHistorial}}</span></div>
+                                  <div class="flex-c-c">{{usuarioHistorial.trabajadorUsuario.rolTrabajador.nombreRol}}</div>
+                                  <div class="flex-c-c">{{usuarioHistorial.trabajadorUsuario.dniTrabajador}}</div>
+                                  <div class="flex-c-c">{{usuarioHistorial.trabajadorUsuario.nombreTrabajador}} {{usuarioHistorial.trabajadorUsuario.apellidosTrabajador}}</div>
+                                  <div class="flex-c-c">{{usuarioHistorial.trabajadorUsuario.celularTrabajador}}</div>
+                                  <div class="flex-c-c">{{usuarioHistorial.trabajadorUsuario.correoTrabajador}}</div>
+                                  <div class="flex-c-c">{{usuarioHistorial.usuario}}</div>
+                                  <div class="flex-c-c">{{formatDateTime usuarioHistorial.trabajadorUsuario.createdAt}}</div>
+                                </article>
+                              </div>
+                            {{/each}}
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </section>
+                {{else}}
+                  <h5 class="items__empty">No hay actividades registradas en la semana 😿</h5>
+                {{/if}}
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+    {{/if}}
+  </section>
+</div>
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    function initialize() {
+      const estadosVenta = document.querySelectorAll(".estado__venta");
+      const registros = document.querySelectorAll(".registros");
+
+      estadosVenta.forEach(estadoVenta => {
+        if (estadoVenta.textContent === "Pendiente") {
+          estadoVenta.style.color = "#e76f51";
+        } else if (estadoVenta.textContent === "Confirmada") {
+          estadoVenta.style.color = "#1fb141";
+        } else if (estadoVenta.textContent === "Cancelada") {
+          estadoVenta.style.color = "#777";
+          estadoVenta.style.textDecoration = "line-through";
+        }
+      });
+
+      registros.forEach(registro => {
+        if (registro.textContent === "Registro") {
+          registro.style.color = "#1fb141";
+        } else if (registro.textContent === "Eliminado") {
+          registro.style.color = "#777";
+          registro.style.textDecoration = "line-through";
+        }
+      });
+
+    }
+
+    initialize();
+  });
+</script>

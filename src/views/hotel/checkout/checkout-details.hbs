@@ -1,0 +1,388 @@
+<section class="section__all--details">
+  <div class="content__views">
+    <div class="container views__container">
+      <div class="card__items">
+        <div class="items__elements__title">
+          <h5 class="items__name">Detalles de la actividad de checkout</h5>
+        </div>
+        {{#if checkOutHotel}}
+          <div class="details__container">
+            <div class="sub__header sub__header--fixed">
+              <div class="sub__header__container">
+                <article class="sub__header__content">
+                  <section class="section__sub__header">
+                    <article class="article__sub__header sub__header__actions">
+                      <div class="sub__header__actions__container">
+                        <div class="sub__header__action">
+                          <a href="/checkouts" class="sub__header__link">
+                            <figure class="sub__header__figure">
+                              <img src="/assets/icon-back.svg" alt="Icon Back" class="sub__header__img">
+                            </figure>
+                          </a>
+                          <span class="sub__header__span">Volver</span>
+                        </div>
+                      </div>
+                    </article>
+                  </section>
+                </article>
+              </div>
+            </div>
+            <article class="article__details">
+              <section class="details__header">
+                <div class="details__header__container">
+                  <h4 class="details__header__title">General</h4>
+                </div>
+              </section>
+              <section class="details__body">
+                <div class="details__body__container">
+                  <div class="details__body__content">
+                    <div class="cards__container cards__container--hotel">
+                      <article class="card__content">
+                        <div class="card card__info card__info__general">
+                          <div class="card__header">
+                            <h5 class="card__title">Información de la Actividad</h5>
+                          </div>
+                          <div class="card__body">
+                            <div class="card__body__content">
+                              <ul class="card__body__content__ul ul__checkout__room">
+                                <li class="content__li">
+                                  <span class="content__li__span">Usuario Checkout:</span>
+                                  <span class="content__li__span content__li__span--data">{{checkOutHotel.usuarioRegistroCheckOut.usuario}}</span>
+                                </li>
+                                <li class="content__li">
+                                  <span class="content__li__span">Usuario Actividad:</span>
+                                  <span class="content__li__span content__li__span--data">{{#if entidad.habitacionOcupacion}}{{entidad.usuarioRegistroOcupacion.usuario}}{{else}}{{entidad.usuarioReserva.usuario}}{{/if}}</span>
+                                </li>
+                                <li class="content__li">
+                                  <span class="content__li__span">Cliente:</span>
+                                  <span class="content__li__span content__li__span--data">{{#if entidad.habitacionOcupacion}}{{entidad.nombreClienteOcupacion}}{{else}}{{entidad.nombreClienteReserva}}{{/if}}</span>
+                                </li>
+                                <li class="content__li">
+                                  <span class="content__li__span">Habitación:</span>
+                                  <span class="content__li__span content__li__span--data">{{#if entidad.habitacionOcupacion}}{{entidad.habitacionOcupacion.numeroHabitacion}}{{else}}{{entidad.habitacionReserva.numeroHabitacion}}{{/if}}</span>
+                                </li>
+                                <li class="content__li">
+                                  <span class="content__li__span">Fecha de inicio:</span>
+                                  <span class="content__li__span content__li__span--data">{{#if entidad.habitacionOcupacion}}{{formatDateTime entidad.createdAt}}{{else}}{{formatDateTime entidad.fechaInicioReserva}}{{/if}}</span>
+                                </li>
+                                <li class="content__li">
+                                  <span class="content__li__span">Fecha de fin:</span>
+                                  <span class="content__li__span content__li__span--data">{{#if entidad.habitacionOcupacion}}{{formatDateTime entidad.fechaFinOcupacion}}{{else}}{{formatDateTime entidad.fechaFinReserva}}{{/if}}</span>
+                                </li>
+                                <li class="content__li">
+                                  <span class="content__li__span">Cantidad de noches:</span>
+                                  <span class="content__li__span content__li__span--data">{{#if entidad.habitacionOcupacion}}{{entidad.nochesOcupacion}}{{else}}{{entidad.nochesReserva}}{{/if}}</span>
+                                </li>
+                                <li class="content__li">
+                                  <span class="content__li__span">Precio por noche:</span>
+                                  <span class="content__li__span content__li__span--data">S/{{#if entidad.habitacionOcupacion}}{{formatCurrency entidad.habitacionOcupacion.precioHabitacion}}{{else}}{{formatCurrency entidad.habitacionReserva.precioHabitacion}}{{/if}}</span>
+                                </li>
+                                <li class="content__li">
+                                  <span class="content__li__span">Importe Total:</span>
+                                  <span class="content__li__span content__li__span--data">S/{{#if entidad.habitacionOcupacion}}{{formatCurrency entidad.importeOcupacion}}{{else}}{{formatCurrency entidad.importeReserva}}{{/if}}</span>
+                                </li>
+                                <li class="content__li">
+                                  <span class="content__li__span">Adelanto:</span>
+                                  <span class="content__li__span content__li__span--data">S/{{#if entidad.habitacionOcupacion}}{{formatCurrency entidad.adelantoOcupacion}}{{else}}{{formatCurrency entidad.adelantoReserva}}{{/if}}</span>
+                                </li>
+                                <li class="content__li">
+                                  <span class="content__li__span">Restante:</span>
+                                  <span class="content__li__span content__li__span--data">S/{{#if entidad.habitacionOcupacion}}{{formatCurrency entidad.restanteOcupacion}}{{else}}{{formatCurrency entidad.restanteReserva}}{{/if}}</span>
+                                </li>
+                                <li class="content__li">
+                                  <span class="content__li__span">Observaciones:</span>
+                                  <span class="content__li__span content__li__span--data">{{#if entidad.habitacionOcupacion}}{{#if entidad.observacionesOcupacion}}{{entidad.observacionesOcupacion}}{{else}}-{{/if}}{{else}}{{#if entidad.observacionesReserva}}{{entidad.observacionesReserva}}{{else}}-{{/if}}{{/if}}</span>
+                                </li>
+                                <li class="content__li">
+                                  <span class="content__li__span">Estado</span>
+                                  <span class="content__li__span content__li__span--data">{{#if entidad.habitacionOcupacion}}{{entidad.estadoOcupacion}}{{else}}{{entidad.estadoReserva}}{{/if}}</span>
+                                </li>
+                              </ul>
+                            </div>
+                          </div>
+                        </div>
+                      </article>
+                      <article class="card__content">
+                        <div class="card card__info card__info__room">
+                          <div class="card__header">
+                            <h5 class="card__title">Información de la Habitación</h5>
+                          </div>
+                          <div class="card__body">
+                            <div class="card__body__content">
+                              <ul class="card__body__content__ul ul__room__room">
+                                <li class="content__li">
+                                  <span class="content__li__span">Piso:</span>
+                                  <span class="content__li__span content__li__span--data">{{#if entidad.habitacionOcupacion}}{{entidad.habitacionOcupacion.pisoHabitacion.numeroPiso}}{{else}}{{entidad.habitacionReserva.pisoHabitacion.numeroPiso}}{{/if}}</span>
+                                </li>
+                                <li class="content__li">
+                                  <span class="content__li__span">Número:</span>
+                                  <span class="content__li__span content__li__span--data">{{#if entidad.habitacionOcupacion}}{{entidad.habitacionOcupacion.numeroHabitacion}}{{else}}{{entidad.habitacionReserva.numeroHabitacion}}{{/if}}</span>
+                                </li>
+                                <li class="content__li">
+                                  <span class="content__li__span">Descripción:</span>
+                                  <span class="content__li__span content__li__span--data">{{#if entidad.habitacionOcupacion}}{{entidad.habitacionOcupacion.descripcionHabitacion}}{{else}}{{entidad.habitacionReserva.descripcionHabitacion}}{{/if}}</span>
+                                </li>
+                                <li class="content__li">
+                                  <span class="content__li__span">Categoría:</span>
+                                  <span class="content__li__span content__li__span--data">{{#if entidad.habitacionOcupacion}}{{entidad.habitacionOcupacion.categoriaHabitacion.nombreCategoriaHabitacion}}{{else}}{{entidad.habitacionReserva.categoriaHabitacion.nombreCategoriaHabitacion}}{{/if}}</span>
+                                </li>
+                                <li class="content__li">
+                                  <span class="content__li__span">Descripción Categoría:</span>
+                                  <span class="content__li__span content__li__span--data">{{#if entidad.habitacionOcupacion}}{{entidad.habitacionOcupacion.categoriaHabitacion.descripcionCategoriaHabitacion}}{{else}}{{entidad.habitacionReserva.categoriaHabitacion.descripcionCategoriaHabitacion}}{{/if}}</span>
+                                </li>
+                                <li class="content__li">
+                                  <span class="content__li__span">Precio por noche:</span>
+                                  <span class="content__li__span content__li__span--data">S/{{#if entidad.habitacionOcupacion}}{{formatCurrency entidad.habitacionOcupacion.precioHabitacion}}{{else}}{{formatCurrency entidad.habitacionReserva.precioHabitacion}}{{/if}}</span>
+                                </li>
+                              </ul>
+                            </div>
+                          </div>
+                        </div>
+                      </article>
+                      <article class="card__content">
+                        <div class="card card__info card__info__client">
+                          <div class="card__header">
+                            <h5 class="card__title">Información del Cliente</h5>
+                          </div>
+                          <div class="card__body">
+                            <div class="card__body__content">
+                              <ul class="card__body__content__ul ul__client__room">
+                                <li class="content__li">
+                                  <span class="content__li__span">Documento:</span>
+                                  <span class="content__li__span content__li__span--data">{{#if entidad.habitacionOcupacion}}{{entidad.dniClienteOcupacion}}{{else}}{{entidad.dniClienteReserva}}{{/if}}</span>
+                                </li>
+                                <li class="content__li">
+                                  <span class="content__li__span">Nombres:</span>
+                                  <span class="content__li__span content__li__span--data">{{#if entidad.habitacionOcupacion}}{{entidad.nombreClienteOcupacion}}{{else}}{{entidad.nombreClienteReserva}}{{/if}}</span>
+                                </li>
+                                <li class="content__li">
+                                  <span class="content__li__span">Celular:</span>
+                                  <span class="content__li__span content__li__span--data">{{#if entidad.habitacionOcupacion}}{{#if entidad.celularClienteOcupacion}}{{entidad.celularClienteOcupacion}}{{else}}-{{/if}}{{else}}{{#if entidad.celularClienteReserva}}{{entidad.celularClienteReserva}}{{else}}-{{/if}}{{/if}}</span>
+                                </li>
+                                <li class="content__li">
+                                  <span class="content__li__span">Correo:</span>
+                                  <span class="content__li__span content__li__span--data">{{#if entidad.habitacionOcupacion}}{{#if entidad.correoClienteOcupacion}}{{entidad.correoClienteOcupacion}}{{else}}-{{/if}}{{else}}{{#if entidad.correoClienteReserva}}{{entidad.correoClienteReserva}}{{else}}-{{/if}}{{/if}}</span>
+                                </li>
+                              </ul>
+                            </div>
+                          </div>
+                        </div>
+                      </article>
+                      <article class="card__content">
+                        <div class="card card__info card__info__employee">
+                          <div class="card__header">
+                            <h5 class="card__title">Información del Trabajador</h5>
+                          </div>
+                          <div class="card__body">
+                            <div class="card__body__content">
+                              <ul class="card__body__content__ul ul__employee__room">
+                                <li class="content__li">
+                                  <span class="content__li__span">Documento:</span>
+                                  <span class="content__li__span content__li__span--data">{{#if entidad.habitacionOcupacion}}{{entidad.usuarioRegistroOcupacion.trabajadorUsuario.dniTrabajador}}{{else}}{{entidad.usuarioReserva.trabajadorUsuario.dniTrabajador}}{{/if}}</span>
+                                </li>
+                                <li class="content__li">
+                                  <span class="content__li__span">Nombres:</span>
+                                  <span class="content__li__span content__li__span--data">{{#if entidad.habitacionOcupacion}}{{entidad.usuarioRegistroOcupacion.trabajadorUsuario.nombreTrabajador}} {{entidad.usuarioRegistroOcupacion.trabajadorUsuario.apellidosTrabajador}}{{else}}{{entidad.usuarioReserva.trabajadorUsuario.nombreTrabajador}} {{entidad.usuarioReserva.trabajadorUsuario.apellidosTrabajador}}{{/if}}</span>
+                                </li>
+                                <li class="content__li">
+                                  <span class="content__li__span">Celular:</span>
+                                  <span class="content__li__span content__li__span--data">{{#if entidad.habitacionOcupacion}}{{entidad.usuarioRegistroOcupacion.trabajadorUsuario.celularTrabajador}}{{else}}{{entidad.usuarioReserva.trabajadorUsuario.celularTrabajador}}{{/if}}</span>
+                                </li>
+                                <li class="content__li">
+                                  <span class="content__li__span">Correo:</span>
+                                  <span class="content__li__span content__li__span--data">{{#if entidad.habitacionOcupacion}}{{entidad.usuarioRegistroOcupacion.trabajadorUsuario.correoTrabajador}}{{else}}{{entidad.usuarioReserva.trabajadorUsuario.correoTrabajador}}{{/if}}</span>
+                                </li>
+                              </ul>
+                            </div>
+                          </div>
+                        </div>
+                      </article>
+                      <article class="card__content">
+                        <div class="card card__info card__info__clean__room">
+                          <div class="card__header">
+                            <h5 class="card__title">Información de Limpieza a la habitación</h5>
+                          </div>
+                          {{#if limpieza}}
+                            <div class="card__body">
+                              <div class="card__body__content">
+                                <ul class="card__body__content__ul ul__clean__room">
+                                  <li class="content__li">
+                                    <span class="content__li__span">Trabajador</span>
+                                    <span class="content__li__span content__li__span--data">{{limpieza.usuarioACargoLimpieza.trabajadorUsuario.nombreTrabajador}} {{cleaningRoom.usuarioACargoLimpieza.trabajadorUsuario.apellidosTrabajador}}</span>
+                                  </li>
+                                  <li class="content__li">
+                                    <span class="content__li__span">Comentarios</span>
+                                    <span class="content__li__span content__li__span--data">{{limpieza.comentariosLimpieza}}</span>
+                                  </li>
+                                  <li class="content__li">
+                                    <span class="content__li__span">Fecha de inicio</span>
+                                    <span class="content__li__span content__li__span--data">{{formatDateTime limpieza.createdAt}}</span>
+                                  </li>
+                                  <li class="content__li">
+                                    <span class="content__li__span">Fecha de fin</span>
+                                    {{#if limpieza.fechaFinLimpieza}}
+                                      <span class="content__li__span content__li__span--data">{{formatDateTime limpieza.fechaFinLimpieza}}</span>
+                                    {{else}}
+                                      <span class="content__li__span content__li__span--data">Sin fecha</span>
+                                    {{/if}}
+                                  </li>
+                                </ul>
+                              </div>
+                            </div>
+                          {{else}}
+                            <span class="items__empty">No hay limpieza a la habitación</span>
+                          {{/if}}
+                        </div>
+                      </article>
+                      <article class="card__content">
+                        <div class="card card__info card__info__sale__room">
+                          <div class="card__header">
+                            <h4 class="card__title">Información de servicio a la habitación</h4>
+                          </div>
+                          {{#if sales}}
+                            <div class="card__body">
+                              <div class="card__body__content card__body__content--sale__room">
+                                {{#each sales}}
+                                  <div class="container__sales__room">
+                                    <div class="card__body__subtitle">
+                                      <h5 class="card__title">Venta:
+                                        <span class="span__card__title">{{_id}}</span>
+                                      </h5>
+                                    </div>
+                                    <ul class="card__body__content__ul ul__sale__room">
+                                      <li class="content__li">
+                                        <span class="content__li__span">Estado:</span>
+                                        <span class="content__li__span content__li__span--data">{{estadoVentaHotel}}</span>
+                                      </li>
+                                      <li class="content__li">
+                                        <span class="content__li__span">Vendedor:</span>
+                                        <span class="content__li__span content__li__span--data">{{usuarioRegistroVentaHotel.trabajadorUsuario.nombreTrabajador}} {{usuarioRegistroVentaHotel.trabajadorUsuario.apellidosTrabajador}}</span>
+                                      </li>
+                                      <li class="content__li">
+                                        <span class="content__li__span">Cantidad:</span>
+                                        <span class="content__li__span content__li__span--data">{{cantidadProductosVentaHotel}}</span>
+                                      </li>
+                                      <li class="content__li">
+                                        <span class="content__li__span">Precio:</span>
+                                        <span class="content__li__span content__li__span--data">S/{{formatCurrency precioTotalVentaHotel}}</span>
+                                      </li>
+                                      <li class="content__li">
+                                        <span class="content__li__span">Descuento:</span>
+                                        <span class="content__li__span content__li__span--data">S/{{formatCurrency descuentoTotalVentaHotel}}</span>
+                                      </li>
+                                      <li class="content__li">
+                                        <span class="content__li__span">Adelanto:</span>
+                                        <span class="content__li__span content__li__span--data">S/{{formatCurrency pagoAdelantoVentaHotel}}</span>
+                                      </li>
+                                      <li class="content__li">
+                                        <span class="content__li__span">Comentarios:</span>
+                                        <span class="content__li__span content__li__span--data">{{#if comentariosVentaHotel}}{{comentariosVentaHotel}}{{else}}-{{/if}}</span>
+                                      </li>
+                                      <li class="content__li">
+                                        <span class="content__li__span">Restante:</span>
+                                        <span class="content__li__span content__li__span--data">S/{{formatCurrency pagoRestanteVentaHotel}}</span>
+                                      </li>
+                                    </ul>
+                                    <div class="flex-c-c content__details__sale content__details__sale--room">
+                                      <button type="button" class="details__sale__button detail__btn--sale__details" data-sale-id="{{_id}}">Detalles</button>
+                                    </div>
+                                  </div>
+                                  <section class="modal__fixed" data-sale-id="{{_id}}">
+                                    <div class="flex-c-c modal modal__sale__products__details">
+                                      <article class="article__modal article__modal__details">
+                                        <h5 class="modal__title">Productos de la venta:
+                                          <span class="span__card__title">{{../_id}}</span>
+                                        </h5>
+                                        <div class="modal__details__products">
+                                          {{#each productosVentaHotel}}
+                                            <ul class="details__products__ul">
+                                              <li class="content__li">
+                                                <span class="content__li__span">Descripción:</span>
+                                                <span class="content__li__span content__li__span--data">{{productoVentaHotel.productoAlmacenHotel.descripcionProducto}}</span>
+                                              </li>
+                                              <li class="content__li">
+                                                <span class="content__li__span">Precio:</span>
+                                                <span class="content__li__span content__li__span--data">S/{{formatCurrency productoVentaHotel.productoAlmacenHotel.precioProducto}}</span>
+                                              </li>
+                                              <li class="content__li">
+                                                <span class="content__li__span">Cantidad:</span>
+                                                <span class="content__li__span content__li__span--data">{{cantidadVentaHotel}}</span>
+                                              </li>
+                                              <li class="content__li">
+                                                <span class="content__li__span">Descuento:</span>
+                                                <span class="content__li__span content__li__span--data">-S/{{formatCurrency descuentoProductoVentaHotel}}</span>
+                                              </li>
+                                              <li class="content__li">
+                                                <span class="content__li__span">Importe Producto:</span>
+                                                <span class="content__li__span content__li__span--data">S/{{formatCurrency precioTotalProductoVentaHotel}}</span>
+                                              </li>
+                                            </ul>
+                                          {{/each}}
+                                        </div>
+                                        <div class="close__modal close__modal--details__sale">
+                                          <figure class="close__figure">
+                                            <img src="/assets/icon-close.svg" alt="Icon Close" class="close__img">
+                                          </figure>
+                                        </div>
+                                      </article>
+                                    </div>
+                                  </section>
+                                {{/each}}
+                              </div>
+                            </div>
+                          {{else}}
+                            <span class="items__empty">No hay servicio a la habitación</span>
+                          {{/if}}
+                        </div>
+                      </article>
+                    </div>
+                  </div>
+                </div>
+              </section>
+            </article>
+          </div>
+        {{else}}
+          <h5 class="items__empty">No hay Actividad de Checkout para mostrar 😿</h5>
+        {{/if}}
+      </div>
+    </div>
+  </div>
+</section>
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    // DOM variables
+    const $btnsModalSaleDetails = document.querySelectorAll(".detail__btn--sale__details");
+    const $modalCloseSaleDetails = document.querySelectorAll(".close__modal--details__sale");
+
+
+    // Functions modals
+    const showModalSaleDetails = e => {
+      e.stopPropagation();
+      const saleId = e.target.dataset.saleId;
+      const $modalSaleDetails = document.querySelector(`.modal__fixed[data-sale-id="${saleId}"] .modal__sale__products__details`);
+      if ($modalSaleDetails) {
+        $modalSaleDetails.classList.add("modal__show");
+      }
+    }
+
+    const closeModalSaleDetails = e => {
+      e.stopPropagation();
+      const saleId = e.target.closest(".modal__fixed").dataset.saleId;
+      const $modalSaleDetails = document.querySelector(`.modal__fixed[data-sale-id="${saleId}"] .modal__sale__products__details`);
+      if ($modalSaleDetails) {
+        $modalSaleDetails.classList.remove("modal__show");
+      }
+    }
+
+
+    // Event Listeners
+    $btnsModalSaleDetails.forEach(btn => {
+      btn.addEventListener("click", showModalSaleDetails);
+    });
+
+    $modalCloseSaleDetails.forEach(btn => {
+      btn.addEventListener("click", closeModalSaleDetails);
+    });
+
+  });
+</script>

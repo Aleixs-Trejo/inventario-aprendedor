@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inventario-Aprendedor</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" async>
+    <script defer src="/js/main.js"></script>
+    <link rel="stylesheet" href="/css/style.css">
+  </head>
+  <body class="body">
+    {{> navigation user = user}}
+    <main class="main">
+      <div class="main__content">
+        {{> flash}}
+        {{> errors}}
+        {{{body}}}
+      </div>
+    </main>
+  </body>
+</html>
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    const tipoHistorial = document.querySelectorAll(".tipo__historial");
+    function initialize() {
+      if (tipoHistorial) {
+        tipoHistorial.forEach(item => {
+          const text = item.textContent;
+          if (text === "Registro" || text === "Confirmada" || text === "Finalizada" || text === "Finalizado") {
+            item.style.color = "#fff";
+            item.style.backgroundColor = "#58b56d";
+          } else if (text === "Eliminado") {
+            item.style.color = "#fff";
+            item.style.backgroundColor = "#ff0000";
+          } else if (text === "Occupation") {
+            item.style.color = "#fff";
+            item.style.backgroundColor = "#772600";
+          } else if (text === "Reservation") {
+            item.style.color = "#fff";
+            item.style.backgroundColor = "#007bff";
+          } else if (text === "Pendiente"){
+            item.style.color = "#fff";
+            item.style.backgroundColor = "#ff6700";
+          } else if (text === "Cancelada"){
+            item.style.color = "#444";
+            item.style.textDecoration = "line-through";
+          } else if (text === "Relleno"){
+            item.style.color = "#fff";
+            item.style.backgroundColor = "#ffbd00";
+          }
+        });
+      }
+    }
+    initialize();
+  });
+</script>

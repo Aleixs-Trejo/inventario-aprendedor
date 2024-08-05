@@ -1,0 +1,46 @@
+<section class="all__views">
+  <div class="card__items">
+    <h5 class="items__name">Editar un producto de la venta</h5>
+    <a href="/sales/{{sale._id}}/details" class="back__sales">
+      <div class="back__content">
+        <figure class="back__figure">
+          <img src="/assets/icon-back.svg" alt="Icon Back" class="back__img">
+        </figure>
+        <span class="span__back">Volver</span>
+      </div>
+    </a>
+    <form action="/sales/{{sale._id}}/update-product/{{product._id}}" method="POST" class="form">
+      <h2 class="form__title">Editar producto</h2>
+      <div class="form__img">
+        <figure class="login__figure">
+          <img src="/assets/logo-aprendedor.webp" alt="Logo Aprendedor" class="login__img">
+        </figure>
+      </div>
+      <section class="form__container">
+        <article class="form__group">
+          <select name="productId" id="edit_product_sale" class="form__input us__sel" disabled>
+            <option class="us__sel" disabled value="selecciona">Producto:</option>
+            {{#each sale.productosVenta}}
+              <option class="us__sel" value="{{productoVenta._id}}" {{#if (eq ../product._id _id)}} selected{{/if}}>{{productoVenta.almacenProducto.nombreProducto}}//{{productoVenta.almacenProducto.proveedorProducto.nombreProveedor}}//{{productoVenta.almacenProducto.categoriaProducto.nombreCategoria}}</option>
+            {{/each}}
+          </select>
+        </article>
+        <article class="form__group">
+          <input class="form__input" type="number" name="quantity" id="edit_count_product_sale" placeholder=" " title="Cantidad" value="{{product.cantidadVenta}}" required>
+          <label for="edit_almacen_stock" class="form__label">Cantidad:</label>
+          <span class="form__line"></span>
+        </article>
+        <input type="hidden" name="productId" value="{{product._id}}">
+        <button class="form__submit">Actualizar</button>
+      </section>
+    </form>
+  </div>
+</section>
+<script>
+  console.log("Cantidad Seleccionada: ", "{{product.cantidadVenta}}");
+  {{#each sale.productosVenta}}
+    console.log("ID producto en venta: ", "{{_id}}");
+    console.log("ProductoVentaID: ", "{{productoVenta._id}}");
+    console.log("producto Seleccionado: ", "{{productoVenta.almacenProducto.nombreProducto}} {{productoVenta.almacenProducto.proveedorProducto.nombreProveedor}} {{productoVenta.almacenProducto.categoriaProducto.nombreCategoria}}");
+  {{/each}}
+</script>

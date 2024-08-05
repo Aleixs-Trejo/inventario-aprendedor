@@ -1,0 +1,131 @@
+<section class="section__all--views">
+  <div class="content__views">
+    <div class="container views__container">
+      <div class="card__items">
+        <div class="items__elements__title">
+          <h5 class="items__name">Detalles del cierre de caja {{_id}}</h5>
+        </div>
+        <div class="sub__header">
+          <div class="sub__header__container">
+            <article class="sub__header__content">
+              <section class="section__sub__header">
+                <article class="article__sub__header sub__header__actions">
+                  <div class="sub__header__actions__container">
+                    <div class="sub__header__action">
+                      <a href="/sales/history" class="sub__header__link">
+                        <figure class="sub__header__figure">
+                          <img src="/assets/icon-back.svg" alt="Icon Back" class="sub__header__img">
+                        </figure>
+                      </a>
+                      <span class="sub__header__span">Volver</span>
+                    </div>
+                    <div class="sub__header__action">
+                      <a href="/sales/register" class="sub__header__link">
+                        <figure class="sub__header__figure">
+                          <img src="/assets/icon-add.svg" alt="Icon Add" class="sub__header__img">
+                        </figure>
+                      </a>
+                      <span class="sub__header__span">Nueva Venta</span>
+                    </div>
+                    <div class="sub__header__action">
+                      <a href="/sales/balance" class="sub__header__link">
+                        <figure class="sub__header__figure">
+                          <img src="/assets/icon-balance.svg" alt="Icon Balance" class="sub__header__img">
+                        </figure>
+                      </a>
+                      <span class="sub__header__span">Balances</span>
+                    </div>
+                  </div>
+                </article>
+              </section>
+            </article>
+          </div>
+        </div>
+        {{#if saleHistory.ventaHistorial}}
+          <section class="items">
+            <div class="items__container__elements">
+              <section class="views__container--elements view__scrollbar">
+                <div class="views__content--elements items__container sales">
+                  <article class="items__header items__grid sales">
+                    <div class="flex-c-c">Estado</div>
+                    <div class="flex-c-c">ID</div>
+                    <div class="flex-c-c">Vendedor</div>
+                    <div class="flex-c-c">Cliente</div>
+                    <div class="flex-c-c">Núm de Prod</div>
+                    <div class="flex-c-c">Precio total</div>
+                    <div class="flex-c-c">Descuento total</div>
+                    <div class="flex-c-c">Fecha</div>
+                    <div class="flex-c-c detail__options">Ver</div>
+                  </article>
+                  <div class="items__data--values">
+                    {{#each saleHistory.ventaHistorial}}
+                      <div class="container__data">
+                        <article class="items__data items__grid sales">
+                          <div class="flex-c-c"><span class="estado__venta">{{cierreVentas.estadoVenta}}</span></div>
+                          <div class="flex-c-c">{{cierreVentas._id}}</div>
+                          <div class="flex-c-c">{{cierreVentas.usuarioVenta.trabajadorUsuario.nombreTrabajador}} {{cierreVentas.usuarioVenta.trabajadorUsuario.apellidosTrabajador}}</div>
+                          <div class="flex-c-c">{{cierreVentas.clienteVenta.nombreCliente}}</div>
+                          <div class="flex-c-c">{{cierreVentas.tipoProductosVenta}}</div>
+                          <div class="flex-c-c total__venta">S/{{formatCurrency cierreVentas.precioTotalVenta}}</div>
+                          <div class="flex-c-c total__venta">-S/{{formatCurrency cierreVentas.descuentoTotalVenta}}</div>
+                          <div class="flex-c-c">{{formatDateTime cierreVentas.createdAt}}</div>
+                          <div class="flex-c-c items__data--options">
+                            <a href="/sales/{{cierreVentas._id}}/details" class="options__action">
+                              <figure class="options__figure">
+                                <img src="/assets/icon-edit.svg" alt="Icon Edit" class="options__img">
+                              </figure>
+                              <span class="span__detail">Detalles</span>
+                            </a>
+                            {{#if (eq cierreVentas.estadoVenta "Confirmada")}}
+                              <a href="/sales/{{cierreVentas._id}}/voucher" class="options__action option__pending">
+                                <figure class="options__figure">
+                                  <img src="/assets/icon-edit.svg" alt="Icon Edit" class="options__img">
+                                </figure>
+                                <span class="span__detail">Ticket</span>
+                              </a>
+                              <a href="/sales/{{cierreVentas._id}}/bill" class="options__action option__pending">
+                                <figure class="options__figure">
+                                  <img src="/assets/icon-edit.svg" alt="Icon Edit" class="options__img">
+                                </figure>
+                                <span class="span__detail">Boleta</span>
+                              </a>
+                            {{/if}}
+                          </div>
+                        </article>
+                      </div>
+                    {{/each}}
+                  </div>
+                </div>
+              </section>
+            </div>
+          </section>
+        {{else}}
+          <h5 class="items__empty">No hay Ventas para mostrar 😿</h5>
+        {{/if}}
+      </div>
+    </div>
+  </div>
+</section>
+<script>
+  document.addEventListener("DOMContentLoaded", ()  => {
+    function initialize() {
+      const confirmSales = document.querySelector(".confirm__sales");
+      const estadoVentas = document.querySelectorAll(".estado__venta");
+      const voucherType = document.querySelectorAll(".voucher__type");
+      const cardItems = document.querySelector(".card__items");
+
+      estadoVentas.forEach(estadoVenta => {
+        if (estadoVenta.textContent === "Pendiente") {
+          estadoVenta.style.color = "#e76f51";
+        } else if (estadoVenta.textContent === "Confirmada") {
+          estadoVenta.style.color = "#1fb141";
+        } else if (estadoVenta.textContent === "Cancelada") {
+          estadoVenta.style.color = "#777";
+          estadoVenta.style.textDecoration = "line-through";
+        }
+      })
+    }
+
+    initialize();
+  })
+</script>

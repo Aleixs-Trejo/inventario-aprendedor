@@ -1,0 +1,617 @@
+<section class="section__all--details">
+  <div class="content__views">
+    <div class="container views__container">
+      <div class="card__items">
+        <div class="items__elements__title">
+          <h5 class="items__name">Detalles de la ocupación en la habitación: {{occupation.habitacionOcupacion.numeroHabitacion}}</h5>
+        </div>
+        {{#if occupation}}
+          <div class="details__container">
+            <div class="sub__header sub__header--fixed">
+              <div class="sub__header__container">
+                <article class="sub__header__content">
+                  <section class="section__sub__header">
+                    <article class="article__sub__header sub__header__actions">
+                      <div class="sub__header__actions__container">
+                        <div class="sub__header__action">
+                          <a href="/hotel" class="sub__header__link">
+                            <figure class="sub__header__figure">
+                              <img src="/assets/icon-back.svg" alt="Icon Back" class="sub__header__img">
+                            </figure>
+                          </a>
+                          <span class="sub__header__span">Volver</span>
+                        </div>
+                      </div>
+                    </article>
+                  </section>
+                </article>
+              </div>
+            </div>
+            <article class="article__details">
+              <section class="details__header">
+                <div class="details__header__container">
+                  <h4 class="details__header__title">General</h4>
+                </div>
+              </section>
+              <section class="details__body">
+                <div class="details__body__container">
+                  <div class="details__body__content">
+                    <div class="cards__container cards__container--hotel">
+                      <article class="card__content">
+                        <div class="card card__info card__info__general">
+                          <div class="card__header">
+                            <h5 class="card__title">Información de la Actividad</h5>
+                          </div>
+                          <div class="card__body">
+                            <div class="card__body__content">
+                              <ul class="card__body__content__ul ul__occupation__room">
+                                <li class="content__li">
+                                  <span class="content__li__span">Usuario a cargo:</span>
+                                  <span class="content__li__span content__li__span--data">{{occupation.usuarioRegistroOcupacion.usuario}}</span>
+                                </li>
+                                <li class="content__li">
+                                  <span class="content__li__span">Cliente:</span>
+                                  <span class="content__li__span content__li__span--data">{{occupation.nombreClienteOcupacion}}</span>
+                                </li>
+                                <li class="content__li">
+                                  <span class="content__li__span">Habitación:</span>
+                                  <span class="content__li__span content__li__span--data">{{occupation.habitacionOcupacion.numeroHabitacion}}</span>
+                                </li>
+                                <li class="content__li">
+                                  <span class="content__li__span">Fecha de inicio:</span>
+                                  <span class="content__li__span content__li__span--data">{{formatDateTime occupation.createdAt}}</span>
+                                </li>
+                                <li class="content__li">
+                                  <span class="content__li__span">Fecha de fin:</span>
+                                  <span class="content__li__span content__li__span--data">{{formatDateTime occupation.fechaFinOcupacion}}</span>
+                                </li>
+                                <li class="content__li">
+                                  <span class="content__li__span">Cantidad de noches:</span>
+                                  <span class="content__li__span content__li__span--data">{{occupation.nochesOcupacion}}</span>
+                                </li>
+                                <li class="content__li">
+                                  <span class="content__li__span">Precio por noche:</span>
+                                  <span class="content__li__span content__li__span--data">S/{{formatCurrency occupation.habitacionOcupacion.precioHabitacion}}</span>
+                                </li>
+                                <li class="content__li">
+                                  <span class="content__li__span">Importe Total:</span>
+                                  <span class="content__li__span content__li__span--data">S/{{formatCurrency occupation.importeOcupacion}}</span>
+                                </li>
+                                <li class="content__li">
+                                  <span class="content__li__span">Adelanto:</span>
+                                  <span class="content__li__span content__li__span--data">S/{{formatCurrency occupation.adelantoOcupacion}}</span>
+                                </li>
+                                <li class="content__li">
+                                  <span class="content__li__span">Restante:</span>
+                                  <span class="content__li__span content__li__span--data">S/{{formatCurrency occupation.restanteOcupacion}}</span>
+                                </li>
+                                <li class="content__li">
+                                  <span class="content__li__span">Observaciones:</span>
+                                  <span class="content__li__span content__li__span--data">{{occupation.observacionesOcupacion}}</span>
+                                </li>
+                                <li class="content__li">
+                                  <span class="content__li__span">Estado</span>
+                                  <span class="content__li__span content__li__span--data">{{occupation.estadoOcupacion}}</span>
+                                </li>
+                              </ul>
+                            </div>
+                          </div>
+                        </div>
+                      </article>
+                      <article class="card__content">
+                        <div class="card card__info card__info__room">
+                          <div class="card__header">
+                            <h5 class="card__title">Información de la Habitación</h5>
+                          </div>
+                          <div class="card__body">
+                            <div class="card__body__content">
+                              <ul class="card__body__content__ul ul__room__room">
+                                <li class="content__li">
+                                  <span class="content__li__span">Piso:</span>
+                                  <span class="content__li__span content__li__span--data">{{occupation.habitacionOcupacion.pisoHabitacion.numeroPiso}}</span>
+                                </li>
+                                <li class="content__li">
+                                  <span class="content__li__span">Número:</span>
+                                  <span class="content__li__span content__li__span--data">{{occupation.habitacionOcupacion.numeroHabitacion}}</span>
+                                </li>
+                                <li class="content__li">
+                                  <span class="content__li__span">Descripción:</span>
+                                  <span class="content__li__span content__li__span--data">{{occupation.habitacionOcupacion.descripcionHabitacion}}</span>
+                                </li>
+                                <li class="content__li">
+                                  <span class="content__li__span">Categoría:</span>
+                                  <span class="content__li__span content__li__span--data">{{occupation.habitacionOcupacion.categoriaHabitacion.nombreCategoriaHabitacion}}</span>
+                                </li>
+                                <li class="content__li">
+                                  <span class="content__li__span">Descripción Categoría:</span>
+                                  <span class="content__li__span content__li__span--data">{{occupation.habitacionOcupacion.categoriaHabitacion.descripcionCategoriaHabitacion}}</span>
+                                </li>
+                                <li class="content__li">
+                                  <span class="content__li__span">Precio por noche:</span>
+                                  <span class="content__li__span content__li__span--data">S/{{formatCurrency occupation.habitacionOcupacion.precioHabitacion}}</span>
+                                </li>
+                              </ul>
+                            </div>
+                          </div>
+                        </div>
+                      </article>
+                      <article class="card__content">
+                        <div class="card card__info card__info__client">
+                          <div class="card__header">
+                            <h5 class="card__title">Información del Cliente</h5>
+                          </div>
+                          <div class="card__body">
+                            <div class="card__body__content">
+                              <ul class="card__body__content__ul ul__client__room">
+                                <li class="content__li">
+                                  <span class="content__li__span">Documento:</span>
+                                  <span class="content__li__span content__li__span--data">{{occupation.dniClienteOcupacion}}</span>
+                                </li>
+                                <li class="content__li">
+                                  <span class="content__li__span">Nombres:</span>
+                                  <span class="content__li__span content__li__span--data">{{occupation.nombreClienteOcupacion}}</span>
+                                </li>
+                                <li class="content__li">
+                                  <span class="content__li__span">Celular:</span>
+                                  <span class="content__li__span content__li__span--data">{{#if occupation.celularClienteOcupacion}}{{occupation.celularClienteOcupacion}}{{else}}-{{/if}}</span>
+                                </li>
+                                <li class="content__li">
+                                  <span class="content__li__span">Correo:</span>
+                                  <span class="content__li__span content__li__span--data">{{#if occupation.correoClienteOcupacion}}{{occupation.correoClienteOcupacion}}{{else}}-{{/if}}</span>
+                                </li>
+                              </ul>
+                            </div>
+                          </div>
+                        </div>
+                      </article>
+                      <article class="card__content">
+                        <div class="card card__info card__info__employee">
+                          <div class="card__header">
+                            <h5 class="card__title">Información del Trabajador</h5>
+                          </div>
+                          <div class="card__body">
+                            <div class="card__body__content">
+                              <ul class="card__body__content__ul ul__employee__room">
+                                <li class="content__li">
+                                  <span class="content__li__span">Documento:</span>
+                                  <span class="content__li__span content__li__span--data">{{occupation.usuarioRegistroOcupacion.trabajadorUsuario.dniTrabajador}}</span>
+                                </li>
+                                <li class="content__li">
+                                  <span class="content__li__span">Nombres:</span>
+                                  <span class="content__li__span content__li__span--data">{{occupation.usuarioRegistroOcupacion.trabajadorUsuario.nombreTrabajador}} {{occupation.usuarioRegistroOcupacion.trabajadorUsuario.apellidosTrabajador}}</span>
+                                </li>
+                                <li class="content__li">
+                                  <span class="content__li__span">Celular:</span>
+                                  <span class="content__li__span content__li__span--data">{{occupation.usuarioRegistroOcupacion.trabajadorUsuario.celularTrabajador}}</span>
+                                </li>
+                                <li class="content__li">
+                                  <span class="content__li__span">Correo:</span>
+                                  <span class="content__li__span content__li__span--data">{{occupation.usuarioRegistroOcupacion.trabajadorUsuario.correoTrabajador}}</span>
+                                </li>
+                              </ul>
+                            </div>
+                          </div>
+                        </div>
+                      </article>
+                      <article class="card__content">
+                        <div class="card card__info card__info__clean__room">
+                          <div class="card__header">
+                            <h5 class="card__title">Información de Limpieza a la habitación</h5>
+                          </div>
+                          {{#if cleaningRoom}}
+                            <div class="card__body">
+                              <div class="card__body__content">
+                                <ul class="card__body__content__ul ul__clean__room">
+                                  <li class="content__li">
+                                    <span class="content__li__span">Trabajador</span>
+                                    <span class="content__li__span content__li__span--data">{{cleaningRoom.usuarioACargoLimpieza.trabajadorUsuario.nombreTrabajador}} {{cleaningRoom.usuarioACargoLimpieza.trabajadorUsuario.apellidosTrabajador}}</span>
+                                  </li>
+                                  <li class="content__li">
+                                    <span class="content__li__span">Comentarios</span>
+                                    <span class="content__li__span content__li__span--data">{{cleaningRoom.comentariosLimpieza}}</span>
+                                  </li>
+                                  <li class="content__li">
+                                    <span class="content__li__span">Fecha de inicio</span>
+                                    <span class="content__li__span content__li__span--data">{{formatDateTime cleaningRoom.createdAt}}</span>
+                                  </li>
+                                  <li class="content__li">
+                                    <span class="content__li__span">Fecha de fin</span>
+                                    {{#if cleaningRoom.fechaFinLimpieza}}
+                                      <span class="content__li__span content__li__span--data">{{formatDateTime cleaningRoom.fechaFinLimpieza}}</span>
+                                    {{else}}
+                                      <span class="content__li__span content__li__span--data">Sin fecha</span>
+                                    {{/if}}
+                                  </li>
+                                </ul>
+                              </div>
+                            </div>
+                          {{else}}
+                            <span class="items__empty">No hay limpieza a la habitación</span>
+                          {{/if}}
+                        </div>
+                      </article>
+                      <article class="card__content">
+                        <div class="card card__info card__info__sale__room">
+                          <div class="card__header">
+                            <h4 class="card__title">Información de servicio a la habitación</h4>
+                          </div>
+                          {{#if saleOccupation}}
+                            <div class="card__body">
+                              <div class="card__body__content card__body__content--sale__room">
+                                {{#each saleOccupation}}
+                                  <div class="container__sales__room">
+                                    <div class="card__body__subtitle">
+                                      <h5 class="card__title">Venta:
+                                        <span class="span__card__title">{{_id}}</span>
+                                      </h5>
+                                    </div>
+                                    <ul class="card__body__content__ul ul__sale__room">
+                                      <li class="content__li">
+                                        <span class="content__li__span">Cantidad:</span>
+                                        <span class="content__li__span content__li__span--data">{{cantidadProductosVentaHotel}}</span>
+                                      </li>
+                                      <li class="content__li">
+                                        <span class="content__li__span">Precio:</span>
+                                        <span class="content__li__span content__li__span--data">S/{{formatCurrency precioTotalVentaHotel}}</span>
+                                      </li>
+                                      <li class="content__li">
+                                        <span class="content__li__span">Descuento:</span>
+                                        <span class="content__li__span content__li__span--data">S/{{formatCurrency descuentoTotalVentaHotel}}</span>
+                                      </li>
+                                      <li class="content__li">
+                                        <span class="content__li__span">Adelanto:</span>
+                                        <span class="content__li__span content__li__span--data">S/{{formatCurrency pagoAdelantoVentaHotel}}</span>
+                                      </li>
+                                      <li class="content__li">
+                                        <span class="content__li__span">Comentarios:</span>
+                                        <span class="content__li__span content__li__span--data">{{comentariosVentaHotel}}</span>
+                                      </li>
+                                      <li class="content__li">
+                                        <span class="content__li__span">Restante:</span>
+                                        <span class="content__li__span content__li__span--data">S/{{formatCurrency pagoRestanteVentaHotel}}</span>
+                                      </li>
+                                    </ul>
+                                    <div class="flex-c-c content__details__sale content__details__sale--room">
+                                      <button type="button" class="details__sale__button detail__btn--sale__details" data-sale-id="{{_id}}">Detalles</button>
+                                      <button type="button" class="details__sale__button detail__btn--sale__cancel" data-sale-cancel-id="{{_id}}">Anular</button>
+                                    </div>
+                                  </div>
+                                  <section class="modal__fixed" data-sale-id="{{_id}}">
+                                    <div class="flex-c-c modal modal__sale__products__details">
+                                      <article class="article__modal article__modal__details">
+                                        <h5 class="modal__title">Productos de la venta:
+                                          <span class="span__card__title">{{../_id}}</span>
+                                        </h5>
+                                        <div class="modal__details__products">
+                                          {{#each productosVentaHotel}}
+                                            <ul class="details__products__ul">
+                                              <li class="content__li">
+                                                <span class="content__li__span">Descripción:</span>
+                                                <span class="content__li__span content__li__span--data">{{productoVentaHotel.productoAlmacenHotel.descripcionProducto}}</span>
+                                              </li>
+                                              <li class="content__li">
+                                                <span class="content__li__span">Precio:</span>
+                                                <span class="content__li__span content__li__span--data">S/{{formatCurrency productoVentaHotel.productoAlmacenHotel.precioProducto}}</span>
+                                              </li>
+                                              <li class="content__li">
+                                                <span class="content__li__span">Cantidad:</span>
+                                                <span class="content__li__span content__li__span--data">{{cantidadVentaHotel}}</span>
+                                              </li>
+                                              <li class="content__li">
+                                                <span class="content__li__span">Descuento:</span>
+                                                <span class="content__li__span content__li__span--data">-S/{{formatCurrency descuentoProductoVentaHotel}}</span>
+                                              </li>
+                                              <li class="content__li">
+                                                <span class="content__li__span">Importe Producto:</span>
+                                                <span class="content__li__span content__li__span--data">S/{{formatCurrency precioTotalProductoVentaHotel}}</span>
+                                              </li>
+                                            </ul>
+                                          {{/each}}
+                                        </div>
+                                        <div class="close__modal close__modal--details__sale">
+                                          <figure class="close__figure">
+                                            <img src="/assets/icon-close.svg" alt="Icon Close" class="close__img">
+                                          </figure>
+                                        </div>
+                                      </article>
+                                    </div>
+                                  </section>
+                                  <section class="modal__fixed" data-sale-cancel-id="{{_id}}">
+                                    <div class="flex-c-c modal modal__cancel__sale__room">
+                                      <article class="article__modal">
+                                        <h5 class="modal__title">¿Confirmar Anulación de la venta?</h5>
+                                        <div class="flex-c-c modal__btns">
+                                          <button type="button" class="btn__modal__action btn__modal__action--cancelar cancel__modal--sale__cancel">Cerrar</button>
+                                          <a href="/occupation/sale/{{_id}}/cancel" class="btn__modal__action btn__cancel__sale__room">Confirmar</a>
+                                        </div>
+                                        <div class="close__modal close__modal--sale__cancel">
+                                          <figure class="close__figure">
+                                            <img src="/assets/icon-close.svg" alt="Icon Close" class="close__img">
+                                          </figure>
+                                        </div>
+                                      </article>
+                                    </div>
+                                  </section>
+                                {{/each}}
+                              </div>
+                            </div>
+                          {{else}}
+                            <span class="items__empty">No hay servicio a la habitación</span>
+                          {{/if}}
+                        </div>
+                      </article>
+                    </div>
+                  </div>
+                </div>
+              </section>
+              <section class="details__footer">
+                <div class="details__footer__container">
+                  <div class="details__btns">
+                    {{#unless cleaningComplete}}
+                      {{#if (eq occupation.estadoOcupacion "Limpieza Intermedia")}}
+                        <button type="button" class="details__btn detail__btn--clean__fin">Fin Limpieza</button>
+                      {{else}}
+                        <button type="button" class="details__btn detail__btn--clean">Limpieza intermedia</button>
+                      {{/if}}
+                    {{/unless}}
+                    <button type="button" class="details__btn detail__btn--edit">Modificar</button>
+                    <button type="button" class="details__btn detail__btn--sale">Vender</button>
+                    <button type="button" class="details__btn detail__btn--finalize">Finalizar</button>
+                  </div>
+                </div>
+              </section>
+            </article>
+          </div>
+        {{else}}
+          <h5 class="items__empty">No hay Ocupación para mostrar 😿</h5>
+        {{/if}}
+      </div>
+    </div>
+  </div>
+</section>
+<section class="modal__fixed">
+  <div class="flex-c-c modal modal__clean__room">
+    <article class="flex-c-c article__modal">
+      <h5 class="modal__title">¿Hacer limpieza intermedia?</h5>
+      <div class="flex-c-c modal__btns">
+        <button type="button" class="btn__modal__action btn__modal__action--cancelar cancel__modal--clean">Cancelar</button>
+        <a href="/occupation/{{occupation._id}}/clean" class="btn__modal__action confirm__modal--clean">Limpieza</a>
+      </div>
+      <div class="close__modal close__modal--clean">
+        <figure class="close__figure">
+          <img src="/assets/icon-close.svg" alt="Icon Close" class="close__img">
+        </figure>
+      </div>
+    </article>
+  </div>
+</section>
+<section class="modal__fixed">
+  <div class="flex-c-c modal modal__clean__fin__room">
+    <article class="flex-c-c article__modal">
+      <h5 class="modal__title">¿Finalizar limpieza intermedia?</h5>
+      <div class="flex-c-c modal__btns">
+        <button type="button" class="btn__modal__action btn__modal__action--cancelar cancel__modal--clean__fin">Cancelar</button>
+        <a href="/occupation/{{occupation._id}}/clean/finalize" class="btn__modal__action confirm__modal--clean__fin">Finalizar</a>
+      </div>
+      <div class="close__modal close__modal--clean__fin">
+        <figure class="close__figure">
+          <img src="/assets/icon-close.svg" alt="Icon Close" class="close__img">
+        </figure>
+      </div>
+    </article>
+  </div>
+</section>
+<section class="modal__fixed">
+  <div class="flex-c-c modal modal__edit__reservation">
+    <article class="flex-c-c article__modal">
+      <h5 class="modal__title">¿Editar reserva?</h5>
+      <div class="flex-c-c modal__btns">
+        <button type="button" class="btn__modal__action btn__modal__action--cancelar cancel__modal--edit">Cancelar</button>
+        <a href="/occupation/{{occupation._id}}/edit" class="btn__modal__action confirm__modal--edit">Editar</a>
+      </div>
+      <div class="close__modal close__modal--edit">
+        <figure class="close__figure">
+          <img src="/assets/icon-close.svg" alt="Icon Close" class="close__img">
+        </figure>
+      </div>
+    </article>
+  </div>
+</section>
+<section class="modal__fixed">
+  <div class="flex-c-c modal modal__sale__room">
+    <article class="flex-c-c article__modal">
+      <h5 class="modal__title">¿Vender producto a la habitación?</h5>
+      <div class="flex-c-c modal__btns">
+        <button type="button" class="btn__modal__action cancel__modal--sale">Cancelar</button>
+        <a href="/occupation/{{occupation._id}}/sale" class="btn__modal__action confirm__modal--sale">Vender</a>
+      </div>
+      <div class="close__modal close__modal--sale">
+        <figure class="close__figure">
+          <img src="/assets/icon-close.svg" alt="Icon Close" class="close__img">
+        </figure>
+      </div>
+    </article>
+  </div>
+</section>
+<section class="modal__fixed">
+  <div class="flex-c-c modal modal__reservation__finalize">
+    <article class="flex-c-c article__modal">
+      <h5 class="modal__title">¿Desea finalizar?</h5>
+      <div class="flex-c-c modal__btns">
+        <button type="button" class="btn__modal__action cancel__modal--finalize">Cancelar</button>
+        <a href="/occupation/{{occupation._id}}/checkout" class="btn__modal__action confirm__modal--finalize">Finalizar</a>
+      </div>
+      <div class="close__modal close__modal--finalize">
+        <figure class="close__figure">
+          <img src="/assets/icon-close.svg" alt="Icon Close" class="close__img">
+        </figure>
+      </div>
+    </article>
+  </div>
+</section>
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const $btnModalFinalize = document.querySelector(".detail__btn--finalize");
+    const $btnModalClean = document.querySelector(".detail__btn--clean");
+    const $btnModalEdit = document.querySelector(".detail__btn--edit");
+    const $btnModalSale = document.querySelector(".detail__btn--sale");
+    const $btnModalCleanFin = document.querySelector(".detail__btn--clean__fin");
+
+    const $btnsModalSaleDetails = document.querySelectorAll(".detail__btn--sale__details");
+    const $btnsModalSaleCancel = document.querySelectorAll(".detail__btn--sale__cancel");
+
+    const $btnsCloseModalSaleCancel = document.querySelectorAll(".cancel__modal--sale__cancel, .close__modal--sale__cancel");
+
+    const $modalFinalize = document.querySelector(".modal__reservation__finalize");
+    const $modalClean = document.querySelector(".modal__clean__room");
+    const $modalEdit = document.querySelector(".modal__edit__reservation");
+    const $modalSale = document.querySelector(".modal__sale__room");
+    const $modalCleanFin = document.querySelector(".modal__clean__fin__room");
+    const $modalSaleCancel = document.querySelector(".modal__cancel__sale__room");
+
+    const $cancelFinalize = document.querySelector(".cancel__modal--finalize");
+    const $cancelClean = document.querySelector(".cancel__modal--clean");
+    const $cancelEdit = document.querySelector(".cancel__modal--edit");
+    const $cancelSale = document.querySelector(".cancel__modal--sale");
+    const $cancelCleanFin = document.querySelector(".cancel__modal--clean__fin");
+
+    const $modalCloseFinalize = document.querySelector(".close__modal--finalize");
+    const $modalCloseClean = document.querySelector(".close__modal--clean");
+    const $modalCloseEdit = document.querySelector(".close__modal--edit");
+    const $modalCloseSale = document.querySelector(".close__modal--sale");
+    const $modalCloseCleanFin = document.querySelector(".close__modal--clean__fin");
+
+    // Funciones para mostrar y cerrar modales
+    function showModalFinalize(e){
+      e.stopPropagation();
+      $modalFinalize.classList.add("modal__show");
+    }
+
+    function showModalClean(e){
+      e.stopPropagation();
+      $modalClean.classList.add("modal__show");
+    }
+
+    function showModalEdit(e){
+      e.stopPropagation();
+      $modalEdit.classList.add("modal__show");
+    }
+
+    function showModalSale(e){
+      e.stopPropagation();
+      $modalSale.classList.add("modal__show");
+    }
+
+    function showModalCleanFin(e){
+      e.stopPropagation();
+      $modalCleanFin.classList.add("modal__show");
+    }
+
+    function showModalSaleDetails(e){
+      e.stopPropagation();
+      const saleId = e.target.dataset.saleId;
+      const $modalSaleDetails = document.querySelector(`.modal__fixed[data-sale-id="${saleId}"] .modal__sale__products__details`);
+      if ($modalSaleDetails) {
+        $modalSaleDetails.classList.add("modal__show");
+      }
+    }
+
+    function showModalSaleCancel(e){
+      e.stopPropagation();
+      const saleCancelId = e.target.dataset.saleCancelId;
+      const $modalSaleCancel = document.querySelector(`.modal__fixed[data-sale-cancel-id="${saleCancelId}"] .modal__cancel__sale__room`);
+      if ($modalSaleCancel) {
+        $modalSaleCancel.classList.add("modal__show");
+      }
+    }
+
+    function closeModalFinalize(e){
+      e.stopPropagation();
+      $modalFinalize.classList.remove("modal__show");
+    }
+
+    function closeModalClean(e){
+      e.stopPropagation();
+      $modalClean.classList.remove("modal__show");
+    }
+
+    function closeModalEdit(e){
+      e.stopPropagation();
+      $modalEdit.classList.remove("modal__show");
+    }
+
+    function closeModalSale(e){
+      e.stopPropagation();
+      $modalSale.classList.remove("modal__show");
+    }
+
+    function closeModalCleanFin(e){
+      e.stopPropagation();
+      $modalCleanFin.classList.remove("modal__show");
+    }
+
+    function closeModalSaleDetails(e){
+      e.stopPropagation();
+      const saleId = e.target.closest(".modal__fixed").dataset.saleId;
+      const $modalSaleDetails = document.querySelector(`.modal__fixed[data-sale-id="${saleId}"] .modal__sale__products__details`);
+      if ($modalSaleDetails) {
+        $modalSaleDetails.classList.remove("modal__show");
+      }
+    }
+
+    function closeModalSaleCancel(e){
+      e.stopPropagation();
+      const saleCancelId = e.target.closest(".modal__fixed").dataset.saleCancelId;
+      const $modalSaleCancel = document.querySelector(`.modal__fixed[data-sale-cancel-id="${saleCancelId}"] .modal__cancel__sale__room`);
+      if ($modalSaleCancel) {
+        $modalSaleCancel.classList.remove("modal__show");
+      }
+    }
+
+    if ($btnModalClean) {
+      $btnModalClean.addEventListener("click", showModalClean);
+      $cancelClean.addEventListener("click", closeModalClean);
+      $modalCloseClean.addEventListener("click", closeModalClean);
+    } else if ($btnModalCleanFin) {
+      $btnModalCleanFin.addEventListener("click", showModalCleanFin);
+      $cancelCleanFin.addEventListener("click", closeModalCleanFin);
+      $modalCloseCleanFin.addEventListener("click", closeModalCleanFin);
+    }
+
+    if ($btnModalFinalize) {
+      $btnModalFinalize.addEventListener("click", showModalFinalize);
+      $cancelFinalize.addEventListener("click", closeModalFinalize);
+      $modalCloseFinalize.addEventListener("click", closeModalFinalize);
+    }
+
+    if ($btnModalEdit) {
+      $btnModalEdit.addEventListener("click", showModalEdit);
+      $cancelEdit.addEventListener("click", closeModalEdit);
+      $modalCloseEdit.addEventListener("click", closeModalEdit);
+    }
+
+    if ($btnModalSale) {
+      $btnModalSale.addEventListener("click", showModalSale);
+      $cancelSale.addEventListener("click", closeModalSale);
+      $modalCloseSale.addEventListener("click", closeModalSale);
+    }
+
+    $btnsModalSaleDetails.forEach(btn => {
+      btn.addEventListener("click", showModalSaleDetails);
+    });
+
+    const $modalCloseSaleDetails = document.querySelectorAll(".close__modal--details__sale");
+    $modalCloseSaleDetails.forEach(btn => {
+      btn.addEventListener("click", closeModalSaleDetails);
+    });
+
+    $btnsModalSaleCancel.forEach(btn => {
+      btn.addEventListener("click", showModalSaleCancel);
+    });
+
+    $btnsCloseModalSaleCancel.forEach(btn => {
+      btn.addEventListener("click", closeModalSaleCancel);
+    });
+
+  });
+</script>

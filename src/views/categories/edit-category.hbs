@@ -1,0 +1,51 @@
+<div class="sub__header sub__header--fixed">
+  <div class="sub__header__container">
+    <article class="sub__header__content">
+      <section class="section__sub__header">
+        <article class="article__sub__header sub__header__actions">
+          <div class="sub__header__actions__container">
+            <div class="sub__header__action">
+              <a href="/categories" class="sub__header__link">
+                <figure class="sub__header__figure">
+                  <img src="/assets/icon-back.svg" alt="Icon Back" class="sub__header__img">
+                </figure>
+              </a>
+              <span class="sub__header__span">Volver</span>
+            </div>
+          </div>
+        </article>
+      </section>
+    </article>
+  </div>
+</div>
+<section class="section__all--forms">
+  <div class="container__form__container">
+    <div class="container">
+      <section class="section__form">
+        <form action="/categories/{{category._id}}/edit" method="POST" class="form">
+          <div class="form__content">
+            <h2 class="form__title">Editar Categoría</h2>
+            <div class="form__img">
+              <figure class="login__figure">
+                <img src="/assets/logo-aprendedor.webp" alt="Logo Aprendedor" class="login__img">
+              </figure>
+            </div>
+            <section class="form__container">
+              <article class="form__group">
+                <input class="form__input" type="text" name="nombreCategoria" id="edit_nombre_categoria" placeholder=" " title="Define el nombre de la categoría" value="{{category.nombreCategoria}}" required>
+                <label for="edit_nombre_categoria" class="form__label">Nombre:</label>
+                <span class="form__line"></span>
+              </article>
+              <article class="form__group">
+                <textarea class="form__input form__textarea" name="descripcionCategoria" id="edit_descripcion_categoria" placeholder=" " title="Descrpción de la categoría" required>{{category.descripcionCategoria}}</textarea>
+                <label for="edit_descripcion_categoria" class="form__label">Descripción:</label>
+                <span class="form__line"></span>
+              </article>
+              <button class="form__submit">Actualizar</button>
+            </section>
+          </div>
+        </form>
+      </section>
+    </div>
+  </div>
+</section>

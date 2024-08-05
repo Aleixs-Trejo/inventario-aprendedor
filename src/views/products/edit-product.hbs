@@ -1,0 +1,87 @@
+<div class="sub__header sub__header--fixed">
+  <div class="sub__header__container">
+    <article class="sub__header__content">
+      <section class="section__sub__header">
+        <article class="article__sub__header sub__header__actions">
+          <div class="sub__header__actions__container">
+            <div class="sub__header__action">
+              <a href="/products" class="sub__header__link">
+                <figure class="sub__header__figure">
+                  <img src="/assets/icon-back.svg" alt="Icon Back" class="sub__header__img">
+                </figure>
+              </a>
+              <span class="sub__header__span">Volver</span>
+            </div>
+          </div>
+        </article>
+      </section>
+    </article>
+  </div>
+</div>
+<section class="section__all--forms">
+  <div class="container__form__container">
+    <div class="container">
+      <section class="section__form">
+        <form action="/products/{{product._id}}/edit" method="POST" class="form">
+          <div class="form__content">
+            <h2 class="form__title">Editar Producto</h2>
+            <div class="form__img">
+              <figure class="login__figure">
+                <img src="/assets/logo-aprendedor.webp" alt="Logo Aprendedor" class="login__img">
+              </figure>
+            </div>
+            <section class="form__container">
+              {{#if (eq userRole "Admin")}}
+                <article class="form__group">
+                  <select name="usuarioProducto" id="edit_usuario_producto" class="form__input" required>
+                    <option disabled value="">Usuario:</option>
+                    {{#each usuarios}}
+                      <option value="{{_id}}" {{#if (eq ../product.usuarioProducto._id _id)}} selected{{/if}}>{{usuario}}</option>
+                    {{/each}}
+                  </select>
+                </article>
+              {{/if}}
+              <article class="form__group">
+                <select name="proveedorProducto" id="edit_proveedor_producto" class="form__input">
+                  <option disabled value="selecciona">Proveedor:</option>
+                  {{#each proveedores}}
+                    <option value="{{_id}}" {{#if (eq ../product.proveedorProducto._id _id)}} selected{{/if}}>{{nombreProveedor}}</option>
+                  {{/each}}
+                </select>
+              </article>
+              <article class="form__group">
+                <select name="categoriaProducto" id="edit_categoria_producto" class="form__input" required>
+                  <option disabled value="">Categoría:</option>
+                  {{#each categorias}}
+                    <option value="{{_id}}" {{#if (eq ../product.categoriaProducto._id _id)}} selected{{/if}}>{{nombreCategoria}}</option>
+                  {{/each}}
+                </select>
+              </article>
+              <article class="form__group">
+                <input class="form__input" type="text" name="cod" id="edit_cod_producto" value="{{product.cod}}" placeholder=" " title="Cödigo del producto" required>
+                <label for="nombre_producto" class="form__label">Código:</label>
+                <span class="form__line"></span>
+              </article>
+              <article class="form__group">
+                <input class="form__input" type="text" name="nombreProducto" id="edit_nombre_producto" placeholder=" " title="Nombre del producto" value="{{product.nombreProducto}}" required>
+                <label for="edit_nombre_producto" class="form__label">Nombre:</label>
+                <span class="form__line"></span>
+              </article>
+              <article class="form__group">
+                <textarea name="descripcionProducto" id="edit_descripcion_producto" class="form__input form__textarea" placeholder=" " title="Descripción del producto" required>{{product.descripcionProducto}}</textarea>
+                <label for="edit_descripcion_producto" class="form__label">Descripción:</label>
+                <span class="form__line"></span>
+              </article>
+              <article class="form__group">
+                <input class="form__input" type="text" name="precioProducto" id="edit_precio_product" placeholder=" " title="Precio del producto" value="{{product.precioProducto}}" required>
+                <label for="edit_precio_product" class="form__label">Precio:</label>
+                <span class="form__line"></span>
+              </article>
+              <button class="form__submit">Actualizar</button>
+            </section>
+          </div>
+        </form>
+      </section>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,71 @@
+<section class="section__all--views">
+  <div class="content__views">
+    <div class="container views__container">
+      <div class="card__items">
+        <div class="items__elements__title">
+          <h5 class="items__name">Historial Categorías</h5>
+        </div>
+        <div class="sub__header">
+          <div class="sub__header__container">
+            <article class="sub__header__content">
+              <section class="section__sub__header">
+                <article class="article__sub__header sub__header__actions">
+                  <div class="sub__header__actions__container">
+                    <div class="sub__header__action">
+                      <a href="/categories-room" class="sub__header__link">
+                        <figure class="sub__header__figure">
+                          <img src="/assets/icon-back.svg" alt="Icon Back" class="sub__header__img">
+                        </figure>
+                      </a>
+                      <span class="sub__header__span">Volver</span>
+                    </div>
+                    <div class="sub__header__action">
+                      <a href="/categories-room/register" class="sub__header__link">
+                        <figure class="sub__header__figure">
+                          <img src="/assets/icon-add.svg" alt="Icon Add" class="sub__header__img">
+                        </figure>
+                      </a>
+                      <span class="sub__header__span">Nueva Categoría</span>
+                    </div>
+                  </div>
+                </article>
+              </section>
+            </article>
+          </div>
+        </div>
+        {{#if categoriesRoomHistory}}
+          <section class="items">
+            <div class="items__container__elements">
+              <section class="views__container--elements view__scrollbar">
+                <div class="views__content--elements items__container categories__rooms__history">
+                  <article class="items__header items__grid categories__rooms__history">
+                    <div class="flex-c-c">Tipo de Registro:</div>
+                    <div class="flex-c-c">Hecho por:</div>
+                    <div class="flex-c-c">Categoría:</div>
+                    <div class="flex-c-c">Descripción:</div>
+                    <div class="flex-c-c">Fecha Actividad:</div>
+                  </article>
+                  <div class="items__data--values">
+                    {{#each categoriesRoomHistory}}
+                      <div class="container__data">
+                        <article class="items__data items__grid categories__rooms__history">
+                          <div class="flex-c-c">{{tipoHistorial}}</div>
+                          <div class="flex-c-c">{{categoriaHabitacionHistorial.usuarioRegistroCategoriaHabitacion.usuario}}</div>
+                          <div class="flex-c-c">{{categoriaHabitacionHistorial.nombreCategoriaHabitacion}}</div>
+                          <div class="flex-c-c">{{categoriaHabitacionHistorial.descripcionCategoriaHabitacion}}</div>
+                          <div class="flex-c-c">{{formatDateTime categoriaHabitacionHistorial.createdAt}}</div>
+                        </article>
+                      </div>
+                    {{/each}}
+                  </div>
+                </div>
+              </section>
+            </div>
+          </section>
+        {{else}}
+          <h5 class="items__empty">No hay historial para mostrar 😿</h5>
+        {{/if}}
+      </div>
+    </div>
+  </div>
+</section>

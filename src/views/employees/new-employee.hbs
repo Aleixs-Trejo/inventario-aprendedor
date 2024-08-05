@@ -1,0 +1,106 @@
+<div class="sub__header sub__header--fixed">
+  <div class="sub__header__container">
+    <article class="sub__header__content">
+      <section class="section__sub__header">
+        <article class="article__sub__header sub__header__actions">
+          <div class="sub__header__actions__container">
+            <div class="sub__header__action">
+              <a href="/employees" class="sub__header__link">
+                <figure class="sub__header__figure">
+                  <img src="/assets/icon-back.svg" alt="Icon back" class="sub__header__img">
+                </figure>
+              </a>
+              <span class="sub__header__span">Volver</span>
+            </div>
+          </div>
+        </article>
+      </section>
+    </article>
+  </div>
+</div>
+<div class="section__all--forms">
+  <div class="container__form__container">
+    <div class="container">
+      <section class="section__form">
+        <form action="/employees/register" method="POST" class="form">
+          <div class="form__content">
+            <h2 class="form__title">Registro de Trabajador</h2>
+            <div class="form__img">
+              <figure class="login__figure">
+                <img src="/assets/logo-aprendedor.webp" alt="Logo Aprendedor" class="login__img">
+              </figure>
+            </div>
+            <section class="form__container">
+              <article class="form__group form__group--select">
+                <label for="rol_trabjador" class="form__label--select">Selecciona el Rol:</label>
+                <select name="rolTrabajador" id="rol_trabajador" class="form__input" required>
+                  <option selected disabled value="">Rol:</option>
+                  {{#each roles}}
+                    <option value="{{_id}}">{{nombreRol}}</option>
+                  {{/each}}
+                </select>
+                <span class="form__span--select">¿No encuentras el Rol? <a class="select__cta" href="/users-rol/register">Regístralo aquí</a></span>
+              </article>
+              <article class="form__group">
+                <input type="number" class="form__input" name="dniTrabajador" id="dni_trabajador" placeholder=" " title="Ingresar DNI del trabajador" onkeypress="return validarDNI(event);" required>
+                <label for="dni_trabajador" class="form__label">DNI:</label>
+                <span class="form__line"></span>
+              </article>
+              <article class="form__group">
+                <input type="text" class="form__input" name="nombreTrabajador" id="nombre_trabajador" placeholder=" " title="Ingresar Nombre del trabajador" required>
+                <label for="nombre_trabajador" class="form__label">Nombres:</label>
+                <span class="form__line"></span>
+              </article>  
+              <article class="form__group">
+                <input type="text" class="form__input" name="apellidosTrabajador" id="apellidos_trabajador" placeholder=" " title="Ingresar Apellidos del trabajador" required>
+                <label for="apellidos_trabajador" class="form__label">Apellidos:</label>
+                <span class="form__line"></span>
+              </article>  
+              <article class="form__group">
+                <input type="number" class="form__input" name="celularTrabajador" id="celular_trabajador" placeholder=" " title="Ingresar Celular del trabajador" onkeypress="return validarCelular(event);" required>
+                <label for="celular_trabajador" class="form__label">Celular:</label>
+                <span class="form__line"></span>
+              </article>  
+              <article class="form__group">
+                <input type="email" class="form__input" name="correoTrabajador" id="correo_trabajador" placeholder=" " title="Ingresar Correo del trabajador" required>
+                <label for="correo_trabajador" class="form__label">Correo:</label>
+                <span class="form__line"></span>
+              </article>
+              <article class="form__group">
+                <select name="estadoTrabajador" id="estado_trabajador" class="form__input">
+                  <option selected disabled value="selecciona">Estado:</option>
+                  <option value="activo">Activo</option>
+                  <option value="inactivo">Inactivo</option>
+                </select>
+              </article>
+              <button class="form__submit">Registrar</button>
+            </section>
+          </div>
+        </form>
+      </section>
+    </div>
+  </div>
+</div>
+<script>
+  function validarDNI(evt){
+    let code = (evt.which) ? evt.which : evt.keyCode;
+    if (code == 8){
+      return true;
+    } else if(code>=48 && code<=57) {
+      return evt.target.value.length < 8;
+    } else{
+      return false;
+    }
+  }
+
+  function validarCelular(evt) {
+    let code = (evt.which) ? evt.which : evt.keyCode;
+    if (code == 9) {
+      return true;
+    } else if (code >= 48 && code <= 57) {
+      return evt.target.value.length < 9;
+    } else {
+      return false;
+    }
+  }
+</script>

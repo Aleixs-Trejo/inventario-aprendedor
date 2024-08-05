@@ -1,0 +1,543 @@
+<section class="section__all--forms">
+  <div class="content__views">
+    <div class="container views__container">
+      <div class="card__items">
+        <div class="items__elements__title">
+          <h5 class="items__name">Detalles:</h5>
+        </div>
+        {{#if occupation}}
+          <div class="details__container">
+            <div class="sub__header sub__header--fixed">
+              <div class="sub__header__container">
+                <article class="sub__header__content">
+                  <section class="section__sub__header">
+                    <article class="article__sub__header sub__header__actions">
+                      <div class="sub__header__actions__container">
+                        <div class="sub__header__action">
+                          <a href="/hotel" class="sub__header__link">
+                            <figure class="sub__header__figure">
+                              <img src="/assets/icon-back.svg" alt="Icon Back" class="sub__header__img">
+                            </figure>
+                          </a>
+                          <span class="sub__header__span">Volver</span>
+                        </div>
+                      </div>
+                    </article>
+                  </section>
+                </article>
+              </div>
+            </div>
+            <article class="article__details">
+              <section class="details__header">
+                <div class="details__header__container">
+                  <h4 class="details__header__title">General</h4>
+                </div>
+              </section>
+              <section class="details__body">
+                <div class="details__body__container">
+                  <div class="details__body__content">
+                    <div class="cards__container cards__container--hotel">
+                      <article class="card__content">
+                        <div class="card card__info card__info__general">
+                          <div class="card__header">
+                            <h5 class="card__title">Información de la Actividad</h5>
+                          </div>
+                          <div class="card__body">
+                            <div class="card__body__content">
+                              <ul class="card__body__content__ul ul__occupation__room">
+                                <li class="content__li">
+                                  <span class="content__li__span">Usuario a cargo:</span>
+                                  <span class="content__li__span content__li__span--data">{{occupation.usuarioRegistroOcupacion.trabajadorUsuario.nombreTrabajador}} {{occupation.usuarioRegistroOcupacion.trabajadorUsuario.apellidosTrabajador}}</span>
+                                </li>
+                                <li class="content__li">
+                                  <span class="content__li__span">Cliente:</span>
+                                  <span class="content__li__span content__li__span--data">{{occupation.nombreClienteOcupacion}}</span>
+                                </li>
+                                <li class="content__li">
+                                  <span class="content__li__span">Habitación:</span>
+                                  <span class="content__li__span content__li__span--data">{{occupation.habitacionOcupacion.numeroHabitacion}}</span>
+                                </li>
+                                <li class="content__li">
+                                  <span class="content__li__span">Fecha de inicio:</span>
+                                  <span class="content__li__span content__li__span--data">{{formatDateTime occupation.createdAt}}</span>
+                                </li>
+                                <li class="content__li">
+                                  <span class="content__li__span">Fecha de fin:</span>
+                                  <span class="content__li__span content__li__span--data">{{formatDateTime occupation.fechaFinOcupacion}}</span>
+                                </li>
+                                <li class="content__li">
+                                  <span class="content__li__span">Cantidad de noches:</span>
+                                  <span class="content__li__span content__li__span--data">{{occupation.nochesOcupacion}}</span>
+                                </li>
+                                <li class="content__li">
+                                  <span class="content__li__span">Precio por noche:</span>
+                                  <span class="content__li__span content__li__span--data">S/{{formatCurrency occupation.habitacionOcupacion.precioHabitacion}}</span>
+                                </li>
+                                <li class="content__li">
+                                  <span class="content__li__span">Importe Total:</span>
+                                  <span class="content__li__span content__li__span--data" id="importe_ocupacion" data-importe="{{occupation.importeOcupacion}}">S/{{formatCurrency occupation.importeOcupacion}}</span>
+                                </li>
+                                <li class="content__li">
+                                  <span class="content__li__span">Adelanto:</span>
+                                  <span class="content__li__span content__li__span--data" id="adelanto_ocupacion" data-adelanto="{{occupation.adelantoOcupacion}}">S/{{formatCurrency occupation.adelantoOcupacion}}</span>
+                                </li>
+                                <li class="content__li">
+                                  <span class="content__li__span">Restante:</span>
+                                  <span class="content__li__span content__li__span--data" id="restante_ocupacion" data-restante="{{occupation.restanteOcupacion}}">S/{{formatCurrency occupation.restanteOcupacion}}</span>
+                                </li>
+                                <li class="content__li">
+                                  <span class="content__li__span">Observaciones:</span>
+                                  <span class="content__li__span content__li__span--data">{{occupation.observacionesOcupacion}}</span>
+                                </li>
+                                <li class="content__li">
+                                  <span class="content__li__span">Estado</span>
+                                  <span class="content__li__span content__li__span--data">{{occupation.estadoOcupacion}}</span>
+                                </li>
+                              </ul>
+                            </div>
+                          </div>
+                        </div>
+                      </article>
+                      <article class="card__content">
+                        <div class="card card__info card__info__room">
+                          <div class="card__header">
+                            <h5 class="card__title">Información de la Habitación</h5>
+                          </div>
+                          <div class="card__body">
+                            <div class="card__body__content">
+                              <ul class="card__body__content__ul ul__room__room">
+                                <li class="content__li">
+                                  <span class="content__li__span">Piso:</span>
+                                  <span class="content__li__span content__li__span--data">{{occupation.habitacionOcupacion.pisoHabitacion.numeroPiso}}</span>
+                                </li>
+                                <li class="content__li">
+                                  <span class="content__li__span">Número:</span>
+                                  <span class="content__li__span content__li__span--data">{{occupation.habitacionOcupacion.numeroHabitacion}}</span>
+                                </li>
+                                <li class="content__li">
+                                  <span class="content__li__span">Descripción:</span>
+                                  <span class="content__li__span content__li__span--data">{{occupation.habitacionOcupacion.descripcionHabitacion}}</span>
+                                </li>
+                                <li class="content__li">
+                                  <span class="content__li__span">Categoría:</span>
+                                  <span class="content__li__span content__li__span--data">{{occupation.habitacionOcupacion.categoriaHabitacion.nombreCategoriaHabitacion}}</span>
+                                </li>
+                                <li class="content__li">
+                                  <span class="content__li__span">Descripción Categoría:</span>
+                                  <span class="content__li__span content__li__span--data">{{occupation.habitacionOcupacion.categoriaHabitacion.descripcionCategoriaHabitacion}}</span>
+                                </li>
+                                <li class="content__li">
+                                  <span class="content__li__span">Precio por día:</span>
+                                  <span class="content__li__span content__li__span--data">S/{{formatCurrency occupation.habitacionOcupacion.precioHabitacion}}</span>
+                                </li>
+                              </ul>
+                            </div>
+                          </div>
+                        </div>
+                      </article>
+                      <article class="card__content">
+                        <div class="card card__info card__info__client">
+                          <div class="card__header">
+                            <h5 class="card__title">Información del Cliente</h5>
+                          </div>
+                          <div class="card__body">
+                            <div class="card__body__content">
+                              <ul class="card__body__content__ul ul__client__room">
+                                <li class="content__li">
+                                  <span class="content__li__span">Documento:</span>
+                                  <span class="content__li__span content__li__span--data">{{occupation.dniClienteOcupacion}}</span>
+                                </li>
+                                <li class="content__li">
+                                  <span class="content__li__span">Nombres:</span>
+                                  <span class="content__li__span content__li__span--data">{{occupation.nombreClienteOcupacion}}</span>
+                                </li>
+                                <li class="content__li">
+                                  <span class="content__li__span">Celular:</span>
+                                  <span class="content__li__span content__li__span--data">{{#if occupation.celularClienteOcupacion}}{{occupation.celularClienteOcupacion}}{{else}}-{{/if}}</span>
+                                </li>
+                                <li class="content__li">
+                                  <span class="content__li__span">Correo:</span>
+                                  <span class="content__li__span content__li__span--data">{{#if occupation.correoClienteOcupacion}}{{occupation.correoClienteOcupacion}}{{else}}-{{/if}}</span>
+                                </li>
+                              </ul>
+                            </div>
+                          </div>
+                        </div>
+                      </article>
+                      <article class="card__content">
+                        <div class="card card__info card__info__employee">
+                          <div class="card__header">
+                            <h5 class="card__title">Información del Trabajador</h5>
+                          </div>
+                          <div class="card__body">
+                            <div class="card__body__content">
+                              <ul class="card__body__content__ul ul__employee__room">
+                                <li class="content__li">
+                                  <span class="content__li__span">Documento:</span>
+                                  <span class="content__li__span content__li__span--data">{{occupation.usuarioRegistroOcupacion.trabajadorUsuario.dniTrabajador}}</span>
+                                </li>
+                                <li class="content__li">
+                                  <span class="content__li__span">Nombres:</span>
+                                  <span class="content__li__span content__li__span--data">{{occupation.usuarioRegistroOcupacion.trabajadorUsuario.nombreTrabajador}} {{occupation.usuarioRegistroOcupacion.trabajadorUsuario.apellidosTrabajador}}</span>
+                                </li>
+                                <li class="content__li">
+                                  <span class="content__li__span">Celular:</span>
+                                  <span class="content__li__span content__li__span--data">{{occupation.usuarioRegistroOcupacion.trabajadorUsuario.celularTrabajador}}</span>
+                                </li>
+                                <li class="content__li">
+                                  <span class="content__li__span">Correo:</span>
+                                  <span class="content__li__span content__li__span--data">{{occupation.usuarioRegistroOcupacion.trabajadorUsuario.correoTrabajador}}</span>
+                                </li>
+                              </ul>
+                            </div>
+                          </div>
+                        </div>
+                      </article>
+                      <article class="card__content">
+                        <div class="card card__info card__info__clean__room">
+                          <div class="card__header">
+                            <h5 class="card__title">Información de Limpieza a la habitación</h5>
+                          </div>
+                          {{#if cleaningRoom}}
+                            <div class="card__body">
+                              <div class="card__body__content">
+                                <ul class="card__body__content__ul ul__clean__room">
+                                  <li class="content__li">
+                                    <span class="content__li__span">Trabajador a cargo</span>
+                                    <span class="content__li__span content__li__span--data">{{cleaningRoom.usuarioACargoLimpieza.trabajadorUsuario.nombreTrabajador}} {{cleaningRoom.usuarioACargoLimpieza.trabajadorUsuario.apellidosTrabajador}}</span>
+                                  </li>
+                                  <li class="content__li">
+                                    <span class="content__li__span">Comentarios</span>
+                                    <span class="content__li__span content__li__span--data">{{cleaningRoom.comentariosLimpieza}}</span>
+                                  </li>
+                                  <li class="content__li">
+                                    <span class="content__li__span">Fecha de inicio</span>
+                                    <span class="content__li__span content__li__span--data">{{formatDateTime cleaningRoom.createdAt}}</span>
+                                  </li>
+                                  <li class="content__li">
+                                    <span class="content__li__span">Fecha de fin</span>
+                                    {{#if cleaningRoom.fechaFinLimpieza}}
+                                      <span class="content__li__span content__li__span--data">{{formatDateTime cleaningRoom.fechaFinLimpieza}}</span>
+                                    {{else}}
+                                      <span class="content__li__span content__li__span--data">Sin fecha</span>
+                                    {{/if}}
+                                  </li>
+                                </ul>
+                              </div>
+                            </div>
+                          {{else}}
+                            <span class="items__empty">No hay limpieza a la habitación</span>
+                          {{/if}}
+                        </div>
+                      </article>
+                      <article class="card__content">
+                        <div class="card card__info card__info__sale__room">
+                          <div class="card__header">
+                            <h4 class="card__title">Información de servicio a la habitación</h4>
+                          </div>
+                          {{#if saleOccupation}}
+                            <div class="card__body">
+                              <div class="card__body__content card__body__content--sale__room">
+                                {{#each saleOccupation}}
+                                  <div class="container__sales__room">
+                                    <div class="card__body__subtitle">
+                                      <h5 class="card__title">Venta:
+                                        <span class="span__card__title">{{_id}}</span>
+                                      </h5>
+                                    </div>
+                                    <ul class="card__body__content__ul ul__sale__room">
+                                      <li class="content__li">
+                                        <span class="content__li__span">Cantidad:</span>
+                                        <span class="content__li__span content__li__span--data">{{cantidadProductosVentaHotel}}</span>
+                                      </li>
+                                      <li class="content__li">
+                                        <span class="content__li__span">Precio:</span>
+                                        <span class="content__li__span content__li__span--data" data-precio="{{precioTotalVentaHotel}}">S/{{formatCurrency precioTotalVentaHotel}}</span>
+                                      </li>
+                                      <li class="content__li">
+                                        <span class="content__li__span">Descuento:</span>
+                                        <span class="content__li__span content__li__span--data" data-descuento="{{descuentoTotalVentaHotel}}">S/{{formatCurrency descuentoTotalVentaHotel}}</span>
+                                      </li>
+                                      <li class="content__li">
+                                        <span class="content__li__span">Adelanto:</span>
+                                        <span class="content__li__span content__li__span--data" data-adelanto="{{pagoAdelantoVentaHotel}}">S/{{formatCurrency pagoAdelantoVentaHotel}}</span>
+                                      </li>
+                                      <li class="content__li">
+                                        <span class="content__li__span">Comentarios:</span>
+                                        <span class="content__li__span content__li__span--data">{{comentariosVentaHotel}}</span>
+                                      </li>
+                                      <li class="content__li">
+                                        <span class="content__li__span">Restante:</span>
+                                        <span class="content__li__span content__li__span--data" data-restante="{{pagoRestanteVentaHotel}}">S/{{formatCurrency pagoRestanteVentaHotel}}</span>
+                                      </li>
+                                      <div class="flex-c-c content__details__sale content__details__sale--room">
+                                        <button type="button" class="details__sale__button detail__btn--sale__details" data-sale-id="{{_id}}">Detalles</button>
+                                      </div>
+                                    </ul>
+                                  </div>
+                                  <section class="modal__fixed" data-sale-id="{{_id}}">
+                                    <div class="flex-c-c modal modal__sale__products__details">
+                                      <article class="article__modal article__modal__details">
+                                        <h5 class="modal__title">Productos de la venta:
+                                          <span class="span__card__title">{{../_id}}</span>
+                                        </h5>
+                                        <div class="modal__details__products">
+                                          {{#each productosVentaHotel}}
+                                            <ul class="details__products__ul">
+                                              <li class="content__li">
+                                                <span class="content__li__span">Descripción:</span>
+                                                <span class="content__li__span content__li__span--data">{{productoVentaHotel.productoAlmacenHotel.descripcionProducto}}</span>
+                                              </li>
+                                              <li class="content__li">
+                                                <span class="content__li__span">Precio:</span>
+                                                <span class="content__li__span content__li__span--data">S/{{formatCurrency productoVentaHotel.productoAlmacenHotel.precioProducto}}</span>
+                                              </li>
+                                              <li class="content__li">
+                                                <span class="content__li__span">Cantidad:</span>
+                                                <span class="content__li__span content__li__span--data">{{cantidadVentaHotel}}</span>
+                                              </li>
+                                              <li class="content__li">
+                                                <span class="content__li__span">Descuento:</span>
+                                                <span class="content__li__span content__li__span--data">-S/{{formatCurrency descuentoProductoVentaHotel}}</span>
+                                              </li>
+                                              <li class="content__li">
+                                                <span class="content__li__span">Importe Producto:</span>
+                                                <span class="content__li__span content__li__span--data">S/{{formatCurrency precioTotalProductoVentaHotel}}</span>
+                                              </li>
+                                            </ul>
+                                          {{/each}}
+                                        </div>
+                                        <div class="close__modal close__modal--details__sale">
+                                          <figure class="close__figure">
+                                            <img src="/assets/icon-close.svg" alt="Icon Close" class="close__img">
+                                          </figure>
+                                        </div>
+                                      </article>
+                                    </div>
+                                  </section>
+                                {{/each}}
+                              </div>
+                            </div>
+                          {{else}}
+                            <span class="items__empty">No hay servicio a la habitación</span>
+                          {{/if}}
+                        </div>
+                      </article>
+                    </div>
+                  </div>
+                </div>
+              </section>
+              <section class="details__footer details__footer--checkout">
+                <form action="{{actionUrl}}" method="POST" class="form__checkout">
+                  <div class="details__footer__container">
+                    <article class="card__content card__content__checkout">
+                      <div class="card card__info card__info__checkout">
+                        <div class="card__header">
+                          <h5 class="card__title">CheckOut</h5>
+                        </div>
+                        <div class="card__body">
+                          <div class="card__body__content">
+                            <ul class="card__body__content__ul">
+                              <li class="content__li">
+                                <article class="form__group form__group--select us__sel">
+                                  <label for="habitacion_checkout" class="form__label--select">Habitación:</label>
+                                  <select name="habitacionCheckOut" class="form__input us__sel" id="habitacion_checkout">
+                                    <option value="{{room._id}}" selected>{{room.numeroHabitacion}}</option>
+                                  </select>
+                                </article>
+                              </li>
+                              <li class="content__li">
+                                <label for="importe_adicional_checkout" class="label__checkout">Adicional:</label>
+                                <input type="number" name="importeAdicionalCheckOut" id="importe_adicional_checkout" class="form__input" required title="Importe Adicional" onkeypress="return event.charCode >= 48 && event.charCode <= 57">
+                              </li>
+                              <li class="content__li">
+                                <label for="descuento_checkout" class="label__checkout">Descuento:</label>
+                                <input type="number" name="descuentoCheckOut" id="descuento_checkout" class="form__input" required title="Descuento" onkeypress="return event.charCode >= 48 && event.charCode <= 57">
+                              </li>
+                              <li class="content__li">
+                                <label for="importe_total_checkout" class="label__checkout">Total:</label>
+                                <input type="number" name="importeTotalCheckOut" id="importe_total_checkout" class="form__input us__sel" required title="Importe Total" readonly>
+                              </li>
+                              <li class="content__li">
+                                <label for="comentarios_checkout" class="label__checkout">Comentarios:</label>
+                                <textarea name="comentariosCheckOut" id="comentarios_checkout" class="form__input form__textarea" required title="Comentarios"></textarea>
+                              </li>
+                            </ul>
+                          </div>
+                        </div>
+                        <div class="card__footer">
+                          <div class="card__footer__content">
+                            <div class="card__footer__content__checkout">
+                              <button type="button" class="details__btn detail__btn--checkout">Checkout</button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </article>
+                  </div>
+                  <section class="modal__fixed">
+                    <div class="flex-c-c modal modal__checkout">
+                      <article class="flex-c-c article__modal">
+                        <h5 class="modal__title">¿Hacer checkout de la habitación?</h5>
+                        <div class="flex-c-c modal__btns">
+                          <button type="button" class="btn__modal__action btn__modal__action--cancelar cancel__modal--checkout">Cancelar</button>
+                          <button type="submit" class="btn__modal__action confirm__modal--checkout">Confirmar</button>
+                        </div>
+                        <div class="close__modal close__modal--checkout">
+                          <figure class="close__figure">
+                            <img src="/assets/icon-close.svg" alt="Icon Close" class="close__img">
+                          </figure>
+                        </div>
+                      </article>
+                    </div>
+                  </section>
+                </form>
+              </section>
+            </article>
+          </div>
+        {{else}}
+          <h5 class="items__empty">No hay Ocupación para mostrar 😿</h5>
+        {{/if}}
+      </div>
+    </div>
+  </div>
+</section>
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const $btnModalCheckOut = document.querySelector(".detail__btn--checkout");
+    const $modalCheckOut = document.querySelector(".modal__checkout");
+    const $cancelCheckOut = document.querySelector(".cancel__modal--checkout");
+    const $modalCloseCheckOut = document.querySelector(".close__modal--checkout");
+
+    const $btnsModalSaleDetails = document.querySelectorAll(".details__sale__button");
+
+    const $importeOcupacion = document.getElementById("importe_ocupacion");
+    const $adelantoOcupacion = document.getElementById("adelanto_ocupacion");
+    const $restanteOcupacion = document.getElementById("restante_ocupacion");
+
+    const $importeVentaHotel = document.getElementById("precio_total_venta_hotel");
+    const $descuentoVentaHotel = document.getElementById("descuento_total_venta_hotel");
+    const $adelantoVentaHotel = document.getElementById("pago_adelanto_venta_hotel");
+    const $restanteVentaHotel = document.getElementById("pago_restante_venta_hotel");
+
+    const $importeAdicionalCheckOut = document.getElementById("importe_adicional_checkout");
+    const $descuentoCheckOut = document.getElementById("descuento_checkout");
+    const $importeTotalCheckOut = document.getElementById("importe_total_checkout");
+
+    // Por defecto el valor 0 a adicional y descuento
+    $importeAdicionalCheckOut.value = 0;
+    $descuentoCheckOut.value = 0;
+
+    // Funciones para mostrar y cerrar modales
+    function showModalCheckOut(e){
+      e.stopPropagation();
+      $modalCheckOut.classList.add("modal__show");
+    }
+
+    function closeModalCheckOut(e){
+      e.stopPropagation();
+      $modalCheckOut.classList.remove("modal__show");
+    }
+
+    function showModalSaleDetails(e){
+      e.stopPropagation();
+      const saleId = e.target.dataset.saleId;
+      const $modalSaleDetails = document.querySelector(`.modal__fixed[data-sale-id="${saleId}"] .modal__sale__products__details`);
+      if ($modalSaleDetails) {
+        $modalSaleDetails.classList.add("modal__show");
+      }
+    }
+
+    function closeModalSaleDetails(e){
+      e.stopPropagation();
+      const saleId = e.target.closest(".modal__fixed").dataset.saleId;
+      const $modalSaleDetails = document.querySelector(`.modal__fixed[data-sale-id="${saleId}"] .modal__sale__products__details`);
+      if ($modalSaleDetails) {
+        $modalSaleDetails.classList.remove("modal__show");
+      }
+    }
+
+    $btnsModalSaleDetails.forEach(btn => {
+      btn.addEventListener("click", showModalSaleDetails);
+    });
+
+    const $modalCloseSaleDetails = document.querySelectorAll(".close__modal--details__sale");
+    $modalCloseSaleDetails.forEach(btn => {
+      btn.addEventListener("click", closeModalSaleDetails);
+    });
+
+    $btnModalCheckOut.addEventListener("click", showModalCheckOut);
+    $cancelCheckOut.addEventListener("click", closeModalCheckOut);
+    $modalCloseCheckOut.addEventListener("click", closeModalCheckOut);
+
+    function updateTotalCheckOut() {
+      let restanteOcupacion = parseFloat($restanteOcupacion.dataset.restante);
+      let importeAdicionalCheckOut = parseFloat($importeAdicionalCheckOut.value) || 0;
+      let descuentoCheckOut = parseFloat($descuentoCheckOut.value) || 0;
+
+      let totalVentasHotel = 0;
+
+      // Iterar sobre cada venta a la habitación
+      const $ventasHotel = document.querySelectorAll(".ul__sale__room");
+      $ventasHotel.forEach(venta => {
+        let importeVentaHotel = parseFloat(venta.querySelector(".content__li__span--data[data-precio]").dataset.precio) || 0;
+        let descuentoVentaHotel = parseFloat(venta.querySelector(".content__li__span--data[data-descuento]").dataset.descuento) || 0;
+        let adelantoVentaHotel = parseFloat(venta.querySelector(".content__li__span--data[data-adelanto]").dataset.adelanto) || 0;
+        let restanteVentaHotel = parseFloat(venta.querySelector(".content__li__span--data[data-restante]").dataset.restante) || 0;
+
+        totalVentasHotel += restanteVentaHotel;
+      });
+
+      let pagoAlSalirCheckOut = restanteOcupacion + importeAdicionalCheckOut - descuentoCheckOut + totalVentasHotel;
+      
+      if (pagoAlSalirCheckOut < 0) {
+        alert("El importe total no puede ser negativo");
+        descuentoCheckOut = restanteOcupacion + importeAdicionalCheckOut;
+        $descuentoCheckOut.value = descuentoCheckOut;
+        pagoAlSalirCheckOut = 0;
+      }
+
+      $importeTotalCheckOut.value = pagoAlSalirCheckOut.toFixed(2);
+    }
+
+    // Validar el ingreso de numeros positivos
+    function validateNumberPositive(e) {
+      if (e.target.value < 0) {
+        e.target.value = 0;
+      }
+
+      if(isNaN(e.target.value)) {
+        return;
+      }
+    }
+
+    // Maneho de focus y blur en los input
+    function handleFocus(e) {
+      if (e.target.value == 0) {
+        e.target.value = "";
+      }
+    }
+
+    function handleBlur(e) {
+      if (e.target.value === "") {
+        e.target.value = 0;
+      }
+      updateTotalCheckOut();
+    }
+
+    $importeAdicionalCheckOut.addEventListener("input", e => {
+      validateNumberPositive(e);
+      updateTotalCheckOut();
+    });
+    $descuentoCheckOut.addEventListener("input", e => {
+      validateNumberPositive(e);
+      updateTotalCheckOut();
+    });
+    $importeAdicionalCheckOut.addEventListener("focus", handleFocus);
+    $importeAdicionalCheckOut.addEventListener("blur", handleBlur);
+    $descuentoCheckOut.addEventListener("focus", handleFocus);
+    $descuentoCheckOut.addEventListener("blur", handleBlur);
+
+    updateTotalCheckOut();
+  });
+</script>

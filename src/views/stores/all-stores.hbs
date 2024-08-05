@@ -1,0 +1,267 @@
+<section class="section__all--views">
+  <div class="content__views">
+    <div class="container views__container">
+      <div class="card__items">
+        <div class="items__elements__title">
+          <h5 class="items__name">Almacén</h5>
+        </div>
+        {{#if (or (eq userRole "Almacen") (eq userRole "Admin"))}}
+          <div class="sub__header">
+            <div class="sub__header__container">
+              <article class="sub__header__content">
+                <section class="section__sub__header">
+                  <article class="article__sub__header sub__header__actions">
+                    <div class="sub__header__actions__container">
+                      <div class="sub__header__action">
+                        <a href="/" class="sub__header__link">
+                          <figure class="sub__header__figure">
+                            <img src="/assets/icon-back.svg" alt="Icon Back" class="sub__header__img">
+                          </figure>
+                        </a>
+                        <span class="sub__header__span">Volver</span>
+                      </div>
+                      <div class="sub__header__action">
+                        <a href="/stores/register" class="sub__header__link">
+                          <figure class="sub__header__figure">
+                            <img src="/assets/icon-add.svg" alt="Icon Add" class="sub__header__img">
+                          </figure>
+                        </a>
+                        <span class="sub__header__span">Agregar Producto</span>
+                      </div>
+                      <div class="sub__header__action">
+                        <a href="/stores/history" class="sub__header__link">
+                          <figure class="sub__header__figure">
+                            <img src="/assets/icon-history.svg" alt="Icon History" class="sub__header__img">
+                          </figure>
+                        </a>
+                        <span class="sub__header__span">Historial</span>
+                      </div>
+                      <div class="sub__header__action action__export--excel">
+                        <a href="/stores/export-excel" class="sub__header__link">
+                          <figure class="sub__header__figure">
+                            <img src="/assets/icon-excel.svg" alt="Icon History" class="sub__header__img">
+                          </figure>
+                        </a>
+                        <span class="sub__header__span">Exportar</span>
+                      </div>
+                    </div>
+                  </article>
+                  <article class="article__sub__header sub__header__filters">
+                    <div class="sub__header__filters__container">
+                      <div class="sub__header__filter search__by">
+                        <select name="search" id="select-search">
+                          <option selected value="cod">Buscar por Código</option>
+                          <option value="nombre">Buscar por Nombre</option>
+                          <option value="descripcion">Buscar por Descripción</option>
+                          <option value="proveedor">Buscar por Proveedor</option>
+                          <option value="categoria">Buscar por Categoria</option>
+                        </select>
+                      </div>
+                      <div class="sub__header__filter flex-c-c input__search--container">
+                        <label for="search-element" class="label__search">
+                          <figure class="search__figure">
+                            <img src="/assets/icon-search.svg" alt="Icon Search" class="search__img">
+                          </figure>
+                        </label>
+                        <input class="input__search" type="search" id="search-element" placeholder="Busca un producto" title="Busca un producto">
+                      </div>
+                      <div class="sub__header__filter flex-c-c order__items">
+                        <button type="button" class="order__container">
+                          <figure class="order__figure">
+                            <img src="/assets/icon-order.svg" alt="Icon Filter" class="filter__img">
+                          </figure>
+                          <div class="order__by">
+                            <select name="order" id="select-order">
+                              <option value="asc" selected>Ascendente</option>
+                              <option value="desc">Descendente</option>
+                            </select>
+                          </div>
+                        </button>
+                      </div>
+                    </div>
+                  </article>
+                </section>
+              </article>
+            </div>
+          </div>
+        {{/if}}
+        {{#if stores}}
+          {{#if userRole}}
+              <section class="items">
+                <div class="items__container__elements">
+                  <section class="views__container--elements view__scrollbar">
+                    <div class="views__content--elements items__container stores">
+                      <article class="items__header items__grid stores">
+                        <div class="flex-c-c">Registrado por</div>
+                        <div class="flex-c-c">Cod</div>
+                        <div class="flex-c-c">Producto</div>
+                        <div class="flex-c-c">Descripción</div>
+                        <div class="flex-c-c">Proveedor</div>
+                        <div class="flex-c-c">Categoría</div>
+                        <div class="flex-c-c">Ubicacion</div>
+                        <div class="flex-c-c">Precio</div>
+                        <div class="flex-c-c">Stock</div>
+                        <div class="flex-c-c">Min-Stock</div>
+                        <div class="flex-c-c">Fecha Registro</div>
+                        <div class="flex-c-c">Acciones</div>
+                      </article>
+                      <div class="items__data--values">
+                        {{#each stores}}
+                          <div class="container__data">
+                            <article class="items__data items__grid stores product__data">
+                              <div class="flex-c-c">{{almacenUsuario.usuario}}</div>
+                              <div class="flex-c-c" data-cod="{{almacenProducto.cod}}">{{almacenProducto.cod}}</div>
+                              <div class="flex-c-c" data-nombre="{{almacenProducto.nombreProducto}}">{{almacenProducto.nombreProducto}}</div>
+                              <div class="flex-c-c" data-descripcion="{{almacenProducto.descripcionProducto}}">{{almacenProducto.descripcionProducto}}</div>
+                              <div class="flex-c-c" data-proveedor="{{almacenProducto.proveedorProducto.nombreProveedor}}">{{almacenProducto.proveedorProducto.nombreProveedor}}</div>
+                              <div class="flex-c-c" data-categoria="{{almacenProducto.categoriaProducto.nombreCategoria}}">{{almacenProducto.categoriaProducto.nombreCategoria}}</div>
+                              <div class="flex-c-c">{{almacenStockUbicacion.nombreStockUbicacion}}</div>
+                              <div class="flex-c-c">S/{{formatCurrency almacenProducto.precioProducto}}</div>
+                              <div class="flex-c-c stocks">{{almacenStock}}</div>
+                              <div class="flex-c-c stocks__min">{{almacenMinStock}}</div>
+                              <div class="flex-c-c">{{formatDateTime createdAt}}</div>
+                              <div class="flex-c-c items__data--options">
+                                <a href="/stores/{{_id}}/edit" class="options__action">
+                                  <figure class="options__figure">
+                                    <img src="../assets/icon-edit.svg" alt="Icon Edit" class="options__img">
+                                  </figure>
+                                </a>
+                                <a href="/stores/{{_id}}/confirm-delete" class="options__action">
+                                  <figure class="options__figure">
+                                    <img src="../assets/icon-delete.svg" alt="Icon Delete" class="options__img">
+                                  </figure>
+                                </a>
+                              </div>
+                            </article>
+                          </div>
+                        {{/each}}
+                      </div>
+                    </div>
+                  </section>
+                </div>
+              </section>
+          {{/if}}
+        {{else}}
+          <h5 class="items__empty">No hay almacén para mostrar 😿</h5>
+        {{/if}}
+      </div>
+    </div>
+  </div>
+</section>
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const selectSearch = document.getElementById("select-search");
+    const searchElement = document.getElementById("search-element");
+    const selectOrder = document.getElementById("select-order");
+    const itemsDataValues = document.querySelector(".items__data--values");
+    const productData = document.querySelectorAll(".product__data");
+    const stocks = document.querySelectorAll(".stocks");
+    const stocksMin = document.querySelectorAll(".stocks__min");
+
+    ((d) => {
+      stocks.forEach((stock, index) => {
+        const stockValue = parseInt(stock.textContent);
+        const stockMinValue = parseInt(stocksMin[index].textContent);
+        const parentStockMin = stock.parentElement;
+
+        if (stockValue <= stockMinValue) {
+          parentStockMin.classList.add("stock__min__bg");
+        } else if (stockValue > stockMinValue) {
+          parentStockMin.classList.remove("stock__min__bg");
+        }
+      })
+      
+    })(document)
+
+    function getUrlParams() {
+      const urlParams = new URLSearchParams(window.location.search);
+      return urlParams;
+    }
+
+    function filterAndSortItems(selectedFilter, searchQuery, selectedOrder) {
+      // Filtrar y ordenar los elementos de la lista 
+      productData.forEach(item => {
+        const childElement = item.querySelector(`[data-${selectedFilter}]`);
+        // console.log("Elemento filtrado: ", childElement);
+        if (!childElement || !childElement.textContent.toLowerCase().includes(searchQuery)) {
+          item.style.display = "none";
+        } else {
+          item.style.display = "grid";
+        }
+      });
+
+      // Ordenar los elementos de la lista
+      const sortedItems = Array.from(productData)
+        .sort((a, b) => {
+          // Función para verificar si un valor es numérico
+          function isNumeric(value) {
+            return /^\d+$/.test(value);
+          };
+
+          const aValueElement = a.querySelector(`[data-${selectedFilter}]`);
+          const bValueElement = b.querySelector(`[data-${selectedFilter}]`);
+
+          const aValue = aValueElement.getAttribute(`data-${selectedFilter}`);
+          const bValue = bValueElement.getAttribute(`data-${selectedFilter}`);
+
+          const aNumericValue = isNumeric(aValue) ? parseFloat(aValue) : null;
+          const bNumericValue = isNumeric(bValue) ? parseFloat(bValue) : null;
+
+          if (aNumericValue !== null && bNumericValue !== null) {
+            return selectedOrder === "asc" ? aNumericValue - bNumericValue : bNumericValue - aNumericValue;
+          } else if (aNumericValue !== null) {
+            return -1;
+          } else if (bNumericValue !== null) {
+            return 1;
+          } else {
+            return selectedOrder === "asc" ? aValue.localeCompare(bValue) : bValue.localeCompare(aValue)
+          }
+
+        });
+
+      if (sortedItems.length > 0) {
+        itemsDataValues.innerHTML = "";
+        sortedItems.forEach(item => itemsDataValues.appendChild(item));
+      } else {
+        console.log("No se encontraron productos: ", sortedItems);
+      }
+
+      // Actualizar los parámetros de la URL después de filtrar y ordenar
+      const urlParams = getUrlParams();
+      urlParams.set("f", selectedFilter);
+      urlParams.set("q", searchQuery);
+      urlParams.set("o", selectedOrder);
+      window.history.replaceState({}, "", `${location.pathname}?${urlParams}`);
+    }
+
+    const initialSearchQuery = searchElement.value.toLowerCase();
+    // Llamar a la función filtrar al cargar la vistachElement.value.toLowerCase();
+    filterAndSortItems(selectSearch.value, initialSearchQuery, selectOrder.value);
+
+    // Select de busqueda y ordenamiento
+    selectSearch.addEventListener("change", () => {
+      const selectedFilter = selectSearch.value;
+      const searchQuery = searchElement.value.toLowerCase();
+      const selectedOrder = selectOrder.value;
+
+      filterAndSortItems(selectedFilter, searchQuery, selectedOrder);
+    })
+
+    // Input search
+    searchElement.addEventListener("input", () => {
+      const selectedFilter = selectSearch.value;
+      const searchQuery = searchElement.value.toLowerCase();
+      const selectedOrder = selectOrder.value;
+
+      filterAndSortItems(selectedFilter, searchQuery, selectedOrder);
+    });
+
+    selectOrder.addEventListener("change", () => {
+      const selectedFilter = selectSearch.value;
+      const searchQuery = searchElement.value.toLowerCase();
+      const selectedOrder = selectOrder.value;
+
+      filterAndSortItems(selectedFilter, searchQuery, selectedOrder);
+    })
+  });
+</script>

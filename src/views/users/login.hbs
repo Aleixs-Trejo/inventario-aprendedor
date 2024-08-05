@@ -1,0 +1,52 @@
+<section class="section__all--forms">
+  <div class="container__form__container">
+    <div class="container">
+      <section class="section__form">
+        <form action="/users/login" method="POST" class="form">
+          <div class="form__content">
+            <h2 class="form__title">Iniciar Sesión</h2>
+            <div class="form__img">
+              <figure class="login__figure">
+                <img src="/assets/logo-aprendedor.webp" alt="Logo Aprendedor" class="login__img">
+              </figure>
+            </div>
+            <section class="form__container">
+              <article class="form__group">
+                <input class="form__input" type="text" name="usuario" id="user" placeholder=" " required>
+                <label for="user" class="form__label">Usuario:</label>
+                <span class="form__line"></span>
+              </article>
+              <article class="form__group">
+                <input class="form__input" type="password" name="password" id="password" placeholder=" " required>
+                <label for="password" class="form__label">Contraseña:</label>
+                <span class="form__line"></span>
+              </article>
+              <button class="form__submit">Ingresar</button>
+            </section>
+          </div>
+        </form>
+      </section>
+    </div>
+  </div>
+</section>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const $inputUser = document.getElementById("user");
+
+    const initialize = () => {
+      $inputUser.addEventListener("keyup", function (event) {
+        if (event.key === "Enter") {
+          event.preventDefault();
+          document.getElementById("password").focus();
+        }
+      });
+      console.log("Línea 43")
+      // Convertir a minúsculas los caracteres del usuario
+      $inputUser.addEventListener("input", function () {
+        const user = $inputUser.value.toLowerCase();
+        $inputUser.value = user;
+      });
+    };
+    initialize();
+  });
+</script>

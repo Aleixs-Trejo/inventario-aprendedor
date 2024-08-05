@@ -1,0 +1,172 @@
+<div class="sub__header sub__header--fixed">
+  <div class="sub__header__container">
+    <article class="sub__header__content">
+      <section class="section__sub__header">
+        <article class="article__sub__header sub__header__actions">
+          <div class="sub__header__actions__container">
+            <div class="sub__header__action">
+              <a href="/hotel" class="sub__header__link">
+                <figure class="sub__header__action__figure">
+                  <img src="/assets/icon-back.svg" alt="Icon Back" class="sub__header__action__img">
+                </figure>
+              </a>
+              <span class="sub__header__span">Volver</span>
+            </div>
+          </div>
+        </article>
+      </section>
+    </article>
+  </div>
+</div>
+<section class="section__all--forms">
+  <div class="container__form__container">
+    <div class="container">
+      <section class="section__form">
+        <form action="/occupation/{{room._id}}/register" method="POST" class="form">
+          <div class="form__content">
+            <h2 class="form__title">Ocupar</h2>
+            <div class="form__img">
+              <figure class="login__figure">
+                <img src="/assets/logo-aprendedor.webp" alt="Logo Aprendedor" class="login__img">
+              </figure>
+            </div>
+            <section class="form__container">
+              <article class="form__group form__group--select us__sel">
+                <label for="habitacion_ocupacion" class="form__label--select">Habitación:</label>
+                <select name="habitacionOcupacion" class="form__input us__sel" id="habitacion_ocupacion">
+                  <option data-precio="{{room.precioHabitacion}}" value="{{room._id}}" selected>{{room.numeroHabitacion}}</option>
+                </select>
+              </article>
+              <article class="form__group">
+                <input type="text" class="form__input" id="dni_cliente_ocupacion" name="dniClienteOcupacion" placeholder=" " title="DNI" required onkeypress="return event.charCode >= 48 && event.charCode <= 57" minlength="8" maxlength="8">
+                <label for="dni_cliente_ocupacion" class="form__label">DNI:</label>
+                <span class="form__line"></span>
+              </article>
+              <article class="form__group">
+                <input type="text" class="form__input" id="nombre_cliente_ocupacion" name="nombreClienteOcupacion" placeholder=" " title="Nombres Completos" required>
+                <label for="nombre_cliente_ocupacion" class="form__label">Nombres Completos:</label>
+                <span class="form__line"></span>
+              </article>
+              <article class="form__group">
+                <input type="text" name="celularClienteOcupacion" id="celular_cliente_ocupacion" class="form__input" placeholder=" " title="Celular" onkeypress="return event.charCode >= 48 && event.charCode <= 57" minlength="9" maxlength="9">
+                <label for="celular_cliente_ocupacion" class="form__label">Celular:</label>
+                <span class="form__line"></span>
+              </article>
+              <article class="form__group">
+                <input type="email" name="correoClienteOcupacion" id="correo_cliente_ocupacion" class="form__input" placeholder=" " title="Correo">
+                <label for="correo_cliente_ocupacion" class="form__label">Correo:</label>
+                <span class="form__line"></span>
+              </article>
+              <article class="form__group form__group--date">
+                <div class="content__date__time">
+                  <label for="fecha_fin_ocupacion" class="form__label--select">Fecha de fin:</label>
+                  <input class="form__input" type="datetime-local" name="fechaFinOcupacion" id="fecha_fin_ocupacion" placeholder=" " title="Fecha de fin" required>
+                </div>
+              </article>
+              </article>
+              <article class="form__group us__sel">
+                <input class="form__input" type="number" name="nochesOcupacion" id="noches_ocupacion" placeholder=" " title="Cantidad de noches" required>
+                <label for="noches_ocupacion" class="form__label">Cantidad de noches:</label>
+                <span class="form__line"></span>
+              </article>
+              <article class="form__group us__sel">
+                <input class="form__input" type="number" name="importeOcupacion" id="importe_ocupacion" placeholder=" " title="Importe" required>
+                <label for="importe_ocupacion" class="form__label">Importe:</label>
+                <span class="form__line"></span>
+              </article>
+              <article class="form__group">
+                <input class="form__input" type="number" name="adelantoOcupacion" id="adelanto_ocupacion" placeholder=" " title="Cantidad de noches">
+                <label for="adelanto_ocupacion" class="form__label">Adelanto:</label>
+                <span class="form__line"></span>
+              </article>
+              <article class="form__group">
+                <textarea class="form__input form__textarea" name="observacionesOcupacion" id="observaciones_ocupacion" placeholder=" " title="Observaciones"></textarea>
+                <label for="observaciones_ocupacion" class="form__label">Observaciones:</label>
+                <span class="form__line"></span>
+              </article>
+              <button class="form__submit">Ocupar</button>
+            </section>
+          </div>
+        </form>
+      </section>
+    </div>
+  </div>
+</section>
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const $fechaFinOcupacionInput = document.getElementById("fecha_fin_ocupacion");
+    const $cantidadNochesInput = document.getElementById("noches_ocupacion");
+    const $importeOcupacionInput = document.getElementById("importe_ocupacion");
+
+    function obtenerFechaActual() {
+      return new Date();
+    }
+
+    function formatearFecha(fecha) {
+      console.log("Tipo de Fecha: ", typeof fecha);
+      const year = fecha.getFullYear();
+      const mes = String(fecha.getMonth() + 1).padStart(2, "0");
+      const dia = String(fecha.getDate()).padStart(2, "0");
+      const hora = String(fecha.getHours()).padStart(2, "0");
+      const minuto = String(fecha.getMinutes()).padStart(2, "0");
+
+      const fechaFormateada = `${year}-${mes}-${dia}T${hora}:${minuto}`;
+      return fechaFormateada;
+    }
+
+    function sumarDias(fecha, dias) {
+      const fechaAux = new Date(fecha);
+      fechaAux.setDate(fechaAux.getDate() + dias);
+      fechaAux.setHours(0, 0, 0, 0); // A las 00:00
+      return fechaAux;
+    }
+
+    function establecerRestriccionesFechaFin() {
+      const fechaActual = obtenerFechaActual();
+      fechaActual.setHours(fechaActual.getHours() + 24); // Mínimo 24 horas de la fecha actual
+      const fechaMin = formatearFecha(fechaActual);
+
+      $fechaFinOcupacionInput.min = fechaMin;
+      $fechaFinOcupacionInput.value = fechaMin;
+      calcularTotalNoches();
+    }
+
+    function calcularTotalNoches() {
+      const fechaActual = obtenerFechaActual();
+      const fechaFin = new Date($fechaFinOcupacionInput.value);
+
+      // Calculamos la diferencia en horas
+      const diferenciaMilisegundos = fechaFin.getTime() - fechaActual.getTime();
+      const horasDiferencia = diferenciaMilisegundos / (1000 * 60 * 60);
+
+      let totalNoches = Math.ceil(horasDiferencia / 24);
+
+      // Aseguramos que el mínimo sea 1 noche
+      totalNoches = Math.max(totalNoches, 1);
+      $cantidadNochesInput.value = totalNoches;
+      calulcularImporteTotal();
+    }
+
+    function actualizarFechaFin() {
+      const fechaActual = obtenerFechaActual();
+      const noches = parseInt($cantidadNochesInput.value);
+      const nuevaFechaFin = sumarDias(fechaActual, noches);
+      $fechaFinOcupacionInput.value = formatearFecha(nuevaFechaFin);
+      console.log(`Fecha de fin actualizada: ${nuevaFechaFin}`);
+      calcularTotalNoches();
+    }
+
+    function calulcularImporteTotal() {
+      const totalNoches = parseInt($cantidadNochesInput.value);
+      const precio = parseFloat(document.getElementById("habitacion_ocupacion").querySelector("option:checked").dataset.precio);
+      const importeTotal = totalNoches * precio;
+      $importeOcupacionInput.value = importeTotal;
+      console.log(`Importe total: ${importeTotal}`);
+    }
+
+    establecerRestriccionesFechaFin();
+
+    $fechaFinOcupacionInput.addEventListener("change", calcularTotalNoches);
+
+  });
+</script>

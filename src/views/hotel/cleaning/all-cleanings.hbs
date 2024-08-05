@@ -1,0 +1,130 @@
+<section class="section__all--views">
+  <div class="content__views">
+    <div class="container views__container">
+      <div class="card__items">
+        <div class="items__elements__title">
+          <h5 class="items__name">Habitaciones en Limpieza Intermedia</h5>
+        </div>
+        <div class="sub__header">
+          <div class="sub__header__container">
+            <article class="sub__header__content">
+              <section class="section__sub__header">
+                <article class="article__sub__header sub__header__actions">
+                  <div class="sub__header__actions__container">
+                    <div class="sub__header__action">
+                      <a href="/hotel" class="sub__header__link">
+                        <figure class="sub__header__figure">
+                          <img src="/assets/icon-back.svg" alt="Icon Back" class="sub__header__img">
+                        </figure>
+                      </a>
+                      <span class="sub__header__span">Volver</span>
+                    </div>
+                    <div class="sub__header__action">
+                      <a href="/cleanings/history" class="sub__header__link">
+                        <figure class="sub__header__figure">
+                          <img src="/assets/icon-history.svg" alt="Icon History" class="sub__header__img">
+                        </figure>
+                      </a>
+                      <span class="sub__header__span">Historial</span>
+                    </div>
+                  </div>
+                </article>
+              </section>
+            </article>
+          </div>
+        </div>
+        {{#if cleanings}}
+          {{#if userRole}}
+            {{#if (eq userRole "Admin")}}
+              <section class="items">
+                <div class="items__container__elements">
+                  <section class="views__container--elements view__scrollbar">
+                    <div class="views__content--elements items__container cleanings">
+                      <article class="items__header items__grid cleanings">
+                        <div class="flex-c-c">Estado Habitación:</div>
+                        <div class="flex-c-c">Agregado por:</div>
+                        <div class="flex-c-c">Usuario a Cargo:</div>
+                        <div class="flex-c-c">Habitación:</div>
+                        <div class="flex-c-c">Comentarios:</div>
+                        <div class="flex-c-c">Fecha Registro:</div>
+                      </article>
+                      <div class="items__data--values">
+                        {{#each cleanings}}
+                          <div class="container__data">
+                            <article class="items__data items__grid cleanings">
+                              <div class="flex-c-c"><span class="span__data__item status__occupation">{{#if referenciaEntidad.habitacionOcupacion}}{{referenciaEntidad.habitacionOcupacion.estadoHabitacion}}{{else}}{{referenciaEntidad.habitacionReserva.estadoHabitacion}}{{/if}}</span></div>
+                              <div class="flex-c-c">{{usuarioRegistroLimpieza.usuario}}</div>
+                              <div class="flex-c-c">{{usuarioACargoLimpieza.usuario}}</div>
+                              <div class="flex-c-c">{{#if referenciaEntidad.habitacionOcupacion}}{{referenciaEntidad.habitacionOcupacion.numeroHabitacion}}{{else}}{{referenciaEntidad.habitacionReserva.numeroHabitacion}}{{/if}}</div>
+                              <div class="flex-c-c">{{comentariosLimpieza}}</div>
+                              <div class="flex-c-c">{{formatDateTime createdAt}}</div>
+                            </article>
+                          </div>
+                        {{/each}}
+                      </div>
+                    </div>
+                  </section>
+                </div>
+              </section>
+            {{else}}
+              <section class="items">
+                <div class="items__container__elements">
+                  <section class="views__container--elements view__scrollbar">
+                    <div class="views__content--elements items__container cleanings">
+                      <article class="items__header items__grid cleanings">
+                        <div class="flex-c-c">Estado Hab:</div>
+                        <div class="flex-c-c">Agregado por:</div>
+                        <div class="flex-c-c">Usuario a Cargo:</div>
+                        <div class="flex-c-c">Habitación:</div>
+                        <div class="flex-c-c">Comentarios:</div>
+                        <div class="flex-c-c">Fecha Registro:</div>
+                      </article>
+                      <div class="items__data--values">
+                        {{#each cleanings}}
+                          <div class="container__data">
+                            <article class="items__data items__grid cleanings">
+                              <div class="flex-c-c"><span class="span__data__item status__occupation">{{estadoOcupacion}}</span></div>
+                              <div class="flex-c-c">{{#if referenciaEntidad.habitacionOcupacion}}{{referenciaEntidad.estadoOcupacion}}{{else}}{{referenciaEntidad.estadoReserva}}{{/if}}</div>
+                              <div class="flex-c-c">{{usuarioRegistroLimpieza.usuario}}</div>
+                              <div class="flex-c-c">{{usuarioACargoLimpieza.usuario}}</div>
+                              <div class="flex-c-c">{{#if referenciaEntidad.habitacionOcupacion}}{{referenciaEntidad.habitacionOcupacion.numeroHabitacion}}{{else}}{{referenciaEntidad.habitacionReserva.numeroHabitacion}}{{/if}}</div>
+                              <div class="flex-c-c">{{comentariosLimpieza}}</div>
+                              <div class="flex-c-c">{{formatDateTime createdAt}}</div>
+                            </article>
+                          </div>
+                        {{/each}}
+                      </div>
+                    </div>
+                  </section>
+                </div>
+              </section>
+            {{/if}}
+          {{/if}}
+        {{else}}
+          <h5 class="items__empty">No hay Habitaciones en Limpieza Intermedia para mostrar 😿</h5>
+        {{/if}}
+      </div>
+    </div>
+  </div>
+</section>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const $statusOccupations = document.querySelectorAll(".status__occupation");
+
+    function statusOccupations(){
+      if ($statusOccupations) {
+        $statusOccupations.forEach(stat => {
+          const item = stat.textContent;
+          if (item === "Ocupado") {
+            stat.style.color = "#fff";
+            stat.style.backgroundColor = "#772600";
+          } else if (item === "Reservado") {
+            stat.style.color = "#fff";
+            stat.style.backgroundColor = "#0b214a";
+          } 
+        })
+      }
+    }
+    statusOccupations();
+  });
+</script>

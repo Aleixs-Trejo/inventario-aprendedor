@@ -1,0 +1,61 @@
+<div class="sub__header sub__header--fixed">
+  <div class="sub__header__container">
+    <article class="sub__header__content">
+      <section class="section__sub__header">
+        <article class="article__sub__header sub__header__actions">
+          <div class="sub__header__actions__container">
+            <div class="sub__header__action">
+              <a href="/store-hotel" class="sub__header__link">
+                <figure class="sub__header__figure">
+                  <img src="/assets/icon-back.svg" alt="Icon Back" class="sub__header__img">
+                </figure>
+              </a>
+              <span class="sub__header__span">Volver</span>
+            </div>
+          </div>
+        </article>
+      </section>
+    </article>
+  </div>
+</div>
+<section class="section__all--forms">
+  <div class="container__form__container">
+    <div class="container">
+      <section class="section__form">
+        <form action="/store-hotel/{{storeHotel._id}}/edit" method="POST" class="form">
+          <div class="form__content">
+            <h2 class="form__title">Actualizar producto</h2>
+            <div class="form__img">
+              <figure class="login__figure">
+                <img src="/assets/logo-aprendedor.webp" alt="Logo Aprendedor" class="login__img">
+              </figure>
+            </div>
+            <section class="form__container">
+              <article class="form__group form__group--select">
+                <label for="edit_producto_almacen_hotel" class="form__label--select">Selecciona el producto:</label>
+                <select name="productoAlmacenHotel" id="edit_producto_almacen_hotel" class="form__input" required>
+                  <option selected disabled value="">Producto:</option>
+                  {{#each products}}
+                    <option value="{{_id}}" {{#if (eq _id ../storeHotel.productoAlmacenHotel._id)}}selected{{/if}}>{{cod}}/{{nombreProducto}} / {{proveedorProducto.nombreProveedor}}</option>
+                  {{/each}}
+                </select>
+                <span class="form__span--select">¿No encuentras el Producto? <a class="select__cta" href="/products/register">Regístralo aquí</a></span>
+              </article>
+              <article class="form__group">
+                <input class="form__input" type="number" name="stockProductoAlmacenHotel" id="edit_almacen_stock" placeholder=" " title="Stock entrante" required value="{{storeHotel.stockProductoAlmacenHotel}}">
+                <label for="edit_almacen_stock" class="form__label">Stock entrante:</label>
+                <span class="form__line"></span>
+              </article>
+              <article class="form__group">
+                <input class="form__input" type="number" name="minStockProductoAlmacenHotel" id="edit_almacen_min_stock" placeholder=" " title="Mínimo Stock" required value="{{storeHotel.minStockProductoAlmacenHotel}}">
+                <label for="edit_almacen_min_stock" class="form__label">Minimo Stock:</label>
+                <span class="form__line"></span>
+              </article>
+              <button class="form__submit">Actualizar</button>
+            </section>
+          </div>
+        </form>
+      </section>
+    </div>
+  </div>
+</section>
