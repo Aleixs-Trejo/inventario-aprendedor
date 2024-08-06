@@ -16,7 +16,7 @@ storeCtrl.renderRegisterStore = async (req, res) => {
       .lean();
     const stockLocations = await StockLocation.find().lean();
     const currentUser = req.user;
-    res.render("stores/new-store-2", {
+    res.render("stores/new-store", {
       products,
       stockLocations,
       currentUser
@@ -76,9 +76,12 @@ storeCtrl.registerStore = async (req, res) => {
           // Guardar historial de almacén como "Relleno"
           const newStoreHistory = new StoreHistory({
             tipoHistorial: "Relleno",
-            almacenHistorial: existingProductSameLocationLean._id
+            almacenHistorial: existingProductSameLocationLean._id,
+            almacenProductoHistorial: almacenProducto,
+            almacenStockUbicacionHistorial: almacenStockUbicacion,
+            almacenStockHistorial: stock,
+            almacenMinStockHistorial: minStock
           });
-          console.log("Relleno de producto en el almacén: ", newStoreHistory);
           await newStoreHistory.save();
         } else {
           // Producto no encontrado, agregar al almacén
@@ -94,7 +97,11 @@ storeCtrl.registerStore = async (req, res) => {
           //Guardar la entrada en el historial
           const newStoreHistory = new StoreHistory({
             tipoHistorial: "Registro",
-            almacenHistorial: newStore._id
+            almacenHistorial: newStore._id,
+            almacenProductoHistorial: almacenProducto,
+            almacenStockUbicacionHistorial: almacenStockUbicacion,
+            almacenStockHistorial: stock,
+            almacenMinStockHistorial: minStock
           });
           await newStoreHistory.save();
         }
@@ -221,10 +228,33 @@ storeCtrl.updateStore = async (req, res) => {
       // Eliminar el producto editado
       await Store.findByIdAndDelete(id);
 
+      //Guardar la entrada en el historial
+      const existingProductSameLocationLean = existingProductSameLocation.toObject();
+      const newStoreHistory = new StoreHistory({
+        tipoHistorial: "Sucursal sobreescrita",
+        almacenHistorial: existingProductSameLocationLean._id,
+        almacenProductoHistorial: editedStoreItem.almacenProducto,
+        almacenStockUbicacionHistorial: editedStoreItem.almacenStockUbicacion,
+        almacenStockHistorial: editedStoreItem.almacenStock,
+        almacenMinStockHistorial: editedStoreItem.almacenMinStock
+      });
+      await newStoreHistory.save();
+
       req.flash("success", "Producto actualizado exitosamente.");
       res.redirect("/stores");
     } else {
-      await Store.findByIdAndUpdate(id, updatedStoreItem);
+      const updatedStore = await Store.findByIdAndUpdate(id, updatedStoreItem, {new: true});
+
+      // Guardar entrada en el historial
+      const newStoreHistory = new StoreHistory({
+        tipoHistorial: "Actualizado",
+        almacenHistorial: updatedStore._id,
+        almacenProductoHistorial: updatedStoreItem.almacenProducto,
+        almacenStockUbicacionHistorial: updatedStoreItem.almacenStockUbicacion,
+        almacenStockHistorial: updatedStoreItem.almacenStock,
+        almacenMinStockHistorial: updatedStoreItem.almacenMinStock
+      });
+      await newStoreHistory.save();
 
       req.flash("success", "Producto actualizado exitosamente.");
       res.redirect("/stores");
@@ -235,6 +265,56 @@ storeCtrl.updateStore = async (req, res) => {
     res.status(500).send("Error interno, posiblemente haya escrito algo mal, así que perdón por ello 😿, puede reportar el error para corregirlo en la próxima actualización. Detalles del error " + error.message);
   }
 }
+
+// Mostrar datos detallados de un producto en el almacén
+storeCtrl.renderDetailsStore = async (req, res) => {
+  try {
+    const {id} = req.params;
+    const store = await Store.findById(id)
+      .populate("almacenUsuario")
+      .populate({
+        path: "almacenProducto",
+        populate: {
+          path: "proveedorProducto categoriaProducto"
+        }
+      })
+      .populate("almacenStockUbicacion")
+      .lean();
+    
+    const storeHistory = await StoreHistory.find({almacenHistorial: id})
+      .populate({
+        path: "almacenHistorial",
+        populate: {
+          path: "almacenProducto",
+          populate: {
+            path: "proveedorProducto categoriaProducto"
+          }
+        }
+      })
+      .populate({
+        path: "almacenProductoHistorial",
+        populate: {
+          path: "proveedorProducto categoriaProducto"
+        }
+      })
+      .populate({
+        path: "almacenStockUbicacionHistorial"
+      })
+      .sort({createdAt: -1})
+      .lean();
+
+    const userRole = req.user.trabajadorUsuario.rolTrabajador.nombreRol;
+    res.render("stores/details-store", {
+      store,
+      storeHistory,
+      userRole
+    });
+  } catch (error) {
+    req.flash("wrong", "Ocurrió un error al renderizar los detalles del producto, intente nuevamente.");
+    console.log("Error: ", error);
+    res.status(500).send("Error interno, posiblemente haya escrito algo mal, así que perdón por ello 😿, puede reportar el error para corregirlo en la próxima actualización. Detalles del error " + error.message);
+  }
+};
 
 // Exportar a Excel
 storeCtrl.exportToExcel = async (req, res) => {
@@ -374,10 +454,12 @@ storeCtrl.deleteStore = async (req, res) => {
 
     const newStoreHistory = new StoreHistory({
       tipoHistorial: "Eliminado",
-      almacenHistorial: deletedStoreId
+      almacenHistorial: deletedStoreId,
+      almacenProductoHistorial: deletedStore.almacenProducto,
+      almacenStockUbicacionHistorial: deletedStore.almacenStockUbicacion,
+      almacenStockHistorial: deletedStore.almacenStock,
+      almacenMinStockHistorial: deletedStore.almacenMinStock
     });
-
-    console.log("Producto eliminado en historial: ", newStoreHistory);
     await newStoreHistory.save();
 
     req.flash("success", "Producto eliminado exitosamente.");

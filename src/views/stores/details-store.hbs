@@ -1,0 +1,165 @@
+<section class="section__all--details">
+  <div class="content__views">
+    <div class="container views__container">
+      <div class="card__items">
+        <div class="items__elements__title">
+          <h5 class="items__name">Detalles del Producto: {{store._id}}</h5>
+        </div>
+        {{#if store}}
+          <div class="details__container">
+            <div class="sub__header">
+              <div class="sub__header__container">
+                <article class="sub__header__content">
+                  <section class="section__sub__header">
+                    <article class="article__sub__header sub__header__actions">
+                      <div class="sub__header__actions__container">
+                        <div class="sub__header__action">
+                          <a href="/stores" class="sub__header__link">
+                            <figure class="sub__header__figure">
+                              <img src="/assets/icon-back.svg" alt="Icon Back" class="sub__header__img">
+                            </figure>
+                          </a>
+                          <span class="sub__header__span">Volver</span>
+                        </div>
+                        <div class="sub__header__action">
+                          <a href="/stores/{{store._id}}/edit" class="sub__header__link">
+                            <figure class="sub__header__figure">
+                              <img src="/assets/icon-edit.svg" alt="Icon Edit" class="sub__header__img">
+                            </figure>
+                          </a>
+                          <span class="sub__header__span">Editar</span>
+                        </div>
+                        <div class="sub__header__action action__delete__item">
+                          <a href="/stores/{{store._id}}/delete" class="sub__header__link">
+                            <figure class="sub__header__figure">
+                              <img src="/assets/icon-delete.svg" alt="Icon Delete" class="sub__header__img">
+                            </figure>
+                          </a>
+                          <span class="sub__header__span">Eliminar</span>
+                        </div>
+                      </div>
+                    </article>
+                  </section>
+                </article>
+              </div>
+            </div>
+          </div>
+          <article class="article__details">
+            <section class="details__header">
+              <div class="details__header__container">
+                <h4 class="details__header__title">General</h4>
+              </div>
+            </section>
+            <section class="details__body">
+              <div class="details__body__container">
+                <div class="details__body__content">
+                  <div class="cards__container cards__container--details__model">
+                    <section class="section__cards section__cards--details__model">
+                      <article class="card__content">
+                        <div class="card card__info card__info__details__model">
+                          <div class="card__header">
+                            <h5 class="card__title">Información del Producto</h5>
+                          </div>
+                        </div>
+                        <div class="card__body">
+                          <div class="card__body__content">
+                            <ul class="card__body__content__ul ul__details__model">
+                              <li class="content__li">
+                                <span class="content__li__span">Cod</span>
+                                <span class="content__li__span content__li__span--data">{{store.almacenProducto.cod}}</span>
+                              </li>
+                              <li class="content__li">
+                                <span class="content__li__span">Producto</span>
+                                <span class="content__li__span content__li__span--data">{{store.almacenProducto.descripcionProducto}}</span>
+                              </li>
+                              <li class="content__li">
+                                <span class="content__li__span">Proveedor</span>
+                                <span class="content__li__span content__li__span--data">{{store.almacenProducto.proveedorProducto.nombreProveedor}}</span>
+                              </li>
+                              <li class="content__li">
+                                <span class="content__li__span">Categoria</span>
+                                <span class="content__li__span content__li__span--data">{{store.almacenProducto.categoriaProducto.nombreCategoria}}</span>
+                              </li>
+                              <li class="content__li">
+                                <span class="content__li__span">Stock actual</span>
+                                <span class="content__li__span content__li__span--data">{{store.almacenStock}}</span>
+                              </li>
+                              <li class="content__li">
+                                <span class="content__li__span">Stock mínimo</span>
+                                <span class="content__li__span content__li__span--data">{{store.almacenMinStock}}</span>
+                              </li>
+                              <li class="content__li">
+                                <span class="content__li__span">Ubicación</span>
+                                <span class="content__li__span content__li__span--data">{{store.almacenStockUbicacion.nombreStockUbicacion}}</span>
+                              </li>
+                              <li class="content__li">
+                                <span class="content__li__span">Registro</span>
+                                <span class="content__li__span content__li__span--data">{{formatDateTime store.createdAt}}</span>
+                              </li>
+                            </ul>
+                          </div>
+                        </div>
+                      </article>
+                    </section>
+                  </div>
+                  {{#if storeHistory}}
+                    <div class="cards__container cards__container__model">
+                      <div class="section__cards__title__container">
+                        <h5 class="section__cards__title">Historial</h5>
+                      </div>
+                      <section class="section__cards section__cards__model">
+                        {{#each storeHistory}}
+                          <article class="card__content">
+                            <div class="card card__info card__info__model">
+                              <div class="card__header">
+                                <h5 class="card__title">Historial</h5>
+                              </div>
+                              <div class="card__body">
+                                <div class="card__body__content">
+                                  <ul class="card__body__content__ul ul__model">
+                                    <li class="content__li">
+                                      <span class="content__li__span">Tipo</span>
+                                      <span class="content__li__span content__li__span--data">{{tipoHistorial}}</span>
+                                    </li>
+                                    <li class="content__li">
+                                      <span class="content__li__span">Producto</span>
+                                      <span class="content__li__span content__li__span--data">{{#if almacenProductoHistorial}}{{almacenProductoHistorial.descripcionProducto}}{{else}}-{{/if}}</span>
+                                    </li>
+                                    <li class="content__li">
+                                      <span class="content__li__span">Stock entrante</span>
+                                      <span class="content__li__span content__li__span--data">{{#if almacenStockHistorial}}{{almacenStockHistorial}}{{else}}-{{/if}}</span>
+                                    </li>
+                                    <li class="content__li">
+                                      <span class="content__li__span">Stock mínimo</span>
+                                      <span class="content__li__span content__li__span--data">{{#if almacenMinStockHistorial}}{{almacenMinStockHistorial}}{{else}}-{{/if}}</span>
+                                    </li>
+                                    <li class="content__li">
+                                      <span class="content__li__span">Ubicación</span>
+                                      <span class="content__li__span content__li__span--data">{{#if almacenStockUbicacionHistorial}}{{almacenStockUbicacionHistorial.nombreStockUbicacion}}{{else}}-{{/if}}</span>
+                                    </li>
+                                    <li class="content__li">
+                                      <span class="content__li__span">Fecha</span>
+                                      <span class="content__li__span content__li__span--data">{{formatDateTime createdAt}}</span>
+                                    </li>
+                                  </ul>
+                                </div>
+                              </div>
+                            </div>
+                          </article>
+                        {{/each}}
+                      </section>
+                    </div>
+                  {{else}}
+                    <h5 class="items__empty">No hay historial para mostrar 😿</h5>
+                  {{/if}}
+                </div>
+              </div>
+            </section>
+          </article>
+        {{else}}
+          <h5 class="items__empty">No hay Producto para mostrar 😿</h5>
+        {{/if}}
+      </div>
+    </div>
+  </div>
+</section>
