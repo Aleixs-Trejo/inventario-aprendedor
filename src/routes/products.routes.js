@@ -10,6 +10,7 @@ const {
   exportToExcel,
   deleteProduct,
   renderDeleteProduct,
+  renderDetailsProduct,
 } = require("../controllers/products.controller");
 
 const {
@@ -29,6 +30,9 @@ router.get("/products", isAuthenticated, isAlmacenVendedor, renderProducts);
 // Editar Productos
 router.get("/products/:id/edit", isAuthenticated, isAlmacen, renderEditProduct);
 router.post("/products/:id/edit", isAuthenticated, isAlmacen, updateProduct);
+
+// Ver detalles del producto
+router.get("/products/:id/details", isAuthenticated, isAdmin, renderDetailsProduct);
 
 // Exportar a Excel
 router.get("/products/export-excel", isAuthenticated, isAdmin, exportToExcel);

@@ -6,6 +6,11 @@ const storeHistorySchema = new Schema(
       type: String,
       required: true
     },
+    usuarioHistorial: {
+      type: Schema.Types.ObjectId,
+      ref: "User",
+      required: true
+    },
     almacenHistorial: {
       type: Schema.Types.ObjectId,
       ref: "Store",

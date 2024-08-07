@@ -3,9 +3,9 @@
     <div class="container views__container">
       <div class="card__items">
         <div class="items__elements__title">
-          <h5 class="items__name">Detalles del Producto: {{store._id}}</h5>
+          <h5 class="items__name">Detalles del Producto: {{product._id}}</h5>
         </div>
-        {{#if store}}
+        {{#if product}}
           <div class="details__container">
             <div class="sub__header">
               <div class="sub__header__container">
@@ -14,7 +14,7 @@
                     <article class="article__sub__header sub__header__actions">
                       <div class="sub__header__actions__container">
                         <div class="sub__header__action">
-                          <a href="/stores" class="sub__header__link">
+                          <a href="/products" class="sub__header__link">
                             <figure class="sub__header__figure">
                               <img src="/assets/icon-back.svg" alt="Icon Back" class="sub__header__img">
                             </figure>
@@ -22,7 +22,7 @@
                           <span class="sub__header__span">Volver</span>
                         </div>
                         <div class="sub__header__action">
-                          <a href="/stores/{{store._id}}/edit" class="sub__header__link">
+                          <a href="/products/{{product._id}}/edit" class="sub__header__link">
                             <figure class="sub__header__figure">
                               <img src="/assets/icon-edit.svg" alt="Icon Edit" class="sub__header__img">
                             </figure>
@@ -30,7 +30,7 @@
                           <span class="sub__header__span">Editar</span>
                         </div>
                         <div class="sub__header__action action__delete__item">
-                          <a href="/stores/{{store._id}}/delete" class="sub__header__link">
+                          <a href="/products/{{product._id}}/delete" class="sub__header__link">
                             <figure class="sub__header__figure">
                               <img src="/assets/icon-delete.svg" alt="Icon Delete" class="sub__header__img">
                             </figure>
@@ -65,36 +65,36 @@
                           <div class="card__body__content">
                             <ul class="card__body__content__ul ul__details__model">
                               <li class="content__li">
-                                <span class="content__li__span">Cod</span>
-                                <span class="content__li__span content__li__span--data">{{store.almacenProducto.cod}}</span>
+                                <span class="content__li__span">Registrado por</span>
+                                <span class="content__li__span content__li__span--data">{{#if product.usuarioProducto}}{{product.usuarioProducto.usuario}}{{else}}-{{/if}}</span>
                               </li>
                               <li class="content__li">
-                                <span class="content__li__span">Producto</span>
-                                <span class="content__li__span content__li__span--data">{{store.almacenProducto.descripcionProducto}}</span>
+                                <span class="content__li__span">Cod</span>
+                                <span class="content__li__span content__li__span--data">{{#if product.cod}}{{product.cod}}{{else}}-{{/if}}</span>
+                              </li>
+                              <li class="content__li">
+                                <span class="content__li__span">Nombre</span>
+                                <span class="content__li__span content__li__span--data">{{#if product.nombreProducto}}{{product.nombreProducto}}{{else}}-{{/if}}</span>
+                              </li>
+                              <li class="content__li">
+                                <span class="content__li__span">Descripción</span>
+                                <span class="content__li__span content__li__span--data">{{#if product.descripcionProducto}}{{product.descripcionProducto}}{{else}}-{{/if}}</span>
                               </li>
                               <li class="content__li">
                                 <span class="content__li__span">Proveedor</span>
-                                <span class="content__li__span content__li__span--data">{{store.almacenProducto.proveedorProducto.nombreProveedor}}</span>
+                                <span class="content__li__span content__li__span--data">{{#if product.proveedorProducto}}{{product.proveedorProducto.nombreProveedor}}{{else}}-{{/if}}</span>
                               </li>
                               <li class="content__li">
-                                <span class="content__li__span">Categoria</span>
-                                <span class="content__li__span content__li__span--data">{{store.almacenProducto.categoriaProducto.nombreCategoria}}</span>
+                                <span class="content__li__span">Categoría</span>
+                                <span class="content__li__span content__li__span--data">{{#if product.categoriaProducto}}{{product.categoriaProducto.nombreCategoria}}{{else}}-{{/if}}</span>
                               </li>
                               <li class="content__li">
-                                <span class="content__li__span">Stock actual</span>
-                                <span class="content__li__span content__li__span--data">{{store.almacenStock}}</span>
+                                <span class="content__li__span">Precio</span>
+                                <span class="content__li__span content__li__span--data">{{#if product.precioProducto}}S/{{formatCurrency product.precioProducto}}{{else}}-{{/if}}</span>
                               </li>
                               <li class="content__li">
-                                <span class="content__li__span">Stock mínimo</span>
-                                <span class="content__li__span content__li__span--data">{{store.almacenMinStock}}</span>
-                              </li>
-                              <li class="content__li">
-                                <span class="content__li__span">Ubicación</span>
-                                <span class="content__li__span content__li__span--data">{{store.almacenStockUbicacion.nombreStockUbicacion}}</span>
-                              </li>
-                              <li class="content__li">
-                                <span class="content__li__span">Registro</span>
-                                <span class="content__li__span content__li__span--data">{{formatDateTime store.createdAt}}</span>
+                                <span class="content__li__span">Fecha Registro</span>
+                                <span class="content__li__span content__li__span--data">{{formatDateTime product.createdAt}}</span>
                               </li>
                             </ul>
                           </div>
@@ -102,13 +102,13 @@
                       </article>
                     </section>
                   </div>
-                  {{#if storeHistory}}
+                  {{#if productHistory}}
                     <div class="cards__container cards__container__model">
                       <div class="section__cards__title__container">
                         <h5 class="section__cards__title">Historial</h5>
                       </div>
                       <section class="section__cards section__cards__model">
-                        {{#each storeHistory}}
+                        {{#each productHistory}}
                           <article class="card__content">
                             <div class="card card__info card__info__model">
                               <div class="card__header">
@@ -126,20 +126,28 @@
                                       <span class="content__li__span content__li__span--data">{{#if usuarioHistorial}}{{usuarioHistorial.usuario}}{{else}}-{{/if}}</span>
                                     </li>
                                     <li class="content__li">
-                                      <span class="content__li__span">Producto</span>
-                                      <span class="content__li__span content__li__span--data">{{#if almacenProductoHistorial}}{{almacenProductoHistorial.descripcionProducto}}{{else}}-{{/if}}</span>
+                                      <span class="content__li__span">Cod</span>
+                                      <span class="content__li__span content__li__span--data">{{#if codProductoHistorial}}{{codProductoHistorial}}{{else}}-{{/if}}</span>
                                     </li>
                                     <li class="content__li">
-                                      <span class="content__li__span">Stock entrante</span>
-                                      <span class="content__li__span content__li__span--data">{{#if almacenStockHistorial}}{{almacenStockHistorial}}{{else}}-{{/if}}</span>
+                                      <span class="content__li__span">Nombre</span>
+                                      <span class="content__li__span content__li__span--data">{{#if nombreProductoHistorial}}{{nombreProductoHistorial}}{{else}}-{{/if}}</span>
                                     </li>
                                     <li class="content__li">
-                                      <span class="content__li__span">Stock mínimo</span>
-                                      <span class="content__li__span content__li__span--data">{{#if almacenMinStockHistorial}}{{almacenMinStockHistorial}}{{else}}-{{/if}}</span>
+                                      <span class="content__li__span">Descripción</span>
+                                      <span class="content__li__span content__li__span--data">{{#if descripcionProductoHistorial}}{{descripcionProductoHistorial}}{{else}}-{{/if}}</span>
                                     </li>
                                     <li class="content__li">
-                                      <span class="content__li__span">Ubicación</span>
-                                      <span class="content__li__span content__li__span--data">{{#if almacenStockUbicacionHistorial}}{{almacenStockUbicacionHistorial.nombreStockUbicacion}}{{else}}-{{/if}}</span>
+                                      <span class="content__li__span">Proveedor</span>
+                                      <span class="content__li__span content__li__span--data">{{#if proveedorProductoHistorial}}{{proveedorProductoHistorial.nombreProveedor}}{{else}}-{{/if}}</span>
+                                    </li>
+                                    <li class="content__li">
+                                      <span class="content__li__span">Categoría</span>
+                                      <span class="content__li__span content__li__span--data">{{#if categoriaProductoHistorial}}{{categoriaProductoHistorial.nombreCategoria}}{{else}}-{{/if}}</span>
+                                    </li>
+                                    <li class="content__li">
+                                      <span class="content__li__span">Precio</span>
+                                      <span class="content__li__span content__li__span--data">{{#if precioProductoHistorial}}S/{{formatCurrency precioProductoHistorial}}{{else}}-{{/if}}</span>
                                     </li>
                                     <li class="content__li">
                                       <span class="content__li__span">Fecha</span>

@@ -7,6 +7,13 @@ productHistoryCtrl.renderProductsHistory = async (req, res) => {
   try {
     const productsHistory = await ProductHistory.find()
     .populate({
+      path: "usuarioHistorial",
+      populate: {
+        path: "trabajadorUsuario",
+        populate: "rolTrabajador"
+      }
+    })
+    .populate({
       path: "productoHistorial",
       populate: [
         { path: "usuarioProducto" },
@@ -22,8 +29,15 @@ productHistoryCtrl.renderProductsHistory = async (req, res) => {
         }
       ]
     })
+    .populate("proveedorProductoHistorial")
+    .populate("categoriaProductoHistorial")
+    .sort({createdAt: -1})
     .lean();
-    res.render("products/history-products", {productsHistory});
+    const userRole = req.user.trabajadorUsuario.rolTrabajador.nombreRol;
+    res.render("products/history-products", {
+      productsHistory,
+      userRole
+    });
   } catch (error) {
     req.flash("wrong", "Ocurrió un error, intente nuevamente");
     console.error("Error:", error);

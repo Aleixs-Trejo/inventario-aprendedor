@@ -8,7 +8,6 @@ const {
   renderDetailSale,
   renderVoucherSale,
   renderBillSale,
-  generatePDF,
   cancelSale,
   closeRegister,
   renderBalanceSales,
@@ -46,9 +45,6 @@ router.get("/sales/:id/bill", renderBillSale);
 
 // Descargar boleta en PDF
 router.get("/sales/:id/download", isAuthenticated, isVendedor, generateBillPDF);
-
-// Generar Boleta de venta en PDF
-router.get("/sales/:id/pdf", isAuthenticated, isVendedor, generatePDF);
 
 // Cancelar Venta
 router.get("/sales/:id/cancel", isAuthenticated, isVendedor, cancelSale);

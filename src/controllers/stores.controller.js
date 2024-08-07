@@ -76,6 +76,7 @@ storeCtrl.registerStore = async (req, res) => {
           // Guardar historial de almacén como "Relleno"
           const newStoreHistory = new StoreHistory({
             tipoHistorial: "Relleno",
+            usuarioHistorial: req.user._id,
             almacenHistorial: existingProductSameLocationLean._id,
             almacenProductoHistorial: almacenProducto,
             almacenStockUbicacionHistorial: almacenStockUbicacion,
@@ -97,6 +98,7 @@ storeCtrl.registerStore = async (req, res) => {
           //Guardar la entrada en el historial
           const newStoreHistory = new StoreHistory({
             tipoHistorial: "Registro",
+            usuarioHistorial: req.user._id,
             almacenHistorial: newStore._id,
             almacenProductoHistorial: almacenProducto,
             almacenStockUbicacionHistorial: almacenStockUbicacion,
@@ -231,7 +233,8 @@ storeCtrl.updateStore = async (req, res) => {
       //Guardar la entrada en el historial
       const existingProductSameLocationLean = existingProductSameLocation.toObject();
       const newStoreHistory = new StoreHistory({
-        tipoHistorial: "Sucursal sobreescrita",
+        tipoHistorial: "Actualiz. Sucursal",
+        usuarioHistorial: req.user._id,
         almacenHistorial: existingProductSameLocationLean._id,
         almacenProductoHistorial: editedStoreItem.almacenProducto,
         almacenStockUbicacionHistorial: editedStoreItem.almacenStockUbicacion,
@@ -248,6 +251,7 @@ storeCtrl.updateStore = async (req, res) => {
       // Guardar entrada en el historial
       const newStoreHistory = new StoreHistory({
         tipoHistorial: "Actualizado",
+        usuarioHistorial: req.user._id,
         almacenHistorial: updatedStore._id,
         almacenProductoHistorial: updatedStoreItem.almacenProducto,
         almacenStockUbicacionHistorial: updatedStoreItem.almacenStockUbicacion,
@@ -271,7 +275,13 @@ storeCtrl.renderDetailsStore = async (req, res) => {
   try {
     const {id} = req.params;
     const store = await Store.findById(id)
-      .populate("almacenUsuario")
+      .populate({
+        path: "almacenUsuario",
+        populate: {
+          path: "trabajadorUsuario",
+          populate: "rolTrabajador"
+        }
+      })
       .populate({
         path: "almacenProducto",
         populate: {
@@ -282,6 +292,13 @@ storeCtrl.renderDetailsStore = async (req, res) => {
       .lean();
     
     const storeHistory = await StoreHistory.find({almacenHistorial: id})
+      .populate({
+        path: "usuarioHistorial",
+        populate: {
+          path: "trabajadorUsuario",
+          populate: "rolTrabajador"
+        }
+      })
       .populate({
         path: "almacenHistorial",
         populate: {
@@ -454,6 +471,7 @@ storeCtrl.deleteStore = async (req, res) => {
 
     const newStoreHistory = new StoreHistory({
       tipoHistorial: "Eliminado",
+      usuarioHistorial: req.user._id,
       almacenHistorial: deletedStoreId,
       almacenProductoHistorial: deletedStore.almacenProducto,
       almacenStockUbicacionHistorial: deletedStore.almacenStockUbicacion,

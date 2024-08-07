@@ -1630,7 +1630,7 @@ input[type="number"]::-webkit-outer-spin-button{
 }
 
 .items__container.products{
-  min-width: 80rem;
+  min-width: 90rem;
 }
 
 .items__container.employees{
@@ -1850,7 +1850,7 @@ input[type="number"]::-webkit-outer-spin-button{
 }
 
 .products{
-  grid-template-columns: 10% 5% 1fr 1fr 12% 12% 7% 10% 7rem
+  grid-template-columns: 10% 5% 1fr 1fr 12% 12% 7% 10% 15rem
 }
 
 .employees{
@@ -2875,7 +2875,6 @@ input[type="number"]::-webkit-outer-spin-button{
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  gap: 1rem;
 }
 
 .company__address{
@@ -2883,7 +2882,7 @@ input[type="number"]::-webkit-outer-spin-button{
 }
 
 .bill__logo{
-  width: 40%;
+  width: 35%;
   margin-inline: auto;
 }
 
@@ -2914,7 +2913,7 @@ input[type="number"]::-webkit-outer-spin-button{
 .bill__description{
   background-color: #ddd;
   border: 2px solid #bbb;
-  padding: 1.5rem;
+  padding: 1rem;
   border-radius: 0.5rem;
   display: flex;
   flex-direction: column;

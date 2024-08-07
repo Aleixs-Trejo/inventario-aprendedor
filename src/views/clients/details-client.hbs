@@ -114,6 +114,10 @@
                                       <span class="content__li__span content__li__span--data">{{tipoHistorial}}</span>
                                     </li>
                                     <li class="content__li">
+                                      <span class="content__li__span">Hecho por</span>
+                                      <span class="content__li__span content__li__span--data">{{#if usuarioHistorial}}{{usuarioHistorial.usuario}}{{else}}-{{/if}}</span>
+                                    </li>
+                                    <li class="content__li">
                                       <span class="content__li__span">DNI</span>
                                       <span class="content__li__span content__li__span--data">{{#if dniClienteHistorial}}{{dniClienteHistorial}}{{else}}-{{/if}}</span>
                                     </li>

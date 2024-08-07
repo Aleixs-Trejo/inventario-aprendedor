@@ -54,14 +54,14 @@
                       <div class="container__data">
                         <article class="items__data items__grid products__history">
                           <div class="flex-c-c"><span class="span__data__item tipo__historial">{{tipoHistorial}}</span></div>
-                          <div class="flex-c-c">{{productoHistorial.usuarioProducto.usuario}}</div>
-                          <div class="flex-c-c">{{productoHistorial.cod}}</div>
-                          <div class="flex-c-c">{{productoHistorial.nombreProducto}}</div>
-                          <div class="flex-c-c">{{productoHistorial.descripcionProducto}}</div>
-                          <div class="flex-c-c">{{productoHistorial.proveedorProducto.nombreProveedor}}</div>
-                          <div class="flex-c-c">{{productoHistorial.categoriaProducto.nombreCategoria}}</div>
-                          <div class="flex-c-c">S/{{formatCurrency productoHistorial.precioProducto}}</div>
-                          <div class="flex-c-c">{{formatDateTime productoHistorial.createdAt}}</div>
+                          <div class="flex-c-c">{{#if usuarioHistorial}}{{usuarioHistorial.usuario}}{{else}}-{{/if}}</div>
+                          <div class="flex-c-c">{{#if codProductoHistorial}}{{codProductoHistorial}}{{else}}-{{/if}}</div>
+                          <div class="flex-c-c">{{#if nombreProductoHistorial}}{{nombreProductoHistorial}}{{else}}-{{/if}}</div>
+                          <div class="flex-c-c">{{#if descripcionProductoHistorial}}{{descripcionProductoHistorial}}{{else}}-{{/if}}</div>
+                          <div class="flex-c-c">{{#if proveedorProductoHistorial}}{{proveedorProductoHistorial.nombreProveedor}}{{else}}-{{/if}}</div>
+                          <div class="flex-c-c">{{#if categoriaProductoHistorial}}{{categoriaProductoHistorial.nombreCategoria}}{{else}}-{{/if}}</div>
+                          <div class="flex-c-c">{{#if precioProductoHistorial}}S/{{formatCurrency precioProductoHistorial}}{{else}}-{{/if}}</div>
+                          <div class="flex-c-c">{{formatDateTime createdAt}}</div>
                         </article>
                       </div>
                     {{/each}}

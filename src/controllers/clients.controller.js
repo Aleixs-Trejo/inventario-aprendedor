@@ -84,6 +84,7 @@ clientsCtrl.registerClient = async (req, res) => {
 
         const newClientHistory = new ClientHistory({
           tipoHistorial: "Registro",
+          usuarioHistorial: req.user._id,
           clienteHistorial,
           dniClienteHistorial,
           nombreClienteHistorial,
@@ -193,6 +194,7 @@ clientsCtrl.updateClient = async (req, res) => {
 
     const newClientHistory = new ClientHistory({
       tipoHistorial: "Actualizado",
+      usuarioHistorial: req.user._id,
       clienteHistorial,
       dniClienteHistorial,
       nombreClienteHistorial,
@@ -320,6 +322,7 @@ clientsCtrl.deleteClient = async (req, res) => {
 
     const newClientHistory = new ClientHistory({
       tipoHistorial: "Eliminado",
+      usuarioHistorial: req.user._id,
       clienteHistorial,
       dniClienteHistorial,
       nombreClienteHistorial,
