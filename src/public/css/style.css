@@ -16,6 +16,7 @@
   --color__aside: #11101d;
   --color__aside: #212529;
   --color__excel: #53a93f;
+  --color__delete: #ad2831;
 
   --color__flash--text__ok: #1cc88a;
   --color__flash--text__ok: #155724;
@@ -609,6 +610,14 @@ input[type="number"]::-webkit-outer-spin-button{
 
 .sub__header__action:hover{
   background-color: #444;
+}
+
+.action__delete__item{
+  background-color: var(--color__delete);
+}
+
+.action__delete__item:hover{
+  background-color: var(--color__delete);
 }
 
 .action__export--excel{
@@ -1621,7 +1630,7 @@ input[type="number"]::-webkit-outer-spin-button{
 }
 
 .items__container.products{
-  min-width: 80rem;
+  min-width: 90rem;
 }
 
 .items__container.employees{
@@ -1629,7 +1638,7 @@ input[type="number"]::-webkit-outer-spin-button{
 }
 
 .items__container.clients{
-  min-width: 60rem;
+  min-width: 70rem;
 }
 
 .items__container.categories{
@@ -1641,7 +1650,7 @@ input[type="number"]::-webkit-outer-spin-button{
 }
 
 .items__container.stores{
-  min-width: 100rem;
+  min-width: 110rem;
 }
 
 .items__container.sales{
@@ -1841,7 +1850,7 @@ input[type="number"]::-webkit-outer-spin-button{
 }
 
 .products{
-  grid-template-columns: 10% 5% 1fr 1fr 12% 12% 7% 10% 7rem
+  grid-template-columns: 10% 5% 1fr 1fr 12% 12% 7% 10% 15rem
 }
 
 .employees{
@@ -1849,7 +1858,7 @@ input[type="number"]::-webkit-outer-spin-button{
 }
 
 .clients{
-  grid-template-columns: 12% 12% 15% 11% 1fr 12% 7rem;
+  grid-template-columns: 12% 12% 15% 11% 1fr 12% 15rem;
 }
 
 .categories{
@@ -1861,7 +1870,7 @@ input[type="number"]::-webkit-outer-spin-button{
 }
 
 .stores{
-  grid-template-columns: 8% 5% 1fr 1fr 12% 10% 10% 7% 4% 4% 8% 7rem;
+  grid-template-columns: 8% 5% 1fr 1fr 12% 10% 10% 7% 4% 4% 8% 15rem;
 }
 
 .sales{
@@ -2866,7 +2875,6 @@ input[type="number"]::-webkit-outer-spin-button{
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  gap: 1rem;
 }
 
 .company__address{
@@ -2874,7 +2882,7 @@ input[type="number"]::-webkit-outer-spin-button{
 }
 
 .bill__logo{
-  width: 40%;
+  width: 35%;
   margin-inline: auto;
 }
 
@@ -2905,7 +2913,7 @@ input[type="number"]::-webkit-outer-spin-button{
 .bill__description{
   background-color: #ddd;
   border: 2px solid #bbb;
-  padding: 1.5rem;
+  padding: 1rem;
   border-radius: 0.5rem;
   display: flex;
   flex-direction: column;
@@ -3149,6 +3157,12 @@ input[type="number"]::-webkit-outer-spin-button{
 }
 
 .cards__container.cards__container--products__sale{
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.cards__container.cards__container__model{
   display: flex;
   flex-direction: column;
   gap: 1rem;
@@ -3932,6 +3946,10 @@ input[type="number"]::-webkit-outer-spin-button{
     display: block;
   }
 
+  .cards__container--details__model{
+    display: flex;
+  }
+
   /* .section__cards--details__sale{
     display: grid;
     gap: 2rem;
@@ -3968,6 +3986,11 @@ input[type="number"]::-webkit-outer-spin-button{
   }
 
   .section__cards--products__sale{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .section__cards.section__cards__model{
     display: grid;
     grid-template-columns: repeat(2, 1fr);
   }

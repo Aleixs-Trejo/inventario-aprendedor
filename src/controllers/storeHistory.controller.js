@@ -7,6 +7,13 @@ storeHistoryCtrl.renderStoreHistory = async (req, res) => {
   try {
     const storeHistory = await StoreHistory.find()
       .populate({
+        path: "usuarioHistorial",
+        populate: {
+          path: "trabajadorUsuario",
+          populate: "rolTrabajador"
+        }
+      })
+      .populate({
         path: "almacenHistorial",
         populate: [
           { path: "almacenUsuario" },
@@ -16,6 +23,13 @@ storeHistoryCtrl.renderStoreHistory = async (req, res) => {
           ] },
           { path: "almacenStockUbicacion" }
         ]
+      })
+      .populate({
+        path: "almacenProductoHistorial",
+        populate: "proveedorProducto categoriaProducto"
+      })
+      .populate({
+        path: "almacenStockUbicacionHistorial"
       })
       .sort({createdAt: -1})
       .lean();

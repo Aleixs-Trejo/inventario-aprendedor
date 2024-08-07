@@ -2,13 +2,13 @@ const {Schema} = require("mongoose");
 
 const productSchema = new Schema(
   {
-    cod: {
-      type: Number,
-      required: true
-    },
     usuarioProducto: {
       type: Schema.Types.ObjectId,
       ref: "User",
+      required: true
+    },
+    cod: {
+      type: String,
       required: true
     },
     proveedorProducto: {

@@ -93,15 +93,15 @@
                   <section class="views__container--elements view__scrollbar">
                     <div class="views__content--elements items__container products">
                       <article class="items__header items__grid products">
-                        <div class="flex-c-c">Registrado por:</div>
-                        <div class="flex-c-c">Cod:</div>
-                        <div class="flex-c-c">Producto:</div>
-                        <div class="flex-c-c">Descripción:</div>
-                        <div class="flex-c-c">Proveedor:</div>
-                        <div class="flex-c-c">Categoría:</div>
-                        <div class="flex-c-c">Precio:</div>
-                        <div class="flex-c-c">Fecha Registro:</div>
-                        <div class="flex-c-c">Acciones:</div>
+                        <div class="flex-c-c">Registrado por</div>
+                        <div class="flex-c-c">Cod</div>
+                        <div class="flex-c-c">Producto</div>
+                        <div class="flex-c-c">Descripción</div>
+                        <div class="flex-c-c">Proveedor</div>
+                        <div class="flex-c-c">Categoría</div>
+                        <div class="flex-c-c">Precio</div>
+                        <div class="flex-c-c">Fecha Registro</div>
+                        <div class="flex-c-c">Acciones</div>
                       </article>
                       <div class="items__data--values" id="data-container">
                         {{#each products}}
@@ -116,14 +116,20 @@
                               <div class="flex-c-c precio__producto" data-precio="{{precioProducto}}">S/{{formatCurrency precioProducto}}</div>
                               <div class="flex-c-c fecha__producto">{{formatDateTime createdAt}}</div>
                               <div class="flex-c-c items__data--options">
+                                <a href="/products/{{_id}}/details" class="options__action">
+                                  <figure class="options__figure">
+                                    <img src="/assets/icon-edit.svg" alt="Icon Details" class="options__img">
+                                  </figure>
+                                  <span class="span__detail">Detalles</span>
+                                </a>
                                 <a href="/products/{{_id}}/edit" class="options__action">
                                   <figure class="options__figure">
-                                    <img src="../assets/icon-edit.svg" alt="Icon Edit" class="options__img">
+                                    <img src="/assets/icon-edit.svg" alt="Icon Edit" class="options__img">
                                   </figure>
                                 </a>
                                 <a href="/products/{{_id}}/confirm-delete" class="options__action delete__item">
                                   <figure class="options__figure">
-                                    <img src="../assets/icon-delete.svg" alt="Icon Delete" class="options__img">
+                                    <img src="/assets/icon-delete.svg" alt="Icon Delete" class="options__img">
                                   </figure>
                                 </a>
                               </div>
@@ -292,53 +298,5 @@
 
       filterAndSortItems(selectedFilter, searchQuery, selectedOrder);
     });
-
-    // Scroll infinito
-    const dataContainer = document.getElementById("data-container");
-    const sentinel = document.getElementById("sentinel");
-    const itemsData = dataContainer.querySelectorAll(".product__data");
-    let loading = false;
-
-    function observeCallback(entries) {
-      entries.forEach(entry => {
-        if (entry.isIntersecting && !loading) {
-          loadMore();
-        }
-      });
-    }
-
-    function loadMore() {
-      loading = true;
-      // Simulación de carga de datos
-      setTimeout(() => {
-        const moreItemsHTML = `
-          <div class="container__data">
-            <article class="items__data items__grid products product__data">
-              <div class="flex-c-c">{{usuarioProducto.usuario}}</div>
-              <div class="flex-c-c cod__producto" data-cod="{{cod}}">{{cod}}</div>
-              <div class="flex-c-c nombre__producto" data-nombre="{{nombreProducto}}">{{nombreProducto}}</div>
-              <div class="flex-c-c descripcion__producto" data-descripcion="{{descripcionProducto}}">{{descripcionProducto}}</div>
-              <div class="flex-c-c proveedor__producto" data-proveedor="{{proveedorProducto.nombreProveedor}}">{{proveedorProducto.nombreProveedor}}</div>
-              <div class="flex-c-c categoria__producto" data-categoria="{{categoriaProducto.nombreCategoria}}">{{categoriaProducto.nombreCategoria}}</div>
-              <div class="flex-c-c precio__producto" data-precio="{{precioProducto}}">S/{{formatCurrency precioProducto}}</div>
-              <div class="flex-c-c fecha__producto">{{formatDateTime createdAt}}</div>
-              <div class="flex-c-c items__data--options">
-                <a href="/products/{{_id}}/edit" class="options__action">
-                  <figure class="options__figure">
-                    <img src="../assets/icon-edit.svg" alt="Icon Edit" class="options__img">
-                  </figure>
-                </a>
-              </div>
-            </article>
-          </div>
-        `;
-
-        itemsDataValues.insertAdjacentHTML("beforeend", moreItemsHTML);
-        loading = false;
-      }, 1000);
-    }
-
-    const observer = new IntersectionObserver(observeCallback, { threshold: 0.5 });
-    observer.observe(sentinel);
   });
 </script>

@@ -6,10 +6,29 @@ const clientHistorySchema = new Schema(
       type: String,
       required: true
     },
+    usuarioHistorial: {
+      type: Schema.Types.ObjectId,
+      ref: 'User',
+      required: true
+    },
     clienteHistorial: {
-      type: Schema.Types.Mixed,
+      type: Schema.Types.ObjectId,
       ref: 'Client',
       required: true
+    },
+    dniClienteHistorial: {
+      type: String,
+      required: true
+    }, 
+    nombreClienteHistorial: {
+      type: String,
+      required: true
+    },
+    celularClienteHistorial: {
+      type: String
+    },
+    correoClienteHistorial: {
+      type: String
     }
   },
   {
