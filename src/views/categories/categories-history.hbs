@@ -50,10 +50,10 @@
                       <div class="container__data">
                         <article class="items__data items__grid categories__history">
                           <div class="flex-c-c"><span class="span__data__item tipo__historial">{{tipoHistorial}}</span></div>
-                          <div class="flex-c-c">{{categoriaHistorial.usuarioRegistroCategoria.usuario}}</div>
-                          <div class="flex-c-c">{{categoriaHistorial.nombreCategoria}}</div>
-                          <div class="flex-c-c">{{categoriaHistorial.descripcionCategoria}}</div>
-                          <div class="flex-c-c">{{formatDateTime categoriaHistorial.createdAt}}</div>
+                          <div class="flex-c-c">{{#if usuarioHistorial}}{{usuarioHistorial.usuario}}{{else}}-{{/if}}</div>
+                          <div class="flex-c-c">{{#if nombreCategoriaHistorial}}{{nombreCategoriaHistorial}}{{else}}-{{/if}}</div>
+                          <div class="flex-c-c">{{#if descripcionCategoriaHistorial}}{{descripcionCategoriaHistorial}}{{else}}-{{/if}}</div>
+                          <div class="flex-c-c">{{formatDateTime createdAt}}</div>
                         </article>
                       </div>
                     {{/each}}
