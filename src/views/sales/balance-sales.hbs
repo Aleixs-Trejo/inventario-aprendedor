@@ -20,14 +20,16 @@
                       <span class="sub__header__span">Volver</span>
                     </div>
                     {{#if (eq userRole "Admin")}}
-                      <div class="sub__header__action action__export--excel">
-                        <button class="sub__header__link" id="exportExcel">
-                          <figure class="sub__header__figure">
-                            <img src="/assets/icon-excel.svg" alt="Icon History" class="sub__header__img">
-                          </figure>
-                        </button>
-                        <span class="sub__header__span">Exportar</span>
-                      </div>
+                      {{#if balances}}
+                        <div class="sub__header__action action__export--excel">
+                          <button class="sub__header__link" id="exportExcel">
+                            <figure class="sub__header__figure">
+                              <img src="/assets/icon-excel.svg" alt="Icon History" class="sub__header__img">
+                            </figure>
+                          </button>
+                          <span class="sub__header__span">Exportar</span>
+                        </div>
+                      {{/if}}
                     {{/if}}
                   </div>
                 </article>
@@ -72,8 +74,8 @@
                           <div class="balance__views">
                             <article class="items__data items__grid balances balance__data">
                               <div class="flex-c-c">{{usuarioRegistroBalance.usuario}}</div>
-                              <div class="flex-c-c">{{ventasBalance.totalVentasConfirmadas}}</div>
-                              <div class="flex-c-c">S/ <span class="ganancias__netas">{{formatCurrency ventasBalance.totalCierreVentas}}</span></div>
+                              <div class="flex-c-c">{{totalVentas}}</div>
+                              <div class="flex-c-c">S/ <span class="ganancias__netas">{{formatCurrency gananciasNetas}}</span></div>
                               <div class="flex-c-c fecha__balance">{{formatDateTime ventasBalance.createdAt}}</div>
                             </article>
                           </div>

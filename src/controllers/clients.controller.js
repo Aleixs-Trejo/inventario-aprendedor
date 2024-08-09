@@ -130,6 +130,13 @@ clientsCtrl.renderDetailsClient = async (req, res) => {
     const client = await Client.findById(id).populate("usuarioRegistroCliente").lean();
     const clientHistory = await ClientHistory.find({clienteHistorial: id})
       .populate({
+        path: "usuarioHistorial",
+        populate: {
+          path: "trabajadorUsuario",
+          populate: "rolTrabajador"
+        }
+      })
+      .populate({
         path: "clienteHistorial",
         populate: {
           path: "usuarioRegistroCliente",
