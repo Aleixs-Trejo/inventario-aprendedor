@@ -111,14 +111,20 @@
                               <div class="flex-c-c">{{formatDateTime createdAt}}</div>
                               <div class="flex-c-c">{{estadoTrabajador}}</div>
                               <div class="flex-c-c items__data--options">
+                                <a href="/employees/{{_id}}/details" class="options__action">
+                                  <figure class="options__figure">
+                                    <img src="/assets/icon-edit.svg" alt="Icon Edit" class="options__img">
+                                  </figure>
+                                  <span class="span__detail">Detalles</span>
+                                </a>
                                 <a href="/employees/{{_id}}/edit" class="options__action">
                                   <figure class="options__figure">
-                                    <img src="../assets/icon-edit.svg" alt="Icon Edit" class="options__img">
+                                    <img src="/assets/icon-edit.svg" alt="Icon Edit" class="options__img">
                                   </figure>
                                 </a>
                                 <a href="/employees/{{_id}}/confirm-delete" class="options__action">
                                   <figure class="options__figure">
-                                    <img src="../assets/icon-delete.svg" alt="Icon Delete" class="options__img">
+                                    <img src="/assets/icon-delete.svg" alt="Icon Delete" class="options__img">
                                   </figure>
                                 </a>
                               </div>

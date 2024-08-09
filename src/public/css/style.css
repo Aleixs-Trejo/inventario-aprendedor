@@ -1634,7 +1634,7 @@ input[type="number"]::-webkit-outer-spin-button{
 }
 
 .items__container.employees{
-  min-width: 75rem;
+  min-width: 85rem;
 }
 
 .items__container.clients{
@@ -1682,7 +1682,7 @@ input[type="number"]::-webkit-outer-spin-button{
 }
 
 .items__container.employees__history{
-  min-width: 70rem;
+  min-width: 80rem;
 }
 
 .items__container.products__history{
@@ -1854,7 +1854,7 @@ input[type="number"]::-webkit-outer-spin-button{
 }
 
 .employees{
-  grid-template-columns: 10% 8% 1fr 10% 1fr 10% 8% 7rem
+  grid-template-columns: 10% 8% 1fr 10% 1fr 10% 8% 15rem
 }
 
 .clients{
@@ -1902,7 +1902,7 @@ input[type="number"]::-webkit-outer-spin-button{
 }
 
 .employees__history{
-  grid-template-columns: 10% 10% 10% 15% 10% 1fr 10% 10%;
+  grid-template-columns: 10% 10% 10% 10% 15% 10% 1fr 10% 10%;
 }
 
 .products__history{

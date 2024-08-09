@@ -39,27 +39,29 @@
               <section class="views__container--elements view__scrollbar">
                 <div class="items__container employees__history">
                   <article class="items__header items__grid employees__history">
-                    <div class="flex-c-c">Tipo de Registro:</div>
-                    <div class="flex-c-c">Rol:</div>
-                    <div class="flex-c-c">DNI:</div>
-                    <div class="flex-c-c">Nombres:</div>
-                    <div class="flex-c-c">Celular:</div>
-                    <div class="flex-c-c">Correo:</div>
+                    <div class="flex-c-c">Tipo</div>
+                    <div class="flex-c-c">Hecho por</div>
+                    <div class="flex-c-c">Rol</div>
+                    <div class="flex-c-c">DNI</div>
+                    <div class="flex-c-c">Nombres</div>
+                    <div class="flex-c-c">Celular</div>
+                    <div class="flex-c-c">Correo</div>
                     <div class="flex-c-c">Estado</div>
-                    <div class="flex-c-c">Fecha Ingr:</div>
+                    <div class="flex-c-c">Fecha</div>
                   </article>
                   <div class="items__data--values">
                     {{#each employeesHistory}}
                       <div class="container__data">
                         <article class="items__data items__grid employees__history">
                           <div class="flex-c-c"><span class="span__data__item tipo__historial">{{tipoHistorial}}</span></div>
-                          <div class="flex-c-c">{{trabajadorHistorial.rolTrabajador.nombreRol}}</div>
-                          <div class="flex-c-c">{{trabajadorHistorial.dniTrabajador}}</div>
-                          <div class="flex-c-c">{{trabajadorHistorial.nombreTrabajador}} {{trabajadorHistorial.apellidosTrabajador}}</div>
-                          <div class="flex-c-c">{{trabajadorHistorial.celularTrabajador}}</div>
-                          <div class="flex-c-c">{{trabajadorHistorial.correoTrabajador}}</div>
-                          <div class="flex-c-c">{{trabajadorHistorial.estadoTrabajador}}</div>
-                          <div class="flex-c-c">{{formatDateTime trabajadorHistorial.createdAt}}</div>
+                          <div class="flex-c-c">{{#if usuarioHistorial}}{{usuarioHistorial.usuario}}{{else}}-{{/if}}</div>
+                          <div class="flex-c-c">{{#if rolTrabajadorHistorial}}{{rolTrabajadorHistorial.nombreRol}}{{else}}-{{/if}}</div>
+                          <div class="flex-c-c">{{#if dniTrabajadorHistorial}}{{dniTrabajadorHistorial}}{{else}}-{{/if}}</div>
+                          <div class="flex-c-c">{{#if nombreTrabajadorHistorial}}{{nombreTrabajadorHistorial}} {{apellidosTrabajadorHistorial}}{{else}}-{{/if}}</div>
+                          <div class="flex-c-c">{{#if celularTrabajadorHistorial}}{{celularTrabajadorHistorial}}{{else}}-{{/if}}</div>
+                          <div class="flex-c-c">{{#if correoTrabajadorHistorial}}{{correoTrabajadorHistorial}}{{else}}-{{/if}}</div>
+                          <div class="flex-c-c">{{#if estadoTrabajadorHistorial}}{{estadoTrabajadorHistorial}}{{else}}-{{/if}}</div>
+                          <div class="flex-c-c">{{formatDateTime createdAt}}</div>
                         </article>
                       </div>
                     {{/each}}
