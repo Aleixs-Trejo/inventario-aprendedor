@@ -174,6 +174,7 @@ productsCtrl.renderEditProduct = async (req, res) => {
 productsCtrl.updateProduct = async (req, res) => {
   try {
     const {id} = req.params;
+    console.log("Datos del producto a actualizar: ", req.body);
 
     const productUpdated = await Product.findByIdAndUpdate(id, req.body, {new: true});
 
@@ -187,7 +188,7 @@ productsCtrl.updateProduct = async (req, res) => {
     const precioProductoHistorial = productUpdated.precioProducto;
 
     const newProductHistory = new ProductHistory({
-      tipoHistorial: "Actualizado",
+      tipoHistorial: "Modificado",
       usuarioHistorial: req.user._id,
       productoHistorial: productId,
       codProductoHistorial,
