@@ -53,19 +53,18 @@ employeeCtrl.registerEmployee = async (req, res) => {
         res.redirect("/employees/register");
       } else {
 
-        const trabajadorRegistrado = {
+        const newEmployee = new Employee({
+          usuarioRegistroTrabajador: req.user ? req.user._id : null,
           rolTrabajador,
           dniTrabajador,
           nombreTrabajador,
           apellidosTrabajador,
-          celularTrabajador,
+          celularTrabajador: celularTrabajador.toString(),
           correoTrabajador,
           estadoTrabajador
-        }
+        })
 
-        const newEmployee = new Employee(trabajadorRegistrado);
-        console.log("Trabajador registrado: ", trabajadorRegistrado)
-        await newEmployee.save(); //Guardado en la BD
+        await newEmployee.save();
 
         const employeeId = newEmployee._id;
         const rolTrabajadorHistorial = newEmployee.rolTrabajador;
@@ -107,8 +106,15 @@ employeeCtrl.registerEmployee = async (req, res) => {
 employeeCtrl.renderEmployees = async (req, res) => {
   try {
     const employees = await Employee.find({eliminadoTrabajador: false})
-    .populate("rolTrabajador")
-    .lean();
+      .populate({
+        path: "usuarioRegistroTrabajador",
+        populate: {
+          path: "trabajadorUsuario",
+          populate: "rolTrabajador"
+        }
+      })
+      .populate("rolTrabajador")
+      .lean();
 
     const userRole = req.user.trabajadorUsuario.rolTrabajador.nombreRol;
     res.render("employees/all-employees", {
@@ -188,7 +194,16 @@ employeeCtrl.updateEmployee = async (req, res) => {
 employeeCtrl.renderDetailsEmployee = async (req, res) => {
   try {
     const {id} = req.params;
-    const employee = await Employee.findById(id).populate("rolTrabajador").lean();
+    const employee = await Employee.findById(id)
+      .populate({
+        path: "usuarioRegistroTrabajador",
+        populate: {
+          path: "trabajadorUsuario",
+          populate: "rolTrabajador"
+        }
+      })
+      .populate("rolTrabajador")
+      .lean();
     const employeeHistory = await EmployeeHistory.find({trabajadorHistorial: id})
       .populate({
         path: "usuarioHistorial",
@@ -199,10 +214,7 @@ employeeCtrl.renderDetailsEmployee = async (req, res) => {
       })
       .populate({
         path: "trabajadorHistorial",
-        populate: {
-          path: "trabajadorUsuario",
-          populate: "rolTrabajador"
-        }
+        populate: "rolTrabajador"
       })
       .populate("rolTrabajadorHistorial")
       .sort({createdAt: -1})
@@ -307,8 +319,15 @@ employeeCtrl.renderDeleteEmployee = async (req, res) => {
   try {
     const {id} = req.params;
     const employee = await Employee.findById(id)
-    .populate("rolTrabajador")
-    .lean();
+      .populate({
+        path: "usuarioRegistroTrabajador",
+        populate: {
+          path: "trabajadorUsuario",
+          populate: "rolTrabajador"
+        }
+      })
+      .populate("rolTrabajador")
+      .lean();
     res.render("employees/delete-employee", {employee});
   } catch (error) {
     req.flash("wrong", "Ocurrió un error, intente nuevamente.");

@@ -2,6 +2,10 @@ const {Schema} = require("mongoose");
 
 const employeeSchema = new Schema(
   {
+    usuarioRegistroTrabajador: {
+      type: Schema.Types.ObjectId,
+      ref: "User"
+    },
     rolTrabajador: {
       type: Schema.Types.ObjectId,
       ref: "UserRol",
@@ -21,8 +25,7 @@ const employeeSchema = new Schema(
     },
     celularTrabajador: {
       type: Number,
-      required: true,
-      unique: true
+      required: true
     },
     correoTrabajador: {
       type: String,
