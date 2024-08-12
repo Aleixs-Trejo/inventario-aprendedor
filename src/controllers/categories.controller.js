@@ -79,8 +79,26 @@ categoryCtrl.renderCategories = async (req, res) => {
 categoryCtrl.renderDetailsCategory = async (req, res) => {
   try {
     const {id} = req.params;
-    const category = await Category.findById(id).lean();
-    const categoryHistory = await CategoryHistory.find({categoriaHistorial: id}).populate("categoriaHistorial").sort({createdAt: -1}).lean();
+    const category = await Category.findById(id)
+      .populate({
+        path: "usuarioRegistroCategoria",
+        populate: {
+          path: "trabajadorUsuario",
+          populate: "rolTrabajador"
+        }
+      })
+      .lean();
+    const categoryHistory = await CategoryHistory.find({categoriaHistorial: id})
+      .populate({
+        path: "usuarioHistorial",
+        populate: {
+          path: "trabajadorUsuario",
+          populate: "rolTrabajador"
+        }
+      })
+      .populate("categoriaHistorial")
+      .sort({createdAt: -1})
+      .lean();
     const userRole = req.user.trabajadorUsuario.rolTrabajador.nombreRol;
     res.render("categories/details-category", {
       category,

@@ -20,7 +20,6 @@ categoryHistoryCtrl.renderCategoryHistory = async (req, res) => {
     })
     .sort({createdAt: -1})
     .lean();
-    console.log("Historial de Categorias: ", categoriesHistory);
     res.render('categories/categories-history', {categoriesHistory});
   } catch (error) {
     req.flash("wrong", "Ocurrió un error, intente nuevamente.");

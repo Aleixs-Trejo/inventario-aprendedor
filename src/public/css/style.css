@@ -1643,7 +1643,7 @@ input[type="number"]::-webkit-outer-spin-button{
 }
 
 .items__container.categories{
-  min-width: 40rem;
+  min-width: 50rem;
 }
 
 .items__container.records{
@@ -1863,7 +1863,7 @@ input[type="number"]::-webkit-outer-spin-button{
 }
 
 .categories{
-  grid-template-columns: 20% 20% 1fr 20% 7rem;
+  grid-template-columns: 20% 20% 1fr 20% 15rem;
 }
 
 .records{

@@ -8,7 +8,8 @@ const {
   renderEditCategory,
   updateCategory,
   deleteCategory,
-  renderDeleteCategory
+  renderDeleteCategory,
+  renderDetailsCategory
 } = require("../controllers/categories.controller");
 const {
   isAuthenticated,
@@ -26,6 +27,9 @@ router.get("/categories", isAuthenticated, isAlmacen, renderCategories);
 //Editar Categorías
 router.get("/categories/:id/edit", isAuthenticated, isAlmacen,  renderEditCategory);
 router.post("/categories/:id/edit", isAuthenticated, isAlmacen, updateCategory);
+
+// Nostrar detalles de una categoría
+router.get("/categories/:id/details", isAuthenticated, isAdmin, renderDetailsCategory);
 
 //Eliminar Categorías
 router.get("/categories/:id/confirm-delete", isAuthenticated, isAdmin, renderDeleteCategory);
