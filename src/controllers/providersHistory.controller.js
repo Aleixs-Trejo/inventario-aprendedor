@@ -6,13 +6,21 @@ const ProviderHistory = require('../models/providerHistoryModel');
 providerHistoryCtrl.renderProvidersHistory = async (req, res) => {
   try {
     const providersHistory = await ProviderHistory.find()
-    .populate({
-      path: "proveedorHistorial",
-      populate: {
-        path: "usuarioRegistroProveedor"
-      }
-    })
-    .lean();
+      .populate({
+        path: "usuarioHistorial",
+        populate: {
+          path: "trabajadorUsuario",
+          populate: "rolTrabajador"
+        }
+      })
+      .populate({
+        path: "proveedorHistorial",
+        populate: {
+          path: "usuarioRegistroProveedor"
+        }
+      })
+      .sort({createdAt: -1})
+      .lean();
     res.render("providers/history-providers", {providersHistory})
   } catch (error) {
     req.flash("wrong", "Ocurrió un error, intente nuevamente");

@@ -1627,7 +1627,7 @@ input[type="number"]::-webkit-outer-spin-button{
 }
 
 .items__container.providers{
-  min-width: 80rem;
+  min-width: 90rem;
 }
 
 .items__container.products{
@@ -1847,7 +1847,7 @@ input[type="number"]::-webkit-outer-spin-button{
 }
 
 .providers{
-  grid-template-columns: 12% 10% 12% 10% 1fr 14% 9% 7rem
+  grid-template-columns: 12% 10% 12% 10% 1fr 14% 9% 15rem
 }
 
 .products{
