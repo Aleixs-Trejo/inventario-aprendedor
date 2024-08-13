@@ -8,7 +8,8 @@ const {
   renderEditRoom,
   updateRoom,
   renderDeleteRoom,
-  deleteRoom
+  deleteRoom,
+  renderRoomDetails
 } = require("../controllers/rooms.controller");
 
 const {
@@ -28,6 +29,9 @@ router.get("/rooms", isAuthenticated, isAdmin, renderRooms);
 router.get("/rooms/:id/edit", isAuthenticated, isAdmin, renderEditRoom);
 // Actualizar habitación
 router.post("/rooms/:id/edit", isAuthenticated, isAdmin, updateRoom);
+
+// Mostrar detalles de una habitación
+router.get("/rooms/:id/details", isAuthenticated, isAdmin, renderRoomDetails);
 
 // Renderizar confirmación de eliminación de habitación
 router.get("/rooms/:id/confirm-delete", isAuthenticated, isAdmin, renderDeleteRoom);

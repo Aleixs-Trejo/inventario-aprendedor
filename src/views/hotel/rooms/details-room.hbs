@@ -1,11 +1,11 @@
-<section class="section__all--details">
+<section class="section__all--views">
   <div class="content__views">
     <div class="container views__container">
       <div class="card__items">
         <div class="items__elements__title">
-          <h5 class="items__name">Detalles del proveedor: {{provider._id}}</h5>
+          <h5 class="items__name">Detalles de la habitación: {{room._id}}</h5>
         </div>
-        {{#if provider}}
+        {{#if room}}
           <div class="details__container">
             <div class="sub__header">
               <div class="sub__header__container">
@@ -14,7 +14,7 @@
                     <article class="article__sub__header sub__header__actions">
                       <div class="sub__header__actions__container">
                         <div class="sub__header__action">
-                          <a href="/providers" class="sub__header__link">
+                          <a href="/rooms" class="sub__header__link">
                             <figure class="sub__header__figure">
                               <img src="/assets/icon-back.svg" alt="Icon Back" class="sub__header__img">
                             </figure>
@@ -22,7 +22,7 @@
                           <span class="sub__header__span">Volver</span>
                         </div>
                         <div class="sub__header__action">
-                          <a href="/providers/{{provider._id}}/edit" class="sub__header__link">
+                          <a href="/rooms/{{room._id}}/edit" class="sub__header__link">
                             <figure class="sub__header__figure">
                               <img src="/assets/icon-edit.svg" alt="Icon Edit" class="sub__header__img">
                             </figure>
@@ -30,7 +30,7 @@
                           <span class="sub__header__span">Editar</span>
                         </div>
                         <div class="sub__header__action action__delete__item">
-                          <a href="/providers/{{provider._id}}/delete" class="sub__header__link">
+                          <a href="/rooms/{{room._id}}/delete" class="sub__header__link">
                             <figure class="sub__header__figure">
                               <img src="/assets/icon-delete.svg" alt="Icon Delete" class="sub__header__img">
                             </figure>
@@ -58,7 +58,7 @@
                       <article class="card__content">
                         <div class="card card__info card__info__details__model">
                           <div class="card__header">
-                            <h5 class="card__title">Información del proveedor</h5>
+                            <h5 class="card__title">Información de la habitación</h5>
                           </div>
                         </div>
                         <div class="card__body">
@@ -66,31 +66,35 @@
                             <ul class="card__body__content__ul ul__details__model">
                               <li class="content__li">
                                 <span class="content__li__span">Registrado por</span>
-                                <span class="content__li__span content__li__span--data">{{#if usuarioRegistroProveedor}}{{usuarioRegistroProveedor.usuario}}{{else}}-{{/if}}</span>
+                                <span class="content__li__span content__li__span--data">{{#if room.usuarioRegistroHabitacion}}{{room.usuarioRegistroHabitacion.usuario}}{{else}}-{{/if}}</span>
                               </li>
                               <li class="content__li">
-                                <span class="content__li__span">Documento</span>
-                                <span class="content__li__span content__li__span--data">{{#if provider.dniProveedor}}{{provider.dniProveedor}}{{else}}-{{/if}}</span>
+                                <span class="content__li__span">Piso</span>
+                                <span class="content__li__span content__li__span--data">{{#if room.pisoHabitacion}}{{room.pisoHabitacion.piso}}{{else}}-{{/if}}</span>
                               </li>
                               <li class="content__li">
-                                <span class="content__li__span">Nombre</span>
-                                <span class="content__li__span content__li__span--data">{{#if provider.nombreProveedor}}{{provider.nombreProveedor}}{{else}}-{{/if}}</span>
+                                <span class="content__li__span">Número</span>
+                                <span class="content__li__span content__li__span--data">{{room.numeroHabitacion}}</span>
                               </li>
                               <li class="content__li">
-                                <span class="content__li__span">Celular</span>
-                                <span class="content__li__span content__li__span--data">{{#if provider.celularProveedor}}{{provider.celularProveedor}}{{else}}-{{/if}}</span>
+                                <span class="content__li__span">Descripción</span>
+                                <span class="content__li__span content__li__span--data">{{room.descripcionHabitacion}}</span>
                               </li>
                               <li class="content__li">
-                                <span class="content__li__span">Correo</span>
-                                <span class="content__li__span content__li__span--data">{{#if provider.correoProveedor}}{{provider.correoProveedor}}{{else}}-{{/if}}</span>
+                                <span class="content__li__span">Categoria</span>
+                                <span class="content__li__span content__li__span--data">{{#if room.categoriaHabitacion}}{{room.categoriaHabitacion.categoria}}{{else}}-{{/if}}</span>
                               </li>
                               <li class="content__li">
-                                <span class="content__li__span">Dirección</span>
-                                <span class="content__li__span content__li__span--data">{{#if provider.direccionProveedor}}{{provider.direccionProveedor}}{{else}}-{{/if}}</span>
+                                <span class="content__li__span">Precio</span>
+                                <span class="content__li__span content__li__span--data">{{room.precioHabitacion}}</span>
                               </li>
                               <li class="content__li">
-                                <span class="content__li__span">Fecha Registro</span>
-                                <span class="content__li__span content__li__span--data">{{formatDateTime provider.createdAt}}</span>
+                                <span class="content__li__span">Cantidad de usos</span>
+                                <span class="content__li__span content__li__span--data">{{room.cantidadUsosHabitacion}}</span>
+                              </li>
+                              <li class="content__li">
+                                <span class="content__li__span">Estado</span>
+                                <span class="content__li__span content__li__span--data">{{room.estadoHabitacion}}</span>
                               </li>
                             </ul>
                           </div>
@@ -98,13 +102,13 @@
                       </article>
                     </section>
                   </div>
-                  {{#if providerHistory}}
+                  {{#if roomHistory}}
                     <div class="cards__container cards__container__model">
                       <div class="section__cards__title__container">
                         <h5 class="section__cards__title">Historial</h5>
                       </div>
                       <section class="section__cards section__cards__model">
-                        {{#each providerHistory}}
+                        {{#each roomHistory}}
                           <article class="card__content">
                             <div class="card card__info card__info__model">
                               <div class="card__header">
@@ -122,24 +126,24 @@
                                       <span class="content__li__span content__li__span--data">{{#if usuarioHistorial}}{{usuarioHistorial.usuario}}{{else}}-{{/if}}</span>
                                     </li>
                                     <li class="content__li">
-                                      <span class="content__li__span">Documento</span>
-                                      <span class="content__li__span content__li__span--data">{{#if dniProveedorHistorial}}{{dniProveedorHistorial}}{{else}}-{{/if}}</span>
+                                      <span class="content__li__span">Piso</span>
+                                      <span class="content__li__span content__li__span--data">{{#if pisoHabitacionHistorial}}{{pisoHabitacionHistorial.numeroPiso}}{{else}}-{{/if}}</span>
                                     </li>
                                     <li class="content__li">
-                                      <span class="content__li__span">Nombre</span>
-                                      <span class="content__li__span content__li__span--data">{{#if nombreProveedorHistorial}}{{nombreProveedorHistorial}}{{else}}-{{/if}}</span>
+                                      <span class="content__li__span">Número</span>
+                                      <span class="content__li__span content__li__span--data">{{#if numeroHabitacionHistorial}}{{numeroHabitacionHistorial}}{{else}}-{{/if}}</span>
                                     </li>
                                     <li class="content__li">
-                                      <span class="content__li__span">Celular</span>
-                                      <span class="content__li__span content__li__span--data">{{#if celularProveedorHistorial}}{{celularProveedorHistorial}}{{else}}-{{/if}}</span>
+                                      <span class="content__li__span">Descripción</span>
+                                      <span class="content__li__span content__li__span--data">{{#if descripcionHabitacionHistorial}}{{descripcionHabitacionHistorial}}{{else}}-{{/if}}</span>
                                     </li>
                                     <li class="content__li">
-                                      <span class="content__li__span">Correo</span>
-                                      <span class="content__li__span content__li__span--data">{{#if correoProveedorHistorial}}{{correoProveedorHistorial}}{{else}}-{{/if}}</span>
+                                      <span class="content__li__span">Categoria</span>
+                                      <span class="content__li__span content__li__span--data">{{#if categoriaHabitacionHistorial}}{{categoriaHabitacionHistorial.nombreCategoriaHabitacion}}{{else}}-{{/if}}</span>
                                     </li>
                                     <li class="content__li">
-                                      <span class="content__li__span">Dirección</span>
-                                      <span class="content__li__span content__li__span--data">{{#if direccionProveedorHistorial}}{{direccionProveedorHistorial}}{{else}}-{{/if}}</span>
+                                      <span class="content__li__span">Precio</span>
+                                      <span class="content__li__span content__li__span--data">{{#if precioHabitacionHistorial}}{{precioHabitacionHistorial}}{{else}}-{{/if}}</span>
                                     </li>
                                     <li class="content__li">
                                       <span class="content__li__span">Fecha</span>
@@ -157,10 +161,11 @@
                     <h5 class="items__empty">No hay historial para mostrar 😿</h5>
                   {{/if}}
                 </div>
+              </div>
             </section>
           </article>
         {{else}}
-          <h5 class="items__empty">No hay proveedor para mostrar 😿</h5>
+          <h5 class="items__empty">No hay habitación para mostrar 😿</h5>
         {{/if}}
       </div>
     </div>

@@ -1747,17 +1747,12 @@ input[type="number"]::-webkit-outer-spin-button{
 }
 
 .items__container.rooms{
-  min-width: 85rem;
+  min-width: 95rem;
 }
 
 .items__container.rooms__history{
   min-width: 75rem;
 }
-
-.items__container.rooms__hotel{
-  min-width: 75rem;
-}
-
 .items__container.index__room__history{
   min-width: 70rem;
 }
@@ -1967,15 +1962,11 @@ input[type="number"]::-webkit-outer-spin-button{
 }
 
 .rooms{
-  grid-template-columns: 12% 5% 6% 13% 1fr 8% 10% 5% 12% 7rem;
+  grid-template-columns: 12% 5% 6% 13% 1fr 8% 10% 5% 12% 15rem;
 }
 
 .rooms__history{
   grid-template-columns: 12% 15% 8% 10% 1fr 12% 10% 15%;
-}
-
-.rooms__hotel{
-  grid-template-columns: 12% 9% 1fr 10% 8% 15% 6% 12% 7rem;
 }
 
 .index__room__history{

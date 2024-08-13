@@ -7,11 +7,19 @@ roomsHistoryCtrl.renderRoomsHistory = async (req, res) => {
     // Cargar todos los datos de la BD
     const roomsHistory = await RoomHistory.find()
       .populate({
+        path: "usuarioHistorial",
+        populate: {
+          path: "trabajadorUsuario",
+          populate: "rolTrabajador"
+        }
+      })
+      .populate({
         path: "habitacionHistorial",
         populate: {
           path: "usuarioRegistroHabitacion pisoHabitacion categoriaHabitacion",
         }
       })
+      .sort({createdAt: -1})
       .lean();
 
     const userRole = req.user.trabajadorUsuario.rolTrabajador.nombreRol;
