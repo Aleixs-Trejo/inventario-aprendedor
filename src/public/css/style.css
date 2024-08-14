@@ -2685,6 +2685,7 @@ input[type="number"]::-webkit-outer-spin-button{
   padding: 4rem 1rem;
   width: 90%;
   max-width: 8cm;
+  max-width: 5.8cm;
 }
 
 .voucher__figure{
@@ -2717,7 +2718,7 @@ input[type="number"]::-webkit-outer-spin-button{
 }
 
 .voucher__content *{
-  font-size: 0.5rem;
+  font-size: 0.4rem;
 }
 
 .voucher__description{
@@ -2746,7 +2747,7 @@ input[type="number"]::-webkit-outer-spin-button{
 .voucher__sale--details{
   display: flex;
   flex-direction: column;
-  gap: 2rem;
+  gap: 1rem;
 }
 
 .voucher__sale--data{
@@ -2754,12 +2755,16 @@ input[type="number"]::-webkit-outer-spin-button{
   max-width: 100%;
 }
 
+.data__header.items__grid.voucher__product > *{
+  padding: 3px;
+}
+
 .voucher__sale--data .items__grid > *{
   border-right-color: #ccc;
 }
 
 .voucher__product{
-  grid-template-columns: 10% 1fr 15% 10% 14% 15%;
+  grid-template-columns: 1fr 17% 12% 17% 18%;
 }
 
 .data__header{
@@ -2772,13 +2777,13 @@ input[type="number"]::-webkit-outer-spin-button{
 }
 
 .data__body > *{
-  padding: 0.5rem 0;
+  padding: 5px 0;
 }
 
 .voucher__sale--params{
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: 0.35rem;
 }
 
 .sale__param{
@@ -2797,7 +2802,7 @@ input[type="number"]::-webkit-outer-spin-button{
 }
 
 .policy * {
-  color: #444;
+  color: #222;
 }
 
 .policy__title{
@@ -2928,6 +2933,7 @@ input[type="number"]::-webkit-outer-spin-button{
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 0;
   font-weight: 700;
 }
 
@@ -2935,6 +2941,10 @@ input[type="number"]::-webkit-outer-spin-button{
   font-weight: 400;
   width: 80%;
   line-height: 1;
+}
+
+.sale__data .data__value{
+  width: 70%;
 }
 
 .bill__sale--details{

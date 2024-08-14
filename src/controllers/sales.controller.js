@@ -5,7 +5,6 @@ const transporter = require("../config/nodemailer");
 const generatePDF = require("../config/puppeteer");
 
 const Sale = require("../models/saleModel");
-const CounterSale = require("../models/counterSaleModel");
 const SaleHistory = require("../models/salesHistoryModel");
 const Balance = require("../models/balanceModel");
 const Store = require("../models/storeModel");
@@ -235,7 +234,8 @@ salesCtrl.renderVoucherSale = async (req, res) => {
       .populate({
         path: "usuarioVenta",
         populate: {
-          path: "trabajadorUsuario"
+          path: "trabajadorUsuario",
+          populate: "rolTrabajador"
         }
       })
       .populate("clienteVenta")
@@ -246,8 +246,17 @@ salesCtrl.renderVoucherSale = async (req, res) => {
         }
       })
       .lean();
-    console.log("Boleta de venta: ", sale);
-    res.render("sales/voucher-sale", {sale});
+
+    const total = parseFloat(sale.productosVenta.reduce((acc, p) => acc + p.precioTotalProducto, 0)).toFixed(2);
+    const igv = parseFloat(total * 0.18).toFixed(2);
+    const subTotal = parseFloat(total - igv).toFixed(2);
+
+    res.render("sales/voucher-sale", {
+      sale,
+      total,
+      igv,
+      subTotal
+    });
   } catch (error) {
     req.flash("wrong", "Ocurrió un error al generar el voucher, intente nuevamente.");
     console.log("Error: ", error);
@@ -279,10 +288,6 @@ salesCtrl.renderBillSale = async (req, res) => {
     const total = parseFloat(sale.productosVenta.reduce((acc, p) => acc + p.precioTotalProducto, 0)).toFixed(2);
     const igv = parseFloat(total * 0.18).toFixed(2);
     const subTotal = parseFloat(total - igv).toFixed(2);
-    console.log("Sale: ", sale);
-    console.log("Total: ", total);
-    console.log("IGV: ", igv);
-    console.log("SubTotal: ", subTotal);
     res.render("sales/bill-sale", {
       sale,
       total,
@@ -322,10 +327,11 @@ salesCtrl.generateBillPDF = async (req, res) => {
     }
 
     // Generar el PDF
-    const pdfBuffer = await generatePDF(`http://127.0.0.1:4321/sales/${id}/bill`);
+    const pdfBuffer = await generatePDF(`http://127.0.0.1:4000/sales/${id}/bill`);
 
     // Enviar el PDF a correo
     let mailClient = sale.clienteVenta.correoCliente || "alexistrejoxd1@gmail.com";
+    console.log("mailClient: ", mailClient);
     const mailOptions = {
       to: mailClient,
       from: "alexistrejoxd@gmail.com",
