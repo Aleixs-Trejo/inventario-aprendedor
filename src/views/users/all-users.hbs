@@ -42,55 +42,51 @@
           </div>
         </div>
         {{#if users}}
-          {{#if userRole}}
-            {{#if (eq userRole "Admin")}}
-              <section class="items">
-                <div class="items__container__elements">
-                  <section class="views__container--elements view__scrollbar">
-                    <div class="views__content--elements items__container usuarios">
-                      <article class="items__header items__grid usuarios">
-                        <div class="flex-c-c">Rol:</div>
-                        <div class="flex-c-c">DNI:</div>
-                        <div class="flex-c-c">Nombre:</div>
-                        <div class="flex-c-c">Celular:</div>
-                        <div class="flex-c-c">Correo:</div>
-                        <div class="flex-c-c">Usuario:</div>
-                        <div class="flex-c-c">Fecha Registro:</div>
-                        <div class="flex-c-c">Acciones:</div>
-                      </article>
-                      <div class="items__data--values">
-                        {{#each users}}
-                          <div class="container__data">
-                            <article class="items__data items__grid usuarios">
-                              <div class="flex-c-c">{{trabajadorUsuario.rolTrabajador.nombreRol}}</div>
-                              <div class="flex-c-c">{{trabajadorUsuario.dniTrabajador}}</div>
-                              <div class="flex-c-c">{{trabajadorUsuario.nombreTrabajador}} {{this.trabajadorUsuario.apellidosTrabajador}}</div>
-                              <div class="flex-c-c">{{trabajadorUsuario.celularTrabajador}}</div>
-                              <div class="flex-c-c">{{trabajadorUsuario.correoTrabajador}}</div>
-                              <div class="flex-c-c">{{usuario}}</div>
-                              <div class="flex-c-c">{{formatDateTime trabajadorUsuario.createdAt}}</div>
-                              <div class="flex-c-c items__data--options">
-                                <a href="/users/{{_id}}/edit" class="options__action">
-                                  <figure class="options__figure">
-                                    <img src="../assets/icon-edit.svg" alt="Icon Edit" class="options__img">
-                                  </figure>
-                                </a>
-                                <a href="/users/{{_id}}/confirm-delete" class="options__action">
-                                  <figure class="options__figure">
-                                    <img src="../assets/icon-delete.svg" alt="Icon Delete" class="options__img">
-                                  </figure>
-                                </a>
-                              </div>
-                            </article>
+          <section class="items">
+            <div class="items__container__elements">
+              <section class="views__container--elements view__scrollbar">
+                <div class="views__content--elements items__container usuarios">
+                  <article class="items__header items__grid usuarios">
+                    <div class="flex-c-c">Rol:</div>
+                    <div class="flex-c-c">DNI:</div>
+                    <div class="flex-c-c">Nombre:</div>
+                    <div class="flex-c-c">Celular:</div>
+                    <div class="flex-c-c">Correo:</div>
+                    <div class="flex-c-c">Usuario:</div>
+                    <div class="flex-c-c">Fecha Registro:</div>
+                    <div class="flex-c-c">Acciones:</div>
+                  </article>
+                  <div class="items__data--values">
+                    {{#each users}}
+                      <div class="container__data">
+                        <article class="items__data items__grid usuarios">
+                          <div class="flex-c-c">{{trabajadorUsuario.rolTrabajador.nombreRol}}</div>
+                          <div class="flex-c-c">{{trabajadorUsuario.dniTrabajador}}</div>
+                          <div class="flex-c-c">{{trabajadorUsuario.nombreTrabajador}} {{this.trabajadorUsuario.apellidosTrabajador}}</div>
+                          <div class="flex-c-c">{{trabajadorUsuario.celularTrabajador}}</div>
+                          <div class="flex-c-c">{{trabajadorUsuario.correoTrabajador}}</div>
+                          <div class="flex-c-c">{{usuario}}</div>
+                          <div class="flex-c-c">{{formatDateTime trabajadorUsuario.createdAt}}</div>
+                          <div class="flex-c-c items__data--options">
+                            <a href="/users/{{_id}}/edit" class="options__action">
+                              <figure class="options__figure">
+                                <img src="../assets/icon-edit.svg" alt="Icon Edit" class="options__img">
+                              </figure>
+                            </a>
+                            <a href="/users/{{_id}}/confirm-delete" class="options__action">
+                              <figure class="options__figure">
+                                <img src="../assets/icon-delete.svg" alt="Icon Delete" class="options__img">
+                              </figure>
+                            </a>
                           </div>
-                        {{/each}}
+                        </article>
                       </div>
-                    </div>
-                  </section>
+                    {{/each}}
+                  </div>
                 </div>
               </section>
-            {{/if}}
-          {{/if}}
+            </div>
+          </section>
         {{else}}
           <h5 class="items__empty">No hay Usuarios para mostrar 😿</h5>
         {{/if}}

@@ -1,0 +1,26 @@
+version: "3.8"
+
+services:
+  app:
+    container_name: sistema-aprendedor-node
+    restart: always
+    build: .
+    ports:
+      - "4000:4321"
+    logging:
+      driver: none
+    environment:
+      - MONGODB_URL=mongodb://mongo/inventario
+      - PORT=4321
+      - RECOVERY_CODE_SENDGRID=DPTDV2HMKBDTPDUEQJUWMDKN
+      - GMAIL_USER=alexistrejoxd@gmail.com
+      - GMAIL_PASS=pafi yjoh zynv uogq
+    links:
+      - mongo
+    volumes:
+      - .:/usr/src/app
+  mongo:
+    container_name: sistema-aprendedor-mongo
+    image: mongo:7.0.5
+    ports:
+      - "27017:27017"

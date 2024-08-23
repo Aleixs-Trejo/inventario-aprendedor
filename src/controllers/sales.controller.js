@@ -327,7 +327,7 @@ salesCtrl.generateBillPDF = async (req, res) => {
     }
 
     // Generar el PDF
-    const pdfBuffer = await generatePDF(`http://127.0.0.1:4000/sales/${id}/bill`);
+    const pdfBuffer = await generatePDF(`http://127.0.0.1:${process.env.PORT}/sales/${id}/bill`);
 
     // Enviar el PDF a correo
     let mailClient = sale.clienteVenta.correoCliente || "alexistrejoxd1@gmail.com";

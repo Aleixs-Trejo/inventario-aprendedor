@@ -102,7 +102,7 @@ employeeCtrl.registerEmployee = async (req, res) => {
   }
 }
 
-//Mostrar Trabajadores
+// Mostrar Trabajadores
 employeeCtrl.renderEmployees = async (req, res) => {
   try {
     const employees = await Employee.find({eliminadoTrabajador: false})

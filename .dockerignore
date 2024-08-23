@@ -1,6 +1,6 @@
-.env
+.gitignore
 
-.dockerignore
+.env
 
 node_modules
 
