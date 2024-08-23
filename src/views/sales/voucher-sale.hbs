@@ -16,29 +16,27 @@
         </section>
         <section class="voucher__description">
           <h4 class="voucher__title">BOLETA DE VENTA ELECTRÓNICA</h4>
-          <span class="voucher__id">{{sale._id}}</span>
+          <span class="voucher__id">{{sale.ventaID}}</span>
         </section>
         <section class="voucher__sale--info">
           <article class="sale__info">
-            <span class="sale__data"> Fecha: <span>{{formatDateTime sale.createdAt}}</span></span>
-            <span class="sale__employee">Vendedor: <span>{{sale.usuarioVenta.trabajadorUsuario.nombreTrabajador}} {{venta.usuarioVenta.trabajadorUsuario.apellidosTrabajador}}</span></span>
-            <span class="sale__client">Cliente: <span>{{sale.clienteVenta.nombreCliente}}</span></span>
+            <span class="sale__data sale__data--date"> Fecha<span class="data__value">: {{formatDateTime sale.createdAt}}</span></span>
+            <span class="sale__data sale__data--employee">Vendedor<span class="data__value">: {{sale.usuarioVenta.trabajadorUsuario.nombreTrabajador}} {{venta.usuarioVenta.trabajadorUsuario.apellidosTrabajador}}</span></span>
+            <span class="sale__data sale__data--client">Cliente<span class="data__value">: {{sale.clienteVenta.nombreCliente}}</span></span>
           </article>
         </section>
         <section class="voucher__sale--details">
           <article class="voucher__sale--data">
             <article class="data__header items__grid voucher__product">
-              <div class="flex-c-c">Cod.</div>
-              <div class="flex-c-c">Descr.</div>
-              <div class="flex-c-c">Precio Unit.</div>
-              <div class="flex-c-c">Cant.</div>
-              <div class="flex-c-c">Dscto.</div>
-              <div class="flex-c-c">Precio con Dscto.</div>
+              <div class="flex-c-c">Prod</div>
+              <div class="flex-c-c">P. Unit</div>
+              <div class="flex-c-c">Cant</div>
+              <div class="flex-c-c">Dscto</div>
+              <div class="flex-c-c">Importe</div>
             </article>
 
             {{#each sale.productosVenta}}
               <article class="data__body items__grid voucher__product">
-                <div class="flex-c-c descripcion">{{productoVenta.almacenProducto.cod}}</div>
                 <div class="flex-c-c descripcion">{{productoVenta.almacenProducto.descripcionProducto}}</div>
                 <div class="flex-c-c precio">S/{{formatCurrency productoVenta.almacenProducto.precioProducto}}</div>
                 <div class="flex-c-c cantidad">{{cantidadVenta}}</div>
@@ -49,9 +47,9 @@
             {{/each}}
           </article>
           <article class="voucher__sale--params">
-            <div class="sale__param"><span>Sub-Total:</span><span class="sub__total"></span></div>
-            <div class="sale__param"><span>IGV (18%):</span><span class="igv" data-igv="18"></span></div>
-            <div class="sale__param"><span>Total a pagar:</span><span class="total__venta" data-total="{{sale.precioTotalVenta}}">{{sale.precioTotalVenta}}</span></div>
+            <div class="sale__param"><span>Sub-Total:</span><span class="sub__total">S/{{formatCurrency subTotal}}</span></div>
+            <div class="sale__param"><span>IGV (18%):</span><span class="igv">S/{{formatCurrency igv}}</span></div>
+            <div class="sale__param"><span>Total a pagar:</span><span class="total__venta">S/ {{formatCurrency total}}</span></div>
           </article>
         </section>
         <section class="return__policy">
@@ -104,19 +102,6 @@
       mainContent.style.backgroundColor = "transparent";
     };
 
-    function calculateIGV() {
-      const totalVentaValue = Math.round(parseFloat(totalVenta.textContent).toFixed(2));
-      console.log(totalVentaValue);
-      totalVenta.textContent = `S/ ${totalVentaValue.toFixed(2)}`;
-      const subTotalValue = (totalVentaValue * 0.82).toFixed(2);
-      console.log(subTotalValue);
-      subTotal.textContent = `S/ ${subTotalValue}`;
-      const igvValue = (totalVentaValue * igvVenta.dataset.igv / 100).toFixed(2);
-      console.log(igvValue);
-      igvVenta.textContent = `S/ ${igvValue}`;
-    }
-
     styleVoucher();
-    calculateIGV();
   })
 </script>

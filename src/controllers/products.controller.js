@@ -64,20 +64,32 @@ productsCtrl.registerProduct = async (req, res) => {
         }
       );
 
-      const productId = newProduct._id;
-
+      
       // Agregar al historial
+      const productId = newProduct._id;
+      const codProductoHistorial = newProduct.cod;
+      const proveedorProductoHistorial = newProduct.proveedorProducto;
+      const categoriaProductoHistorial = newProduct.categoriaProducto;
+      const nombreProductoHistorial = newProduct.nombreProducto;
+      const descripcionProductoHistorial = newProduct.descripcionProducto;
+      const precioProductoHistorial = newProduct.precioProducto;
+
       const newProductHistory = new ProductHistory({
         tipoHistorial: "Registro",
-        productoHistorial: productId
+        usuarioHistorial: req.user._id,
+        productoHistorial: productId,
+        codProductoHistorial,
+        proveedorProductoHistorial,
+        categoriaProductoHistorial,
+        nombreProductoHistorial,
+        descripcionProductoHistorial,
+        precioProductoHistorial
       });
 
       // Guardar Historial en la BD
+      await newProduct.save();
       await newProductHistory.save();
 
-      console.log("Nuevo Producto: ", newProduct);
-      console.log("Registro en historial: ", newProductHistory);
-      await newProduct.save(); //Guardar en BD en la coleccion Products
       req.flash("success", "Producto registrado exitosamente");
       return res.redirect("/products");
     }
@@ -162,7 +174,33 @@ productsCtrl.renderEditProduct = async (req, res) => {
 productsCtrl.updateProduct = async (req, res) => {
   try {
     const {id} = req.params;
-    await Product.findByIdAndUpdate(id, req.body);
+    console.log("Datos del producto a actualizar: ", req.body);
+
+    const productUpdated = await Product.findByIdAndUpdate(id, req.body, {new: true});
+
+    // Guardar registro en el historial
+    const productId = productUpdated._id;
+    const codProductoHistorial = productUpdated.cod;
+    const proveedorProductoHistorial = productUpdated.proveedorProducto;
+    const categoriaProductoHistorial = productUpdated.categoriaProducto;
+    const nombreProductoHistorial = productUpdated.nombreProducto;
+    const descripcionProductoHistorial = productUpdated.descripcionProducto;
+    const precioProductoHistorial = productUpdated.precioProducto;
+
+    const newProductHistory = new ProductHistory({
+      tipoHistorial: "Modificado",
+      usuarioHistorial: req.user._id,
+      productoHistorial: productId,
+      codProductoHistorial,
+      proveedorProductoHistorial,
+      categoriaProductoHistorial,
+      nombreProductoHistorial,
+      descripcionProductoHistorial,
+      precioProductoHistorial
+    });
+
+    await newProductHistory.save();
+
     req.flash("success", "Producto actualizado exitosamente");
     res.redirect("/products");
   } catch (error) {
@@ -170,6 +208,55 @@ productsCtrl.updateProduct = async (req, res) => {
     console.log(error);
   }
 }
+
+// Mostrar datos detallados de un producto
+productsCtrl.renderDetailsProduct = async (req, res) => {
+  try {
+    const {id} = req.params;
+    const product = await Product.findById(id)
+      .populate("usuarioProducto")
+      .populate("proveedorProducto")
+      .populate("categoriaProducto")
+      .lean();
+
+    const productHistory = await ProductHistory.find({productoHistorial: id})
+      .populate({
+        path: "usuarioHistorial",
+        populate: {
+          path: "trabajadorUsuario",
+          populate: "rolTrabajador"
+        }
+      })
+      .populate({
+        path: "productoHistorial",
+        populate: {
+          path: "usuarioProducto",
+          populate: "trabajadorUsuario"
+        }
+      })
+      .populate({
+        path: "proveedorProductoHistorial",
+        populate: "nombreProveedor"
+      })
+      .populate({
+        path: "categoriaProductoHistorial",
+        populate: "nombreCategoria"
+      })
+      .sort({createdAt: -1})
+      .lean();
+
+    const userRole = req.user.trabajadorUsuario.rolTrabajador.nombreRol;
+    res.render("products/details-product", {
+      product,
+      productHistory,
+      userRole
+    });
+  } catch (error) {
+    req.flash("wrong", "Ocurrió un error al mostrar los detalles del producto, intente nuevamente.");
+    console.log(error);
+    res.status(500).send("Error interno, posiblemente haya escrito algo mal, así que perdón por ello 😿, puede reportar el error para corregirlo en la próxima actualización. Detalles del error " + error.message);
+  }
+};
 
 // Exportar a Excel
 productsCtrl.exportToExcel = async (req, res) => {
@@ -295,17 +382,29 @@ productsCtrl.deleteProduct = async (req, res) => {
     }
 
     // Eliminar el producto
-    await Product.findByIdAndUpdate(id, {eliminadoProducto: true});
-
-    const deletedProductId = deletedProduct._id;
+    const productDeleted = await Product.findByIdAndUpdate(id, {eliminadoProducto: true}, {new: true});
 
     // Agregar al historial el producto eliminado
+    const productId = productDeleted._id;
+    const codProductoHistorial = productDeleted.cod;
+    const proveedorProductoHistorial = productDeleted.proveedorProducto;
+    const categoriaProductoHistorial = productDeleted.categoriaProducto;
+    const nombreProductoHistorial = productDeleted.nombreProducto;
+    const descripcionProductoHistorial = productDeleted.descripcionProducto;
+    const precioProductoHistorial = productDeleted.precioProducto;
+
     const newProductHistory = new ProductHistory({
       tipoHistorial: "Eliminado",
-      productoHistorial: deletedProductId
+      usuarioHistorial: req.user._id,
+      productoHistorial: productId,
+      codProductoHistorial,
+      proveedorProductoHistorial,
+      categoriaProductoHistorial,
+      nombreProductoHistorial,
+      descripcionProductoHistorial,
+      precioProductoHistorial
     });
 
-    console.log(newProductHistory);
     await newProductHistory.save();
     
     req.flash("success", "Producto eliminado exitosamente");

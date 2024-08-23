@@ -42,12 +42,12 @@ clientsCtrl.registerClient = async (req, res) => {
       const dniClient = await Client.findOne({dniCliente, eliminadoCliente: false});
 
       let celularClient = null;
-      if (celularClient) {
+      if (celularCliente) {
         celularClient = await Client.findOne({celularCliente, eliminadoCliente: false});
       }
 
       let correoClient = null;
-      if (correoClient) {
+      if (correoCliente) {
         correoClient = await Client.findOne({correoCliente, eliminadoCliente: false});
       }
 
@@ -68,19 +68,28 @@ clientsCtrl.registerClient = async (req, res) => {
           usuarioRegistroCliente: req.user._id,
           dniCliente,
           nombreCliente,
-          celularCliente,
-          correoCliente
+          celularCliente: celularClient ? celularClient : "-",
+          correoCliente: correoClient ? correoClient : "-"
         };
 
         const newClient = new Client(clienteRegistrado);
         await newClient.save(); //Guardando cliente en la BD
 
-        const clientId = newClient._id;
-
         //Agregar al historial
+        const clienteHistorial = newClient._id;
+        const dniClienteHistorial = newClient.dniCliente;
+        const nombreClienteHistorial = newClient.nombreCliente;
+        const celularClienteHistorial = newClient.celularCliente;
+        const correoClienteHistorial = newClient.correoCliente;
+
         const newClientHistory = new ClientHistory({
           tipoHistorial: "Registro",
-          clienteHistorial: clientId
+          usuarioHistorial: req.user._id,
+          clienteHistorial,
+          dniClienteHistorial,
+          nombreClienteHistorial,
+          celularClienteHistorial,
+          correoClienteHistorial,
         });
         await newClientHistory.save();
 
@@ -114,7 +123,42 @@ clientsCtrl.renderClients = async (req, res) => {
   }
 }
 
-//Editar informaciión de un cliente
+// Mostrar información histórica de un cliente
+clientsCtrl.renderDetailsClient = async (req, res) => {
+  try {
+    const {id} = req.params;
+    const client = await Client.findById(id).populate("usuarioRegistroCliente").lean();
+    const clientHistory = await ClientHistory.find({clienteHistorial: id})
+      .populate({
+        path: "usuarioHistorial",
+        populate: {
+          path: "trabajadorUsuario",
+          populate: "rolTrabajador"
+        }
+      })
+      .populate({
+        path: "clienteHistorial",
+        populate: {
+          path: "usuarioRegistroCliente",
+          populate: "trabajadorUsuario"
+        }
+      })
+      .sort({createdAt: -1})
+      .lean();
+    const userRole = req.user.trabajadorUsuario.rolTrabajador.nombreRol;
+    res.render("clients/details-client", {
+      client,
+      clientHistory,
+      userRole
+    });
+  } catch (error) {
+    req.flash("wrong", "Ocurrió un error al mostrar los detalles del cliente, intente nuevamente.");
+    console.log("Error: ", error);
+    res.status(500).send("Error interno, posiblemente haya escrito algo mal, así que perdón por ello 😿, puede reportar el error para corregirlo en la próxima actualización. Detalles del error " + error.message);
+  }
+}
+
+//Editar información de un cliente
 clientsCtrl.renderEditClient = async (req, res) => {
   try {
     const client = await Client.findById(req.params.id).lean();
@@ -129,7 +173,45 @@ clientsCtrl.renderEditClient = async (req, res) => {
 clientsCtrl.updateClient = async (req, res) => {
   try {
     const {id} = req.params;
-    await Client.findByIdAndUpdate(id, req.body);
+
+    const {
+      dniCliente,
+      nombreCliente,
+      celularCliente,
+      correoCliente
+    } = req.body;
+
+    const clienteActualizado = {
+      usuarioRegistroCliente: req.user._id,
+      dniCliente,
+      nombreCliente,
+      celularCliente: celularCliente ? celularCliente : "-",
+      correoCliente: correoCliente ? correoCliente : "-"
+    };
+
+    // Actualizar cliente
+    const customerUpdated = await Client.findByIdAndUpdate(id, clienteActualizado, {new: true});
+
+    //Agregar al historial
+    const clienteHistorial = customerUpdated._id;
+    const dniClienteHistorial = customerUpdated.dniCliente;
+    const nombreClienteHistorial = customerUpdated.nombreCliente;
+    const celularClienteHistorial = customerUpdated.celularCliente;
+    const correoClienteHistorial = customerUpdated.correoCliente;
+
+    const newClientHistory = new ClientHistory({
+      tipoHistorial: "Actualizado",
+      usuarioHistorial: req.user._id,
+      clienteHistorial,
+      dniClienteHistorial,
+      nombreClienteHistorial,
+      celularClienteHistorial,
+      correoClienteHistorial,
+    });
+    console.log("Cliente actualizado: ", customerUpdated);
+    console.log("Historial actualizado: ", newClientHistory);
+    await newClientHistory.save();
+
     req.flash("success", "Cliente actualizado correctamente");
     res.redirect("/clients");
   } catch (error) {
@@ -239,9 +321,20 @@ clientsCtrl.deleteClient = async (req, res) => {
     await Client.findByIdAndUpdate(id, {eliminadoCliente: true});
 
     //Añadir al historial
+    const clienteHistorial = deletedClient._id;
+    const dniClienteHistorial = deletedClient.dniCliente;
+    const nombreClienteHistorial = deletedClient.nombreCliente;
+    const celularClienteHistorial = deletedClient.celularCliente;
+    const correoClienteHistorial = deletedClient.correoCliente;
+
     const newClientHistory = new ClientHistory({
       tipoHistorial: "Eliminado",
-      clienteHistorial: deletedClient._id
+      usuarioHistorial: req.user._id,
+      clienteHistorial,
+      dniClienteHistorial,
+      nombreClienteHistorial,
+      celularClienteHistorial,
+      correoClienteHistorial,
     });
     await newClientHistory.save(); //Guardar en el historial
 

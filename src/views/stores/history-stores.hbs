@@ -47,35 +47,35 @@
               <section class="views__container--elements view__scrollbar">
                 <div class="views__content--elements items__container store__history">
                   <article class="items__header items__grid store__history">
-                    <div class="flex-c-c">Tipo de Registro:</div>
-                    <div class="flex-c-c">Registrado por:</div>
-                    <div class="flex-c-c">Cod:</div>
-                    <div class="flex-c-c">Producto:</div>
-                    <div class="flex-c-c">Descripción:</div>
-                    <div class="flex-c-c">Proveedor:</div>
-                    <div class="flex-c-c">Categoría:</div>
-                    <div class="flex-c-c">Ubicacion:</div>
-                    <div class="flex-c-c">Precio:</div>
-                    <div class="flex-c-c">Stock Total:</div>
-                    <div class="flex-c-c">Min-Stock:</div>
-                    <div class="flex-c-c">Fecha Registro:</div>
+                    <div class="flex-c-c">Tipo</div>
+                    <div class="flex-c-c">Hecho por</div>
+                    <div class="flex-c-c">Cod</div>
+                    <div class="flex-c-c">Producto</div>
+                    <div class="flex-c-c">Descripción</div>
+                    <div class="flex-c-c">Proveedor</div>
+                    <div class="flex-c-c">Categoría</div>
+                    <div class="flex-c-c">Ubicacion</div>
+                    <div class="flex-c-c">Precio</div>
+                    <div class="flex-c-c">Stock</div>
+                    <div class="flex-c-c">Min-Stock</div>
+                    <div class="flex-c-c">Fecha</div>
                   </article>
                   <div class="items__data--values">
                     {{#each storeHistory}}
                       <div class="container__data">
                         <article class="items__data items__grid store__history">
                           <div class="flex-c-c"><span class="span__data__item tipo__historial">{{tipoHistorial}}</span></div>
-                          <div class="flex-c-c">{{almacenHistorial.almacenUsuario.usuario}}</div>
-                          <div class="flex-c-c">{{almacenHistorial.almacenProducto.cod}}</div>
-                          <div class="flex-c-c">{{almacenHistorial.almacenProducto.nombreProducto}}</div>
-                          <div class="flex-c-c">{{almacenHistorial.almacenProducto.descripcionProducto}}</div>
-                          <div class="flex-c-c">{{almacenHistorial.almacenProducto.proveedorProducto.nombreProveedor}}</div>
-                          <div class="flex-c-c">{{almacenHistorial.almacenProducto.categoriaProducto.nombreCategoria}}</div>
-                          <div class="flex-c-c">{{almacenHistorial.almacenStockUbicacion.nombreStockUbicacion}}</div>
-                          <div class="flex-c-c">S/{{formatCurrency almacenHistorial.almacenProducto.precioProducto}}</div>
-                          <div class="flex-c-c">{{almacenHistorial.almacenStock}}</div>
-                          <div class="flex-c-c">{{almacenHistorial.almacenMinStock}}</div>
-                          <div class="flex-c-c">{{formatDateTime almacenHistorial.createdAt}}</div>
+                          <div class="flex-c-c">{{#if usuarioHistorial}}{{usuarioHistorial.usuario}}{{else}}-{{/if}}</div>
+                          <div class="flex-c-c">{{#if almacenProductoHistorial}}{{almacenProductoHistorial.cod}}{{else}}-{{/if}}</div>
+                          <div class="flex-c-c">{{#if almacenProductoHistorial}}{{almacenProductoHistorial.nombreProducto}}{{else}}-{{/if}}</div>
+                          <div class="flex-c-c">{{#if almacenProductoHistorial}}{{almacenProductoHistorial.descripcionProducto}}{{else}}-{{/if}}</div>
+                          <div class="flex-c-c">{{#if almacenProductoHistorial}}{{almacenProductoHistorial.proveedorProducto.nombreProveedor}}{{else}}-{{/if}}</div>
+                          <div class="flex-c-c">{{#if almacenProductoHistorial}}{{almacenProductoHistorial.categoriaProducto.nombreCategoria}}{{else}}-{{/if}}</div>
+                          <div class="flex-c-c">{{#if almacenStockUbicacionHistorial}}{{almacenStockUbicacionHistorial.nombreStockUbicacion}}{{else}}-{{/if}}</div>
+                          <div class="flex-c-c">{{#if almacenProductoHistorial}}S/{{formatCurrency almacenProductoHistorial.precioProducto}}{{else}}-{{/if}}</div>
+                          <div class="flex-c-c">{{#if almacenStockUbicacionHistorial}}{{almacenStockHistorial}}{{else}}-{{/if}}</div>
+                          <div class="flex-c-c">{{#if almacenStockUbicacionHistorial}}{{almacenMinStockHistorial}}{{else}}-{{/if}}</div>
+                          <div class="flex-c-c">{{formatDateTime createdAt}}</div>
                         </article>
                       </div>
                     {{/each}}

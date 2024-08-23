@@ -39,27 +39,27 @@
               <section class="views__container--elements view__scrollbar">
                 <div class="views__content--elements items__container providers__history">
                   <article class="items__header items__grid providers__history">
-                    <div class="flex-c-c">Tipo de Registro:</div>
-                    <div class="flex-c-c">Hecho por:</div>
-                    <div class="flex-c-c">DNI/RUC:</div>
-                    <div class="flex-c-c">Nombres:</div>
-                    <div class="flex-c-c">Celular:</div>
-                    <div class="flex-c-c">Correo:</div>
-                    <div class="flex-c-c">Dirección:</div>
-                    <div class="flex-c-c">Fecha Registro:</div>
+                    <div class="flex-c-c">Tipo</div>
+                    <div class="flex-c-c">Hecho por</div>
+                    <div class="flex-c-c">DNI/RUC</div>
+                    <div class="flex-c-c">Nombres</div>
+                    <div class="flex-c-c">Celular</div>
+                    <div class="flex-c-c">Correo</div>
+                    <div class="flex-c-c">Dirección</div>
+                    <div class="flex-c-c">Fecha</div>
                   </article>
                   <div class="items__data--values">
                     {{#each providersHistory}}
                       <div class="container__data">
                         <article class="items__data items__grid providers__history">
                           <div class="flex-c-c"><span class="span__data__item tipo__historial">{{tipoHistorial}}</span></div>
-                          <div class="flex-c-c">{{proveedorHistorial.usuarioRegistroProveedor.usuario}}</div>
-                          <div class="flex-c-c">{{proveedorHistorial.dniProveedor}}</div>
-                          <div class="flex-c-c">{{proveedorHistorial.nombreProveedor}}</div>
-                          <div class="flex-c-c">{{proveedorHistorial.celularProveedor}}</div>
-                          <div class="flex-c-c">{{proveedorHistorial.correoProveedor}}</div>
-                          <div class="flex-c-c">{{proveedorHistorial.direccionProveedor}}</div>
-                          <div class="flex-c-c">{{formatDateTime proveedorHistorial.createdAt}}</div>
+                          <div class="flex-c-c">{{#if usuarioHistorial}}{{usuarioHistorial.usuario}}{{else}}-{{/if}}</div>
+                          <div class="flex-c-c">{{#if dniProveedorHistorial}}{{dniProveedorHistorial}}{{else}}-{{/if}}</div>
+                          <div class="flex-c-c">{{#if nombreProveedorHistorial}}{{nombreProveedorHistorial}}{{else}}-{{/if}}</div>
+                          <div class="flex-c-c">{{#if celularProveedorHistorial}}{{celularProveedorHistorial}}{{else}}-{{/if}}</div>
+                          <div class="flex-c-c">{{#if correoProveedorHistorial}}{{correoProveedorHistorial}}{{else}}-{{/if}}</div>
+                          <div class="flex-c-c">{{#if direccionProveedorHistorial}}{{direccionProveedorHistorial}}{{else}}-{{/if}}</div>
+                          <div class="flex-c-c">{{formatDateTime createdAt}}</div>
                         </article>
                       </div>
                     {{/each}}

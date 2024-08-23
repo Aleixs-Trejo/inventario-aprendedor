@@ -6,13 +6,21 @@ employeeHistory.renderEmployeeHistory = async (req, res) => {
   try {
     const employeesHistory = await EmployeeHistory.find()
     .populate({
+      path: "usuarioHistorial",
+      populate: {
+        path: "trabajadorUsuario",
+        populate: "rolTrabajador"
+      }
+    })
+    .populate({
       path: "trabajadorHistorial",
       populate: {
         path: "rolTrabajador"
       }
     })
+    .populate("rolTrabajadorHistorial")
+    .sort({createdAt: -1})
     .lean();
-    console.log("Historial de Empleados: ", employeesHistory);
     res.render("employees/history-employees", { employeesHistory });
   } catch (error) {
     req.flash("wrong", "Ocurrió un error, intente nuevamente.");

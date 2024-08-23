@@ -6,13 +6,20 @@ clientHistoryCtrl.renderClientsHistory = async (req, res) => {
   try {
     const clientsHistory = await ClientHistory.find()
     .populate({
+      path: "usuarioHistorial",
+      populate: {
+        path: "trabajadorUsuario",
+        populate: "rolTrabajador"
+      }
+    })
+    .populate({
       path: "clienteHistorial",
       populate: {
         path: "usuarioRegistroCliente"
       }
     })
+    .sort({createdAt: -1})
     .lean();
-    console.log("Historial de Clientes: ", clientsHistory)
     res.render("clients/history-clients", {clientsHistory});
   } catch (error) {
     req.flash("wrong", "Ocurrió un error, intente nuevamente.");

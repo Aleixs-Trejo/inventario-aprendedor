@@ -1,7 +1,6 @@
 const salesCtrl = {};
 
 const XLSX = require("xlsx");
-const PDFDocument = require("pdfkit");
 const transporter = require("../config/nodemailer");
 const generatePDF = require("../config/puppeteer");
 
@@ -70,9 +69,6 @@ salesCtrl.registerSale = async (req, res) => {
       productosVenta
     } = req.body;
 
-    console.log("Solicitud de venta recibida: ", req.body);
-    console.log("Productos de venta recibidos:", productosVenta);
-
     // Verificar si productosVenta es un array
     if (!Array.isArray(productosVenta)) {
       throw new Error("productosVenta debe ser un array.");
@@ -98,9 +94,6 @@ salesCtrl.registerSale = async (req, res) => {
         const cantidadVentaNumber = Number(cantidadVenta);
         const importeProductoNumber = Number(importeProducto);
 
-        console.log("cantidadVentaNumber: ", cantidadVentaNumber);
-        console.log("importeProductoNumber: ", importeProductoNumber);
-
         // Verificar si cantidadVenta y precioTotalProducto son números válidos
         if (isNaN(cantidadVentaNumber) || isNaN(importeProductoNumber)) {
           throw new Error("cantidadVentaNumber y importeProductoNumber deben ser números.");
@@ -108,7 +101,6 @@ salesCtrl.registerSale = async (req, res) => {
 
         // Verificar si descuentoProductoVenta es un número válido
         const descuentoProductoNumber = Number(descuentoProducto);
-        console.log("descuentoProductoNumber: ", descuentoProductoNumber);
         if (isNaN(descuentoProductoNumber)) {
           throw new Error("descuentoProductoNumber debe ser un número.");
         }
@@ -140,9 +132,9 @@ salesCtrl.registerSale = async (req, res) => {
       return total + producto.descuentoProductoVenta;
     }, 0);
 
-    // Redondear el precio total de la venta
-    const precioTotalVentaRedondeado = precioTotalVenta;
-    const descuentoTotalVentaRedondeado = descuentoTotalVenta;
+    // Redondear el precio total de la venta y darle dos decimales
+    const precioTotalVentaRedondeado = Math.round(precioTotalVenta).toFixed(2);
+    const descuentoTotalVentaRedondeado = Math.round(descuentoTotalVenta).toFixed(2);
 
     // Crear la nueva venta
     const newSale = new Sale({
@@ -155,8 +147,6 @@ salesCtrl.registerSale = async (req, res) => {
       precioTotalVenta: precioTotalVentaRedondeado
     });
 
-    console.log("Venta registrada para el producto: ", newSale);
-    console.log("Productos vendidos: ", productosVendidos);
     await newSale.save();
 
     req.flash("success", "Venta registrada exitosamente.");
@@ -244,7 +234,8 @@ salesCtrl.renderVoucherSale = async (req, res) => {
       .populate({
         path: "usuarioVenta",
         populate: {
-          path: "trabajadorUsuario"
+          path: "trabajadorUsuario",
+          populate: "rolTrabajador"
         }
       })
       .populate("clienteVenta")
@@ -255,8 +246,17 @@ salesCtrl.renderVoucherSale = async (req, res) => {
         }
       })
       .lean();
-    console.log("Boleta de venta: ", sale);
-    res.render("sales/voucher-sale", {sale});
+
+    const total = parseFloat(sale.productosVenta.reduce((acc, p) => acc + p.precioTotalProducto, 0)).toFixed(2);
+    const igv = parseFloat(total * 0.18).toFixed(2);
+    const subTotal = parseFloat(total - igv).toFixed(2);
+
+    res.render("sales/voucher-sale", {
+      sale,
+      total,
+      igv,
+      subTotal
+    });
   } catch (error) {
     req.flash("wrong", "Ocurrió un error al generar el voucher, intente nuevamente.");
     console.log("Error: ", error);
@@ -327,10 +327,11 @@ salesCtrl.generateBillPDF = async (req, res) => {
     }
 
     // Generar el PDF
-    const pdfBuffer = await generatePDF(`http://127.0.0.1:4321/sales/${id}/bill`);
+    const pdfBuffer = await generatePDF(`http://127.0.0.1:${process.env.PORT}/sales/${id}/bill`);
 
     // Enviar el PDF a correo
     let mailClient = sale.clienteVenta.correoCliente || "alexistrejoxd1@gmail.com";
+    console.log("mailClient: ", mailClient);
     const mailOptions = {
       to: mailClient,
       from: "alexistrejoxd@gmail.com",
@@ -365,183 +366,6 @@ salesCtrl.generateBillPDF = async (req, res) => {
     req.flash("wrong", "Ocurrió un error al generar la boleta, intente nuevamente.");
     console.log("Error: ", error);
     res.status(500).send("Error interno, posiblemente haya escrito algo mal, así que perdón por ello 😿, puede reportar el error para corregirlo en la próxima actualización. Detalles del error: " + error.message);
-  }
-};
-
-// Generar boleta de venta en PDF
-salesCtrl.generatePDF = async (req, res) => {
-  try {
-    const { id } = req.params;
-    const sale = await Sale.findById(id)
-      .populate({
-        path: "usuarioVenta",
-        populate: {
-          path: "trabajadorUsuario",
-          populate: "rolTrabajador"
-        }
-      })
-      .populate("clienteVenta")
-      .populate({
-        path: "productosVenta.productoVenta",
-        populate: {
-          path: "almacenProducto"
-        }
-      })
-
-    if (!sale) {
-      req.flash("wrong", "La venta no fue encontrada.");
-      return res.redirect("/sales");
-    }
-
-    const dateOptions = {
-      year: 'numeric',
-      month: '2-digit',
-      day: '2-digit',
-      hour: '2-digit',
-      minute: '2-digit',
-      second: '2-digit'
-    }
-
-    const doc = new PDFDocument({ size: "A4", margin: 40 });
-
-    const chunks = [];
-    doc.on("data", chunk => chunks.push(chunk));
-    doc.on("end", async () => {
-      const pdfBuffer = Buffer.concat(chunks);
-      const fileName = `boleta-venta-${sale._id}.pdf`;
-
-      // Enviar el PDF a Gmail
-      const mailOptions = {
-        to: "alexistrejoxd1@gmail.com",
-        from: "alexistrejoxd@gmail.com",
-        subject: "Boleta de venta Electrónica",
-        text: "Adjuntamos la boleta de venta electrónica de su compra.",
-        attachments: [
-          {
-            filename: fileName,
-            content: pdfBuffer,
-            contentType: "application/pdf"
-          }
-        ]
-      };
-
-      try {
-        await transporter.sendMail(mailOptions);
-        console.log("Boleta de venta enviada exitosamente a Gmail.");
-        req.flash("success", "Boleta de venta enviada exitosamente a Gmail.");
-      } catch (error) {
-        req.flash("wrong", "Ocurrió un error al enviar el PDF a Gmail, intente nuevamente.");
-        console.log("Error: ", error);
-      }
-
-      // Descargar el PDF
-      res.setHeader("Content-Type", "application/pdf");
-      res.setHeader("Content-Disposition", `attachment; filename=${fileName}`);
-      console.log("Descargando el PDF...");
-      doc.pipe(res);
-      console.log("PDF descargado exitosamente.");
-    })
-
-    // Configurar encabezado
-    doc
-      .fontSize(10)
-      .text("{Nombre Negocio}", 50, 40)
-      .text("RUC: 20563529378", 50, 55)
-      .text("CC. El Hueco, Stand C8-9 / Av. Abancay 837, Lima 15001", 50, 70)
-      .text("+51 999 999 999", 50, 85)
-      .text("company@email.com", 50, 100)
-      .moveDown();
-
-    // Contenido de la boleta
-    doc
-      .fontSize(20)
-      .text("BOLETA DE VENTA ELECTRÓNICA", {align: "center"})
-      .moveDown()
-      .fontSize(12)
-      .text(`Fecha: ${new Date(sale.createdAt).toLocaleString('es-PE', dateOptions)}`, {align: "right"})
-      .text(`Vendedor: ${sale.usuarioVenta.trabajadorUsuario.nombreTrabajador} ${sale.usuarioVenta.trabajadorUsuario.apellidosTrabajador}`, {align: "right"})
-      .text(`Cliente: ${sale.clienteVenta.nombreCliente}`, {align: "right"})
-      .text(`DNI/RUC: ${sale.clienteVenta.dniCliente}`, {align: "right"})
-      .moveDown()
-
-    // Tabla de Productos vendidos
-    doc.fontSize(12);
-    const tableTop = 250;
-    const itemCodeX = 50;
-    const itemDescX = 100;
-    const itemPriceX = 280;
-    const itemQtyX = 380;
-    const itemDiscountX = 420;
-    const itemTotalX = 470;
-
-    doc
-      .text("Cod", itemCodeX, tableTop)
-      .text("Descr.", itemDescX, tableTop)
-      .text("Precio Unit.", itemPriceX, tableTop)
-      .text("Cant.", itemQtyX, tableTop)
-      .text("Dscto.", itemDiscountX, tableTop)
-      .text("Precio con Dscto.", itemTotalX, tableTop)
-      
-    sale.productosVenta.forEach((p, i) => {
-      const y = tableTop + 25 + (i * 25);
-      doc
-        .text(p.productoVenta.almacenProducto.cod, itemCodeX, y)
-        .text(p.productoVenta.almacenProducto.descripcionProducto, itemDescX, y)
-        .text(`S/${p.productoVenta.almacenProducto.precioProducto.toFixed(2)}`, itemPriceX, y)
-        .text(p.cantidadVenta, itemQtyX, y)
-        .text(`-S/${p.descuentoProductoVenta.toFixed(2)}`, itemDiscountX, y)
-        .text(`S/${p.precioTotalProducto.toFixed(2)}`, itemTotalX, y)
-    });
-
-    const total = sale.productosVenta.reduce((acc, p) => acc + p.precioTotalProducto, 0);
-    const igv = total * 0.18;
-    const subTotal = total - igv;
-
-    doc
-      .fontSize(12)
-      .text(`Sub-Total:`, 350, 410)
-      .text(`S/${subTotal.toFixed(2)}`, 470, 410)
-      .text(`IGV (18%):`, 350, 430)
-      .text(`S/${igv.toFixed(2)}`, 470, 430)
-      .text(`Total a pagar:`, 350, 450)
-      .text(`S/${total.toFixed(2)}`, 470, 450)
-      .moveDown();
-    
-    // Agregar política de devolución
-    /* doc
-      .fontSize(16)
-      .text("Política de devolución", {align: "left"})
-      .moveDown()
-      .fontSize(12)
-      .text("En este establecimiento, valoramos tu satisfacción como cliente. Por ello, hemos establecido una política de devolución que te brinda tranquilidad en tus compras. A continuación, te presentamos los detalles, términos y condiciones de nuestra política de devolución:", {align: "left"})
-      .moveDown()
-      .fontSize(10);
-
-    const policyList = [
-      { title: "Plazo de devolución", text: "Los productos adquiridos pueden ser devueltos dentro de los 30 días posteriores a la fecha de la compra." },
-      { title: "Lugar de devolución", text: "Las devoluciones solo pueden realizarse en el mismo establecimiento donde se efectuó la compra." },
-      { title: "Condiciones de devolución", text: "Los productos deben estar en perfectas condiciones, no deben haber sido reparados o modificados, sin daños evidentes o alteraciones." },
-      { title: "Documentación Requerida", text: "Para procesar la devolución, se requiere presentar la boleta de compra original y DNI de la persona que realizó la compra." },
-      { title: "Proceso de Reembolso", text: "El reembolso se realizará de manera inmediata en el mismo método de pago utilizado en la compra original. No se requieren procesos prolongados ni trámites adicionales." }
-    ];
-
-    policyList.forEach((policy, i) => {
-      doc
-        .fontSize(10)
-        .text(`${i + 1}. ${policy.title}: ${policy.text}`, {align: "left"})
-        .moveDown(0.5);
-    });
-
-    doc.moveDown()
-      .fontSize(10)
-      .text("Por favor, ten en cuenta que nuestra política de devolución está sujeta a cambios, por lo que es importante que revise la información actualizada al momento de realizar la compra. Si tiene alguna pregunta o necesita más información, no dude en contactarnos.", {align: "left"}) */
-
-    doc.end();
-    
-  } catch (error) {
-    req.flash("wrong", "Ocurrió un error al generar el PDF, intente nuevamente.");
-    console.log("Error: ", error);
-    res.status(500).send("Error interno, posiblemente haya escrito algo mal, así que perdón por ello 😿, puede reportar el error para corregirlo en la próxima actualización. Detalles del error " + error.message);
   }
 };
 

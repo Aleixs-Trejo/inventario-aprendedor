@@ -6,9 +6,22 @@ const categoryHistorySchema = new Schema(
       type: String,
       required: true
     },
+    usuarioHistorial: {
+      type: Schema.Types.ObjectId,
+      ref: "User",
+      required: true
+    },
     categoriaHistorial: {
       type: Schema.Types.ObjectId,
       ref: "Category",
+      required: true
+    },
+    nombreCategoriaHistorial: {
+      type: String,
+      required: true
+    },
+    descripcionCategoriaHistorial: {
+      type: String,
       required: true
     }
   },

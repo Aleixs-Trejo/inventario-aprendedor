@@ -1,4 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
+  const $navHeader = document.querySelectorAll(".nav__header--negocio");
+  const $navBody = document.querySelectorAll(".nav__body--negocio");
   const $profileLogo = document.querySelector(".profile__logo");
   const $profileData = document.querySelector(".profile__data");
   const $navBtn = document.querySelector(".sidebar__menu");
@@ -6,7 +8,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const $subHeader = document.querySelector(".sub__header");
   const $main = document.querySelector(".main");
   const $allViews = document.querySelector(".section__all--views");
-  const $allForms = document.querySelector(".section__all--forms");
 
   //Togglear el profileData
   if ($profileLogo) {
@@ -21,6 +22,10 @@ document.addEventListener("DOMContentLoaded", () => {
       if ($aside.classList.contains("aside--active")) {
         if ($subHeader){
           $subHeader.classList.remove("aside__sub__header");
+          $navBody.forEach(nav => {
+            console.log(nav);
+            nav.classList.remove("nav__section__body__container--show");
+          });
         }
         $main.classList.remove("main__aside--active");
       } else {
@@ -35,6 +40,20 @@ document.addEventListener("DOMContentLoaded", () => {
     if (!$allViews){
       $main.style.marginTop = "0";
     }
+  }
+
+  // Togglear el aside
+  if ($aside) {
+    $navHeader.forEach(nav => {
+      /* nav.addEventListener("click", () => {
+        nav.nextElementSibling.classList.toggle("nav__section__body__container--show");
+      }); */
+      const $arrow = nav.querySelector(".nav__section__header__arrow");
+      $arrow.addEventListener("click", () => {
+        nav.nextElementSibling.classList.toggle("nav__section__body__container--show");
+        $arrow.classList.toggle("arrow__figure--rotate");
+      });
+    })
   }
 });
 

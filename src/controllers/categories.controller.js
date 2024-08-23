@@ -35,12 +35,16 @@ categoryCtrl.registerCategory = async (req, res) => {
       await newCategory.save(); //Guardar en la bd
 
       const categoryId = newCategory._id;
+      const nombreCategoriaHistorial = newCategory.nombreCategoria;
+      const descripcionCategoriaHistorial = newCategory.descripcionCategoria;
 
       const newCategoryHistory = new CategoryHistory({
         tipoHistorial: "Registro",
-        categoriaHistorial: categoryId
+        usuarioHistorial: req.user._id,
+        categoriaHistorial: categoryId,
+        nombreCategoriaHistorial,
+        descripcionCategoriaHistorial
       });
-      console.log("Guardando nuevo historial: ", newCategoryHistory)
       await newCategoryHistory.save(); //Guardar en el historial
 
       req.flash("success", "Categoría registrada exitosamente");
@@ -71,6 +75,43 @@ categoryCtrl.renderCategories = async (req, res) => {
   }
 }
 
+// Mostrar información histórica de una categoría
+categoryCtrl.renderDetailsCategory = async (req, res) => {
+  try {
+    const {id} = req.params;
+    const category = await Category.findById(id)
+      .populate({
+        path: "usuarioRegistroCategoria",
+        populate: {
+          path: "trabajadorUsuario",
+          populate: "rolTrabajador"
+        }
+      })
+      .lean();
+    const categoryHistory = await CategoryHistory.find({categoriaHistorial: id})
+      .populate({
+        path: "usuarioHistorial",
+        populate: {
+          path: "trabajadorUsuario",
+          populate: "rolTrabajador"
+        }
+      })
+      .populate("categoriaHistorial")
+      .sort({createdAt: -1})
+      .lean();
+    const userRole = req.user.trabajadorUsuario.rolTrabajador.nombreRol;
+    res.render("categories/details-category", {
+      category,
+      categoryHistory,
+      userRole
+    });
+  } catch (error) {
+    req.flash("wrong", "Ocurrió un error al mostrar la información de la categoría, intente nuevamente.");
+    console.log("Error: ", error);
+    res.status(500).send("Error interno, posiblemente haya escrito algo mal, así que perdón por ello 😿, puede reportar el error para corregirlo en la próxima actualización. Detalles del error " + error.message);
+  }
+};
+
 //Editar y actualizar Categorías
 categoryCtrl.renderEditCategory = async (req, res) =>{
   try {
@@ -86,7 +127,22 @@ categoryCtrl.renderEditCategory = async (req, res) =>{
 categoryCtrl.updateCategory = async (req, res) => {
   try {
     const {id} = req.params;
-    await Category.findByIdAndUpdate(id, req.body);
+    const categoryUpdated =await Category.findByIdAndUpdate(id, req.body, {new: true});
+
+    const categoryId = categoryUpdated._id;
+    const nombreCategoriaHistorial = categoryUpdated.nombreCategoria;
+    const descripcionCategoriaHistorial = categoryUpdated.descripcionCategoria;
+    // Añadir al historial
+    const newcategoryHistory = new CategoryHistory({
+      tipoHistorial: "Modificado",
+      usuarioHistorial: req.user._id,
+      categoriaHistorial: categoryId,
+      nombreCategoriaHistorial,
+      descripcionCategoriaHistorial
+    });
+
+    await newcategoryHistory.save();
+
     req.flash("success", "Categoría actualizada exitosamente");
     res.redirect("/categories");
   } catch (error) {
@@ -121,12 +177,19 @@ categoryCtrl.deleteCategory = async (req, res) => {
       return res.redirect("/categories");
     }
 
-    await Category.findByIdAndUpdate(id, {eliminadoCategoria: true});
+    const categoryDeleted = await Category.findByIdAndUpdate(id, {eliminadoCategoria: true}, {new: true});
+
+    const categoryId = categoryDeleted._id;
+    const nombreCategoriaHistorial = categoryDeleted.nombreCategoria;
+    const descripcionCategoriaHistorial = categoryDeleted.descripcionCategoria;
 
     // Añadir al historial
     const newcategoryHistory = new CategoryHistory({
       tipoHistorial: "Eliminado",
-      categoriaHistorial: deletedCategory._id
+      usuarioHistorial: req.user._id,
+      categoriaHistorial: categoryId,
+      nombreCategoriaHistorial,
+      descripcionCategoriaHistorial
     });
 
     await newcategoryHistory.save(); //Guardar en el historial

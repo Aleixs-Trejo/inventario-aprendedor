@@ -10,7 +10,8 @@ const {
   exportToExcel,
   deleteStore,
   renderDeleteStore,
-  findLowStockProducts
+  findLowStockProducts,
+  renderDetailsStore
 } = require("../controllers/stores.controller");
 
 const {
@@ -33,6 +34,9 @@ router.get("/stores/low-stock-count", isAuthenticated, isAlmacenVendedor, findLo
 //Editar producto de almacén
 router.get("/stores/:id/edit", isAuthenticated, isAlmacen, renderEditStore);
 router.post("/stores/:id/edit", isAuthenticated, isAlmacen, updateStore);
+
+// Mostrar datos detallados de un producto en el almacén
+router.get("/stores/:id/details", isAuthenticated, isAlmacen, renderDetailsStore);
 
 // Exportar a Excel
 router.get("/stores/export-excel", isAuthenticated, isAdmin, exportToExcel);

@@ -6,13 +6,20 @@ categoryHistoryCtrl.renderCategoryHistory = async (req, res) => {
   try {
     const categoriesHistory = await CategoryHistory.find()
     .populate({
+      path: "usuarioHistorial",
+      populate: {
+        path: "trabajadorUsuario",
+        populate: "rolTrabajador"
+      }
+    })
+    .populate({
       path: "categoriaHistorial",
       populate: {
         path: "usuarioRegistroCategoria"
       }
     })
+    .sort({createdAt: -1})
     .lean();
-    console.log("Historial de Categorias: ", categoriesHistory);
     res.render('categories/categories-history', {categoriesHistory});
   } catch (error) {
     req.flash("wrong", "Ocurrió un error, intente nuevamente.");

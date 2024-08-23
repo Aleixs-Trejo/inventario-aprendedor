@@ -53,29 +53,42 @@ employeeCtrl.registerEmployee = async (req, res) => {
         res.redirect("/employees/register");
       } else {
 
-        const trabajadorRegistrado = {
+        const newEmployee = new Employee({
+          usuarioRegistroTrabajador: req.user ? req.user._id : null,
           rolTrabajador,
           dniTrabajador,
           nombreTrabajador,
           apellidosTrabajador,
-          celularTrabajador,
+          celularTrabajador: celularTrabajador.toString(),
           correoTrabajador,
           estadoTrabajador
-        }
+        })
 
-        const newEmployee = new Employee(trabajadorRegistrado);
-        console.log("Trabajador registrado: ", trabajadorRegistrado)
-        await newEmployee.save(); //Guardado en la BD
+        await newEmployee.save();
 
         const employeeId = newEmployee._id;
+        const rolTrabajadorHistorial = newEmployee.rolTrabajador;
+        const dniTrabajadorHistorial = newEmployee.dniTrabajador;
+        const nombreTrabajadorHistorial = newEmployee.nombreTrabajador;
+        const apellidosTrabajadorHistorial = newEmployee.apellidosTrabajador;
+        const celularTrabajadorHistorial = newEmployee.celularTrabajador;
+        const correoTrabajadorHistorial = newEmployee.correoTrabajador;
+        const estadoTrabajadorHistorial = newEmployee.estadoTrabajador;
 
         // Agregar al historial
         const newEmployeeHistory = new EmployeeHistory({
           tipoHistorial: "Registro",
-          trabajadorHistorial: employeeId
+          usuarioHistorial: req.user ? req.user._id : null,
+          rolTrabajadorHistorial,
+          trabajadorHistorial: employeeId,
+          dniTrabajadorHistorial,
+          nombreTrabajadorHistorial,
+          apellidosTrabajadorHistorial,
+          celularTrabajadorHistorial,
+          correoTrabajadorHistorial,
+          estadoTrabajadorHistorial
         });
 
-        console.log("Nuevo historial: ", newEmployeeHistory);
         await newEmployeeHistory.save();
 
         req.flash("success", "Trabajador registrado exitosamente");
@@ -89,12 +102,19 @@ employeeCtrl.registerEmployee = async (req, res) => {
   }
 }
 
-//Mostrar Trabajadores
+// Mostrar Trabajadores
 employeeCtrl.renderEmployees = async (req, res) => {
   try {
     const employees = await Employee.find({eliminadoTrabajador: false})
-    .populate("rolTrabajador")
-    .lean();
+      .populate({
+        path: "usuarioRegistroTrabajador",
+        populate: {
+          path: "trabajadorUsuario",
+          populate: "rolTrabajador"
+        }
+      })
+      .populate("rolTrabajador")
+      .lean();
 
     const userRole = req.user.trabajadorUsuario.rolTrabajador.nombreRol;
     res.render("employees/all-employees", {
@@ -134,7 +154,33 @@ employeeCtrl.updateEmployee = async (req, res) => {
   try {
     const {id} = req.params;
     const {estadoTrabajador, ...updateEmployee} = req.body;
-    await Employee.findByIdAndUpdate(id, {estadoTrabajador, ...updateEmployee});
+    const employeeUpdated = await Employee.findByIdAndUpdate(id,
+      {estadoTrabajador, ...updateEmployee}, {new: true});
+
+      const employeeId = employeeUpdated._id;
+      const rolTrabajadorHistorial = employeeUpdated.rolTrabajador;
+      const dniTrabajadorHistorial = employeeUpdated.dniTrabajador;
+      const nombreTrabajadorHistorial = employeeUpdated.nombreTrabajador;
+      const apellidosTrabajadorHistorial = employeeUpdated.apellidosTrabajador;
+      const celularTrabajadorHistorial = employeeUpdated.celularTrabajador;
+      const correoTrabajadorHistorial = employeeUpdated.correoTrabajador;
+      const estadoTrabajadorHistorial = employeeUpdated.estadoTrabajador;
+
+      // Agregar al historial
+      const newEmployeeHistory = new EmployeeHistory({
+        tipoHistorial: "Modificado",
+        usuarioHistorial: req.user ? req.user._id : null,
+        rolTrabajadorHistorial,
+        trabajadorHistorial: employeeId,
+        dniTrabajadorHistorial,
+        nombreTrabajadorHistorial,
+        apellidosTrabajadorHistorial,
+        celularTrabajadorHistorial,
+        correoTrabajadorHistorial,
+        estadoTrabajadorHistorial
+      });
+
+      await newEmployeeHistory.save();
     req.flash("success", "Trabajador actualizado exitosamente");
     res.redirect("/employees");
   } catch (error) {
@@ -143,6 +189,48 @@ employeeCtrl.updateEmployee = async (req, res) => {
     res.status(500).send("Error interno, posiblemente haya escrito algo mal, así que perdón por ello 😿, puede reportar el error para corregirlo en la próxima actualización. Detalles del error " + error.message);
   }
 }
+
+// Mostrar detalles del trabajador
+employeeCtrl.renderDetailsEmployee = async (req, res) => {
+  try {
+    const {id} = req.params;
+    const employee = await Employee.findById(id)
+      .populate({
+        path: "usuarioRegistroTrabajador",
+        populate: {
+          path: "trabajadorUsuario",
+          populate: "rolTrabajador"
+        }
+      })
+      .populate("rolTrabajador")
+      .lean();
+    const employeeHistory = await EmployeeHistory.find({trabajadorHistorial: id})
+      .populate({
+        path: "usuarioHistorial",
+        populate: {
+          path: "trabajadorUsuario",
+          populate: "rolTrabajador"
+        }
+      })
+      .populate({
+        path: "trabajadorHistorial",
+        populate: "rolTrabajador"
+      })
+      .populate("rolTrabajadorHistorial")
+      .sort({createdAt: -1})
+      .lean();
+    const userRole = req.user.trabajadorUsuario.rolTrabajador.nombreRol;
+    res.render("employees/details-employee", {
+      employee,
+      employeeHistory,
+      userRole
+    });
+  } catch (error) {
+    req.flash("wrong", "Ocurrió un error al mostrar los detalles del trabajador, intente nuevamente.");
+    console.log("Error: ", error);
+    res.status(500).send("Error interno, posiblemente haya escrito algo mal, así que perdón por ello 😿, puede reportar el error para corregirlo en la próxima actualización. Detalles del error " + error.message);
+  }
+};
 
 // Exportar a Excel
 employeeCtrl.exportToExcel = async (req, res) => {
@@ -231,8 +319,15 @@ employeeCtrl.renderDeleteEmployee = async (req, res) => {
   try {
     const {id} = req.params;
     const employee = await Employee.findById(id)
-    .populate("rolTrabajador")
-    .lean();
+      .populate({
+        path: "usuarioRegistroTrabajador",
+        populate: {
+          path: "trabajadorUsuario",
+          populate: "rolTrabajador"
+        }
+      })
+      .populate("rolTrabajador")
+      .lean();
     res.render("employees/delete-employee", {employee});
   } catch (error) {
     req.flash("wrong", "Ocurrió un error, intente nuevamente.");
@@ -254,14 +349,31 @@ employeeCtrl.deleteEmployee = async (req, res) => {
     }
 
     // Mostrar como eliminado
-    await Employee.findByIdAndUpdate(id, {eliminadoTrabajador: true});
+    const employeeDeleted = await Employee.findByIdAndUpdate(id,
+      {eliminadoTrabajador: true}, {new: true});
+
+    const employeeId = employeeDeleted._id;
+    const rolTrabajadorHistorial = employeeDeleted.rolTrabajador;
+    const dniTrabajadorHistorial = employeeDeleted.dniTrabajador;
+    const nombreTrabajadorHistorial = employeeDeleted.nombreTrabajador;
+    const apellidosTrabajadorHistorial = employeeDeleted.apellidosTrabajador;
+    const celularTrabajadorHistorial = employeeDeleted.celularTrabajador;
+    const correoTrabajadorHistorial = employeeDeleted.correoTrabajador;
+    const estadoTrabajadorHistorial = employeeDeleted.estadoTrabajador;
 
     // Agregar al historial
     const newEmployeeHistory = new EmployeeHistory({
       tipoHistorial: "Eliminado",
-      trabajadorHistorial: deletedEmployee._id
+      usuarioHistorial: req.user ? req.user._id : null,
+      rolTrabajadorHistorial,
+      trabajadorHistorial: employeeId,
+      dniTrabajadorHistorial,
+      nombreTrabajadorHistorial,
+      apellidosTrabajadorHistorial,
+      celularTrabajadorHistorial,
+      correoTrabajadorHistorial,
+      estadoTrabajadorHistorial
     });
-    console.log("Nuevo historial: ", newEmployeeHistory);
     await newEmployeeHistory.save(); // Guardando en historial
 
     req.flash("success", "Empleado eliminado exitosamente");

@@ -90,12 +90,13 @@
                   <section class="views__container--elements view__scrollbar">
                     <div class="views__content--elements items__container employees">
                       <article class="items__header items__grid employees">
-                        <div class="flex-c-c">Rol:</div>
-                        <div class="flex-c-c">DNI:</div>
-                        <div class="flex-c-c">Nombres:</div>
-                        <div class="flex-c-c">Celular:</div>
-                        <div class="flex-c-c">Correo:</div>
-                        <div class="flex-c-c">Fecha Ingr.:</div>
+                        <div class="flex-c-c">Registrado por</div>
+                        <div class="flex-c-c">Rol</div>
+                        <div class="flex-c-c">DNI</div>
+                        <div class="flex-c-c">Nombres</div>
+                        <div class="flex-c-c">Celular</div>
+                        <div class="flex-c-c">Correo</div>
+                        <div class="flex-c-c">Fecha</div>
                         <div class="flex-c-c">Estado</div>
                         <div class="flex-c-c">Acciones</div>
                       </article>
@@ -103,6 +104,7 @@
                         {{#each employees}}
                           <div class="container__data">
                             <article class="items__data items__grid employees product__data">
+                              <div class="flex-c-c">{{#if usuarioRegistroTrabajador}}{{usuarioRegistroTrabajador.usuario}}{{else}}SuperAdmin{{/if}}</div>
                               <div class="flex-c-c">{{rolTrabajador.nombreRol}}</div>
                               <div class="flex-c-c"data-dni="{{dniTrabajador}}">{{dniTrabajador}}</div>
                               <div class="flex-c-c"data-nombre="{{nombreTrabajador}}">{{nombreTrabajador}} {{apellidosTrabajador}}</div>
@@ -111,14 +113,20 @@
                               <div class="flex-c-c">{{formatDateTime createdAt}}</div>
                               <div class="flex-c-c">{{estadoTrabajador}}</div>
                               <div class="flex-c-c items__data--options">
+                                <a href="/employees/{{_id}}/details" class="options__action">
+                                  <figure class="options__figure">
+                                    <img src="/assets/icon-edit.svg" alt="Icon Edit" class="options__img">
+                                  </figure>
+                                  <span class="span__detail">Detalles</span>
+                                </a>
                                 <a href="/employees/{{_id}}/edit" class="options__action">
                                   <figure class="options__figure">
-                                    <img src="../assets/icon-edit.svg" alt="Icon Edit" class="options__img">
+                                    <img src="/assets/icon-edit.svg" alt="Icon Edit" class="options__img">
                                   </figure>
                                 </a>
                                 <a href="/employees/{{_id}}/confirm-delete" class="options__action">
                                   <figure class="options__figure">
-                                    <img src="../assets/icon-delete.svg" alt="Icon Delete" class="options__img">
+                                    <img src="/assets/icon-delete.svg" alt="Icon Delete" class="options__img">
                                   </figure>
                                 </a>
                               </div>

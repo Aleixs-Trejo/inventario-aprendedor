@@ -42,12 +42,12 @@
                 <span class="form__line"></span>
               </article>
               <article class="form__group">
-                <input class="form__input" onkeypress="return validarCelular(event);" type="number" name="celularCliente" id="edit_celular" placeholder=" " required value="{{client.celularCliente}}">
+                <input class="form__input" onkeypress="return validarCelular(event);" type="number" name="celularCliente" id="edit_celular" placeholder=" " value="{{client.celularCliente}}">
                 <label for="edit_celular" class="form__label">Celular:</label>
                 <span class="form__line"></span>
               </article>
               <article class="form__group">
-                <input class="form__input" type="email" name="correoCliente" id="edit_celular" placeholder=" " value="{{client.correoCliente}}">
+                <input class="form__input" type="email" name="correoCliente" id="edit_celular" placeholder=" " value="{{#if (eq client.correoCliente "-")}}{{else}}{{client.correoCliente}}{{/if}}">
                 <label for="edit_celular" class="form__label">Correo:</label>
                 <span class="form__line"></span>
               </article>

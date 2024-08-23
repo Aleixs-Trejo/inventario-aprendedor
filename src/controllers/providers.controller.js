@@ -25,8 +25,8 @@ providersCtrl.registerProvider = async (req, res) => {
       direccionProveedor
     } = req.body;
 
-    const dniProvider = await Provider.findOne({dniProveedor, eliminadoProveedor: true});
-    const correoProvider = await Provider.findOne({correoProveedor, eliminadoProveedor: true});
+    const dniProvider = await Provider.findOne({dniProveedor, eliminadoProveedor: false});
+    const correoProvider = await Provider.findOne({correoProveedor, eliminadoProveedor: false});
 
     if (dniProvider){
       req.flash("wrong", "El DNI ya está registrado");
@@ -44,18 +44,28 @@ providersCtrl.registerProvider = async (req, res) => {
         }
       );
 
-      console.log("Nuevo Proveedor Registrado: ", newProvider);
-
-      await newProvider.save() //Guardar en la BD
-      const providerId = newProvider._id;
+      await newProvider.save()
 
       // Agregar al historial
+      const providerId = newProvider._id;
+      const usuarioHistorial = req.user._id;
+      const dniProveedorHistorial = newProvider.dniProveedor;
+      const nombreProveedorHistorial = newProvider.nombreProveedor;
+      const celularProveedorHistorial = newProvider.celularProveedor;
+      const correoProveedorHistorial = newProvider.correoProveedor;
+      const direccionProveedorHistorial = newProvider.direccionProveedor;
+
       const newProviderHistory = new ProviderHistory({
         tipoHistorial: "Registro",
-        proveedorHistorial: providerId
+        usuarioHistorial,
+        proveedorHistorial: providerId,
+        dniProveedorHistorial,
+        nombreProveedorHistorial,
+        celularProveedorHistorial,
+        correoProveedorHistorial,
+        direccionProveedorHistorial
       });
 
-      console.log("Nuevo registro en historial: ", newProviderHistory)
       await newProviderHistory.save();
 
       req.flash("success", "Proveedor registrado exitosamente");
@@ -101,7 +111,30 @@ providersCtrl.renderEditProvider = async (req, res) => {
 providersCtrl.updateProvider = async (req, res) => {
   try {
     const {id} = req.params;
-    await Provider.findByIdAndUpdate(id, req.body);
+    const updatedProvider = await Provider.findByIdAndUpdate(id, req.body, {new: true});
+
+    // Agregar al historial
+    const providerId = updatedProvider._id;
+    const usuarioHistorial = req.user._id;
+    const dniProveedorHistorial = updatedProvider.dniProveedor;
+    const nombreProveedorHistorial = updatedProvider.nombreProveedor;
+    const celularProveedorHistorial = updatedProvider.celularProveedor;
+    const correoProveedorHistorial = updatedProvider.correoProveedor;
+    const direccionProveedorHistorial = updatedProvider.direccionProveedor;
+
+    const newProviderHistory = new ProviderHistory({
+      tipoHistorial: "Modificado",
+      usuarioHistorial,
+      proveedorHistorial: providerId,
+      dniProveedorHistorial,
+      nombreProveedorHistorial,
+      celularProveedorHistorial,
+      correoProveedorHistorial,
+      direccionProveedorHistorial
+    });
+
+    await newProviderHistory.save();
+
     req.flash("success", "Proveedor actualizado exitosamente");
     res.redirect("/providers");
   } catch (error) {
@@ -110,6 +143,41 @@ providersCtrl.updateProvider = async (req, res) => {
     res.status(500).send("Error interno, posiblemente haya escrito algo mal, así que perdón por ello 😿, puede reportar el error para corregirlo en la próxima actualización. Detalles del error " + error.message);
   }
 }
+
+// Mostrar detalles históricos de un proveedor
+providersCtrl.renderProviderDetails = async (req, res) => {
+  try {
+    const {id} = req.params;
+    const provider = await Provider.findById(id).lean();
+
+    if (!provider) {
+      req.flash("wrong", "El proveedor no existe");
+      return res.redirect("/providers");
+    }
+
+    const providerHistory = await ProviderHistory.find({proveedorHistorial: id})
+      .populate({
+        path: "usuarioHistorial",
+        populate: {
+          path: "trabajadorUsuario",
+          populate: "rolTrabajador"
+        }
+      })
+      .populate("proveedorHistorial")
+      .lean();
+    
+    const userRole = req.user.trabajadorUsuario.rolTrabajador.nombreRol;
+    res.render("providers/details-provider", {
+      provider,
+      providerHistory,
+      userRole
+    });
+  } catch (error) {
+    req.flash("wrong", "Ocurrió un error al mostrar los detalles del proveedor, intente nuevamente.");
+    console.log("Error: ", error);
+    res.status(500).send("Error interno, posiblemente haya escrito algo mal, así que perdón por ello 😿, puede reportar el error para corregirlo en la próxima actualización. Detalles del error " + error.message);
+  }
+};
 
 // Exportar a Excel
 providersCtrl.exportToExcel = async (req, res) => {
@@ -229,18 +297,28 @@ providersCtrl.deleteProvider = async (req, res) => {
     }
 
     // Eliminar el proveedor
-    await Provider.findByIdAndUpdate(id, {eliminadoProveedor: true});
-    console.log("Eliminando proveedor: ", Provider.findById(id));
+    const providerDeleted = await Provider.findByIdAndUpdate(id, {eliminadoProveedor: true}, {new: true});
 
+    // Agregar al historial
     const providerId = deletedProvider._id;
+    const usuarioHistorial = req.user._id;
+    const dniProveedorHistorial = providerDeleted.dniProveedor;
+    const nombreProveedorHistorial = providerDeleted.nombreProveedor;
+    const celularProveedorHistorial = providerDeleted.celularProveedor;
+    const correoProveedorHistorial = providerDeleted.correoProveedor;
+    const direccionProveedorHistorial = providerDeleted.direccionProveedor;
 
-    // Agregar al historial la eliminación
     const newProviderHistory = new ProviderHistory({
       tipoHistorial: "Eliminado",
-      proveedorHistorial: providerId
+      usuarioHistorial,
+      proveedorHistorial: providerId,
+      dniProveedorHistorial,
+      nombreProveedorHistorial,
+      celularProveedorHistorial,
+      correoProveedorHistorial,
+      direccionProveedorHistorial
     });
 
-    console.log("Nueva eliminación en historial: ", newProviderHistory);
     await newProviderHistory.save();
 
     req.flash("success", "Proveedor eliminado exitosamente");

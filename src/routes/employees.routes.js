@@ -7,6 +7,7 @@ const {
   renderEmployees,
   renderEditEmployee,
   updateEmployee,
+  renderDetailsEmployee,
   deleteEmployee,
   renderDeleteEmployee,
   exportToExcel
@@ -27,6 +28,9 @@ router.get("/employees", isAuthenticated, isAdmin, renderEmployees);
 //Editar Trabajador
 router.get("/employees/:id/edit", isAuthenticated, isAdmin, renderEditEmployee);
 router.post("/employees/:id/edit", isAuthenticated, isAdmin, updateEmployee);
+
+// Mostrar detalles del trabajador
+router.get("/employees/:id/details", isAuthenticated, isAdmin, renderDetailsEmployee);
 
 //Eliminar Trabajador
 router.get("/employees/:id/confirm-delete", isAuthenticated, isAdmin, renderDeleteEmployee);

@@ -531,14 +531,14 @@
 
     // Filtrar los hijos que tengan el display flex
     const $itemsRoomsHotelChildren = Array.from($itemsRoomsHotel.children);
-    console.log("Hijos de items__rooms__hotel: ", $itemsRoomsHotelChildren);
-    console.log("Colección de elementos HTML hijos de roomsHotel: ", $itemsRoomsHotel.children);
-    const $itemsRoomsHotelChildrenFlex = $itemsRoomsHotelChildren.filter(child => child.style.display === "flex");
-
-    if ($itemsRoomsHotelChildrenFlex.length > 6) {
+    const $itemsRoomsHotelChildrenFlex = $itemsRoomsHotelChildren.filter(child => window.getComputedStyle(child).display !== "none");
+    
+    /* if ($itemsRoomsHotelChildrenFlex.length > 6) {
       $itemsRoomsHotel.classList.add("items__rooms__hotel--child");
+      console.log("items__rooms__hotel--child agregado");
     } else {
       $itemsRoomsHotel.classList.remove("items__rooms__hotel--child");
-    }
+      console.log("items__rooms__hotel--child eliminado");
+    } */
   });
 </script>

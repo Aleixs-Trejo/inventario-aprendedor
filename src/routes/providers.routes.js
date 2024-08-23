@@ -9,7 +9,8 @@ const {
   updateProvider,
   deleteProvider,
   renderDeleteProvider,
-  exportToExcel
+  exportToExcel,
+  renderProviderDetails
 } = require("../controllers/providers.controller");
 
 const {
@@ -28,6 +29,9 @@ router.get("/providers", isAuthenticated, isAlmacen, renderProviders);
 //Editar Proveedor
 router.get("/providers/:id/edit", isAuthenticated, isAlmacen, renderEditProvider);
 router.post("/providers/:id/edit", isAuthenticated, isAlmacen, updateProvider);
+
+// Mostrar detalles del proveedor
+router.get("/providers/:id/details", isAuthenticated, isAdmin, renderProviderDetails);
 
 // Exportar a Excel
 router.get("/providers/export-excel", isAuthenticated, isAdmin, exportToExcel);

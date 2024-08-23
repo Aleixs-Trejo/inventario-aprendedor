@@ -31,16 +31,6 @@
               </figure>
             </div>
             <section class="form__container">
-              {{#if (eq userRole "Admin")}}
-                <article class="form__group">
-                  <select name="usuarioProducto" id="edit_usuario_producto" class="form__input" required>
-                    <option disabled value="">Usuario:</option>
-                    {{#each usuarios}}
-                      <option value="{{_id}}" {{#if (eq ../product.usuarioProducto._id _id)}} selected{{/if}}>{{usuario}}</option>
-                    {{/each}}
-                  </select>
-                </article>
-              {{/if}}
               <article class="form__group">
                 <select name="proveedorProducto" id="edit_proveedor_producto" class="form__input">
                   <option disabled value="selecciona">Proveedor:</option>

@@ -1,7 +1,7 @@
 {
   "name": "inventario",
-  "version": "0.0.1",
-  "description": "",
+  "version": "0.0.5",
+  "description": "Sistema diseñado para la gestión y administración de negocios de ventas y de hotelería. Permite realizar CRUD completo para diversas entidades y gestionar operaciones comerciales y de hospedaje.",
   "main": "index.js",
   "scripts": {
     "start": "node src/index.js",

@@ -8,7 +8,7 @@ const providerSchema = new Schema(
       required: true
     },
     dniProveedor: {
-      type: Number,
+      type: String,
       required: true
     },
     nombreProveedor: {
