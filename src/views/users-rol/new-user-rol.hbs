@@ -41,6 +41,38 @@
                 <label for="descripcion_rol" class="form__label">Descripción:</label>
                 <span class="form__line"></span>
               </article>
+              <article class="form__group">
+                <div class="permissions__header">
+                  <input type="checkbox" id="proveedores-all" class="parent__checkbox">
+                  <label for="proveedores-all" class="permissions__label">Proveedores</label>
+                </div>
+                <div class="permissions__container">
+                  <div class="permissions__item">
+                    <input type="checkbox" name="permisosRol" id="crear-proveedor" class="child__checkbox" value="crear-proveedor">
+                    <label for="crear-proveedor" class="permissions__label">Crear Proveedor</label>
+                  </div>
+                  <div class="permissions__item">
+                    <input type="checkbox" name="permisosRol" id="editar-proveedor" class="child__checkbox" value="editar-proveedor">
+                    <label for="editar-proveedor" class="permissions__label">Editar Proveedor</label>
+                  </div>
+                  <div class="permissions__item">
+                    <input type="checkbox" name="permisosRol" id="eliminar-proveedor" class="child__checkbox" value="eliminar-proveedor">
+                    <label for="eliminar-proveedor" class="permissions__label">Eliminar Proveedor</label>
+                  </div>
+                  <div class="permissions__item">
+                    <input type="checkbox" name="permisosRol" id="ver-proveedores" class="child__checkbox" value="ver-proveedor">
+                    <label for="ver-proveedor" class="permissions__label">Ver Proveedores</label>
+                  </div>
+                  <div class="permissions__item">
+                    <input type="checkbox" name="permisosRol" id="ver-proveedores-detalle" class="child__checkbox" value="ver-proveedor-detalle">
+                    <label for="ver-proveedor-detalle" class="permissions__label">Detalles Proveedor</label>
+                  </div>
+                  <div class="permissions__item">
+                    <input type="checkbox" name="permisosRol" id="exportar-proveedor" class="child__checkbox" value="exportar-proveedor">
+                    <label for="exportar-proveedor" class="permissions__label">Exportar Proveedores</label>
+                  </div>
+                </div>
+              </article>
               <button class="form__submit">Crear Rol</button>
             </section>
           </div>
@@ -49,3 +81,27 @@
     </div>
   </div>
 </section>
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const $parentCheckboxes = document.querySelectorAll(".parent__checkbox");
+
+    $parentCheckboxes.forEach(parent => {
+      const $childCheckboxes = parent.closest(".form__group").querySelectorAll(".child__checkbox");
+
+      // Marcar o desmarcar los hijos cuando el padre cambia
+      parent.addEventListener("change", () => {
+        $childCheckboxes.forEach(child => {
+          child.checked = parent.checked;
+        });
+      });
+
+      // Marcar o desmarcar el padre cuando algun hijo cambia
+      $childCheckboxes.forEach(child => {
+        child.addEventListener("change", () => {
+          const allChecked = Array.from($childCheckboxes).every(child => child.checked);
+          parent.checked = allChecked;
+        });
+      });
+    });
+  });
+</script>

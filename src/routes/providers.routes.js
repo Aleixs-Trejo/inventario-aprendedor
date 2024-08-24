@@ -16,28 +16,29 @@ const {
 const {
   isAuthenticated,
   isAdmin,
-  isAlmacen
+  isAlmacen,
+  havePermission
 } = require("../helpers/auth");
 
 //Registrar Proveedor
-router.get("/providers/register", isAuthenticated, isAlmacen, renderRegisterProvider);
-router.post("/providers/register", isAuthenticated, isAlmacen, registerProvider);
+router.get("/providers/register", isAuthenticated, renderRegisterProvider);
+router.post("/providers/register", isAuthenticated, havePermission("crear-proveedor"), registerProvider);
 
 //Mostrar Proveedores
-router.get("/providers", isAuthenticated, isAlmacen, renderProviders);
+router.get("/providers", isAuthenticated, havePermission("ver-proveedor"), renderProviders);
 
 //Editar Proveedor
-router.get("/providers/:id/edit", isAuthenticated, isAlmacen, renderEditProvider);
-router.post("/providers/:id/edit", isAuthenticated, isAlmacen, updateProvider);
+router.get("/providers/:id/edit", isAuthenticated, renderEditProvider);
+router.post("/providers/:id/edit", isAuthenticated, havePermission("editar-proveedor"), updateProvider);
 
 // Mostrar detalles del proveedor
-router.get("/providers/:id/details", isAuthenticated, isAdmin, renderProviderDetails);
+router.get("/providers/:id/details", isAuthenticated, havePermission("ver-proveedor-detalle"), renderProviderDetails);
 
 // Exportar a Excel
-router.get("/providers/export-excel", isAuthenticated, isAdmin, exportToExcel);
+router.get("/providers/export-excel", isAuthenticated, havePermission("exportar-proveedor"), exportToExcel);
 
 //Eliminar Proveedor
-router.get("/providers/:id/confirm-delete", isAuthenticated, isAdmin, renderDeleteProvider);
-router.get("/providers/:id/delete", isAuthenticated, isAdmin, deleteProvider);
+router.get("/providers/:id/confirm-delete", isAuthenticated, renderDeleteProvider);
+router.get("/providers/:id/delete", isAuthenticated, havePermission("eliminar-proveedor"), deleteProvider);
 
 module.exports = router;

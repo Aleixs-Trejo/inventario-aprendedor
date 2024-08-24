@@ -41,26 +41,6 @@ indexCtrl.renderIndex = async (req, res) => {
       .sort({createdAt: -1})
       .lean();
 
-    // Obtener los productos almacenados
-    /* const stores = await Stores.find({ createdAt: { $gte: startOfWeek } })
-      .populate({
-        path: "almacenHistorial",
-        populate: [
-          { path: "almacenUsuario",
-            populate: "trabajadorUsuario"
-          },
-          { path: "almacenProducto",
-            populate: [
-              { path: "proveedorProducto" },
-              { path: "categoriaProducto" },
-            ]
-          },
-          { path: "almacenStockUbicacion" }
-        ]
-      })
-      .sort({createdAt: -1})
-      .lean(); */
-
     // Obtener los productos registrados
     const products = await Products.find({ createdAt: { $gte: startOfWeek } })
       .populate({

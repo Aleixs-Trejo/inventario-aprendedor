@@ -17,15 +17,18 @@ usersRolCtrl.registerUserRol = async (req, res) => {
   try {
     const {
       nombreRol,
-      descripcionRol
+      descripcionRol,
+      permisosRol
     } = req.body;
 
-    const newUserRol = new UserRol(
-      {
+    console.log("req.body: ", req.body);
+    console.log("permisosRol: ", permisosRol);
+
+    const newUserRol = new UserRol({
         nombreRol,
-        descripcionRol
-      }
-    );
+        descripcionRol,
+        permisosRol
+      });
     await newUserRol.save() //Guardar en la BD
     req.flash("success", "Rol creado exitosamente");
     res.redirect("/users-rol");

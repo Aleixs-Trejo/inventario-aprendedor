@@ -6,6 +6,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const $navBtn = document.querySelector(".sidebar__menu");
   const $aside = document.querySelector(".aside");
   const $subHeader = document.querySelector(".sub__header");
+  const $toggleAside = document.querySelector(".toggle__aside");
   const $main = document.querySelector(".main");
   const $allViews = document.querySelector(".section__all--views");
 
@@ -53,6 +54,9 @@ document.addEventListener("DOMContentLoaded", () => {
         nav.nextElementSibling.classList.toggle("nav__section__body__container--show");
         $arrow.classList.toggle("arrow__figure--rotate");
       });
+    })
+    $toggleAside.addEventListener("click", () => {
+      $toggleAside.classList.toggle("toggle__aside--active");
     })
   }
 });

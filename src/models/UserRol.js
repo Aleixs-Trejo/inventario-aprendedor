@@ -9,6 +9,10 @@ const userRolSchema = new Schema(
     descripcionRol: {
       type: String,
       required: true
+    },
+    permisosRol: {
+      type: [String],
+      required: true
     }
   },
   {

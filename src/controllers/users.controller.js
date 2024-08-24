@@ -27,7 +27,6 @@ usersCtrl.renderRegisterUser = async (req, res) => {
 }
 usersCtrl.registerUser = async (req, res) => {
   try {
-    console.log(req.body);
     const errors = [];
     const {
       trabajadorUsuario,
@@ -36,7 +35,7 @@ usersCtrl.registerUser = async (req, res) => {
       confirm_password
     } = req.body;
 
-    console.log(req.body);
+    console.log("req.body: ", req.body);
 
     if (password != confirm_password){
       errors.push({text: "Las contraseñas no coinciden"});

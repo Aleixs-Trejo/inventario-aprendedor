@@ -766,6 +766,7 @@ input[type="number"]::-webkit-outer-spin-button{
 }
 
 .sidebar__container{
+  height: 100%;
   display: flex;
   flex-direction: column;
   gap: 1rem;
@@ -839,10 +840,6 @@ input[type="number"]::-webkit-outer-spin-button{
   padding-bottom: 1rem;
 }
 
-
-
-
-
 .sidebar__logo{
   color: #fff;
   display: flex;
@@ -878,6 +875,18 @@ input[type="number"]::-webkit-outer-spin-button{
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.nav__container{
+  height: 100%;
+  overflow: hidden;
+}
+
+.nav__content{
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow-y: auto;
 }
 
 .nav__list{
@@ -1023,6 +1032,31 @@ input[type="number"]::-webkit-outer-spin-button{
   top: 50%;
 }
 
+.toggle__aside{
+  cursor: pointer;
+  position: fixed;
+  top: var(--header__height);
+  left: 4rem;
+  width: 1.5rem;
+  height: 1.5rem;
+  background-color: #ccc8;
+  transition: all 0.3s ease;
+  z-index: 3;
+
+  & .toggle__figure{
+    width: max-content;
+    transform: rotate(90deg);
+    transition: all 0.3s ease;
+  }
+}
+
+.toggle__aside.toggle__aside--active{
+  left: 0;
+  & .toggle__figure{
+    transform: rotate(-90deg);
+  }
+}
+
 /***************** MAIN *****************/
 .main{
   width: calc(100% - 4rem);
@@ -1045,6 +1079,28 @@ input[type="number"]::-webkit-outer-spin-button{
 
 .body:has(.main__aside--active) .main {
   overflow: hidden;
+}
+
+.body:not(:has(.aside.aside--active)) .toggle__aside{
+  left: 15rem;
+}
+
+.body:has(.toggle__aside.toggle__aside--active){
+  & .aside {
+    transform: translateX(-100%);
+  }
+
+  & .toggle__aside {
+    left: 0;
+  }
+
+  & .main {
+    width: 100%;
+  }
+
+  & .sub__header--fixed{
+    left: 1rem;
+  }
 }
 
 .main__content:has(.section__all--views){
