@@ -15,6 +15,15 @@ services:
       - RECOVERY_CODE_SENDGRID=DPTDV2HMKBDTPDUEQJUWMDKN
       - GMAIL_USER=alexistrejoxd@gmail.com
       - GMAIL_PASS=pafi yjoh zynv uogq
+      - SECRET_JWT_KEY_ACCESS=sistema-inventario-aprendedor@2024-$75.v0.5
+      - EXPIRATION_TOKEN=30d
+      - EXPIRATION_DAY=25920000000
+      - MAX_COMPANIES=1
+      - MAX_PROVIDERS=10
+      - MAX_CATEGORIES=10
+      - MAX_PRODUCTS=25
+      - MAX_STORES=1
+      - MAX_EMPLOYEES=5
     links:
       - mongo
     volumes:

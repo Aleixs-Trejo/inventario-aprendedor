@@ -3,7 +3,6 @@ const moment = require("moment");
 
 const Users = require("../models/userModel");
 const Sales = require("../models/saleModel");
-const Stores = require("../models/storeHistoryModel");
 const Products = require("../models/productHistoryModel");
 const UsersHistory = require("../models/userHistoryModel");
 

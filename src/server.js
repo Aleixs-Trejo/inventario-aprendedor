@@ -5,6 +5,8 @@ const morgan = require("morgan");
 const flash = require("connect-flash");
 const session = require("express-session");
 const passport = require("passport");
+const jwt = require("jsonwebtoken");
+const coockieParser = require("cookie-parser");
 const { formatDateTime } = require("./helpers/date");
 const { formatCurrency } = require("./helpers/currency");
 
@@ -37,6 +39,7 @@ app.set("view engine", ".hbs");
 //Middlewares
 app.use(morgan("dev"));
 app.use(express.urlencoded({extended: false}));
+app.use(coockieParser());
 app.use(session(
   {
     secret: "secreto",

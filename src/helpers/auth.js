@@ -1,6 +1,7 @@
 const helpers = {};
 
 const User = require("../models/userModel");
+const Company = require("../models/companyModel");
 
 helpers.isAuthenticated = async (req, res, next) => {
   if (req.isAuthenticated()){
