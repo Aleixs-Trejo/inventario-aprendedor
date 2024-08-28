@@ -59,11 +59,13 @@ app.use((req, res, next) => {
   res.locals.success = req.flash("success");
   res.locals.wrong = req.flash("wrong");
   res.locals.error = req.flash("error");
+  res.locals.company = req.company || null;
   res.locals.user = req.user || null;
   next();
 })
 
 //Routes
+app.use(require("./routes/company.routes"));
 app.use(require("./routes/index.routes"));
 app.use(require("./routes/products.routes"));
 app.use(require("./routes/users.routes"));

@@ -22,6 +22,10 @@ const CompanySchema = new Schema(
       type: String,
       required: true
     },
+    imagenCompany: {
+      type: Buffer,
+      required: true
+    },
     eliminadoCompany: {
       type: Boolean,
       default: false

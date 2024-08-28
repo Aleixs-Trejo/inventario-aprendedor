@@ -1,7 +1,5 @@
 .env
 
-.dockerignore
-
 node_modules
 
 pending.txt
