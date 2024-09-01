@@ -4,6 +4,7 @@ const passport = require("passport");
 const User = require("../models/userModel");
 const Employee = require("../models/employeeModel");
 const UserHistory = require("../models/userHistoryModel");
+const Company = require("../models/companyModel");
 
 //Registrar usuarios
 usersCtrl.renderRegisterUser = async (req, res) => {
@@ -94,9 +95,12 @@ usersCtrl.registerUser = async (req, res) => {
 }
 
 //Inicio de sesión
-usersCtrl.renderLoginUser = (req, res) => {
+usersCtrl.renderLoginUser = async (req, res) => {
   if (req.isAuthenticated()) {
     return res.redirect("/principal");
+  }
+  if (await Company.countDocuments() === 0) {
+    return res.redirect("/company/register");
   }
   res.render("users/login");
 }

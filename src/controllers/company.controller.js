@@ -30,13 +30,41 @@ companyCtrl.registerCompany = async (req, res) => {
       imagenCompany
     } = req.body;
 
+    console.log("req.body: ", req.body);
+
     // Validar si hay otra empresa registrada
     const existingCompany = await Company.findOne().lean();
 
     if (!existingCompany) {
       // Validar campos obligatorios
-      if (!rucCompany || !nombreCompany || !celularCompany || !correoCompany || !direccionCompany || !imagenCompany) {
-        req.flash("wrong", "Los campos obligatorios no han sido llenados, intente nuevamente.");
+      if (!rucCompany) {
+        req.flash("wrong", "El campo RUC no ha sido llenado, intente nuevamente.");
+        console.log("El campo RUC no ha sido llenado, intente nuevamente.");
+        return res.redirect("/company/register");
+      }
+      if (!nombreCompany) {
+        req.flash("wrong", "El campo Nombre no ha sido llenado, intente nuevamente.");
+        console.log("El campo Nombre no ha sido llenado, intente nuevamente.");
+        return res.redirect("/company/register");
+      }
+      if (!celularCompany) {
+        req.flash("wrong", "El campo Celular no ha sido llenado, intente nuevamente.");
+        console.log("El campo Celular no ha sido llenado, intente nuevamente.");
+        return res.redirect("/company/register");
+      }
+      if (!correoCompany) {
+        req.flash("wrong", "El campo Correo no ha sido llenado, intente nuevamente.");
+        console.log("El campo Correo no ha sido llenado, intente nuevamente.");
+        return res.redirect("/company/register");
+      }
+      if (!direccionCompany) {
+        req.flash("wrong", "El campo Dirección no ha sido llenado, intente nuevamente.");
+        console.log("El campo Dirección no ha sido llenado, intente nuevamente.");
+        return res.redirect("/company/register");
+      }
+      if (!imagenCompany) {
+        req.flash("wrong", "El campo Imagen no ha sido llenado, intente nuevamente.");
+        console.log("El campo Imagen no ha sido llenado, intente nuevamente.");
         return res.redirect("/company/register");
       }
 
@@ -51,7 +79,7 @@ companyCtrl.registerCompany = async (req, res) => {
 
       await newCompany.save();
       req.flash("success", "Empresa registrada exitosamente.");
-      return res.redirect("/user-role/register");
+      return res.redirect("/user-rol/register");
     } else {
       req.flash("wrong", "Ya tienes una empresa registrada.");
       return res.redirect("/");

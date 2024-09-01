@@ -32,15 +32,15 @@ const CompanySchema = new Schema(
     },
     maxProveedoresCompany: {
       type: Number,
-      default: 1
+      default: 5
     },
     maxCategoriasCompany: {
       type: Number,
-      default: 10
+      default: 5
     },
     maxProductosCompany: {
       type: Number,
-      default: 1
+      default: 25
     },
     maxStoresCompany: {
       type: Number,

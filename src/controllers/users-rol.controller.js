@@ -1,11 +1,22 @@
 const usersRolCtrl = {};
-const UserRol = require("../models/userRolModel");
 
+const UserRol = require("../models/userRolModel");
+const User = require("../models/userModel");
+const Company = require("../models/companyModel");
 
 //Creacion de roles
-usersRolCtrl.renderRegisterUserRol = (req, res) => {
+usersRolCtrl.renderRegisterUserRol = async (req, res) => {
   try {
-    res.render("users-rol/new-user-rol");
+    const user = await User.findOne({eliminadoUsuario: false}).lean();
+    const company	= await Company.findOne({eliminadoCompany: false}).lean();
+
+    if (!company) {
+      return res.redirect("/company/register");
+    }
+    const base64Image = company.imagenCompany.toString("base64");
+    console.log("Company: ", company);
+    console.log("Base64 Image: ", base64Image);
+    res.render("users-rol/new-user-rol", {user, base64Image, company});
   } catch (error) {
     req.flash("wrong", "Ocurrió un error, intente nuevamente.");
     console.log("Error: ", error);

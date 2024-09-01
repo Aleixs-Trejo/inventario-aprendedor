@@ -6,11 +6,132 @@
           <h2 class="form__title">Registra tu negocio</h2>
           <section class="form__container">
             <article class="form__group">
-              <input type="text" name="rucCompany" id="ruc-company" class="form__input">
+              <input type="text" name="rucCompany" id="ruc-company" class="form__input" maxlength="11" placeholder=" " required onkeypress="return event.charCode >= 48 && event.charCode <= 57">
+              <label for="ruc-company" class="form__label">RUC:</label>
+              <span class="form__line"></span>
             </article>
+            <article class="form__group">
+              <input type="text" name="nombreCompany" id="nombre-company" class="form__input" placeholder=" " required>
+              <label for="nombre-company" class="form__label">Nombre:</label>
+              <span class="form__line"></span>
+            </article>
+            <article class="form__group">
+              <input type="text" name="celularCompany" id="celular-company" class="form__input" maxlength="9" placeholder=" " required onkeypress="return event.charCode >= 48 && event.charCode <= 57">
+              <label for="celular-company" class="form__label">Celular:</label>
+              <span class="form__line"></span>
+            </article>
+            <article class="form__group">
+              <input type="email" name="correoCompany" id="correo-company" class="form__input" placeholder=" " required>
+              <label for="correo-company" class="form__label">Correo:</label>
+              <span class="form__line"></span>
+            </article>
+            <article class="form__group">
+              <input type="text" name="direccionCompany" id="direccion-company" class="form__input" placeholder=" " required>
+              <label for="direccion-company" class="form__label">Dirección:</label>
+              <span class="form__line"></span>
+            </article>
+            <article class="form__group">
+              <button type="button" class="form__btn form__btn--upload" id="btn-upload">Subir imagen</button>
+              <input type="file" name="imagenCompany" id="imagen-company" class="form__input form__input--upload" accept="image/*" required hidden>
+              <span class="span__file" hidden>Imágen cargada: <span class="span__file__name"></span></span>
+              <button type="button" class="form__btn form__btn--upload" id="btn-reupload" hidden>Cargar nueva imágen</button>
+            </article>
+            <button type="submit" class="form__submit" id="btn-submit" hidden>Registrar</button>
           </section>
         </div>
       </form>
     </section>
   </div>
 </div>
+<section class="modal__fixed">
+  <div class="flex-c-c modal modal__image__previsualizar">
+    <article class="flex-c-c article__modal">
+      <h5 class="modal__title">Confirmar imagen</h5>
+      <figure class="previsualizar__figure">
+        <img src="" alt="Previsualizar imagen" class="previsualizar__img">
+      </figure>
+      <button type="button" class="modal__btn modal__btn--confirm" id="confirm-image">
+        Confirmar
+      </button>
+      <div class="close__modal close__modal--previsualizar">
+        <figure class="close__figure">
+          <img src="/assets/icon-close.svg" alt="Icon Close" class="close__img">
+        </figure>
+      </div>
+    </article>
+  </div>
+</section>
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const $rucCompany = document.getElementById("ruc-company"),
+          $nombreCompany = document.getElementById("nombre-company"),
+          $celularCompany = document.getElementById("celular-company"),
+          $correoCompany = document.getElementById("correo-company"),
+          $direccionCompany = document.getElementById("direccion-company"),
+          $imagenCompany = document.getElementById("imagen-company"),
+          $btnUpload = document.getElementById("btn-upload"),
+          $imgCompany = document.getElementById("imagen-company"),
+          $imgPrevisualizar = document.querySelector(".previsualizar__img"),
+          $modalPrevisualizar = document.querySelector(".modal__image__previsualizar"),
+          $closeModal = document.querySelector(".close__modal--previsualizar"),
+          $btnConfirmImg = document.getElementById("confirm-image"),
+          $btnReupload = document.getElementById("btn-reupload"),
+          $spanFile = document.querySelector(".span__file"),
+          $spanFileName = document.querySelector(".span__file__name"),
+          $btnSubmit = document.getElementById("btn-submit");
+
+    let fileName = "";
+
+    // Eventos
+    $btnUpload.addEventListener("click", () => {
+      $imgCompany.click();
+    });
+
+    $btnReupload.addEventListener("click", () => {
+      $imgCompany.click();
+    });
+
+    $imgCompany.addEventListener("change", e => {
+      const file = e.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        console.log("reader: ", reader);
+        reader.onload = p => {
+          $imgPrevisualizar.src = p.target.result;
+          $modalPrevisualizar.classList.add("modal__show");
+        };
+        reader.readAsDataURL(file);
+        fileName = file.name;
+        console.log("File: ", file);
+        console.log("valor del input: ", $imgCompany.value);
+      }
+    });
+    
+    // Evento para cerrar el modal
+    $closeModal.addEventListener("click", () => {
+      $modalPrevisualizar.classList.remove("modal__show");
+      $imgCompany.value = "";
+    });
+
+    // Evento para confirmar la imagen
+    $btnConfirmImg.addEventListener("click", () => {
+      $modalPrevisualizar.classList.remove("modal__show");
+      $btnUpload.remove();
+      $spanFile.hidden = false;
+      $btnReupload.hidden = false;
+      $spanFileName.textContent = fileName;
+      $btnSubmit.hidden = false;
+      console.log("Input File: ", $imgCompany.value);
+    });
+
+    // Evento para envio de formulario
+    $btnSubmit.addEventListener("click", () => {
+      console.log("Valor del ruc: ", $rucCompany.value);
+      console.log("Valor del nombre: ", $nombreCompany.value);
+      console.log("Valor del celular: ", $celularCompany.value);
+      console.log("Valor del correo: ", $correoCompany.value);
+      console.log("Valor del direccion: ", $direccionCompany.value);
+      console.log("Valor del imagen: ", $imagenCompany.value);
+    });
+  });
+</script>
