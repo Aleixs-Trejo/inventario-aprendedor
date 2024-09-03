@@ -29,52 +29,231 @@
             <h2 class="form__title">Registro de Rol</h2>
             <div class="form__img">
               <figure class="login__figure">
-                <img src="/assets/logo-aprendedor.webp" alt="Logo Aprendedor" class="login__img" id="logo-aprendedor">
+                <img src="{{logoUrl}}" alt="Logo Aprendedor" class="login__img" id="logo-company">
               </figure>
             </div>
             <section class="form__container">
-              <article class="form__group">
-                <input class="form__input" type="text" name="nombreRol" id="nombre_rol" placeholder=" " title="Define el nombre del Rol" required>
-                <label for="nombre_rol" class="form__label">Rol:</label>
-                <span class="form__line"></span>
-              </article>
-              <article class="form__group">
-                <textarea class="form__input form__textarea" name="descripcionRol" id="descripcion_rol" placeholder=" " title="Describe el trabajo del rol" required></textarea>
-                <label for="descripcion_rol" class="form__label">Descripción:</label>
-                <span class="form__line"></span>
-              </article>
-              <article class="form__group">
-                <div class="permissions__header">
-                  <input type="checkbox" id="proveedores-all" class="parent__checkbox">
-                  <label for="proveedores-all" class="permissions__label">Proveedores</label>
+              <div class="form__container--groups">
+                <div class="form__groups">
+                  <article class="form__group">
+                    <input class="form__input" type="text" name="nombreRol" id="nombre_rol" placeholder=" " title="Define el nombre del Rol" required>
+                    <label for="nombre_rol" class="form__label">Rol:</label>
+                    <span class="form__line"></span>
+                  </article>
+                  <article class="form__group">
+                    <textarea class="form__input form__textarea" name="descripcionRol" id="descripcion_rol" placeholder=" " title="Describe el trabajo del rol" required></textarea>
+                    <label for="descripcion_rol" class="form__label">Descripción:</label>
+                    <span class="form__line"></span>
+                  </article>
                 </div>
-                <div class="permissions__container">
-                  <div class="permissions__item">
-                    <input type="checkbox" name="permisosRol" id="crear-proveedor" class="child__checkbox" value="crear-proveedor">
-                    <label for="crear-proveedor" class="permissions__label">Crear Proveedor</label>
-                  </div>
-                  <div class="permissions__item">
-                    <input type="checkbox" name="permisosRol" id="editar-proveedor" class="child__checkbox" value="editar-proveedor">
-                    <label for="editar-proveedor" class="permissions__label">Editar Proveedor</label>
-                  </div>
-                  <div class="permissions__item">
-                    <input type="checkbox" name="permisosRol" id="eliminar-proveedor" class="child__checkbox" value="eliminar-proveedor">
-                    <label for="eliminar-proveedor" class="permissions__label">Eliminar Proveedor</label>
-                  </div>
-                  <div class="permissions__item">
-                    <input type="checkbox" name="permisosRol" id="ver-proveedores" class="child__checkbox" value="ver-proveedor">
-                    <label for="ver-proveedor" class="permissions__label">Ver Proveedores</label>
-                  </div>
-                  <div class="permissions__item">
-                    <input type="checkbox" name="permisosRol" id="ver-proveedores-detalle" class="child__checkbox" value="ver-proveedor-detalle">
-                    <label for="ver-proveedor-detalle" class="permissions__label">Detalles Proveedor</label>
-                  </div>
-                  <div class="permissions__item">
-                    <input type="checkbox" name="permisosRol" id="exportar-proveedor" class="child__checkbox" value="exportar-proveedor">
-                    <label for="exportar-proveedor" class="permissions__label">Exportar Proveedores</label>
-                  </div>
+                <div class="form__groups form__groups--permisos">
+                  <h5 class="form__group__header">Establecer Permisos</h5>
+                  <section class="section__permisos">
+                    <article class="form__group form__group--permisos">
+                      <div class="permisos__header">
+                        <span class="permisos__span">Proveedores</span>
+                        <figure class="permisos__header__figure">
+                          <img src="/assets/icon-arrow--blue.svg" alt="Icon Arrow" class="permisos__header__img">
+                        </figure>
+                      </div>
+                      <section class="permisos__container permisos__container--show">
+                        <div class="permisos__group">
+                          <div class="permissions__header">
+                            <input type="checkbox" id="proveedores-all" class="parent__checkbox">
+                            <label for="proveedores-all" class="permissions__label">Todo</label>
+                          </div>
+                          <div class="permissions__container">
+                            <div class="permissions__item">
+                              <input type="checkbox" name="permisosRol" id="crear-proveedor" class="child__checkbox" value="crear-proveedor">
+                              <label for="crear-proveedor" class="permissions__label">Crear</label>
+                            </div>
+                            <div class="permissions__item">
+                              <input type="checkbox" name="permisosRol" id="editar-proveedor" class="child__checkbox" value="editar-proveedor">
+                              <label for="editar-proveedor" class="permissions__label">Editar</label>
+                            </div>
+                            <div class="permissions__item">
+                              <input type="checkbox" name="permisosRol" id="eliminar-proveedor" class="child__checkbox" value="eliminar-proveedor">
+                              <label for="eliminar-proveedor" class="permissions__label">Eliminar</label>
+                            </div>
+                            <div class="permissions__item">
+                              <input type="checkbox" name="permisosRol" id="ver-proveedores" class="child__checkbox" value="ver-proveedor">
+                              <label for="ver-proveedores" class="permissions__label">Ver todos</label>
+                            </div>
+                            <div class="permissions__item">
+                              <input type="checkbox" name="permisosRol" id="ver-proveedores-detalle" class="child__checkbox" value="ver-proveedor-detalle">
+                              <label for="ver-proveedores-detalle" class="permissions__label">Ver Detalles</label>
+                            </div>
+                            <div class="permissions__item">
+                              <input type="checkbox" name="permisosRol" id="historial-proveedor" class="child__checkbox" value="historial-proveedor">
+                              <label for="historial-proveedor" class="permissions__label">ver Historial</label>
+                            </div>
+                            <div class="permissions__item">
+                              <input type="checkbox" name="permisosRol" id="exportar-proveedor" class="child__checkbox" value="exportar-proveedor">
+                              <label for="exportar-proveedor" class="permissions__label">Exportar</label>
+                            </div>
+                          </div>
+                        </div>
+                      </section>
+                    </article>
+                    <article class="form__group form__group--permisos">
+                      <div class="permisos__header">
+                        <span class="permisos__span">Categorías</span>
+                        <figure class="permisos__header__figure">
+                          <img src="/assets/icon-arrow--blue.svg" alt="Icon Arrow" class="permisos__header__img">
+                        </figure>
+                      </div>
+                      <section class="permisos__container permisos__container--show">
+                        <div class="permisos__group">
+                          <div class="permissions__header">
+                            <input type="checkbox" id="categorias-all" class="parent__checkbox">
+                            <label for="categorias-all" class="permissions__label">Todo</label>
+                          </div>
+                          <div class="permissions__container">
+                            <div class="permissions__item">
+                              <input type="checkbox" name="permisosRol" id="crear-categoria" class="child__checkbox" value="crear-categoria">
+                              <label for="crear-categoria" class="permissions__label">Crear</label>
+                            </div>
+                            <div class="permissions__item">
+                              <input type="checkbox" name="permisosRol" id="editar-categoria" class="child__checkbox" value="editar-categoria">
+                              <label for="editar-categoria" class="permissions__label">Editar</label>
+                            </div>
+                            <div class="permissions__item">
+                              <input type="checkbox" name="permisosRol" id="eliminar-categoria" class="child__checkbox" value="eliminar-categoria">
+                              <label for="eliminar-categoria" class="permissions__label">Eliminar</label>
+                            </div>
+                            <div class="permissions__item">
+                              <input type="checkbox" name="permisosRol" id="ver-categorias" class="child__checkbox" value="ver-categoria">
+                              <label for="ver-categorias" class="permissions__label">Ver todos</label>
+                            </div>
+                            <div class="permissions__item">
+                              <input type="checkbox" name="permisosRol" id="ver-categorias-detalle" class="child__checkbox" value="ver-categoria-detalle">
+                              <label for="ver-categorias-detalle" class="permissions__label">Ver Detalles</label>
+                            </div>
+                            <div class="permissions__item">
+                              <input type="checkbox" name="permisosRol" id="historial-categoria" class="child__checkbox" value="historial-categoria">
+                              <label for="historial-categoria" class="permissions__label">ver Historial</label>
+                            </div>
+                          </div>
+                        </div>
+                      </section>
+                    </article>
+                    <article class="form__group form__group--permisos">
+                      <div class="permisos__header">
+                        <span class="permisos__span">Sucursales</span>
+                        <figure class="permisos__header__figure">
+                          <img src="/assets/icon-arrow--blue.svg" alt="Icon Arrow" class="permisos__header__img">
+                        </figure>
+                      </div>
+                      <section class="permisos__container permisos__container--show">
+                        <div class="permisos__group">
+                          <div class="permissions__header">
+                            <input type="checkbox" id="sucursales-all" class="parent__checkbox">
+                            <label for="sucursales-all" class="permissions__label">Todo</label>
+                          </div>
+                          <div class="permissions__container">
+                            <div class="permissions__item">
+                              <input type="checkbox" name="permisosRol" id="crear-sucursal" class="child__checkbox" value="crear-sucursal">
+                              <label for="crear-sucursal" class="permissions__label">Crear</label>
+                            </div>
+                            <div class="permissions__item">
+                              <input type="checkbox" name="permisosRol" id="editar-sucursal" class="child__checkbox" value="editar-sucursal">
+                              <label for="editar-sucursal" class="permissions__label">Editar</label>
+                            </div>
+                            <div class="permissions__item">
+                              <input type="checkbox" name="permisosRol" id="eliminar-sucursal" class="child__checkbox" value="eliminar-sucursal">
+                              <label for="eliminar-sucursal" class="permissions__label">Eliminar</label>
+                            </div>
+                            <div class="permissions__item">
+                              <input type="checkbox" name="permisosRol" id="ver-sucursales" class="child__checkbox" value="ver-sucursal">
+                              <label for="ver-sucursales" class="permissions__label">Ver todos</label>
+                            </div>
+                          </div>
+                        </div>
+                      </section>
+                    </article>
+                    <article class="form__group form__group--permisos">
+                      <div class="permisos__header">
+                        <span class="permisos__span">Roles</span>
+                        <figure class="permisos__header__figure">
+                          <img src="/assets/icon-arrow--blue.svg" alt="Icon Arrow" class="permisos__header__img">
+                        </figure>
+                      </div>
+                      <section class="permisos__container permisos__container--show">
+                        <div class="permisos__group">
+                          <div class="permissions__header">
+                            <input type="checkbox" id="roles-all" class="parent__checkbox">
+                            <label for="roles-all" class="permissions__label">Todo</label>
+                          </div>
+                          <div class="permissions__container">
+                            <div class="permissions__item">
+                              <input type="checkbox" name="permisosRol" id="crear-rol" class="child__checkbox" value="crear-rol">
+                              <label for="crear-rol" class="permissions__label">Crear</label>
+                            </div>
+                            <div class="permissions__item">
+                              <input type="checkbox" name="permisosRol" id="editar-rol" class="child__checkbox" value="editar-rol">
+                              <label for="editar-rol" class="permissions__label">Editar</label>
+                            </div>
+                            <div class="permissions__item">
+                              <input type="checkbox" name="permisosRol" id="eliminar-rol" class="child__checkbox" value="eliminar-rol">
+                              <label for="eliminar-rol" class="permissions__label">Eliminar</label>
+                            </div>
+                            <div class="permissions__item">
+                              <input type="checkbox" name="permisosRol" id="ver-rol" class="child__checkbox" value="ver-rol">
+                              <label for="ver-rol" class="permissions__label">Ver todos</label>
+                            </div>
+                          </div>
+                        </div>
+                      </section>
+                    </article>
+                    <article class="form__group form__group--permisos">
+                      <div class="permisos__header">
+                        <span class="permisos__span">Trabajadores</span>
+                        <figure class="permisos__header__figure">
+                          <img src="/assets/icon-arrow--blue.svg" alt="Icon Arrow" class="permisos__header__img">
+                        </figure>
+                      </div>
+                      <section class="permisos__container permisos__container--show">
+                        <div class="permisos__group">
+                          <div class="permissions__header">
+                            <input type="checkbox" id="trabajadores-all" class="parent__checkbox">
+                            <label for="trabajadores-all" class="permissions__label">Todo</label>
+                          </div>
+                          <div class="permissions__container">
+                            <div class="permissions__item">
+                              <input type="checkbox" name="permisosRol" id="crear-trabajador" class="child__checkbox" value="crear-trabajador">
+                              <label for="crear-trabajador" class="permissions__label">Crear</label>
+                            </div>
+                            <div class="permissions__item">
+                              <input type="checkbox" name="permisosRol" id="editar-trabajador" class="child__checkbox" value="editar-trabajador">
+                              <label for="editar-trabajador" class="permissions__label">Editar</label>
+                            </div>
+                            <div class="permissions__item">
+                              <input type="checkbox" name="permisosRol" id="eliminar-trabajador" class="child__checkbox" value="eliminar-trabajador">
+                              <label for="eliminar-trabajador" class="permissions__label">Eliminar</label>
+                            </div>
+                            <div class="permissions__item">
+                              <input type="checkbox" name="permisosRol" id="ver-trabajadores" class="child__checkbox" value="ver-trabajador">
+                              <label for="ver-trabajadores" class="permissions__label">Ver todos</label>
+                            </div>
+                            <div class="permissions__item">
+                              <input type="checkbox" name="permisosRol" id="ver-trabajadores-detalle" class="child__checkbox" value="ver-trabajador-detalle">
+                              <label for="ver-trabajadores-detalle" class="permissions__label">Ver Detalles</label>
+                            </div>
+                            <div class="permissions__item">
+                              <input type="checkbox" name="permisosRol" id="historial-trabajador" class="child__checkbox" value="historial-trabajador">
+                              <label for="historial-trabajador" class="permissions__label">ver Historial</label>
+                            </div>
+                            <div class="permissions__item">
+                              <input type="checkbox" name="permisosRol" id="exportar-trabajador" class="child__checkbox" value="exportar-trabajador">
+                              <label for="exportar-trabajador" class="permissions__label">Exportar</label>
+                            </div>
+                          </div>
+                        </div>
+                      </section>
+                    </article>
+                  </section>
                 </div>
-              </article>
+              </div>
               <button class="form__submit">Crear Rol</button>
             </section>
           </div>
@@ -86,6 +265,7 @@
 <script>
   document.addEventListener("DOMContentLoaded", () => {
     const $parentCheckboxes = document.querySelectorAll(".parent__checkbox");
+    const $permisosHeader = document.querySelectorAll(".permisos__header");
 
     $parentCheckboxes.forEach(parent => {
       const $childCheckboxes = parent.closest(".form__group").querySelectorAll(".child__checkbox");
@@ -103,6 +283,13 @@
           const allChecked = Array.from($childCheckboxes).every(child => child.checked);
           parent.checked = allChecked;
         });
+      });
+    });
+
+    $permisosHeader.forEach(header => {
+      const $permisosContainer = header.nextElementSibling;
+      header.addEventListener("click", () => {
+        $permisosContainer.classList.toggle("permisos__container--show");
       });
     });
   });

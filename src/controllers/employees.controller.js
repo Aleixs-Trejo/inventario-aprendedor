@@ -4,12 +4,24 @@ const XLSX = require("xlsx");
 const Employee = require("../models/employeeModel");
 const UserRol = require("../models/userRolModel");
 const EmployeeHistory = require("../models/employeeHistoryModel");
+const Company = require("../models/companyModel");
 
 //Registro de trabajador
 employeeCtrl.renderRegisterEmployee = async (req, res) => {
   try {
     const roles = await UserRol.find().lean();
-    res.render("employees/new-employee", {roles});
+    const company = await Company.findOne({eliminadoCompany: false}).lean();
+    if (roles.length === 0) {
+      return res.redirect("/users-rol/register");
+    }
+    if (company.length === 0) {
+      return res.redirect("/company/register");
+    }
+    res.render("employees/new-employee", {
+      roles,
+      company,
+      logoUrl: company.imagenCompany ? `/uploads/${company.imagenCompany}` : `/assets/logo-aprendedor.webp`
+    });
   } catch (error) {
     req.flash("wrong", "Ocurrió un error, intente nuevamente.");
     console.log("Error: ", error);

@@ -1,36 +1,37 @@
 <div class="bg__container full__height">
   <div class="container">
     <section class="bg__section section__form">
-      <form action="/company/register" class="form" method="POST">
+      <form action="/company/register" class="form" method="POST" enctype="multipart/form-data">
         <div class="form__content">
           <h2 class="form__title">Registra tu negocio</h2>
           <section class="form__container">
             <article class="form__group">
-              <input type="text" name="rucCompany" id="ruc-company" class="form__input" maxlength="11" placeholder=" " required onkeypress="return event.charCode >= 48 && event.charCode <= 57">
+              <input type="text" name="rucCompany" id="ruc-company" class="form__input" maxlength="11" placeholder=" " inputmode="numeric" required onkeypress="return event.charCode >= 48 && event.charCode <= 57" autocomplete="off">
               <label for="ruc-company" class="form__label">RUC:</label>
               <span class="form__line"></span>
             </article>
             <article class="form__group">
-              <input type="text" name="nombreCompany" id="nombre-company" class="form__input" placeholder=" " required>
+              <input type="text" name="nombreCompany" id="nombre-company" class="form__input" placeholder=" " required autocomplete="off">
               <label for="nombre-company" class="form__label">Nombre:</label>
               <span class="form__line"></span>
             </article>
             <article class="form__group">
-              <input type="text" name="celularCompany" id="celular-company" class="form__input" maxlength="9" placeholder=" " required onkeypress="return event.charCode >= 48 && event.charCode <= 57">
+              <input type="text" name="celularCompany" id="celular-company" class="form__input" maxlength="9" placeholder=" " inputmode="numeric" required onkeypress="return event.charCode >= 48 && event.charCode <= 57" autocomplete="off">
               <label for="celular-company" class="form__label">Celular:</label>
               <span class="form__line"></span>
             </article>
             <article class="form__group">
-              <input type="email" name="correoCompany" id="correo-company" class="form__input" placeholder=" " required>
+              <input type="email" name="correoCompany" id="correo-company" class="form__input" placeholder=" " required autocomplete="off">
               <label for="correo-company" class="form__label">Correo:</label>
               <span class="form__line"></span>
             </article>
             <article class="form__group">
-              <input type="text" name="direccionCompany" id="direccion-company" class="form__input" placeholder=" " required>
+              <input type="text" name="direccionCompany" id="direccion-company" class="form__input" placeholder=" " required autocomplete="off">
               <label for="direccion-company" class="form__label">Dirección:</label>
               <span class="form__line"></span>
             </article>
             <article class="form__group">
+              <span class="span__file--info">Sube tu logo(500x500px)</span>
               <button type="button" class="form__btn form__btn--upload" id="btn-upload">Subir imagen</button>
               <input type="file" name="imagenCompany" id="imagen-company" class="form__input form__input--upload" accept="image/*" required hidden>
               <span class="span__file" hidden>Imágen cargada: <span class="span__file__name"></span></span>
@@ -46,7 +47,7 @@
 <section class="modal__fixed">
   <div class="flex-c-c modal modal__image__previsualizar">
     <article class="flex-c-c article__modal">
-      <h5 class="modal__title">Confirmar imagen</h5>
+      <h5 class="modal__title">Ajustar imagen</h5>
       <figure class="previsualizar__figure">
         <img src="" alt="Previsualizar imagen" class="previsualizar__img">
       </figure>
@@ -76,11 +77,12 @@
           $closeModal = document.querySelector(".close__modal--previsualizar"),
           $btnConfirmImg = document.getElementById("confirm-image"),
           $btnReupload = document.getElementById("btn-reupload"),
+          $spanFileInfo = document.querySelector(".span__file--info"),
           $spanFile = document.querySelector(".span__file"),
           $spanFileName = document.querySelector(".span__file__name"),
           $btnSubmit = document.getElementById("btn-submit");
 
-    let fileName = "";
+    let cropper, fileName = "";
 
     // Eventos
     $btnUpload.addEventListener("click", () => {
@@ -98,6 +100,14 @@
         console.log("reader: ", reader);
         reader.onload = p => {
           $imgPrevisualizar.src = p.target.result;
+          if (cropper) {
+            cropper.destroy();
+          }
+          cropper = new Cropper($imgPrevisualizar, {
+            aspectRatio: 1/1,
+            viewMode: 1,
+            guides: true,
+          });
           $modalPrevisualizar.classList.add("modal__show");
         };
         reader.readAsDataURL(file);
@@ -110,18 +120,38 @@
     // Evento para cerrar el modal
     $closeModal.addEventListener("click", () => {
       $modalPrevisualizar.classList.remove("modal__show");
+      $spanFileInfo.hidden = false;
       $imgCompany.value = "";
+      if (cropper) {
+        cropper.destroy();
+      }
     });
 
     // Evento para confirmar la imagen
     $btnConfirmImg.addEventListener("click", () => {
-      $modalPrevisualizar.classList.remove("modal__show");
-      $btnUpload.remove();
-      $spanFile.hidden = false;
-      $btnReupload.hidden = false;
-      $spanFileName.textContent = fileName;
-      $btnSubmit.hidden = false;
-      console.log("Input File: ", $imgCompany.value);
+      const canvas = cropper.getCroppedCanvas({
+        width: 500,
+        height: 500,
+        imageSmoothingEnabled: false,
+        imageSmoothingQuality: "high"
+      });
+
+      canvas.toBlob(blob => {
+        const newFile = new File([blob], fileName, {type: blob.type});
+        // Crear un DataTransfer para reemplazar el archivo
+        const dataTransfer = new DataTransfer();
+        dataTransfer.items.add(newFile);
+        $imgCompany.files = dataTransfer.files;
+        $modalPrevisualizar.classList.remove("modal__show");
+        $btnUpload.remove();
+        $spanFile.hidden = false;
+        $spanFileInfo.hidden = true;
+        $btnReupload.hidden = false;
+        $spanFileName.textContent = fileName;
+        $btnSubmit.hidden = false;
+        console.log("Tamaño del recorte: ", canvas.width, canvas.height);
+        console.log("Input File: ", $imgCompany.value);
+      }, "image/jpeg");
     });
 
     // Evento para envio de formulario

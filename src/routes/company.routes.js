@@ -1,6 +1,8 @@
 const {Router} = require("express");
 const router = Router();
 
+const upload = require("../config/multer");
+
 const {
   renderRegisterCompany,
   registerCompany,
@@ -11,7 +13,7 @@ const {
 router.get("/company/register", renderRegisterCompany);
 
 // Registrar compañia
-router.post("/company/register", registerCompany);
+router.post("/company/register", upload.single("imagenCompany"), registerCompany);
 
 // Mostrar detalles de una compañía
 router.get("/company/:id/details", renderDetailsCompany);

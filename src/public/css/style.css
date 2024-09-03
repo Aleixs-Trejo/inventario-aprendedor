@@ -204,14 +204,25 @@ input[type="number"]::-webkit-outer-spin-button{
 
 .form__img{
   width: 40%;
+  aspect-ratio: 1/1;
   margin: 2rem auto;
   border-radius: 50%;
   overflow: hidden;
   box-shadow: 1px 1px 15px -5px #0008;
 }
 
+.login__figure{
+  width: 100%;
+  height: 100%;
+}
+
+.login__img{
+  width: 100%;
+  height: 100%;
+}
+
 .form {
-  padding: 2rem;
+  padding: 1.5rem;
   background-color: #fff;
   width: 100%;
   max-width: 25em;
@@ -225,7 +236,9 @@ input[type="number"]::-webkit-outer-spin-button{
   overflow: hidden;
 }
 
-.form__container{
+.form__container,
+.form__container--groups,
+.form__groups{
   display: flex;
   flex-direction: column;
   gap: 2rem;
@@ -251,6 +264,13 @@ input[type="number"]::-webkit-outer-spin-button{
 .form__group:has(.span__file) {
   flex-direction: column;
 
+  & .span__file--info {
+    color: var(--color__fondo);
+    font-size: 0.85rem;
+    margin-top: -0.5rem;
+    padding-bottom: 1rem;
+    text-align: start;
+  }
   & .span__file {
     color: var(--color__flash--bg__top__ok);
     font-size: 0.75rem;
@@ -333,9 +353,16 @@ input[type="number"]::-webkit-outer-spin-button{
   padding: 0.5rem;
   border-radius: 0.5rem;
   text-align: center;
-  font-size: 1rem;
-  background-color: #ccc;
-  color: #333;
+  font-size: 0.85rem;
+  font-weight: 300;
+  background-color: #7d7d7d;
+  color: #eee;
+  transition: all 0.3s ease;
+
+  &:hover {
+    background-color: #404040;
+    color: #ccc;
+  }
 }
 
 .form__input:focus +.form__label,
@@ -349,6 +376,87 @@ input[type="number"]::-webkit-outer-spin-button{
 .form__input:not(:placeholder-shown) ~ .form__line{
   transform: scale(1);
 }
+
+.form__groups--permisos{
+  gap: 1rem;
+  & .form__group__header {
+    color: #494949;
+    text-align: start;
+  }
+  & .form__group--permisos {
+    flex-direction: column;
+    align-items: flex-start;
+    & .permisos__header {
+      cursor: pointer;
+      width: 100%;
+      padding-block: 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-radius: 0.5rem;
+      transition: all 0.3s ease;
+      &:hover {
+        background-color: #eee;
+      }
+      & .permisos__span{
+        font-size: 1rem;
+        color: #777;
+      }
+      & .permisos__header__figure {
+        width: 1.5rem;
+        aspect-ratio: 1/1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 0.5rem;
+        transform: rotateZ(0);
+        transition: all 0.3s ease;
+      }
+    }
+    & .permisos__container {
+      width: 100%;
+      padding-bottom: 0.5rem;
+      display: grid;
+      border-bottom: 2px solid #ccc;
+      grid-template-rows: 0fr;
+      transition: all 0.3s ease;
+      &.permisos__container--show{
+        grid-template-rows: 1fr;
+      }
+      & .permisos__group{
+        overflow: hidden;
+        & .permissions__header {
+          display: flex;
+        }
+        & .permissions__container{
+          & .permissions__item{
+            display: flex;
+          }
+        }
+      }
+    }
+    &:has(.permisos__container--show) .permisos__header__figure{
+      transform: rotateZ(180deg);
+    }
+  }
+}
+
+.permissions__header,
+.permissions__item {
+  gap: 0.3rem;
+}
+
+.section__permisos{
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.permissions__header .permissions__label,
+.permissions__container .permissions__label {
+  color: #666;
+}
+
 
 .form__submit {
   background-color: #3866f2;
@@ -3960,6 +4068,15 @@ input[type="number"]::-webkit-outer-spin-button{
 }
 
 @media screen and (width >= 64rem){
+  /***************** FORMS *****************/
+  .form:has(.form__container--groups){
+    max-width: 35rem;
+  }
+
+  .form__container--groups{
+    flex-direction: row;
+  }
+
   /***************** MAIN *****************/
   .container{
     max-width: unset;

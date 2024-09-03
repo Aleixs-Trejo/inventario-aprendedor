@@ -26,11 +26,17 @@ companyCtrl.registerCompany = async (req, res) => {
       nombreCompany,
       celularCompany,
       correoCompany,
-      direccionCompany,
-      imagenCompany
+      direccionCompany
     } = req.body;
 
+    const {
+      filename
+    } = req.file;
+
+    const imagenCompany = filename;
+
     console.log("req.body: ", req.body);
+    console.log("req.file: ", req.file);
 
     // Validar si hay otra empresa registrada
     const existingCompany = await Company.findOne().lean();
@@ -62,8 +68,8 @@ companyCtrl.registerCompany = async (req, res) => {
         console.log("El campo Dirección no ha sido llenado, intente nuevamente.");
         return res.redirect("/company/register");
       }
-      if (!imagenCompany) {
-        req.flash("wrong", "El campo Imagen no ha sido llenado, intente nuevamente.");
+      if (!req.file) {
+        req.flash("wrong", "El campo Imagen no ha sido llenado, intente nuevamente. Por favor, sube una imagen.");
         console.log("El campo Imagen no ha sido llenado, intente nuevamente.");
         return res.redirect("/company/register");
       }
@@ -79,7 +85,8 @@ companyCtrl.registerCompany = async (req, res) => {
 
       await newCompany.save();
       req.flash("success", "Empresa registrada exitosamente.");
-      return res.redirect("/user-rol/register");
+      console.log("Empresa registrada exitosamente.");
+      return res.redirect("/users-rol/register");
     } else {
       req.flash("wrong", "Ya tienes una empresa registrada.");
       return res.redirect("/");

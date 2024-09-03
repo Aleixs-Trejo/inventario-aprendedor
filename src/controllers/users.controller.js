@@ -5,6 +5,7 @@ const User = require("../models/userModel");
 const Employee = require("../models/employeeModel");
 const UserHistory = require("../models/userHistoryModel");
 const Company = require("../models/companyModel");
+const UserRol = require("../models/userRolModel");
 
 //Registrar usuarios
 usersCtrl.renderRegisterUser = async (req, res) => {
@@ -18,9 +19,27 @@ usersCtrl.renderRegisterUser = async (req, res) => {
       }
     })
     .lean();
+    const company = await Company.findOne({eliminadoCompany: false}).lean();
+    const userRol = await UserRol.find().lean();
+
+    if (employees.length === 0) {
+      return res.redirect("/employees/register");
+    }
+
+    if (userRol.length === 0) {
+      return res.redirect("/users-rol/register");
+    }
+
+    if (company.length === 0) {
+      return res.redirect("/company/register");
+    }
 
     console.log("Empleados: ", employees);
-    res.render("users/new-user", { employees });
+    res.render("users/new-user", {
+      employees,
+      company,
+      logoUrl: company.imagenCompany ? `/uploads/${company.imagenCompany}` : `/assets/logo-aprendedor.webp`
+    });
   } catch (error) {
     req.flash("wrong", "Ocurrió un error, intente nuevamente");
     console.log(error);
@@ -85,7 +104,7 @@ usersCtrl.registerUser = async (req, res) => {
         await newUserHistory.save();
 
         req.flash("success", "Usuario registrado exitosamente");
-        res.redirect("/users");
+        res.redirect("/");
       }
     }
   } catch (error) {
@@ -101,6 +120,15 @@ usersCtrl.renderLoginUser = async (req, res) => {
   }
   if (await Company.countDocuments() === 0) {
     return res.redirect("/company/register");
+  }
+  if (await UserRol.countDocuments() === 0) {
+    return res.redirect("/users-rol/register");
+  }
+  if (await Employee.countDocuments() === 0) {
+    return res.redirect("/employees/register");
+  }
+  if (await User.countDocuments() === 0) {
+    return res.redirect("/users/register");
   }
   res.render("users/login");
 }

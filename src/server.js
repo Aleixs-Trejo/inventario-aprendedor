@@ -5,7 +5,6 @@ const morgan = require("morgan");
 const flash = require("connect-flash");
 const session = require("express-session");
 const passport = require("passport");
-const jwt = require("jsonwebtoken");
 const coockieParser = require("cookie-parser");
 const { formatDateTime } = require("./helpers/date");
 const { formatCurrency } = require("./helpers/currency");
@@ -52,7 +51,6 @@ app.use(passport.session());
 app.use(flash());
 // Middleware para analizar cuerpos de solicitud JSON
 app.use(express.json());
-
 
 //Global Variables
 app.use((req, res, next) => {

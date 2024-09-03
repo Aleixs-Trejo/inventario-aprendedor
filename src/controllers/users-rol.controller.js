@@ -13,10 +13,12 @@ usersRolCtrl.renderRegisterUserRol = async (req, res) => {
     if (!company) {
       return res.redirect("/company/register");
     }
-    const base64Image = company.imagenCompany.toString("base64");
     console.log("Company: ", company);
-    console.log("Base64 Image: ", base64Image);
-    res.render("users-rol/new-user-rol", {user, base64Image, company});
+    res.render("users-rol/new-user-rol", {
+      user,
+      company,
+      logoUrl: company.imagenCompany ? `/uploads/${company.imagenCompany}` : `/assets/logo-aprendedor.webp`
+    });
   } catch (error) {
     req.flash("wrong", "Ocurrió un error, intente nuevamente.");
     console.log("Error: ", error);
@@ -34,6 +36,10 @@ usersRolCtrl.registerUserRol = async (req, res) => {
 
     console.log("req.body: ", req.body);
     console.log("permisosRol: ", permisosRol);
+    if (!permisosRol) {
+      req.flash("wrong", "Debe seleccionar al menos un permiso");
+      return res.redirect("/users-rol/register");
+    }
 
     const newUserRol = new UserRol({
         nombreRol,
