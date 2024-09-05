@@ -1208,6 +1208,11 @@ input[type="number"]::-webkit-outer-spin-button{
   height: calc(100dvh - var(--header__height));
 }
 
+.body:has(.header) .main__content:has(.index__main) {
+  height: unset;
+  min-height: 100dvh;
+}
+
 .body:not(:has(.aside)) .main {
   width: 100%;
 }
@@ -1423,8 +1428,8 @@ input[type="number"]::-webkit-outer-spin-button{
 /***************** INDEX *****************/
 .profile__content{
   width: 4rem;
-  background-color: var(--color__aside);
   background-color: var(--color__fondo);
+  background-color: var(--color__aside);
   height: 100%;
 }
 

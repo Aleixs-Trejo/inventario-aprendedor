@@ -20,8 +20,8 @@ const {
 } = require("../helpers/auth");
 
 //Registro de usuarios
-router.get("/users/register", renderRegisterUser);
-router.post("/users/register", registerUser);
+router.get("/users/register", isAuthenticated, renderRegisterUser);
+router.post("/users/register", isAuthenticated, registerUser);
 
 //Inicio de sesión
 router.get("/users/login", renderLoginUser);

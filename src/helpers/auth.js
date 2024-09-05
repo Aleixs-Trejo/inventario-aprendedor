@@ -1,9 +1,23 @@
 const helpers = {};
 
 const User = require("../models/userModel");
-const Company = require("../models/companyModel");
 
 helpers.isAuthenticated = async (req, res, next) => {
+  // Verificar si hay usuarios registrados
+  const users = await User.find({eliminadoUsuario: false})
+    .populate({
+      path: "trabajadorUsuario",
+      populate: {
+        path: "rolTrabajador"
+      }
+    })
+    .lean();
+  
+  // Si no hay usuarios registrados, continuar sin autenticación
+  if (users.length === 0) {
+    return next();
+  }
+
   if (req.isAuthenticated()){
     const userId = req.user._id;
     const user = await User.findById(userId)

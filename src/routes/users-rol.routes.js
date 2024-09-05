@@ -16,8 +16,8 @@ const {
 } = require("../helpers/auth");
 
 //Registro de Rol
-router.get("/users-rol/register", renderRegisterUserRol);
-router.post("/users-rol/register", registerUserRol);
+router.get("/users-rol/register", isAuthenticated, renderRegisterUserRol);
+router.post("/users-rol/register", isAuthenticated, registerUserRol);
 
 //Mostrar Roles
 router.get("/users-rol", isAuthenticated, isAdmin, renderUsersRol);

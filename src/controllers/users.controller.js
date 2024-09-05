@@ -21,6 +21,7 @@ usersCtrl.renderRegisterUser = async (req, res) => {
     .lean();
     const company = await Company.findOne({eliminadoCompany: false}).lean();
     const userRol = await UserRol.find().lean();
+    const users = await User.find({eliminadoUsuario: false})
 
     if (employees.length === 0) {
       return res.redirect("/employees/register");
@@ -34,7 +35,11 @@ usersCtrl.renderRegisterUser = async (req, res) => {
       return res.redirect("/company/register");
     }
 
-    console.log("Empleados: ", employees);
+    if (users.length > 0) {
+      req.flash("wrong", "Debe iniciar sesión antes de continuar");
+      return res.redirect("/");
+    } 
+
     res.render("users/new-user", {
       employees,
       company,
@@ -115,19 +120,38 @@ usersCtrl.registerUser = async (req, res) => {
 
 //Inicio de sesión
 usersCtrl.renderLoginUser = async (req, res) => {
+  const company = await Company.findOne({eliminadoCompany: false}).lean();
+  const userRol = await UserRol.find().lean();
+  const employees = await Employee.find({ eliminadoTrabajador: false })
+    .populate({
+      path: "rolTrabajador",
+      populate: {
+        path: "nombreRol"
+      }
+    })
+    .lean();
+  const users = await User.find({eliminadoUsuario: false})
+    .populate({
+      path: "trabajadorUsuario",
+      populate: {
+        path: "rolTrabajador"
+      }
+    })
+    .lean();
+
   if (req.isAuthenticated()) {
     return res.redirect("/principal");
   }
-  if (await Company.countDocuments() === 0) {
+  if (!company) {
     return res.redirect("/company/register");
   }
-  if (await UserRol.countDocuments() === 0) {
+  if (userRol.length === 0) {
     return res.redirect("/users-rol/register");
   }
-  if (await Employee.countDocuments() === 0) {
+  if (employees.length === 0) {
     return res.redirect("/employees/register");
   }
-  if (await User.countDocuments() === 0) {
+  if (users.length === 0) {
     return res.redirect("/users/register");
   }
   res.render("users/login");

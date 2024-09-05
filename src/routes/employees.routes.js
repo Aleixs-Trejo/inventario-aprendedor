@@ -19,8 +19,8 @@ const {
 } = require("../helpers/auth");
 
 //Registro de trabajador
-router.get("/employees/register", renderRegisterEmployee);
-router.post("/employees/register", registerEmployee);
+router.get("/employees/register", isAuthenticated, renderRegisterEmployee);
+router.post("/employees/register", isAuthenticated, registerEmployee);
 
 //Mostrar Trabajadores
 router.get("/employees", isAuthenticated, isAdmin, renderEmployees);

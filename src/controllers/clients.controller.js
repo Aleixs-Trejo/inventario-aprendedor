@@ -3,6 +3,7 @@ const clientsCtrl = {};
 const XLSX = require("xlsx");
 const Client = require("../models/clientModel");
 const ClientHistory = require("../models/clientHistoryModel");
+const Company = require("../models/companyModel");
 
 //Registrar un nuevo cliente
 clientsCtrl.renderRegisterClient = (req, res) => {
@@ -111,10 +112,13 @@ clientsCtrl.renderClients = async (req, res) => {
     .populate("usuarioRegistroCliente")
     .lean();
 
+    const company = await Company.findOne({eliminadoCompany: false}).lean();
+
     const userRole = req.user.trabajadorUsuario.rolTrabajador.nombreRol;
     res.render("clients/all-clients", {
       clients,
       userRole,
+      company
     });
   } catch (error) {
     req.flash("wrong", "Ocurrió un error, intente nuevamente.");

@@ -59,6 +59,12 @@ app.use((req, res, next) => {
   res.locals.error = req.flash("error");
   res.locals.company = req.company || null;
   res.locals.user = req.user || null;
+
+  if (req.company) {
+    res.locals.logoUrl = req.company.imagenCompany ? `/uploads/${req.company.imagenCompany}` : `/assets/logo-aprendedor.webp`;
+  } else {
+    res.locals.logoUrl = `/assets/logo-aprendedor.webp`;
+  }
   next();
 })
 

@@ -1,20 +1,20 @@
 const multer = require("multer");
 const path = require("path");
 
-// Configuración de almacenamiento de multer
+// Configuración de almacenamiento
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     const uploadPath = path.join(__dirname, "../public/uploads");
     cb(null, uploadPath);
   },
   filename: (req, file, cb) => {
-    cb(null, Date.now() + path.extname(file.originalname)); // Aquí se asigna el nombre del archivo
+    cb(null, Date.now() + path.extname(file.originalname)); // Nombre de archivo
   }
 });
 
-// Filtro para aceptar solo ciertos archivos
-const fileFilter = (req, file, cb) => {
-  const filetypes = /jpeg|jpg|png|gif/;
+// Filtro para archivos
+const fileFilter = (_, file, cb) => {
+  const filetypes = /jpeg|jpg|png|gif|webp/;
   const mimetype = filetypes.test(file.mimetype);
   const extname = filetypes.test(path.extname(file.originalname).toLowerCase());
 

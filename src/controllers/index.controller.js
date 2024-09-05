@@ -5,6 +5,7 @@ const Users = require("../models/userModel");
 const Sales = require("../models/saleModel");
 const Products = require("../models/productHistoryModel");
 const UsersHistory = require("../models/userHistoryModel");
+const Company = require("../models/companyModel");
 
 indexCtrl.renderIndex = async (req, res) => {
   try {
@@ -68,11 +69,16 @@ indexCtrl.renderIndex = async (req, res) => {
       .sort({createdAt: -1})
       .lean();
 
+    const company = await Company.findOne({eliminadoCompany: false}).lean();
+
+    console.log("Company: ", company);
     res.render("index", {
       user,
       sales,
       products,
-      users
+      users,
+      company,
+      logoUrl: company.imagenCompany ? `/uploads/${company.imagenCompany}` : `/assets/logo-aprendedor.webp`
     });
   } catch (error) {
     req.flash("wrong", "Ocurrió un error al renderizar la página de inicio, intente nuevamente.");

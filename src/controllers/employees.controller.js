@@ -4,6 +4,7 @@ const XLSX = require("xlsx");
 const Employee = require("../models/employeeModel");
 const UserRol = require("../models/userRolModel");
 const EmployeeHistory = require("../models/employeeHistoryModel");
+const User = require("../models/userModel");
 const Company = require("../models/companyModel");
 
 //Registro de trabajador
@@ -11,12 +12,21 @@ employeeCtrl.renderRegisterEmployee = async (req, res) => {
   try {
     const roles = await UserRol.find().lean();
     const company = await Company.findOne({eliminadoCompany: false}).lean();
+    const users = await User.find({eliminadoUsuario: false})
+      .populate({
+        path: "trabajadorUsuario",
+        populate: {
+          path: "rolTrabajador"
+        }
+      })
+      .lean();
     if (roles.length === 0) {
       return res.redirect("/users-rol/register");
     }
     if (company.length === 0) {
       return res.redirect("/company/register");
     }
+
     res.render("employees/new-employee", {
       roles,
       company,
