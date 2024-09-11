@@ -5,6 +5,14 @@
         <div class="form__content">
           <h2 class="form__title">Registra tu negocio</h2>
           <section class="form__container">
+            <article class="form__group form__group--select"></article>
+              <select name="comercioCompany" id="comercio-company" class="form__input" required>
+                <option selected disabled value="">Comercio:</option>
+                <option value="minimarket">Minimarket</option>
+                <option value="hotel">Hotel</option>
+                <option value="minimarkethotel">Minimarket + Hotel</option>
+              </select>
+            </article>
             <article class="form__group">
               <input type="text" name="rucCompany" id="ruc-company" class="form__input" maxlength="11" placeholder=" " inputmode="numeric" required onkeypress="return event.charCode >= 48 && event.charCode <= 57" autocomplete="off">
               <label for="ruc-company" class="form__label">RUC:</label>

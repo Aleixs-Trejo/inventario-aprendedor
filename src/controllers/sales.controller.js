@@ -9,14 +9,21 @@ const SaleHistory = require("../models/salesHistoryModel");
 const Balance = require("../models/balanceModel");
 const Store = require("../models/storeModel");
 const Client = require("../models/clientModel");
+const Company = require("../models/companyModel");
 
 // Renderizar vista de nueva venta
 salesCtrl.renderRegisterSale = async (req, res) => {
   try {
-    const sales = await Sale.find().lean();
     const clients = await Client.find({eliminadoCliente: false})
       .sort({dniCliente: -1})
       .lean();
+    
+    if (!clients) {
+      req.flash("wrong", "No hay clientes registrados.");
+      console.log("No hay clientes registrados.");
+      return res.redirect("/clients/register");
+    }
+
     const stores = await Store.find({eliminadoProductoAlmacen: false})
       .populate({
         path: "almacenProducto",
@@ -26,10 +33,15 @@ salesCtrl.renderRegisterSale = async (req, res) => {
       })
       .sort({almacenStock: -1})
       .lean();
+
+    if (!stores) {
+      req.flash("wrong", "No hay productos en Almacén.");
+      console.log("No hay productos en Almacén.");
+      return res.redirect("/stores/register");
+    }
+
     const currentUser = req.user;
-    console.log("stores: ", stores);
     res.render("sales/new-sale", {
-      sales,
       currentUser,
       clients,
       stores
@@ -45,6 +57,15 @@ salesCtrl.renderRegisterSale = async (req, res) => {
 salesCtrl.searchClient = async (req, res) => {
   try {
     const cliente = await Client.findOne({dniCliente: req.params.dniCliente, eliminadoCliente: false});
+    if (!cliente) {
+      const newClient = new Client({
+        usuarioRegistroCliente: req.user._id,
+        dniCliente: "00000000",
+        nombreCliente: "Cliente Varios",
+        eliminadoCliente: false
+      });
+      await newClient.save();
+    }
     console.log("Buscando Cliente: ", cliente);
     if (cliente) {
       res.json({success: true, cliente});
@@ -326,33 +347,40 @@ salesCtrl.generateBillPDF = async (req, res) => {
       return res.redirect("/sales");
     }
 
+    const company = await Company.findOne({eliminadoCompany: false}).lean();
+
     // Generar el PDF
     const pdfBuffer = await generatePDF(`http://127.0.0.1:${process.env.PORT}/sales/${id}/bill`);
 
     // Enviar el PDF a correo
-    let mailClient = sale.clienteVenta.correoCliente || "alexistrejoxd1@gmail.com";
+    let mailClient = sale.clienteVenta.correoCliente || "null";
+    const mailCompany = company.correoCompany;
     console.log("mailClient: ", mailClient);
-    const mailOptions = {
-      to: mailClient,
-      from: "alexistrejoxd@gmail.com",
-      subject: "Boleta de venta Electrónica",
-      text: "Adjuntamos la boleta de venta electrónica de su compra.",
-      attachments: [
-        {
-          filename: `boleta-venta-${id}.pdf`,
-          content: pdfBuffer,
-          contentType: "application/pdf"
-        }
-      ]
-    };
+    if (mailClient) {
+      const mailOptions = {
+        to: mailClient,
+        from: mailCompany,
+        subject: "Boleta de venta Electrónica",
+        text: "Adjuntamos la boleta de venta electrónica de su compra.",
+        attachments: [
+          {
+            filename: `boleta-venta-${id}.pdf`,
+            content: pdfBuffer,
+            contentType: "application/pdf"
+          }
+        ]
+      };
 
-    try {
-      await transporter.sendMail(mailOptions);
-      console.log("Boleta de venta enviada exitosamente a correo.");
-    } catch (error) {
-      req.flash("wrong", "Ocurrió un error al enviar el PDF a correo, intente nuevamente.");
-      console.log("Error: ", error);
+      try {
+        await transporter.sendMail(mailOptions);
+        console.log("Boleta de venta enviada exitosamente a correo.");
+      } catch (error) {
+        req.flash("wrong", "Ocurrió un error al enviar el PDF a correo, intente nuevamente.");
+        console.log("Error: ", error);
+        return res.redirect("/sales");
+      }
     }
+
 
     res.setHeader("Content-Type", "application/pdf");
     res.setHeader("Access-Control-Allow-Origin", "*");

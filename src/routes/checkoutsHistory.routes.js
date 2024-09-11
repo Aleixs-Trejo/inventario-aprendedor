@@ -7,10 +7,10 @@ const {
 
 const {
   isAuthenticated,
-  isAdmin
+  havePermission
 } = require("../helpers/auth");
 
 // Renderizar la vista de historial de checkouts
-router.get("/checkouts/history", isAuthenticated, isAdmin, renderCheckOutHotelHistory);
+router.get("/checkouts/history", isAuthenticated, havePermission("historial-checkout-hotel"), renderCheckOutHotelHistory);
 
 module.exports = router;

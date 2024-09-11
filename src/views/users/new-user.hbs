@@ -69,38 +69,48 @@
   </div>
 </section>
 <script>
-  const trabajadorSelect = document.getElementById('trabajador_user');
-  const usuarioInput = document.getElementById('user');
+  document.addEventListener("DOMContentLoaded", () => {
+    const trabajadorSelect = document.getElementById('trabajador_user');
+    const usuarioInput = document.getElementById('user');
 
-  trabajadorSelect.addEventListener('change', () => {
-    const selectedOption = trabajadorSelect.options[trabajadorSelect.selectedIndex];
-    const nombre = selectedOption.getAttribute('data-nombre');
-    const apellido = selectedOption.getAttribute('data-apellido').split(" ")[0];
-    const dni = selectedOption.getAttribute('data-dni').slice(-4);
+    usuarioInput.addEventListener('input', e => {
+      let input = e.target;
+      // Validar escritura solo minúsculas
+      input.value = input.value.toLowerCase();
+    });
 
-    // Generar nombre de usuario
-    const nombreUsuario = (nombre.charAt(0) + apellido + dni).toLowerCase();
+    trabajadorSelect.addEventListener('change', () => {
+      const selectedOption = trabajadorSelect.options[trabajadorSelect.selectedIndex];
+      const nombre = selectedOption.getAttribute('data-nombre');
+      const apellido = selectedOption.getAttribute('data-apellido').split(" ")[0];
+      const dni = selectedOption.getAttribute('data-dni').slice(-4);
 
-    // Verificar si hay usuario esixtente
-    let usernameCount = 1;
-    let username = nombreUsuario;
-    while (document.querySelector(`option[value="${username}"]`) !== null) {
-      usernameCount++;
-      username = `${nombreUsuario}${usernameCount}`;
-    }
+      // Generar nombre de usuario
+      const nombreUsuario = (nombre.charAt(0) + apellido + dni).toLowerCase();
 
-    // Asignar el nombre de usuario al input
-    usuarioInput.value = username;
-  });
+      // Verificar si hay usuario esixtente
+      let usernameCount = 1;
+      let username = nombreUsuario;
+      while (document.querySelector(`option[value="${username}"]`) !== null) {
+        usernameCount++;
+        username = `${nombreUsuario}${usernameCount}`;
+      }
 
-  // Cambiar de tipo password a text
-  const passwordInput = document.getElementById('password_user');
-  const confirmInput = document.getElementById('confirm_password_user');
-  const togglePasswordCheckbox = document.getElementById('togglePassword');
+      // Asignar el nombre de usuario al input
+      usuarioInput.value = username;
+    });
 
-  togglePasswordCheckbox.addEventListener('change', function () {
-    const type = this.checked ? 'text' : 'password';
-    passwordInput.setAttribute('type', type);
-    confirmInput.setAttribute('type', type);
+    // Cambiar de tipo password a text
+    const passwordInput = document.getElementById('password_user');
+    const confirmInput = document.getElementById('confirm_password_user');
+    const togglePasswordCheckbox = document.getElementById('togglePassword');
+
+    togglePasswordCheckbox.addEventListener('change', function () {
+      const type = this.checked ? 'text' : 'password';
+      passwordInput.setAttribute('type', type);
+      confirmInput.setAttribute('type', type);
+    });
+
+    
   });
 </script>

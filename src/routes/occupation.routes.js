@@ -20,48 +20,48 @@ const {
 
 const {
   isAuthenticated,
-  isAdmin
+  havePermission
 } = require("../helpers/auth");
 
 // Renderizar formulario de ocupación de la habitación
-router.get("/occupation/:id/register", isAuthenticated, isAdmin, renderRegisterOccupation);
+router.get("/occupation/:id/register", isAuthenticated, havePermission("crear-ocupacion"), renderRegisterOccupation);
 // Registar ocupación de la habitación
-router.post("/occupation/:id/register", isAuthenticated, isAdmin, registerOccupation);
+router.post("/occupation/:id/register", isAuthenticated, havePermission("crear-ocupacion"), registerOccupation);
 
 // Renderizar todas las ocupaciones de la habitación
-router.get("/occupations", isAuthenticated, isAdmin, renderAllOccupations);
+router.get("/occupations", isAuthenticated, havePermission("ver-ocupacion"), renderAllOccupations);
 
 // Renderizar detalles de una ocupación de la habitación
-router.get("/occupation/:id/details", isAuthenticated, isAdmin, renderDetailOccupation);
+router.get("/occupation/:id/details", isAuthenticated, havePermission("ver-detalle-ocupacion"), renderDetailOccupation);
 
 // Renderizar formulario para editar la ocupación de la habitación
-router.get("/occupation/:id/edit", isAuthenticated, isAdmin, renderEditOccupation);
+router.get("/occupation/:id/edit", isAuthenticated, havePermission("editar-ocupacion"), renderEditOccupation);
 
 // Actualizar la ocupación de la habitación
-router.post("/occupation/:id/edit", isAuthenticated, isAdmin, updateOccupation);
+router.post("/occupation/:id/edit", isAuthenticated, havePermission("editar-ocupacion"), updateOccupation);
 
 // Renderizar formulario de venta de la ocupación
-router.get("/occupation/:id/sale", isAuthenticated, isAdmin, renderSaleOccupation);
+router.get("/occupation/:id/sale", isAuthenticated, havePermission("venta-ocupacion"), renderSaleOccupation);
 
 // Registrar venta de la ocupación
-router.post("/occupation/:id/sale", isAuthenticated, isAdmin, registerSaleOccupation);
+router.post("/occupation/:id/sale", isAuthenticated, havePermission("venta-ocupacion"), registerSaleOccupation);
 
 // Cancelar venta de la ocupación
-router.get("/occupation/sale/:id/cancel", isAuthenticated, isAdmin, cancelSaleOccupation);
+router.get("/occupation/sale/:id/cancel", isAuthenticated, havePermission("venta-ocupacion"), cancelSaleOccupation);
 
 // Renderizar formulario de limpieza intermedia
-router.get("/occupation/:id/clean", isAuthenticated, isAdmin, renderCleaningRoomOccupation);
+router.get("/occupation/:id/clean", isAuthenticated, havePermission("limpieza-ocupacion"), renderCleaningRoomOccupation);
 
 // Limpieza intermedia de la habitación
-router.post("/occupation/:id/cleaning", isAuthenticated, isAdmin, cleaningRoomOccupation);
+router.post("/occupation/:id/cleaning", isAuthenticated, havePermission("limpieza-ocupacion"), cleaningRoomOccupation);
 
 // Finalizar limpieza intermedia de la habitación
-router.get("/occupation/:id/clean/finalize", isAuthenticated, isAdmin, finalizeCleaningRoomOccupation);
+router.get("/occupation/:id/clean/finalize", isAuthenticated, havePermission("limpieza-ocupacion"), finalizeCleaningRoomOccupation);
 
 // Renderizar checkout la ocupación
-router.get("/occupation/:id/checkout", isAuthenticated, isAdmin, renderCheckOutHotel);
+router.get("/occupation/:id/checkout", isAuthenticated, havePermission("finalizar-ocupacion"), renderCheckOutHotel);
 
 // Checkout la ocupación
-router.post("/occupation/:id/checkout", isAuthenticated, isAdmin, checkOutHotel);
+router.post("/occupation/:id/checkout", isAuthenticated, havePermission("finalizar-ocupacion"), checkOutHotel);
 
 module.exports = router;

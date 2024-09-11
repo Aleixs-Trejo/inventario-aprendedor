@@ -2,6 +2,7 @@ const usersRolCtrl = {};
 
 const UserRol = require("../models/userRolModel");
 const User = require("../models/userModel");
+const Employee = require("../models/employeeModel");
 const Company = require("../models/companyModel");
 
 //Creacion de roles
@@ -13,11 +14,9 @@ usersRolCtrl.renderRegisterUserRol = async (req, res) => {
     if (!company) {
       return res.redirect("/company/register");
     }
-    console.log("Company: ", company);
+
     res.render("users-rol/new-user-rol", {
-      user,
-      company,
-      logoUrl: company.imagenCompany ? `/uploads/${company.imagenCompany}` : `/assets/logo-aprendedor.webp`
+      user
     });
   } catch (error) {
     req.flash("wrong", "Ocurrió un error, intente nuevamente.");
@@ -28,14 +27,23 @@ usersRolCtrl.renderRegisterUserRol = async (req, res) => {
 
 usersRolCtrl.registerUserRol = async (req, res) => {
   try {
+    const employees = await Employee.find({eliminadoTrabajador: false})
+      .populate({
+        path: "usuarioRegistroTrabajador",
+        populate: {
+          path: "trabajadorUsuario",
+          populate: "rolTrabajador"
+        }
+      })
+      .populate("rolTrabajador")
+      .lean();
+
     const {
       nombreRol,
       descripcionRol,
       permisosRol
     } = req.body;
 
-    console.log("req.body: ", req.body);
-    console.log("permisosRol: ", permisosRol);
     if (!permisosRol) {
       req.flash("wrong", "Debe seleccionar al menos un permiso");
       return res.redirect("/users-rol/register");
@@ -48,6 +56,10 @@ usersRolCtrl.registerUserRol = async (req, res) => {
       });
     await newUserRol.save() //Guardar en la BD
     req.flash("success", "Rol creado exitosamente");
+    if (employees.length === 0) {
+      console.log("Employees: ", employees.length);
+      return res.redirect("/employees/register");
+    }
     res.redirect("/users-rol");
   } catch (error) {
     req.flash("wrong", "Ocurrió un error, intente nuevamente.");
@@ -60,10 +72,13 @@ usersRolCtrl.registerUserRol = async (req, res) => {
 usersRolCtrl.renderUsersRol = async (req, res) => {
   try {
     const usersRol = await UserRol.find().lean();
+    const company = await Company.findOne({eliminadoCompany: false}).lean();
     const userRole = req.user.trabajadorUsuario.rolTrabajador.nombreRol;
     res.render("users-rol/all-users-rol", {
       usersRol,
-      userRole
+      userRole,
+      company,
+      logoUrl: company.imagenCompany ? `/uploads/${company.imagenCompany}` : `/assets/logo-aprendedor.webp`
     });
   } catch (error) {
     req.flash("wrong", "Ocurrió un error, intente nuevamente.");
@@ -75,8 +90,14 @@ usersRolCtrl.renderUsersRol = async (req, res) => {
 //Editar roles
 usersRolCtrl.renderEditUserRol = async (req, res) => {
   try {
-    const userRol = await UserRol.findById(req.params.id).lean();
-    res.render("users-rol/edit-user-rol", {userRol});
+    const {id} = req.params;
+    const userRol = await UserRol.findById(id).lean();
+    const company = await Company.findOne({eliminadoCompany: false}).lean();
+    res.render("users-rol/edit-user-rol", {
+      userRol,
+      company,
+      logoUrl: company.imagenCompany ? `/uploads/${company.imagenCompany}` : `/assets/logo-aprendedor.webp`
+    });
   } catch (error) {
     req.flash("wrong", "Ocurrió un error, intente nuevamente.");
     console.log("Error: ", error);
@@ -102,7 +123,12 @@ usersRolCtrl.renderDeleteUserRol = async (req, res) => {
   try {
     const {id} = req.params;
     const rol = await UserRol.findById(id).lean();
-    res.render("users-rol/delete-user-rol", {rol});
+    const company = await Company.findOne({eliminadoCompany: false}).lean();
+    res.render("users-rol/delete-user-rol", {
+      rol,
+      company,
+      logoUrl: company.imagenCompany ? `/uploads/${company.imagenCompany}` : `/assets/logo-aprendedor.webp`
+    });
   } catch (error) {
     req.flash("wrong", "Ocurrió un error, intente nuevamente.");
     console.log("Error: ", error);

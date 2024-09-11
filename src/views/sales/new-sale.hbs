@@ -190,7 +190,7 @@
             $inputNameClient.dataset.id = data.cliente._id;
             console.log("ID de cliente: ", $inputNameClient.dataset.id);
           } else {
-            alert("El DNI o RUC no existe");
+            console.log("El DNI o RUC no existe");
             $inputDocumentClient.value = defaultClientDocument;
             searchClient(defaultClientDocument)
           }

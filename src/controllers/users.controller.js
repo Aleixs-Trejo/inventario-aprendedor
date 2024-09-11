@@ -12,38 +12,28 @@ usersCtrl.renderRegisterUser = async (req, res) => {
   try {
     // Empleados que no han sido eliminados
     const employees = await Employee.find({ eliminadoTrabajador: false })
-    .populate({
-      path: "rolTrabajador",
-      populate: {
-        path: "nombreRol"
-      }
-    })
+    .populate("rolTrabajador")
     .lean();
     const company = await Company.findOne({eliminadoCompany: false}).lean();
     const userRol = await UserRol.find().lean();
-    const users = await User.find({eliminadoUsuario: false})
 
     if (employees.length === 0) {
+      console.log("Empleados: ", employees);
       return res.redirect("/employees/register");
     }
 
     if (userRol.length === 0) {
+      console.log("Roles: ", userRol)
       return res.redirect("/users-rol/register");
     }
 
     if (company.length === 0) {
+      console.log("Companies: ", company)
       return res.redirect("/company/register");
     }
 
-    if (users.length > 0) {
-      req.flash("wrong", "Debe iniciar sesión antes de continuar");
-      return res.redirect("/");
-    } 
-
     res.render("users/new-user", {
       employees,
-      company,
-      logoUrl: company.imagenCompany ? `/uploads/${company.imagenCompany}` : `/assets/logo-aprendedor.webp`
     });
   } catch (error) {
     req.flash("wrong", "Ocurrió un error, intente nuevamente");
@@ -215,7 +205,8 @@ usersCtrl.renderEditUser = async (req, res) => {
     const employees = await Employee.find({ eliminadoTrabajador: false })
       .populate("rolTrabajador")
       .lean();
-    console.log("Empleado:", usuario.trabajadorUsuario);
+
+    const company = await Company.findOne({eliminadoCompany: false}).lean();
     res.render("users/edit-user", {
       usuario,
       employees: employees.reduce((acc, employee) => {

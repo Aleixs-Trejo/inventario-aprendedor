@@ -7,10 +7,10 @@ const {
 
 const {
   isAuthenticated,
-  isAdmin
+  havePermission
 } = require("../helpers/auth");
 
 // Renderizar la vista de limpieza intermedia
-router.get("/cleanings", isAuthenticated, isAdmin, renderCleaning);
+router.get("/cleanings", isAuthenticated, havePermission("ver-limpieza-intermedia"), renderCleaning);
 
 module.exports = router;

@@ -14,26 +14,25 @@ const {
 
 const {
   isAuthenticated,
-  isAdmin,
-  isVendedor
+  havePermission
 } = require("../helpers/auth");
 
 //Crear clientes
-router.get("/clients/register", isAuthenticated, isVendedor, renderRegisterClient);
-router.post("/clients/register", isAuthenticated, isVendedor, registerClient);
+router.get("/clients/register", isAuthenticated, havePermission("crear-cliente"), renderRegisterClient);
+router.post("/clients/register", isAuthenticated, havePermission("crear-cliente"), registerClient);
 
 //Mostrar clientes
-router.get("/clients", isAuthenticated, isVendedor, renderClients);
+router.get("/clients", isAuthenticated, havePermission("ver-cliente"), renderClients);
 
 // Mostrar detalle de cliente
-router.get("/client/:id/details", isAuthenticated, isAdmin, renderDetailsClient);
+router.get("/client/:id/details", isAuthenticated, havePermission("ver-cliente-detalle"), renderDetailsClient);
 
 //Editar cliente
-router.get("/clients/:id/edit", isAuthenticated, isVendedor, renderEditClient);
-router.post("/clients/:id/edit", isAuthenticated, isVendedor, updateClient);
+router.get("/clients/:id/edit", isAuthenticated, havePermission("editar-cliente"), renderEditClient);
+router.post("/clients/:id/edit", isAuthenticated, havePermission("editar-cliente"), updateClient);
 
 //Eliminar Cliente
-router.get("/clients/:id/confirm-delete", isAuthenticated, isAdmin, renderDeleteClient);
-router.get("/clients/:id/delete", isAuthenticated, isAdmin, deleteClient);
+router.get("/clients/:id/confirm-delete", isAuthenticated, havePermission("eliminar-cliente"), renderDeleteClient);
+router.get("/clients/:id/delete", isAuthenticated, havePermission("eliminar-cliente"), deleteClient);
 
 module.exports = router;

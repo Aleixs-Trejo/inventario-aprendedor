@@ -16,27 +16,27 @@ const {
 
 const {
   isAuthenticated,
-  isAdmin
+  havePermission
 } = require("../helpers/auth");
 
 //Registro de usuarios
-router.get("/users/register", isAuthenticated, renderRegisterUser);
-router.post("/users/register", isAuthenticated, registerUser);
+router.get("/users/register", isAuthenticated, havePermission("crear-usuario"), renderRegisterUser);
+router.post("/users/register", isAuthenticated, havePermission("crear-usuario"), registerUser);
 
 //Inicio de sesión
 router.get("/users/login", renderLoginUser);
 router.post("/users/login", login);
 
 //Obtener usuarios
-router.get("/users", isAuthenticated, isAdmin, renderUsers);
+router.get("/users", isAuthenticated, havePermission("ver-usuario"), renderUsers);
 
 //Editar usuarios
-router.get("/users/:id/edit", isAuthenticated, isAdmin, renderEditUser);
-router.post("/users/:id/edit", isAuthenticated, isAdmin, updateUser);
+router.get("/users/:id/edit", isAuthenticated, havePermission("editar-usuario"), renderEditUser);
+router.post("/users/:id/edit", isAuthenticated, havePermission("editar-usuario"), updateUser);
 
 //Eliminar usuario
-router.get("/users/:id/confirm-delete", isAuthenticated, isAdmin, renderDeleteUser);
-router.get("/users/:id/delete", isAuthenticated, isAdmin, deleteUser);
+router.get("/users/:id/confirm-delete", isAuthenticated, havePermission("eliminar-usuario"), renderDeleteUser);
+router.get("/users/:id/delete", isAuthenticated, havePermission("eliminar-usuario"), deleteUser);
 
 //Cerrar sesión
 router.get("/users/logout", logOut);

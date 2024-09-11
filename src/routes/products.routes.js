@@ -15,30 +15,28 @@ const {
 
 const {
   isAuthenticated,
-  isAdmin,
-  isAlmacen,
-  isAlmacenVendedor
+  havePermission
 } = require("../helpers/auth");
 
 // Registrar Producto
-router.get("/products/register", isAuthenticated, isAlmacen, renderRegisterProduct);
-router.post("/products/register", isAuthenticated, isAlmacen, registerProduct);
+router.get("/products/register", isAuthenticated, havePermission("crear-producto"), renderRegisterProduct);
+router.post("/products/register", isAuthenticated, havePermission("crear-producto"), registerProduct);
 
 // Ver Productos
-router.get("/products", isAuthenticated, isAlmacenVendedor, renderProducts);
+router.get("/products", isAuthenticated, havePermission("ver-producto"), renderProducts);
 
 // Editar Productos
-router.get("/products/:id/edit", isAuthenticated, isAlmacen, renderEditProduct);
-router.post("/products/:id/edit", isAuthenticated, isAlmacen, updateProduct);
+router.get("/products/:id/edit", isAuthenticated, havePermission("editar-producto"), renderEditProduct);
+router.post("/products/:id/edit", isAuthenticated, havePermission("editar-producto"), updateProduct);
 
 // Ver detalles del producto
-router.get("/products/:id/details", isAuthenticated, isAdmin, renderDetailsProduct);
+router.get("/products/:id/details", isAuthenticated, havePermission("ver-detalle-producto"), renderDetailsProduct);
 
 // Exportar a Excel
-router.get("/products/export-excel", isAuthenticated, isAdmin, exportToExcel);
+router.get("/products/export-excel", isAuthenticated, havePermission("exportar-producto"), exportToExcel);
 
 // Eliminar Productos
-router.get("/products/:id/confirm-delete", isAuthenticated, isAdmin, renderDeleteProduct);
-router.get("/products/:id/delete", isAuthenticated, isAdmin, deleteProduct);
+router.get("/products/:id/confirm-delete", isAuthenticated, havePermission("eliminar-producto"), renderDeleteProduct);
+router.get("/products/:id/delete", isAuthenticated, havePermission("eliminar-producto"), deleteProduct);
 
 module.exports = router;

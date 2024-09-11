@@ -424,11 +424,17 @@ input[type="number"]::-webkit-outer-spin-button{
         grid-template-rows: 1fr;
       }
       & .permisos__group{
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
         overflow: hidden;
         & .permissions__header {
           display: flex;
         }
         & .permissions__container{
+          display: flex;
+          flex-direction: column;
+          gap: 0.75rem;
           & .permissions__item{
             display: flex;
           }
@@ -454,6 +460,7 @@ input[type="number"]::-webkit-outer-spin-button{
 
 .permissions__header .permissions__label,
 .permissions__container .permissions__label {
+  line-height: 1;
   color: #666;
 }
 
@@ -698,7 +705,7 @@ input[type="number"]::-webkit-outer-spin-button{
 .sub__header--fixed{
   position: fixed;
   top: var(--header__height);
-  left: 4rem;
+  left: 5rem;
   width: 100%;
   z-index: 2;
 }
@@ -711,7 +718,7 @@ input[type="number"]::-webkit-outer-spin-button{
 .sub__header__container{
   background-color: var(--color__aside);
   background-color: #fff;
-  padding: 1rem 1rem 0;
+  padding: 0.5rem 0.5rem 0;
 }
 
 .ul__sub__header{
@@ -863,6 +870,14 @@ input[type="number"]::-webkit-outer-spin-button{
 }
 
 /***************** ASIDE *****************/
+.body:has(.aside.aside--active) {
+  overflow: auto;
+}
+
+.body:has(.aside) {
+  overflow: hidden;
+}
+
 .aside{
   position: fixed;
   z-index: 3;
@@ -885,15 +900,11 @@ input[type="number"]::-webkit-outer-spin-button{
   }
 
   & .sidebar__logo{
-    visibility: hidden;
+    display: none;
   }
 
   & .nav__list .nav__element{
     margin: 0;
-  }
-
-  & .nav__section__header__container{
-    padding-block: 0.563rem;
   }
 
   & .nav__section__header__span{
@@ -915,6 +926,9 @@ input[type="number"]::-webkit-outer-spin-button{
 
 .sidebar{
   height: 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .nav__section__header__container{
@@ -969,9 +983,7 @@ input[type="number"]::-webkit-outer-spin-button{
 }
 
 .nav__section__body{
-  width: 90%;
-  margin-left: auto;
-  border-left: 3px solid #888;
+  width: 100%;
   overflow: hidden;
 }
 
@@ -983,13 +995,13 @@ input[type="number"]::-webkit-outer-spin-button{
 .sidebar__logo{
   color: #fff;
   display: flex;
-  gap: 1rem;
-  width: 85%;
+  gap: 0.5rem;
+  flex-shrink: 1;
   align-items: center;
 }
 
 .logo__content{
-  width: 2rem;
+  width: 1.5rem;
 }
 
 .logo__img{
@@ -998,23 +1010,25 @@ input[type="number"]::-webkit-outer-spin-button{
 
 .logo__name{
   text-align: center;
-  font-size: 1.1rem;
-  font-weight: 400;
+  font-size: 0.85rem;
+  font-weight: 300;
   text-transform: none;
   transition: opacity 0.3s ease;
 }
 
 .sidebar__menu{
+  flex-shrink: 0;
+  flex-grow: 0;
+  height: 100%;
   cursor: pointer;
-  position: absolute;
-  right: 1rem;
-  top: 1rem;
-  padding: 0.5rem;
-  width: 2rem;
-  height: 2rem;
+  width: max-content;
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.aside.aside--active .sidebar__menu{
+  flex-grow: 1;
 }
 
 .nav__container{
@@ -1023,10 +1037,11 @@ input[type="number"]::-webkit-outer-spin-button{
 }
 
 .nav__content{
-  display: flex;
-  flex-direction: column;
   height: 100%;
   overflow-y: auto;
+  &::-webkit-scrollbar {
+    display: none;
+  }
 }
 
 .nav__list{
@@ -1099,6 +1114,7 @@ input[type="number"]::-webkit-outer-spin-button{
 }
 
 .nav__link{
+  width: max-content;
   width: 100%;
   display: flex;
   align-items: center;
@@ -1128,7 +1144,6 @@ input[type="number"]::-webkit-outer-spin-button{
 }
 
 .nav__figure{
-  width: 60%;
   margin: auto;
 }
 
@@ -1138,7 +1153,9 @@ input[type="number"]::-webkit-outer-spin-button{
 }
 
 .element__span{
+  width: max-content;
   font-weight: 300;
+  font-size: 1rem;
   font-size: 0.85rem;
   text-align: start;
   opacity: 1;
@@ -1233,13 +1250,15 @@ input[type="number"]::-webkit-outer-spin-button{
   height: unset;
   background-color:hsla(0,0%,0%,1);
   background-image:
-  radial-gradient(at 40% 20%, hsla(206,100%,17%,1) 0px, transparent 50%),
-  radial-gradient(at 80% 0%, hsla(206,100%,17%,1) 0px, transparent 50%),
-  radial-gradient(at 0% 50%, hsla(206,100%,17%,1) 0px, transparent 50%),
-  radial-gradient(at 80% 50%, hsla(206,100%,17%,1) 0px, transparent 50%),
-  radial-gradient(at 0% 100%, hsla(206,100%,17%,1) 0px, transparent 50%),
-  radial-gradient(at 80% 100%, hsla(206,100%,17%,1) 0px, transparent 50%),
-  radial-gradient(at 0% 0%, hsla(206,100%,17%,1) 0px, transparent 50%);
+  radial-gradient(at 40% 20%, #272927 0px, transparent 50%),
+  radial-gradient(at 80% 0%, #272927 0px, transparent 50%),
+  radial-gradient(at 0% 50%, #272927 0px, transparent 50%),
+  radial-gradient(at 80% 50%, #272927 0px, transparent 50%),
+  radial-gradient(at 0% 100%, #272927 0px, transparent 50%),
+  radial-gradient(at 80% 100%, #272927 0px, transparent 50%),
+  radial-gradient(at 0% 0%, #272927 0px, transparent 50%);
+  background-color: unset;
+  background-image: none;
 }
 
 .body:has(.main__aside--active) .main {
@@ -1272,7 +1291,7 @@ input[type="number"]::-webkit-outer-spin-button{
   height: 100dvh;
 }
 
-.main__content{
+.body:has(.header) .main__content{
   min-height: calc(100dvh - var(--header__height));
   display: flex;
 }
@@ -1490,6 +1509,7 @@ input[type="number"]::-webkit-outer-spin-button{
   margin-left: auto;
   margin-top: 62px;
   max-width: 20rem;
+  overflow: hidden;
 }
 
 .profile__name{
@@ -1497,6 +1517,7 @@ input[type="number"]::-webkit-outer-spin-button{
   justify-content: space-between;
   align-items: center;
   padding-inline: 0.5rem;
+  font-size: 0.85rem;
 }
 
 .profile__photo{
@@ -1516,6 +1537,12 @@ input[type="number"]::-webkit-outer-spin-button{
 .photo__img{
   width: 100%;
   border-radius: 50%;
+}
+
+.header__configuration{
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 }
 
 .profile__logout{
@@ -1588,12 +1615,12 @@ input[type="number"]::-webkit-outer-spin-button{
 
 .items__container__elements{
   width: 100%;
-  padding: 1rem;
+  padding: 1rem 0.5rem;
   display: flex;
 }
 
 .items__elements__title{
-  padding: 0.5rem 1rem;
+  padding: 0.5rem 0.5rem 0;
   width: 100%;
   border-bottom: thick solid var(--color__fondo);
 }
@@ -1948,7 +1975,7 @@ input[type="number"]::-webkit-outer-spin-button{
 }
 
 .items__container.stores{
-  min-width: 110rem;
+  min-width: 120rem;
 }
 
 .items__container.sales{
@@ -2163,7 +2190,7 @@ input[type="number"]::-webkit-outer-spin-button{
 }
 
 .stores{
-  grid-template-columns: 8% 5% 1fr 1fr 12% 10% 10% 7% 4% 4% 8% 15rem;
+  grid-template-columns: 8% 4% 10% 1fr 10% 10% 8% 6% 4% 4% 8% 15rem;
 }
 
 .sales{
@@ -2381,7 +2408,7 @@ input[type="number"]::-webkit-outer-spin-button{
 .items__data > *{
   font-size: 0.85rem;
   line-height: 1;
-  padding: 0.75rem;
+  padding: 0.5rem;
 }
 
 .items__data--options{
@@ -3944,7 +3971,9 @@ input[type="number"]::-webkit-outer-spin-button{
   }
   
   /***************** NAV *****************/
-  
+  .body:has(.aside) {
+    overflow: auto;
+  }
 
   /***************** MAIN *****************/
   .main__aside--active{

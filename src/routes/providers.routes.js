@@ -15,8 +15,6 @@ const {
 
 const {
   isAuthenticated,
-  isAdmin,
-  isAlmacen,
   havePermission
 } = require("../helpers/auth");
 

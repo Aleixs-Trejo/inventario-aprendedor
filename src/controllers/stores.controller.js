@@ -14,7 +14,21 @@ storeCtrl.renderRegisterStore = async (req, res) => {
       .populate("categoriaProducto")
       .sort({cod: 1})
       .lean();
+
+    console.log("Productos: ", products);
+
+    if (!products || products.length === 0) {
+      req.flash("wrong", "No hay productos registrados.");
+      console.log("No hay productos registrados.");
+      return res.redirect("/products/register");
+    }
+
     const stockLocations = await StockLocation.find().lean();
+    if (!stockLocations || stockLocations.length === 0) {
+      req.flash("wrong", "No hay ubicaciones registradas.");
+      console.log("No hay ubicaciones registradas.");
+      return res.redirect("/stock-locations/register");
+    }
     const currentUser = req.user;
     res.render("stores/new-store", {
       products,
@@ -359,6 +373,11 @@ storeCtrl.exportToExcel = async (req, res) => {
       path: "almacenStockUbicacion"
     })
     .lean();
+
+    if (!stores) {
+      req.flash("wrong", "No hay almacenes para mostrar 😿");
+      return res.redirect("/stores");
+    }
 
     console.log("Total de almacen: ", stores.length);
     console.log("Store: ", stores[0])

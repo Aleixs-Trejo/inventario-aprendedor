@@ -7,10 +7,10 @@ const {
 
 const {
   isAuthenticated,
-  isAlmacenVendedor
+  havePermission
 } = require("../helpers/auth");
 
 // Mostrar Historial
-router.get("/products/history", isAuthenticated, isAlmacenVendedor, renderProductsHistory);
+router.get("/products/history", isAuthenticated, havePermission("historial-producto"), renderProductsHistory);
 
 module.exports = router;

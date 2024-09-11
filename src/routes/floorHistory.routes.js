@@ -7,10 +7,10 @@ const {
 
 const {
   isAuthenticated,
-  isAdmin
+  havePermission
 } = require("../helpers/auth");
 
 // Mostrar historial de pisos
-router.get("/floors/history", isAuthenticated, isAdmin, renderFloorHistory);
+router.get("/floors/history", isAuthenticated, havePermission("historial-piso-hotel"), renderFloorHistory);
 
 module.exports = router;

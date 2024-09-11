@@ -8,7 +8,7 @@ const passport = require("passport");
 const coockieParser = require("cookie-parser");
 const { formatDateTime } = require("./helpers/date");
 const { formatCurrency } = require("./helpers/currency");
-
+const Company = require("./models/companyModel");
 
 //Initialization
 const app = express();
@@ -53,17 +53,23 @@ app.use(flash());
 app.use(express.json());
 
 //Global Variables
-app.use((req, res, next) => {
+app.use(async (req, res, next) => {
   res.locals.success = req.flash("success");
   res.locals.wrong = req.flash("wrong");
   res.locals.error = req.flash("error");
-  res.locals.company = req.company || null;
   res.locals.user = req.user || null;
+  try {
+    const company = await Company.findOne({eliminadoCompany: false}).lean();
+    req.company = company;
+    res.locals.company = company;
 
-  if (req.company) {
-    res.locals.logoUrl = req.company.imagenCompany ? `/uploads/${req.company.imagenCompany}` : `/assets/logo-aprendedor.webp`;
-  } else {
-    res.locals.logoUrl = `/assets/logo-aprendedor.webp`;
+    if (company) {
+      res.locals.logoUrl = company.imagenCompany ? `/uploads/${company.imagenCompany}` : `/assets/logo-aprendedor.webp`;
+    } else {
+      res.locals.logoUrl = `/assets/logo-aprendedor.webp`;
+    }
+  } catch (error) {
+    console.log("Error al obtener la company: ", error);
   }
   next();
 })
@@ -79,7 +85,6 @@ app.use(require("./routes/employees.routes"));
 app.use(require("./routes/categories.routes"));
 app.use(require("./routes/providers.routes"));
 app.use(require("./routes/stockLocations.routes"));
-app.use(require("./routes/records.routes"));
 app.use(require("./routes/stores.routes"));
 app.use(require("./routes/sales.routes"));
 app.use(require("./routes/storeHistory.routes"));

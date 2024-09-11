@@ -7,10 +7,10 @@ const {
 
 const {
   isAuthenticated,
-  isAdmin
+  havePermission
 } = require("../helpers/auth");
 
 // Renderizar historial de ocupaciones de la habitación
-router.get("/occupations/history", isAuthenticated, isAdmin, renderOccupationHistory);
+router.get("/occupations/history", isAuthenticated, havePermission("historial-ocupacion"), renderOccupationHistory);
 
 module.exports = router;

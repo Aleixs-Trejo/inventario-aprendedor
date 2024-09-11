@@ -9,6 +9,12 @@ const Company = require("../models/companyModel");
 
 indexCtrl.renderIndex = async (req, res) => {
   try {
+    const company = await Company.findOne({eliminadoCompany: false}).lean();
+
+    if (!company) {
+      return res.redirect("/");
+    }
+
     const currentUser = req.user;
 
     // Obtener la fecha de inicio de la semana actual
@@ -69,9 +75,6 @@ indexCtrl.renderIndex = async (req, res) => {
       .sort({createdAt: -1})
       .lean();
 
-    const company = await Company.findOne({eliminadoCompany: false}).lean();
-
-    console.log("Company: ", company);
     res.render("index", {
       user,
       sales,

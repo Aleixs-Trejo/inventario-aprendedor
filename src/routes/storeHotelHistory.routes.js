@@ -7,10 +7,10 @@ const {
 
 const {
   isAuthenticated,
-  isAdmin
+  havePermission
 } = require("../helpers/auth");
 
 // Mostrar historial de productos en almacén
-router.get("/store-hotel/history", isAuthenticated, isAdmin, renderAllStoreHotelHistory);
+router.get("/store-hotel/history", isAuthenticated, havePermission("historial-producto-almacen"), renderAllStoreHotelHistory);
 
 module.exports = router;

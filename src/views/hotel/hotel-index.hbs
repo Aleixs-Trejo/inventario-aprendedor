@@ -529,16 +529,12 @@
     // Clase auxiliar para agregar la clase items__rooms__hotel--child cuando los hijos de items__rooms__hotel sean mayor a 4 elementos si estos tienen el display flex
     const $itemsRoomsHotel = document.querySelector(".items__rooms__hotel");
 
-    // Filtrar los hijos que tengan el display flex
-    const $itemsRoomsHotelChildren = Array.from($itemsRoomsHotel.children);
-    const $itemsRoomsHotelChildrenFlex = $itemsRoomsHotelChildren.filter(child => window.getComputedStyle(child).display !== "none");
-    
-    /* if ($itemsRoomsHotelChildrenFlex.length > 6) {
-      $itemsRoomsHotel.classList.add("items__rooms__hotel--child");
-      console.log("items__rooms__hotel--child agregado");
+    if ($itemsRoomsHotel) {
+      // Filtrar los hijos que tengan el display flex
+      const $itemsRoomsHotelChildren = Array.from($itemsRoomsHotel.children);
+      const $itemsRoomsHotelChildrenFlex = $itemsRoomsHotelChildren.filter(child => window.getComputedStyle(child).display !== "none");
     } else {
-      $itemsRoomsHotel.classList.remove("items__rooms__hotel--child");
-      console.log("items__rooms__hotel--child eliminado");
-    } */
+      console.log("No hay habitaciones para mostrar 😿");
+    }
   });
 </script>

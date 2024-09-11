@@ -12,14 +12,6 @@ employeeCtrl.renderRegisterEmployee = async (req, res) => {
   try {
     const roles = await UserRol.find().lean();
     const company = await Company.findOne({eliminadoCompany: false}).lean();
-    const users = await User.find({eliminadoUsuario: false})
-      .populate({
-        path: "trabajadorUsuario",
-        populate: {
-          path: "rolTrabajador"
-        }
-      })
-      .lean();
     if (roles.length === 0) {
       return res.redirect("/users-rol/register");
     }
@@ -27,10 +19,16 @@ employeeCtrl.renderRegisterEmployee = async (req, res) => {
       return res.redirect("/company/register");
     }
 
+    const existingEmployees = await Employee.find({eliminadoTrabajador: false}).lean();
+
+    if (existingEmployees && existingEmployees.length >= process.env.MAX_EMPLOYEES) {
+      console.log("Máximo de empleados alcanzados, el máximo es de: ", process.env.MAX_EMPLOYEES, " y tienes: ", existingEmployees.length);
+      req.flash("wrong", "Ya tienes más de " + process.env.MAX_EMPLOYEES + " empleados registrados.");
+      return res.redirect("/");
+    }
+
     res.render("employees/new-employee", {
-      roles,
-      company,
-      logoUrl: company.imagenCompany ? `/uploads/${company.imagenCompany}` : `/assets/logo-aprendedor.webp`
+      roles
     });
   } catch (error) {
     req.flash("wrong", "Ocurrió un error, intente nuevamente.");
@@ -41,6 +39,16 @@ employeeCtrl.renderRegisterEmployee = async (req, res) => {
 employeeCtrl.registerEmployee = async (req, res) => {
   try {
     const errors = [];
+
+    const users = await User.find({eliminadoUsuario: false})
+      .populate({
+        path: "trabajadorUsuario",
+        populate: {
+          path: "rolTrabajador"
+        }
+      })
+      .lean();
+    
     const {
       rolTrabajador,
       dniTrabajador,
@@ -50,6 +58,15 @@ employeeCtrl.registerEmployee = async (req, res) => {
       correoTrabajador,
       estadoTrabajador
     } = req.body;
+    
+    const existingEmployees = await Employee.find({eliminadoTrabajador: false}).lean();
+
+    if (existingEmployees && existingEmployees.length >= process.env.MAX_EMPLOYEES) {
+      req.flash("wrong", "Ya tienes más de " + process.env.MAX_EMPLOYEES + " empleados registrados.");
+      console.log("Máximo de empleados alcanzados, el máximo es de: ", process.env.MAX_EMPLOYEES, " y tienes: ", existingEmployees.length);
+      return res.redirect("/");
+    }
+
     if (dniTrabajador.length < 8){
       errors.push({text: "El DNI debe tener 8 dígitos"});
     }
@@ -114,6 +131,10 @@ employeeCtrl.registerEmployee = async (req, res) => {
         await newEmployeeHistory.save();
 
         req.flash("success", "Trabajador registrado exitosamente");
+
+        if (users.length === 0) {
+          return res.redirect("/users/register");
+        }
         res.redirect("/employees");
       }
     }
@@ -277,6 +298,11 @@ employeeCtrl.exportToExcel = async (req, res) => {
         }
       })
       .lean();
+
+    if (!employees) {
+      req.flash("wrong", "No hay empleados para mostrar 😿");
+      return res.redirect("/employees");
+    }
 
     // Excluir campos
     const excludedFields = ["_id", "eliminadoTrabajador", "createdAt", "updatedAt"];

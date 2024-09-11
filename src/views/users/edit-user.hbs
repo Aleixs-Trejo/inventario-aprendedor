@@ -32,10 +32,10 @@
             </div>
             <section class="form__container">
               <article class="form__group">
-                <select name="trabajadorUsuario" id="trabajador_usuario" class="form__input">
+                <select name="trabajadorUsuario" id="edit_trabajador_usuario" class="form__input">
                   <option selected disabled value="selecciona">Trabajador:</option>
                   {{#each employees}}
-                    <option value="{{_id}}" data-nombre="{{nombreTrabajador}}" data-apellido="{{apellidosTrabajador}}" {{#if (eq ../usuario.trabajadorUsuario._id _id)}} selected{{/if}}>{{dniTrabajador}}/{{nombreTrabajador}}/{{rolTrabajador.nombreRol}}</option>
+                    <option value="{{_id}}" data-dni="{{dniTrabajador}}" data-nombre="{{nombreTrabajador}}" data-apellido="{{apellidosTrabajador}}" {{#if (eq ../usuario.trabajadorUsuario._id _id)}} selected{{/if}}>{{dniTrabajador}}/{{nombreTrabajador}}/{{rolTrabajador.nombreRol}}</option>
                   {{/each}}
                 </select>
               </article>
@@ -65,37 +65,40 @@
   </div>
 </section>
 <script>
-  const trabajadorSelect = document.getElementById('edit_trabajador_usuario');
-  const usuarioInput = document.getElementById('edit_usuario');
+  document.addEventListener("DOMContentLoaded", function() {
+    const trabajadorSelect = document.getElementById('edit_trabajador_usuario');
+    const usuarioInput = document.getElementById('edit_usuario');
 
-  trabajadorSelect.addEventListener('change', () => {
-    const selectedOption = trabajadorSelect.options[trabajadorSelect.selectedIndex];
-    const nombre = selectedOption.getAttribute('data-nombre');
-    const apellido = selectedOption.getAttribute('data-apellido');
+    trabajadorSelect.addEventListener('change', () => {
+      const selectedOption = trabajadorSelect.options[trabajadorSelect.selectedIndex];
+      const nombre = selectedOption.getAttribute('data-nombre');
+      const apellido = selectedOption.getAttribute('data-apellido');
+      const dni = selectedOption.getAttribute('data-dni').slice(-4);
 
-    // Generar nombre de usuario
-    const nombreUsuario = (nombre.charAt(0) + apellido).toLowerCase();
+      // Generar nombre de usuario
+      const nombreUsuario = (nombre.charAt(0) + apellido + dni).toLowerCase();
 
-    // Verificar si hay usuario esixtente
-    let usuarionameCount = 1;
-    let usuarioname = nombreUsuario;
-    while (document.querySelector(`option[value="${usuarioname}"]`) !== null) {
-      usuarionameCount++;
-      usuarioname = `${nombreUsuario}${usuarionameCount}`;
-    }
+      // Verificar si hay usuario esixtente
+      let usuarionameCount = 1;
+      let usuarioname = nombreUsuario;
+      while (document.querySelector(`option[value="${usuarioname}"]`) !== null) {
+        usuarionameCount++;
+        usuarioname = `${nombreUsuario}${usuarionameCount}`;
+      }
 
-    // Asignar el nombre de usuario al input
-    usuarioInput.value = usuarioname;
-  });
+      // Asignar el nombre de usuario al input
+      usuarioInput.value = usuarioname;
+    });
 
-  // Cambiar de tipo password a text
-  const passwordInput = document.getElementById('edit_password_usuario');
-  const confirmInput = document.getElementById('edit_confirm_password_usuario');
-  const togglePasswordCheckbox = document.getElementById('edit_togglePassword');
+    // Cambiar de tipo password a text
+    const passwordInput = document.getElementById('edit_password_usuario');
+    const confirmInput = document.getElementById('edit_confirm_password_usuario');
+    const togglePasswordCheckbox = document.getElementById('edit_togglePassword');
 
-  togglePasswordCheckbox.addEventListener('change', function () {
-    const type = this.checked ? 'text' : 'password';
-    passwordInput.setAttribute('type', type);
-    confirmInput.setAttribute('type', type);
+    togglePasswordCheckbox.addEventListener('change', function () {
+      const type = this.checked ? 'text' : 'password';
+      passwordInput.setAttribute('type', type);
+      confirmInput.setAttribute('type', type);
+    });
   });
 </script>

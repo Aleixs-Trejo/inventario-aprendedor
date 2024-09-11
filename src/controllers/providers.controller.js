@@ -5,9 +5,16 @@ const Provider = require("../models/providerModel");
 const ProviderHistory = require("../models/providerHistoryModel");
 
 //Crear proveedor
-providersCtrl.renderRegisterProvider = (req, res) => {
+providersCtrl.renderRegisterProvider = async (req, res) => {
   try {
-    res.render("providers/new-provider");
+    const existingProviders = await Provider.find({eliminadoProveedor: false}).lean();
+
+    if (existingProviders && existingProviders.length >= process.env.MAX_PROVIDERS) {
+      req.flash("wrong", "Ya tienes más de " + process.env.MAX_PROVIDERS + " proveedores registrados.");
+      console.log(`Máximo número de Proveedores alcanzado, el máximo permitido es de ${process.env.MAX_PROVIDERS} y tienes ${existingProviders.length}`);
+      return res.redirect("/");
+    }
+    res.render("providers/new-provider")
   } catch (error) {
     req.flash("wrong", "Ocurrió un error, intente nuevamente.");
     console.log("Error: ", error);
@@ -24,6 +31,14 @@ providersCtrl.registerProvider = async (req, res) => {
       correoProveedor,
       direccionProveedor
     } = req.body;
+
+    const existingProviders = await Provider.find({eliminadoProveedor: false}).lean();
+
+    if (existingProviders && existingProviders.length >= process.env.MAX_PROVIDERS) {
+      req.flash("wrong", "Ya tienes más de " + process.env.MAX_PROVIDERS + " proveedores registrados.");
+      console.log(`Máximo número de Proveedores alcanzado, el máximo permitido es de ${process.env.MAX_PROVIDERS} y tienes ${existingProviders.length}`);
+      return res.redirect("/");
+    }
 
     const dniProvider = await Provider.findOne({dniProveedor, eliminadoProveedor: false});
     const correoProvider = await Provider.findOne({correoProveedor, eliminadoProveedor: false});

@@ -35,14 +35,16 @@
                       </a>
                       <span class="sub__header__span">Historial</span>
                     </div>
-                    <div class="sub__header__action action__export--excel">
-                      <a href="/employees/export-excel" class="sub__header__link">
-                        <figure class="sub__header__figure">
-                          <img src="/assets/icon-excel.svg" alt="Icon Export" class="sub__header__img">
-                        </figure>
-                      </a>
-                      <span class="sub__header__span">Exportar</span>
-                    </div>
+                    {{#if employees}}
+                      <div class="sub__header__action action__export--excel">
+                        <a href="/employees/export-excel" class="sub__header__link">
+                          <figure class="sub__header__figure">
+                            <img src="/assets/icon-excel.svg" alt="Icon Export" class="sub__header__img">
+                          </figure>
+                        </a>
+                        <span class="sub__header__span">Exportar</span>
+                      </div>
+                    {{/if}}
                   </div>
                 </article>
                 <article class="article__sub__header sub__header__filters">

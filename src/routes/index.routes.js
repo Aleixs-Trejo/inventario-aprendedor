@@ -8,7 +8,9 @@ const {
   login
 } = require("../controllers/users.controller");
 
-const {isAuthenticated} = require("../helpers/auth");
+const {
+  isAuthenticated
+} = require("../helpers/auth");
 
 //Mostrar formulario de inicio de sesión
 router.get("/", renderLoginUser);

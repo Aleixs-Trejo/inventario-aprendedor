@@ -13,23 +13,22 @@ const {
 
 const {
   isAuthenticated,
-  isAdmin,
-  isAlmacen
+  havePermission
 } = require("../helpers/auth");
 
 //Registrar nueva ubicacion
-router.get("/stock-locations/register", isAuthenticated, isAlmacen, renderRegisterStockLocation);
-router.post("/stock-locations/register", isAuthenticated, isAlmacen, registerStockLocation);
+router.get("/stock-locations/register", isAuthenticated, havePermission("crear-sucursal"), renderRegisterStockLocation);
+router.post("/stock-locations/register", isAuthenticated, havePermission("crear-sucursal"), registerStockLocation);
 
 //Mostrar Ubicaciones
-router.get("/stock-locations", isAuthenticated, isAlmacen, renderStockLocations);
+router.get("/stock-locations", isAuthenticated, havePermission("ver-sucursal"), renderStockLocations);
 
 //Editar una ubicación
-router.get("/stock-locations/:id/edit", isAuthenticated, isAlmacen, renderEditStockLocation);
-router.post("/stock-locations/:id/edit", isAuthenticated, isAlmacen, updateStockLocation);
+router.get("/stock-locations/:id/edit", isAuthenticated, havePermission("editar-sucursal"), renderEditStockLocation);
+router.post("/stock-locations/:id/edit", isAuthenticated, havePermission("editar-sucursal"), updateStockLocation);
 
 //Eliminar una ubicación
-router.get("/stock-locations/:id/confirm-delete", isAuthenticated, isAdmin, renderDeleteStockLocation);
-router.get("/stock-locations/:id/delete", isAuthenticated, isAdmin, deleteStockLocation);
+router.get("/stock-locations/:id/confirm-delete", isAuthenticated, havePermission("eliminar-sucursal"), renderDeleteStockLocation);
+router.get("/stock-locations/:id/delete", isAuthenticated, havePermission("eliminar-sucursal"), deleteStockLocation);
 
 module.exports = router;

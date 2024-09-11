@@ -7,10 +7,10 @@ const {
 
 const {
   isAuthenticated,
-  isAdmin
+  havePermission
 } = require("../helpers/auth");
 
 // Obtener historial de ventas
-router.get("/sales/history", isAuthenticated, isAdmin, renderSalesHistory);
+router.get("/sales/history", isAuthenticated, havePermission("historial-venta"), renderSalesHistory);
 
 module.exports = router;

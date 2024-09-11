@@ -12,22 +12,22 @@ const {
 } = require("../controllers/users-rol.controller");
 const {
   isAuthenticated,
-  isAdmin
+  havePermission
 } = require("../helpers/auth");
 
 //Registro de Rol
-router.get("/users-rol/register", isAuthenticated, renderRegisterUserRol);
-router.post("/users-rol/register", isAuthenticated, registerUserRol);
+router.get("/users-rol/register", isAuthenticated,havePermission("crear-rol"), renderRegisterUserRol);
+router.post("/users-rol/register", isAuthenticated,havePermission("crear-rol"), registerUserRol);
 
 //Mostrar Roles
-router.get("/users-rol", isAuthenticated, isAdmin, renderUsersRol);
+router.get("/users-rol", isAuthenticated, havePermission("ver-rol"), renderUsersRol);
 
 //Editar Roles
-router.get("/users-rol/:id/edit", isAuthenticated, isAdmin, renderEditUserRol);
-router.post("/users-rol/:id/edit", isAuthenticated, isAdmin, updateUserRol);
+router.get("/users-rol/:id/edit", isAuthenticated, havePermission("editar-rol"), renderEditUserRol);
+router.post("/users-rol/:id/edit", isAuthenticated, havePermission("editar-rol"), updateUserRol);
 
 //Eliminar Roles
-router.get("/users-rol/:id/confirm-delete", isAuthenticated, isAdmin, renderDeleteUserRol);
-router.get("/users-rol/:id/delete", isAuthenticated, isAdmin, deleteUserRol);
+router.get("/users-rol/:id/confirm-delete", isAuthenticated, havePermission("eliminar-rol"), renderDeleteUserRol);
+router.get("/users-rol/:id/delete", isAuthenticated, havePermission("eliminar-rol"), deleteUserRol);
 
 module.exports = router;

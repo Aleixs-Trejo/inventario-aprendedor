@@ -7,10 +7,10 @@ const {
 
 const {
   isAuthenticated,
-  isAdmin
+  havePermission
 } = require("../helpers/auth");
 
 // Renderizar la vista de historial de limpiezas
-router.get("/cleanings/history", isAuthenticated, isAdmin, renderCleaningHistory);
+router.get("/cleanings/history", isAuthenticated, havePermission("historial-limpieza-intermedia"), renderCleaningHistory);
 
 module.exports = router;

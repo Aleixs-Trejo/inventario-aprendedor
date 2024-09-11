@@ -7,10 +7,10 @@ const {
 
 const {
   isAuthenticated,
-  isAdmin
+  havePermission
 } = require("../helpers/auth");
 
 // Renderizar historial de reservas de habitación
-router.get("/reservations/history", isAuthenticated, isAdmin, renderReservationHistory);
+router.get("/reservations/history", isAuthenticated, havePermission("historial-reserva"), renderReservationHistory);
 
 module.exports = router;

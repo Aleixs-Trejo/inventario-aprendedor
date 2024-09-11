@@ -3,9 +3,16 @@ const Category = require("../models/categoryModel");
 const CategoryHistory = require("../models/categoryHistoryModel");
 
 //Crear categoría
-categoryCtrl.renderRegisterCategory = (req, res) => {
+categoryCtrl.renderRegisterCategory = async (req, res) => {
   try {
-    res.render("categories/new-category")
+    const existingCategories = await Category.find({eliminadoCategoria: false}).lean();
+
+    if (existingCategories && existingCategories.length >= process.env.MAX_CATEGORIES) {
+      req.flash("wrong", "Ya tienes más de " + process.env.MAX_CATEGORIES + " categorías registradas.");
+      console.log(`Máximo número de categorías alcanzado, el máximo permitido es de ${process.env.MAX_CATEGORIES} y tienes ${existingCategories.length}`);
+      return res.redirect("/");
+    }
+    res.render("categories/new-category");
   } catch (error) {
     req.flash("wrong", "Ocurrió un error, intente nuevamente.");
     console.log("Error: ", error);
@@ -18,6 +25,14 @@ categoryCtrl.registerCategory = async (req, res) => {
       nombreCategoria,
       descripcionCategoria
     } = req.body;
+
+    const existingCategories = await Category.find({eliminadoCategoria: false}).lean();
+
+    if (existingCategories && existingCategories.length >= process.env.MAX_CATEGORIES) {
+      req.flash("wrong", "Ya tienes más de " + process.env.MAX_CATEGORIES + " categorías registradas.");
+      console.log(`Máximo número de categorías alcanzado, el máximo permitido es de ${process.env.MAX_CATEGORIES} y tienes ${existingCategories.length}`);
+      return res.redirect("/");
+    }
 
     const nombreCategory = await Category.findOne({nombreCategoria}); //Buscar si ya existe la categoría
     if (nombreCategory){

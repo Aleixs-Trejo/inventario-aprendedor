@@ -1,11 +1,17 @@
+const fs = require("node:fs")
 const multer = require("multer");
-const path = require("path");
+const path = require("node:path");
+
+// Verificar si el directorio de archivos existe, si no existe crearlo
+const uploadDir = path.join(__dirname, "../public/uploads");
+if (!fs.existsSync(uploadDir)) {
+  fs.mkdirSync(uploadDir, { recursive: true });
+}
 
 // Configuración de almacenamiento
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    const uploadPath = path.join(__dirname, "../public/uploads");
-    cb(null, uploadPath);
+    cb(null, uploadDir);
   },
   filename: (req, file, cb) => {
     cb(null, Date.now() + path.extname(file.originalname)); // Nombre de archivo
@@ -13,7 +19,7 @@ const storage = multer.diskStorage({
 });
 
 // Filtro para archivos
-const fileFilter = (_, file, cb) => {
+const fileFilter = (req, file, cb) => {
   const filetypes = /jpeg|jpg|png|gif|webp/;
   const mimetype = filetypes.test(file.mimetype);
   const extname = filetypes.test(path.extname(file.originalname).toLowerCase());
@@ -27,7 +33,7 @@ const fileFilter = (_, file, cb) => {
 // Inicializar multer con la configuración de almacenamiento y filtro
 const upload = multer({
   storage,
-  limits: { fileSize: 1024 * 1024 * 8 }, // Limite de 8 MB
+  limits: { fileSize: 1024 * 1024 * 2 }, // Limite de 2 MB
   fileFilter
 });
 

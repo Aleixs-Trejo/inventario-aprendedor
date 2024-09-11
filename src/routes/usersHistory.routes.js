@@ -7,10 +7,10 @@ const {
 
 const { 
   isAuthenticated, 
-  isAdmin 
+  havePermission 
 } = require("../helpers/auth");
 
 // Mostrar historial de usuarios
-router.get("/users/history", isAuthenticated, isAdmin, renderUserHistory);
+router.get("/users/history", isAuthenticated, havePermission("historial-usuario"), renderUserHistory);
 
 module.exports = router;

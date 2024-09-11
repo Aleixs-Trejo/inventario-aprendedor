@@ -2,6 +2,11 @@ const {Schema} = require("mongoose");
 
 const CompanySchema = new Schema(
   {
+    comercioCompany: {
+      type: String,
+      enum: ["minimarket", "hotel", "minimarkethotel"],
+      required: true
+    },
     rucCompany: {
       type: String,
       required: true

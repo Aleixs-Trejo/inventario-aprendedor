@@ -45,18 +45,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Togglear el aside
   if ($aside) {
-    $navHeader.forEach(nav => {
-      /* nav.addEventListener("click", () => {
-        nav.nextElementSibling.classList.toggle("nav__section__body__container--show");
-      }); */
-      const $arrow = nav.querySelector(".nav__section__header__arrow");
-      $arrow.addEventListener("click", () => {
-        nav.nextElementSibling.classList.toggle("nav__section__body__container--show");
-        $arrow.classList.toggle("arrow__figure--rotate");
-      });
-    })
     $toggleAside.addEventListener("click", () => {
       $toggleAside.classList.toggle("toggle__aside--active");
+      if ($toggleAside.classList.contains("toggle__aside--active")) {
+        $aside.classList.add("aside--active");
+      }
     })
   }
 });

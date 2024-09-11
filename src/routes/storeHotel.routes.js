@@ -13,25 +13,25 @@ const {
 
 const {
   isAuthenticated,
-  isAdmin
+  havePermission
 } = require("../helpers/auth");
 
 // Renderizar formulario de registro de producto en almacén
-router.get("/store-hotel/register", isAuthenticated, isAdmin, renderRegisterStoreHotel);
+router.get("/store-hotel/register", isAuthenticated, havePermission("registrar-producto-almacen"), renderRegisterStoreHotel);
 // Registrar producto en almacén
-router.post("/store-hotel/register", isAuthenticated, isAdmin, registerStoreHotel);
+router.post("/store-hotel/register", isAuthenticated, havePermission("registrar-producto-almacen"), registerStoreHotel);
 
 // Mostrar listado de productos en almacén
-router.get("/store-hotel", isAuthenticated, isAdmin, renderAllStoreHotel);
+router.get("/store-hotel", isAuthenticated, havePermission("ver-producto-almacen"), renderAllStoreHotel);
 
 // Renderizar formulario de edición de producto en almacén
-router.get("/store-hotel/:id/edit", isAuthenticated, isAdmin, renderEditStoreHotel);
+router.get("/store-hotel/:id/edit", isAuthenticated, havePermission("editar-producto-almacen"), renderEditStoreHotel);
 // Actualizar producto en almacén
-router.post("/store-hotel/:id/edit", isAuthenticated, isAdmin, updateStoreHotel);
+router.post("/store-hotel/:id/edit", isAuthenticated, havePermission("editar-producto-almacen"), updateStoreHotel);
 
 // Renderizar formulario de eliminación de producto en almacén
-router.get("/store-hotel/:id/confirm-delete", isAuthenticated, isAdmin, renderDeleteStoreHotel);
+router.get("/store-hotel/:id/confirm-delete", isAuthenticated, havePermission("eliminar-producto-almacen"), renderDeleteStoreHotel);
 // Eliminar producto en almacén
-router.get("/store-hotel/:id/delete", isAuthenticated, isAdmin, deleteStoreHotel);
+router.get("/store-hotel/:id/delete", isAuthenticated, havePermission("eliminar-producto-almacen"), deleteStoreHotel);
 
 module.exports = router;

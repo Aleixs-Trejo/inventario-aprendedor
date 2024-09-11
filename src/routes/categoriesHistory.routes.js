@@ -5,10 +5,10 @@ const { renderCategoryHistory } = require("../controllers/categoriesHistory.cont
 
 const {
   isAuthenticated,
-  isAdmin
+  havePermission
 } = require("../helpers/auth")
 
 // Mostrar historial de categorias
-router.get("/categories/history", isAuthenticated, isAdmin, renderCategoryHistory);
+router.get("/categories/history", isAuthenticated, havePermission("historial-categoria"), renderCategoryHistory);
 
 module.exports = router;

@@ -7,25 +7,25 @@ const {
   renderDetailMaintenanceRoom,
   finalizeMaintenanceRoom,
   renderMaintenances
-} = require('../controllers/maintenanceRoomcontroller');
+} = require('../controllers/maintenanceRoom.controller');
 
 const {
   isAuthenticated,
-  isAdmin
+  havePermission
 } = require("../helpers/auth");
 
 // Renderizar vista de mantenimiento
-router.get("/maintenance/:id/register", isAuthenticated, isAdmin, renderRegisterMaintenanceRoom);
+router.get("/maintenance/:id/register", isAuthenticated, havePermission("crear-mantenimiento"), renderRegisterMaintenanceRoom);
 // Registrar Mantenimiento
-router.post("/maintenance/:id/register", isAuthenticated, isAdmin, registerMaintenanceRoom);
+router.post("/maintenance/:id/register", isAuthenticated, havePermission("crear-mantenimiento"), registerMaintenanceRoom);
 
 // Mostrar detalle de mantenimiento
-router.get("/maintenance/:id/details", isAuthenticated, isAdmin, renderDetailMaintenanceRoom);
+router.get("/maintenance/:id/details", isAuthenticated, havePermission("ver-detalle-mantenimiento"), renderDetailMaintenanceRoom);
 
 // Finalizar mantenimiento
-router.get("/maintenance/:id/finalize", isAuthenticated, isAdmin, finalizeMaintenanceRoom);
+router.get("/maintenance/:id/finalize", isAuthenticated, havePermission("finalizar-mantenimiento"), finalizeMaintenanceRoom);
 
 // Mostrar mantenimientos activos
-router.get("/maintenances", isAuthenticated, isAdmin, renderMaintenances);
+router.get("/maintenances", isAuthenticated, havePermission("ver-mantenimiento"), renderMaintenances);
 
 module.exports = router;

@@ -1,11 +1,16 @@
 const {Router} = require("express");
 const router = Router();
 
-const { renderRoomsHistory } = require("../controllers/roomsHistory.controller");
+const {
+  renderRoomsHistory
+} = require("../controllers/roomsHistory.controller");
 
-const { isAuthenticated, isAdmin } = require("../helpers/auth");
+const {
+  isAuthenticated,
+  havePermission
+} = require("../helpers/auth");
 
 // Renderizar historial de habitaciones
-router.get("/rooms/history", isAuthenticated, isAdmin, renderRoomsHistory);
+router.get("/rooms/history", isAuthenticated, havePermission("historial-habitacion"), renderRoomsHistory);
 
 module.exports = router;

@@ -13,25 +13,25 @@ const {
 
 const {
   isAuthenticated,
-  isAdmin
+  havePermission
 } = require("../helpers/auth");
 
 // Renderizar formulario de nuevo piso
-router.get("/floors/register", isAuthenticated, isAdmin, renderRegisterFloor);
+router.get("/floors/register", isAuthenticated, havePermission("crear-piso-hotel"), renderRegisterFloor);
 // Registrar nuevo piso
-router.post("/floors/register", isAuthenticated, isAdmin, registerFloor);
+router.post("/floors/register", isAuthenticated, havePermission("crear-piso-hotel"), registerFloor);
 
 // Mostrar pisos
-router.get("/floors", isAuthenticated, isAdmin, renderFloors);
+router.get("/floors", isAuthenticated, havePermission("ver-piso-hotel"), renderFloors);
 
 // Renderizar formulario de edición de piso
-router.get("/floor/:id/edit", isAuthenticated, isAdmin, renderEditFloor);
+router.get("/floor/:id/edit", isAuthenticated, havePermission("editar-piso-hotel"), renderEditFloor);
 // Actualizar el piso
-router.post("/floor/:id/edit", isAuthenticated, isAdmin, updateFloor);
+router.post("/floor/:id/edit", isAuthenticated, havePermission("editar-piso-hotel"), updateFloor);
 
 // Renderizar confirmación de eliminación de piso
-router.get("/floor/:id/confirm-delete", isAuthenticated, isAdmin, renderDeleteFloor);
+router.get("/floor/:id/confirm-delete", isAuthenticated, havePermission("eliminar-piso-hotel"), renderDeleteFloor);
 // Eliminar piso
-router.get("/floor/:id/delete", isAuthenticated, isAdmin, deleteFloor);
+router.get("/floor/:id/delete", isAuthenticated, havePermission("eliminar-piso-hotel"), deleteFloor);
 
 module.exports = router;

@@ -11,8 +11,30 @@ const ProductHistory = require("../models/productHistoryModel");
 productsCtrl.renderRegisterProduct = async (req, res) => {
   try {
     const users = await User.find({eliminadoUsuario: false}).lean();
+
     const providers = await Provider.find({eliminadoProveedor: false}).lean();
+
+    if (!providers || providers.length === 0) {
+      req.flash("wrong", "No hay proveedores registrados.");
+      console.log("No hay proveedores registrados.");
+      return res.redirect("/providers/register");
+    }
+
     const categories = await Category.find({eliminadoCategoria: false}).lean();
+
+    if (!categories || categories.length === 0) {
+      req.flash("wrong", "No hay categorías registradas.");
+      console.log("No hay categorías registradas.");
+      return res.redirect("/categories/register");
+    }
+
+    const existingProducts = await Product.find({eliminadoProducto: false}).lean();
+
+    if (existingProducts && existingProducts.length >= process.env.MAX_PRODUCTS) {
+      req.flash("wrong", "Ya tienes más de " + process.env.MAX_PRODUCTS + " productos registrados.");
+      console.log(`Máximo número de Productos alcanzado, el máximo permitido es de ${process.env.MAX_PRODUCTS} y tienes ${existingProducts.length}`);
+      return res.redirect("/");
+    }
     res.render("products/new-product", {
       users,
       providers,
@@ -35,6 +57,14 @@ productsCtrl.registerProduct = async (req, res) => {
       descripcionProducto,
       precioProducto
     } = req.body;
+
+    const existingProducts = await Product.find({eliminadoProducto: false}).lean();
+
+    if (existingProducts.length >= process.env.MAX_PRODUCTS) {
+      req.flash("wrong", "Ya tienes más de " + process.env.MAX_PRODUCTS + " productos registrados.");
+      console.log(`Máximo número de Productos alcanzado, el máximo permitido es de ${process.env.MAX_PRODUCTS} y tienes ${existingProducts.length}`);
+      return res.redirect("/");
+    }
 
     const isExistsProduct = await Product.findOne({
       proveedorProducto,
@@ -287,6 +317,11 @@ productsCtrl.exportToExcel = async (req, res) => {
       select: "nombreCategoria"
     })
     .lean();
+
+    if (!products) {
+      req.flash("wrong", "No hay productos para mostrar 😿");
+      return res.redirect("/products");
+    }
 
     // Excluir campos 
     const excludedFields = ["_id", "eliminadoProducto", "updatedAt"];

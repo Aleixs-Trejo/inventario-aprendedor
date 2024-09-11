@@ -7,10 +7,10 @@ const {
 
 const {
   isAuthenticated,
-  isAdmin
+  havePermission
 } = require("../helpers/auth")
 
 // Renderizar balances del hotel
-router.get("/hotel/balance", isAuthenticated, isAdmin, renderBalanceHotel);
+router.get("/hotel/balance", isAuthenticated, havePermission("ver-balance-hotel"), renderBalanceHotel);
 
 module.exports = router;

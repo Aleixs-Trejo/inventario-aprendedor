@@ -5,10 +5,10 @@ const { renderClientsHistory } = require("../controllers/clientsHistory.controll
 
 const {
   isAuthenticated,
-  isAdmin
+  havePermission
 } = require("../helpers/auth");
 
 // Mostrar todo el historial de clientes
-router.get("/clients/history", isAuthenticated, isAdmin, renderClientsHistory);
+router.get("/clients/history", isAuthenticated, havePermission("historial-cliente"), renderClientsHistory);
 
 module.exports = router;
