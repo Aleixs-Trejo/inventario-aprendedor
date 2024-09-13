@@ -69,8 +69,10 @@ floorCtrl.renderFloors = async (req, res) => {
       .lean();
 
     const userRole = req.user.trabajadorUsuario.rolTrabajador.nombreRol;
+    const currentPage = `floors`;
     res.render("hotel/floors/all-floors", {
       floors,
+      currentPage,
       userRole
     });
   } catch (error) {

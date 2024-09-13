@@ -29,9 +29,11 @@ balanceHotelCtrl.renderBalanceHotel = async (req, res) => {
       .lean();
 
     const userRole = req.user.trabajadorUsuario.rolTrabajador.nombreRol;
+    const currentPage = `balance-hotel`;
     console.log("Balance de checkOuts: ", balanceHotel);
     res.render("hotel/balance/all-balance-hotel", {
       balanceHotel,
+      currentPage,
       userRole
     });
   } catch (error) {

@@ -159,8 +159,10 @@ employeeCtrl.renderEmployees = async (req, res) => {
       .populate("rolTrabajador")
       .lean();
 
+    const currentPage = `employees`;
     res.render("employees/all-employees", {
       employees,
+      currentPage
     });
 
   } catch (error) {

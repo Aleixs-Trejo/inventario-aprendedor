@@ -66,8 +66,10 @@ categoryRoomCtrl.renderCategoriesRoom = async (req, res) => {
       .lean();
     
     const userRole = req.user.trabajadorUsuario.rolTrabajador.nombreRol;
+    const currentPage = `categories-room`;
     res.render("hotel/categories-room/all-categories-room", {
       categoriesRooms,
+      currentPage,
       userRole
     });
   } catch (error) {

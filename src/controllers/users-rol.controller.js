@@ -72,13 +72,12 @@ usersRolCtrl.registerUserRol = async (req, res) => {
 usersRolCtrl.renderUsersRol = async (req, res) => {
   try {
     const usersRol = await UserRol.find().lean();
-    const company = await Company.findOne({eliminadoCompany: false}).lean();
     const userRole = req.user.trabajadorUsuario.rolTrabajador.nombreRol;
+    const currentPage = `users-rol`;
     res.render("users-rol/all-users-rol", {
       usersRol,
-      userRole,
-      company,
-      logoUrl: company.imagenCompany ? `/uploads/${company.imagenCompany}` : `/assets/logo-aprendedor.webp`
+      currentPage,
+      userRole
     });
   } catch (error) {
     req.flash("wrong", "Ocurrió un error, intente nuevamente.");

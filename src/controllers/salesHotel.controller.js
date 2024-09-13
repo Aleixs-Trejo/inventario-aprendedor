@@ -33,8 +33,10 @@ salesHotelCtrl.renderAllSalesHotel = async (req, res) => {
     .lean();
 
     const userRole = req.user.trabajadorUsuario.rolTrabajador.nombreRol;
+    const currentPage = `sales-hotel`;
     res.render("hotel/sales/all-sales-hotel", {
       salesHotel,
+      currentPage,
       userRole
     });
   } catch (error) {

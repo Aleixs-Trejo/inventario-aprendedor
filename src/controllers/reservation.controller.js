@@ -116,6 +116,7 @@ reservationCtrl.registerReservation = async (req, res) => {
   }
 };
 
+// Mostrar todas las reservas de habitaciones
 reservationCtrl.renderAllReservations = async (req, res) => {
   try {
     const reservations = await Reservation.find({finalizadaReserva: false})
@@ -128,9 +129,10 @@ reservationCtrl.renderAllReservations = async (req, res) => {
       .lean();
     
     const userRole = req.user.trabajadorUsuario.rolTrabajador.nombreRol;
-    console.log("Reservations: ", reservations);
+    const currentPage = `reservations`;
     res.render("hotel/reservation/all-reservations", {
       reservations,
+      currentPage,
       userRole
     });
   } catch (error) {

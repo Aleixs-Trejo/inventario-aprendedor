@@ -79,8 +79,10 @@ categoryCtrl.renderCategories = async (req, res) => {
     .populate("usuarioRegistroCategoria")
     .lean();
     const userRole = req.user.trabajadorUsuario.rolTrabajador.nombreRol;
+    const currentPage = `categories`;
     res.render("categories/all-categories", {
       categories,
+      currentPage,
       userRole
     });
   } catch (error) {

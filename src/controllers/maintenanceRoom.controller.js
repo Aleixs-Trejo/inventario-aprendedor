@@ -194,8 +194,10 @@ maintenanceRoomCtrl.renderMaintenances = async (req, res) => {
     console.log("maintenances: ", maintenances);
 
     const userRole = req.user.trabajadorUsuario.rolTrabajador.nombreRol;
+    const currentPage = `maintenance-room`;
     res.render("hotel/maintenance-room/all-maintenances", {
       maintenances,
+      currentPage,
       userRole
     });
   } catch (error) {

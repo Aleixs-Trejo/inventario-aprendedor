@@ -68,8 +68,10 @@ statusRoomCtrl.renderStatusRoom = async (req, res) => {
       .sort({createdAt: -1})
       .lean();
     const userRole = req.user.trabajadorUsuario.rolTrabajador.nombreRol;
+    const currentPage = `status-room`;
     res.render("hotel/status-room/all-status-room", {
       statusRooms,
+      currentPage,
       userRole
     });
   } catch (error) {

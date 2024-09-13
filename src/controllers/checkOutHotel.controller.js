@@ -56,8 +56,10 @@ checkOutHotelCtrl.renderCheckOuts = async (req, res) => {
     }
 
     const userRole = req.user.trabajadorUsuario.rolTrabajador.nombreRol;
+    const currentPage = `checkouts-hotel`;
     res.render("hotel/checkout/all-checkouts", {
       checkOutsHotel,
+      currentPage,
       userRole
     });
   } catch (error) {

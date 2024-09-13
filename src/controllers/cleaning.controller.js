@@ -30,9 +30,10 @@ cleaningCtrl.renderCleaning = async (req, res) => {
     }
 
     const userRole = req.user.trabajadorUsuario.rolTrabajador.nombreRol;
-    console.log("Cleanings: ", cleanings);
+    const currentPage = `cleanings`;
     res.render("hotel/cleaning/all-cleanings", {
       cleanings,
+      currentPage,
       userRole
     });
   } catch (error) {

@@ -170,8 +170,10 @@ storeCtrl.renderStores = async (req, res) => {
       .lean();
     
     const userRole = req.user.trabajadorUsuario.rolTrabajador.nombreRol;
+    const currentPage = `stores`;
     res.render("stores/all-stores", {
       stores,
+      currentPage,
       userRole
     });
   } catch (error) {

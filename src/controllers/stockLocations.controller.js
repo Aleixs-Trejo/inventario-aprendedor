@@ -63,8 +63,10 @@ stockLocationCtrl.renderStockLocations = async (req, res) => {
   try {
     const stockLocations = await StockLocation.find().lean();
     const userRole = req.user.trabajadorUsuario.rolTrabajador.nombreRol;
+    const currentPage = `stock-locations`;
     res.render("stockLocations/all-stockLocations", {
       stockLocations,
+      currentPage,
       userRole
     });
   } catch (error) {

@@ -85,7 +85,7 @@
                     <span class="element__span">Inicio</span>
                   </a>
                 </li>
-                <li class="nav__element">
+                <li class="nav__element {{#if currentPage}}{{#if (eq currentPage "clients")}}current__page{{/if}}{{/if}}">
                   <a href="/clients" class="nav__link">
                     <div class="figure__content">
                       <figure class="nav__figure">
@@ -95,7 +95,7 @@
                     <span class="element__span">Clientes</span>
                   </a>
                 </li>
-                <li class="nav__element element__store">
+                <li class="nav__element {{#if currentPage}}{{#if (eq currentPage "stores")}}current__page{{/if}}{{/if}} element__store">
                   <a href="/stores" class="nav__link nav__link--store">
                     <div class="figure__content">
                       <figure class="nav__figure">
@@ -106,7 +106,7 @@
                   </a>
                   <span class="tooltip">Almacén</span>
                 </li>
-                <li class="nav__element">
+                <li class="nav__element {{#if currentPage}}{{#if (eq currentPage "providers")}}current__page{{/if}}{{/if}}">
                   <a href="/providers" class="nav__link">
                     <div class="figure__content">
                       <figure class="nav__figure">
@@ -117,7 +117,7 @@
                   </a>
                   <span class="tooltip">Proveedores</span>
                 </li>
-                <li class="nav__element">
+                <li class="nav__element {{#if currentPage}}{{#if (eq currentPage "stock-locations")}}current__page{{/if}}{{/if}}">
                   <a href="/stock-locations" class="nav__link">
                     <div class="figure__content">
                       <figure class="nav__figure">
@@ -128,7 +128,7 @@
                   </a>
                   <span class="tooltip">Sucursales</span>
                 </li>
-                <li class="nav__element">
+                <li class="nav__element {{#if currentPage}}{{#if (eq currentPage "categories")}}current__page{{/if}}{{/if}}">
                   <a href="/categories" class="nav__link">
                     <div class="figure__content">
                       <figure class="nav__figure">
@@ -139,7 +139,7 @@
                   </a>
                   <span class="tooltip">Categorías</span>
                 </li>
-                <li class="nav__element">
+                <li class="nav__element {{#if currentPage}}{{#if (eq currentPage "products")}}current__page{{/if}}{{/if}}">
                   <a href="/products" class="nav__link">
                     <div class="figure__content">
                       <figure class="nav__figure">
@@ -150,7 +150,7 @@
                   </a>
                   <span class="tooltip">Productos</span>
                 </li>
-                <li class="nav__element">
+                <li class="nav__element {{#if currentPage}}{{#if (eq currentPage "users-rol")}}current__page{{/if}}{{/if}}">
                   <a href="/users-rol" class="nav__link">
                     <div class="figure__content">
                       <figure class="nav__figure">
@@ -161,7 +161,7 @@
                   </a>
                   <span class="tooltip">Roles</span>
                 </li>
-                <li class="nav__element">
+                <li class="nav__element {{#if currentPage}}{{#if (eq currentPage "users")}}current__page{{/if}}{{/if}}">
                   <a href="/users" class="nav__link">
                     <div class="figure__content">
                       <figure class="nav__figure">
@@ -172,7 +172,7 @@
                   </a>
                   <span class="tooltip">Usuarios</span>
                 </li>
-                <li class="nav__element">
+                <li class="nav__element {{#if currentPage}}{{#if (eq currentPage "employees")}}current__page{{/if}}{{/if}}">
                   <a href="/employees" class="nav__link">
                     <div class="figure__content">
                       <figure class="nav__figure">
@@ -184,7 +184,7 @@
                   <span class="tooltip">Empleados</span>
                 </li>
                 {{#if (eq company.comercioCompany "minimarket")}}
-                  <li class="nav__element">
+                  <li class="nav__element {{#if currentPage}}{{#if (eq currentPage "sales")}}current__page{{/if}}{{/if}}">
                     <a href="/sales" class="nav__link">
                       <div class="figure__content">
                         <figure class="nav__figure">
@@ -194,7 +194,7 @@
                       <span class="element__span">Ventas</span>
                     </a>
                   </li>
-                  <li class="nav__element">
+                  <li class="nav__element {{#if currentPage}}{{#if (eq currentPage "balances")}}current__page{{/if}}{{/if}}">
                     <a href="/sales/balance" class="nav__link">
                       <div class="figure__content">
                         <figure class="nav__figure">
@@ -206,7 +206,7 @@
                   </li>
                 {{/if}}
                 {{#if (eq company.comercioCompany "hotel")}}
-                  <li class="nav__element">
+                  <li class="nav__element {{#if currentPage}}{{#if (eq currentPage "categories-room")}}current__page{{/if}}{{/if}}">
                     <a href="/categories-room" class="nav__link">
                       <div class="figure__content">
                         <figure class="nav__figure">
@@ -216,7 +216,7 @@
                       <span class="element__span">Categorías</span>
                     </a>
                   </li>
-                  <li class="nav__element">
+                  <li class="nav__element {{#if currentPage}}{{#if (eq currentPage "status-room")}}current__page{{/if}}{{/if}}">
                     <a href="/status-room" class="nav__link">
                       <div class="figure__content">
                         <figure class="nav__figure">
@@ -226,7 +226,7 @@
                       <span class="element__span">Estados</span>
                     </a>
                   </li>
-                  <li class="nav__element">
+                  <li class="nav__element {{#if currentPage}}{{#if (eq currentPage "rooms")}}current__page{{/if}}{{/if}}">
                     <a href="/rooms" class="nav__link">
                       <div class="figure__content">
                         <figure class="nav__figure">
@@ -236,7 +236,7 @@
                       <span class="element__span">Habitaciones</span>
                     </a>
                   </li>
-                  <li class="nav__element">
+                  <li class="nav__element {{#if currentPage}}{{#if (eq currentPage "maintenance-room")}}current__page{{/if}}{{/if}}">
                     <a href="/maintenances" class="nav__link">
                       <div class="figure__content">
                         <figure class="nav__figure">
@@ -246,7 +246,7 @@
                       <span class="element__span">Mantenimientos</span>
                     </a>
                   </li>
-                  <li class="nav__element">
+                  <li class="nav__element {{#if currentPage}}{{#if (eq currentPage "reservations")}}current__page{{/if}}{{/if}}">
                     <a href="/reservations" class="nav__link">
                       <div class="figure__content">
                         <figure class="nav__figure">
@@ -256,7 +256,7 @@
                       <span class="element__span">Reservas</span>
                     </a>
                   </li>
-                  <li class="nav__element">
+                  <li class="nav__element {{#if currentPage}}{{#if (eq currentPage "occupations")}}current__page{{/if}}{{/if}}">
                     <a href="/occupations" class="nav__link">
                       <div class="figure__content">
                         <figure class="nav__figure">
@@ -266,7 +266,7 @@
                       <span class="element__span">Ocupados</span>
                     </a>
                   </li>
-                  <li class="nav__element">
+                  <li class="nav__element {{#if currentPage}}{{#if (eq currentPage "cleanings")}}current__page{{/if}}{{/if}}">
                     <a href="/cleanings" class="nav__link">
                       <div class="figure__content">
                         <figure class="nav__figure">
@@ -276,7 +276,7 @@
                       <span class="element__span">Limpieza</span>
                     </a>
                   </li>
-                  <li class="nav__element">
+                  <li class="nav__element {{#if currentPage}}{{#if (eq currentPage "checkouts-hotel")}}current__page{{/if}}{{/if}}">
                     <a href="/checkouts" class="nav__link">
                       <div class="figure__content">
                         <figure class="nav__figure">
@@ -286,7 +286,7 @@
                       <span class="element__span">Salidas</span>
                     </a>
                   </li>
-                  <li class="nav__element">
+                  <li class="nav__element {{#if currentPage}}{{#if (eq currentPage "balance-hotel")}}current__page{{/if}}{{/if}}">
                     <a href="/hotel/balance" class="nav__link">
                       <div class="figure__content">
                         <figure class="nav__figure">
@@ -296,7 +296,7 @@
                       <span class="element__span">Balances</span>
                     </a>
                   </li>
-                  <li class="nav__element">
+                  <li class="nav__element {{#if currentPage}}{{#if (eq currentPage "sales-hotel")}}current__page{{/if}}{{/if}}">
                     <a href="/hotel/sales" class="nav__link">
                       <div class="figure__content">
                         <figure class="nav__figure">
@@ -308,7 +308,7 @@
                   </li>
                 {{/if}}
                 {{#if (eq company.comercioCompany "minimarkethotel")}}
-                  <li class="nav__element">
+                  <li class="nav__element {{#if currentPage}}{{#if (eq currentPage "sales")}}current__page{{/if}}{{/if}}">
                     <a href="/sales" class="nav__link">
                       <div class="figure__content">
                         <figure class="nav__figure">
@@ -318,8 +318,8 @@
                       <span class="element__span">Ventas</span>
                     </a>
                   </li>
-                  <li class="nav__element">
-                    <a href="/sales/balances" class="nav__link">
+                  <li class="nav__element {{#if currentPage}}{{#if (eq currentPage "balances")}}current__page{{/if}}{{/if}}">
+                    <a href="/sales/balance" class="nav__link">
                       <div class="figure__content">
                         <figure class="nav__figure">
                           <img src="/assets/icon-balance.svg" alt="Icon Balance" class="nav__img">
@@ -328,7 +328,7 @@
                       <span class="element__span">Balances</span>
                     </a>
                   </li>
-                  <li class="nav__element">
+                  <li class="nav__element {{#if currentPage}}{{#if (eq currentPage "categories-room")}}current__page{{/if}}{{/if}}">
                     <a href="/categories-room" class="nav__link">
                       <div class="figure__content">
                         <figure class="nav__figure">
@@ -338,7 +338,7 @@
                       <span class="element__span">Categorías</span>
                     </a>
                   </li>
-                  <li class="nav__element">
+                  <li class="nav__element {{#if currentPage}}{{#if (eq currentPage "status-room")}}current__page{{/if}}{{/if}}">
                     <a href="/status-room" class="nav__link">
                       <div class="figure__content">
                         <figure class="nav__figure">
@@ -348,7 +348,7 @@
                       <span class="element__span">Estados</span>
                     </a>
                   </li>
-                  <li class="nav__element">
+                  <li class="nav__element {{#if currentPage}}{{#if (eq currentPage "rooms")}}current__page{{/if}}{{/if}}">
                     <a href="/rooms" class="nav__link">
                       <div class="figure__content">
                         <figure class="nav__figure">
@@ -358,7 +358,7 @@
                       <span class="element__span">Habitaciones</span>
                     </a>
                   </li>
-                  <li class="nav__element">
+                  <li class="nav__element {{#if currentPage}}{{#if (eq currentPage "maintenance-room")}}current__page{{/if}}{{/if}}">
                     <a href="/maintenances" class="nav__link">
                       <div class="figure__content">
                         <figure class="nav__figure">
@@ -368,7 +368,7 @@
                       <span class="element__span">Mantenimientos</span>
                     </a>
                   </li>
-                  <li class="nav__element">
+                  <li class="nav__element {{#if currentPage}}{{#if (eq currentPage "reservations")}}current__page{{/if}}{{/if}}">
                     <a href="/reservations" class="nav__link">
                       <div class="figure__content">
                         <figure class="nav__figure">
@@ -378,7 +378,7 @@
                       <span class="element__span">Reservas</span>
                     </a>
                   </li>
-                  <li class="nav__element">
+                  <li class="nav__element {{#if currentPage}}{{#if (eq currentPage "occupations")}}current__page{{/if}}{{/if}}">
                     <a href="/occupations" class="nav__link">
                       <div class="figure__content">
                         <figure class="nav__figure">
@@ -388,7 +388,7 @@
                       <span class="element__span">Ocupados</span>
                     </a>
                   </li>
-                  <li class="nav__element">
+                  <li class="nav__element {{#if currentPage}}{{#if (eq currentPage "cleanings")}}current__page{{/if}}{{/if}}">
                     <a href="/cleanings" class="nav__link">
                       <div class="figure__content">
                         <figure class="nav__figure">
@@ -398,7 +398,7 @@
                       <span class="element__span">Limpieza</span>
                     </a>
                   </li>
-                  <li class="nav__element">
+                  <li class="nav__element {{#if currentPage}}{{#if (eq currentPage "checkouts-hotel")}}current__page{{/if}}{{/if}}">
                     <a href="/checkouts" class="nav__link">
                       <div class="figure__content">
                         <figure class="nav__figure">
@@ -408,7 +408,7 @@
                       <span class="element__span">Salidas</span>
                     </a>
                   </li>
-                  <li class="nav__element">
+                  <li class="nav__element {{#if currentPage}}{{#if (eq currentPage "balance-hotel")}}current__page{{/if}}{{/if}}">
                     <a href="/hotel/balance" class="nav__link">
                       <div class="figure__content">
                         <figure class="nav__figure">
@@ -418,7 +418,7 @@
                       <span class="element__span">Balances</span>
                     </a>
                   </li>
-                  <li class="nav__element">
+                  <li class="nav__element {{#if currentPage}}{{#if (eq currentPage "sales-hotel")}}current__page{{/if}}{{/if}}">
                     <a href="/hotel/sales" class="nav__link">
                       <div class="figure__content">
                         <figure class="nav__figure">

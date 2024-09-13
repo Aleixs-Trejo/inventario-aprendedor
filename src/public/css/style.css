@@ -1124,14 +1124,19 @@ input[type="number"]::-webkit-outer-spin-button{
   gap: 1rem;
 }
 
+.nav__element.current__page .nav__link{
+  background-color: #c6c6c6a6;
+  background-color: #555;
+}
+
 .nav__link * {
   user-select: none;
 }
 
 .nav__link:hover{
   background-color: #c6c6c6a6;
-  color: var(--color__aside);
   color: var(--color__fondo);
+  color: var(--color__aside);
 }
 
 .figure__content{

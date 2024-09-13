@@ -4,4 +4,10 @@ node_modules
 
 pending.txt
 
-uploads
+uploads/
+
+Dockerfile
+
+docker-compose.yml
+
+.dockerignore

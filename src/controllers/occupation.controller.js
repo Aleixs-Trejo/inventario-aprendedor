@@ -137,8 +137,10 @@ occupationCtrl.renderAllOccupations = async (req, res) => {
       .lean();
 
     const userRole = req.user.trabajadorUsuario.rolTrabajador.nombreRol;
+    const currentPage = `occupations`;
     res.render("hotel/occupations/all-occupations", {
       occupations,
+      currentPage,
       userRole
     });
   } catch (error) {

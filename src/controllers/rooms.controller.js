@@ -109,8 +109,10 @@ roomsCtrl.renderRooms = async (req, res) => {
       .lean();
 
     const userRole = req.user.trabajadorUsuario.rolTrabajador.nombreRol;
+    const currentPage = `rooms`;
     res.render("hotel/rooms/all-rooms", {
       rooms,
+      currentPage,
       userRole
     });
   } catch (error) {

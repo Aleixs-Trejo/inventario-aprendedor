@@ -84,8 +84,10 @@ storeHotelCtrl.renderAllStoreHotel = async (req, res) => {
       .sort({"productoAlmacenHotel.cod": 1})
       .lean();
     const userRole = req.user.trabajadorUsuario.rolTrabajador.nombreRol;
+    const currentPage = `stores-hotel`;
     res.render("hotel/store-hotel/all-store-hotel", {
       storeHotel,
+      currentPage,
       userRole
     });
   } catch (error) {

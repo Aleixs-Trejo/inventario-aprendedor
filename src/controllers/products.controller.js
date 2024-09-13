@@ -141,8 +141,10 @@ productsCtrl.renderProducts = async (req, res) => {
     .lean();
 
     const userRole = req.user.trabajadorUsuario.rolTrabajador.nombreRol;
+    const currentPage = `products`;
     res.render("products/all-products", {
       products,
+      currentPage,
       userRole
     });
   } catch (error) {

@@ -181,8 +181,10 @@ usersCtrl.renderUsers = async (req, res) => {
     const filteredUsers = users.filter(user => user.trabajadorUsuario !== null);
 
     // const userRole = req.user.trabajadorUsuario.rolTrabajador.nombreRol || null;
+    const currentPage = `users`;
     res.render("users/all-users", {
-      users: filteredUsers
+      users: filteredUsers,
+      currentPage
     });
   } catch (error) {
     req.flash("wrong", "Ocurrió un error, intente nuevamente");

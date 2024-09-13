@@ -41,9 +41,11 @@ salesCtrl.renderRegisterSale = async (req, res) => {
     }
 
     const currentUser = req.user;
+    const currentPage = `current__page`;
     res.render("sales/new-sale", {
       currentUser,
       clients,
+      currentPage,
       stores
     });
   } catch (error) {
@@ -203,9 +205,10 @@ salesCtrl.renderSales = async (req, res) => {
     
     const userRole = req.user.trabajadorUsuario.rolTrabajador.nombreRol;
 
-    console.log("Total de ventas: ", sales);
+    const currentPage = `sales`;
     res.render("sales/all-sales", {
       sales,
+      currentPage,
       userRole
     });
   } catch (error) {
@@ -597,7 +600,6 @@ salesCtrl.renderDetailCloseRegister = async (req, res) => {
       })
       .sort({createdAt: -1})
       .lean();
-    console.log("Detalles del cierre de caja para vista de detalles: ", saleHistory);
     res.render("sales/detail-close-register", {saleHistory});
   } catch (error) {
     req.flash("wrong", "Ocurrió un error al mostrar los detalles del cierre de caja, intente nuevamente.");
@@ -692,9 +694,10 @@ salesCtrl.renderBalanceSales = async (req, res) => {
       .lean();
     
     const userRole = req.user.trabajadorUsuario.rolTrabajador.nombreRol;
-
+    const currentPage = `balances`;
     res.render("sales/balance-sales", {
       balances,
+      currentPage,
       userRole
     });
   } catch (error) {

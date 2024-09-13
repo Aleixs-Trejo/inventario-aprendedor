@@ -112,20 +112,20 @@ clientsCtrl.renderClients = async (req, res) => {
     .populate("usuarioRegistroCliente")
     .lean();
 
-    const company = await Company.findOne({eliminadoCompany: false}).lean();
-
     const userRole = req.user.trabajadorUsuario.rolTrabajador.nombreRol;
+
+    const currentPage = `clients`;
     res.render("clients/all-clients", {
       clients,
-      userRole,
-      company
+      currentPage,
+      userRole
     });
   } catch (error) {
     req.flash("wrong", "Ocurrió un error, intente nuevamente.");
     console.log("Error: ", error);
     res.status(500).send("Error interno, posiblemente haya escrito algo mal, así que perdón por ello 😿, puede reportar el error para corregirlo en la próxima actualización. Detalles del error " + error.message);
   }
-}
+};
 
 // Mostrar información histórica de un cliente
 clientsCtrl.renderDetailsClient = async (req, res) => {

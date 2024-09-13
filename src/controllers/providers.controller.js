@@ -101,8 +101,10 @@ providersCtrl.renderProviders = async (req, res) => {
       .lean();
 
     const userRole = req.user.trabajadorUsuario.rolTrabajador.nombreRol;
+    const currentPage = `providers`;
     res.render("providers/all-providers", {
       providers,
+      currentPage,
       userRole
     });
   } catch (error) {

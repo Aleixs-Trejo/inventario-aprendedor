@@ -25,7 +25,11 @@ app.engine(".hbs", exphbs.engine(
     extname: ".hbs",
     helpers: {
       eq: function (a, b){
-        return a.toString() == b.toString();
+        if (a !== b) {
+          return a.toString() == b.toString();
+        } else {
+          return a == b;
+        }
       },
       or: (...args) => args[0] || args[1],
       formatDateTime,
