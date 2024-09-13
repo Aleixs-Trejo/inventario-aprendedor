@@ -323,6 +323,7 @@ occupationCtrl.renderSaleOccupation = async (req, res) => {
     const {id} = req.params;
     const occupationId = id;
     const actionUrl = `/occupation/${occupationId}/sale`;
+    const backUrl = `/occupation/${occupationId}/details`;
     const occupation = await Occupation.findById(id)
       .populate({
         path: "usuarioRegistroOcupacion",
@@ -360,6 +361,7 @@ occupationCtrl.renderSaleOccupation = async (req, res) => {
     const currentUser = req.user;
     res.render("hotel/sales/new-sale-hotel", {
       actionUrl,
+      backUrl,
       occupation,
       room,
       storeHotel,
@@ -535,6 +537,7 @@ occupationCtrl.cancelSaleOccupation = async (req, res) => {
 occupationCtrl.renderCleaningRoomOccupation = async (req, res) => {
   try {
     const {id} = req.params;
+    const actionUrl = `/occupation/${id}/cleaning`;
     const occupation = await Occupation.findById(id)
       .populate({
         path: "usuarioRegistroOcupacion",
@@ -564,7 +567,8 @@ occupationCtrl.renderCleaningRoomOccupation = async (req, res) => {
       .lean();
 
     const userRole = req.user.trabajadorUsuario.rolTrabajador.nombreRol;
-    res.render("hotel/cleaning/cleaning-room-occupation", {
+    res.render("hotel/cleaning/cleaning-room", {
+      actionUrl,
       occupation,
       room,
       usuarios,
@@ -692,6 +696,7 @@ occupationCtrl.renderCheckOutHotel = async (req, res) => {
     const {id} = req.params;
     const occupationId = id;
     const actionUrl = `/occupation/${occupationId}/checkout`;
+    const backUrl = `/occupation/${occupationId}/details`;
     const occupation = await Occupation.findById(id)
       .populate({
         path: "usuarioRegistroOcupacion",
@@ -761,8 +766,9 @@ occupationCtrl.renderCheckOutHotel = async (req, res) => {
       .lean();
 
     const userRole = req.user.trabajadorUsuario.rolTrabajador.nombreRol;
-    res.render("hotel/checkout/checkout-hotel", {
+    res.render("hotel/checkout/checkout-hotel-occupation", {
       actionUrl,
+      backUrl,
       occupation,
       room,
       usuarios,

@@ -12,7 +12,7 @@
                 <article class="article__sub__header sub__header__actions">
                   <div class="sub__header__actions__container">
                     <div class="sub__header__action">
-                      <a href="/hotel" class="sub__header__link">
+                      <a href="/" class="sub__header__link">
                         <figure class="sub__header__figure">
                           <img src="/assets/icon-back.svg" alt="Icon Back" class="sub__header__img">
                         </figure>
@@ -42,93 +42,47 @@
           </div>
         </div>
         {{#if statusRooms}}
-          {{#if userRole}}
-            {{#if (eq userRole "Admin")}}
-              <section class="items">
-                <div class="items__container__elements">
-                  <section class="views__container--elements view__scrollbar">
-                    <div class="views__content--elements items__container status__rooms">
-                      <article class="items__header items__grid status__rooms">
-                        <div class="flex-c-c">Agregado por:</div>
-                        <div class="flex-c-c">Estado:</div>
-                        <div class="flex-c-c">Descripción:</div>
-                        <div class="flex-c-c">Trabajos en Habitación:</div>
-                        <div class="flex-c-c">Fecha Registro:</div>
-                        <div class="flex-c-c">Acciones</div>
-                      </article>
-                      <div class="items__data--values">
-                        {{#each statusRooms}}
-                          <div class="container__data">
-                            <article class="items__data items__grid status__rooms">
-                              <div class="flex-c-c">{{usuarioRegistroEstadoHabitacion.usuario}}</div>
-                              <div class="flex-c-c"><span class="span__data__item status__room">{{nombreEstadoHabitacion}}</span></div>
-                              <div class="flex-c-c">{{descripcionEstadoHabitacion}}</div>
-                              <div class="flex-c-c">{{trabajosEnHabitacion}}</div>
-                              <div class="flex-c-c">{{formatDateTime createdAt}}</div>
-                              <div class="flex-c-c items__data--options">
-                                <a href="/status-room/{{_id}}/edit" class="options__action">
-                                  <figure class="options__figure">
-                                    <img src="../assets/icon-edit.svg" alt="Icon Edit" class="options__img">
-                                  </figure>
-                                </a>
-                                <a href="/status-room/{{_id}}/confirm-delete" class="options__action">
-                                  <figure class="options__figure">
-                                    <img src="../assets/icon-delete.svg" alt="Icon Delete" class="options__img">
-                                  </figure>
-                                </a>
-                              </div>
-                            </article>
+          <section class="items">
+            <div class="items__container__elements">
+              <section class="views__container--elements view__scrollbar">
+                <div class="views__content--elements items__container status__rooms">
+                  <article class="items__header items__grid status__rooms">
+                    <div class="flex-c-c">Agregado por:</div>
+                    <div class="flex-c-c">Estado:</div>
+                    <div class="flex-c-c">Descripción:</div>
+                    <div class="flex-c-c">Trabajos en Habitación:</div>
+                    <div class="flex-c-c">Fecha Registro:</div>
+                    <div class="flex-c-c">Acciones</div>
+                  </article>
+                  <div class="items__data--values">
+                    {{#each statusRooms}}
+                      <div class="container__data">
+                        <article class="items__data items__grid status__rooms">
+                          <div class="flex-c-c">{{usuarioRegistroEstadoHabitacion.usuario}}</div>
+                          <div class="flex-c-c"><span class="span__data__item status__room">{{nombreEstadoHabitacion}}</span></div>
+                          <div class="flex-c-c">{{descripcionEstadoHabitacion}}</div>
+                          <div class="flex-c-c">{{trabajosEnHabitacion}}</div>
+                          <div class="flex-c-c">{{formatDateTime createdAt}}</div>
+                          <div class="flex-c-c items__data--options">
+                            <a href="/status-room/{{_id}}/edit" class="options__action">
+                              <figure class="options__figure">
+                                <img src="../assets/icon-edit.svg" alt="Icon Edit" class="options__img">
+                              </figure>
+                            </a>
+                            <a href="/status-room/{{_id}}/confirm-delete" class="options__action">
+                              <figure class="options__figure">
+                                <img src="../assets/icon-delete.svg" alt="Icon Delete" class="options__img">
+                              </figure>
+                            </a>
                           </div>
-                        {{/each}}
+                        </article>
                       </div>
-                    </div>
-                  </section>
+                    {{/each}}
+                  </div>
                 </div>
               </section>
-            {{else}}
-              <section class="items">
-                <div class="items__container__elements">
-                  <section class="views__container--elements view__scrollbar">
-                    <div class="views__content--elements items__container status__rooms">
-                      <article class="items__header items__grid status__rooms">
-                        <div class="flex-c-c">Agregado por:</div>
-                        <div class="flex-c-c">Estado:</div>
-                        <div class="flex-c-c">Descripción:</div>
-                        <div class="flex-c-c">Trabajos en Habitación:</div>
-                        <div class="flex-c-c">Fecha Registro:</div>
-                        <div class="flex-c-c">Acciones</div>
-                      </article>
-                      <div class="items__data--values">
-                        {{#each statusRooms}}
-                          <div class="container__data">
-                            <article class="items__data items__grid status__rooms">
-                              <div class="flex-c-c">{{usuarioRegistroEstadoHabitacion.usuario}}</div>
-                              <div class="flex-c-c"><span class="span__data__item status__room">{{nombreEstadoHabitacion}}</span></div>
-                              <div class="flex-c-c">{{descripcionEstadoHabitacion}}</div>
-                              <div class="flex-c-c">{{trabajosEnHabitacion}}</div>
-                              <div class="flex-c-c">{{formatDateTime createdAt}}</div>
-                              <div class="flex-c-c items__data--options">
-                                <a href="/status-room/{{_id}}/edit" class="options__action">
-                                  <figure class="options__figure">
-                                    <img src="../assets/icon-edit.svg" alt="Icon Edit" class="options__img">
-                                  </figure>
-                                </a>
-                                <a href="/status-room/{{_id}}/confirm-delete" class="options__action">
-                                  <figure class="options__figure">
-                                    <img src="../assets/icon-delete.svg" alt="Icon Delete" class="options__img">
-                                  </figure>
-                                </a>
-                              </div>
-                            </article>
-                          </div>
-                        {{/each}}
-                      </div>
-                    </div>
-                  </section>
-                </div>
-              </section>
-            {{/if}}
-          {{/if}}
+            </div>
+          </section>
         {{else}}
           <h5 class="items__empty">No hay Estados para mostrar 😿</h5>
         {{/if}}

@@ -77,6 +77,13 @@
       let input = e.target;
       // Validar escritura solo minúsculas
       input.value = input.value.toLowerCase();
+      // Validar que no hayan espacios y que sea solo letras y números sin signos o simbolos
+      if (input.value.includes(" ")) {
+        input.value = input.value.replace(/ /g, "");
+      }
+      if (!input.value.match(/^[a-zA-Z0-9]+$/)) {
+        input.value = "";
+      }
     });
 
     trabajadorSelect.addEventListener('change', () => {

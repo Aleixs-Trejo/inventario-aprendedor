@@ -12,7 +12,7 @@
                 <article class="article__sub__header sub__header__actions">
                   <div class="sub__header__actions__container">
                     <div class="sub__header__action">
-                      <a href="/hotel" class="sub__header__link">
+                      <a href="/" class="sub__header__link">
                         <figure class="sub__header__figure">
                           <img src="/assets/icon-back.svg" alt="Icon Back" class="sub__header__img">
                         </figure>
@@ -34,72 +34,36 @@
           </div>
         </div>
         {{#if cleanings}}
-          {{#if userRole}}
-            {{#if (eq userRole "Admin")}}
-              <section class="items">
-                <div class="items__container__elements">
-                  <section class="views__container--elements view__scrollbar">
-                    <div class="views__content--elements items__container cleanings">
-                      <article class="items__header items__grid cleanings">
-                        <div class="flex-c-c">Estado Habitación:</div>
-                        <div class="flex-c-c">Agregado por:</div>
-                        <div class="flex-c-c">Usuario a Cargo:</div>
-                        <div class="flex-c-c">Habitación:</div>
-                        <div class="flex-c-c">Comentarios:</div>
-                        <div class="flex-c-c">Fecha Registro:</div>
-                      </article>
-                      <div class="items__data--values">
-                        {{#each cleanings}}
-                          <div class="container__data">
-                            <article class="items__data items__grid cleanings">
-                              <div class="flex-c-c"><span class="span__data__item status__occupation">{{#if referenciaEntidad.habitacionOcupacion}}{{referenciaEntidad.habitacionOcupacion.estadoHabitacion}}{{else}}{{referenciaEntidad.habitacionReserva.estadoHabitacion}}{{/if}}</span></div>
-                              <div class="flex-c-c">{{usuarioRegistroLimpieza.usuario}}</div>
-                              <div class="flex-c-c">{{usuarioACargoLimpieza.usuario}}</div>
-                              <div class="flex-c-c">{{#if referenciaEntidad.habitacionOcupacion}}{{referenciaEntidad.habitacionOcupacion.numeroHabitacion}}{{else}}{{referenciaEntidad.habitacionReserva.numeroHabitacion}}{{/if}}</div>
-                              <div class="flex-c-c">{{comentariosLimpieza}}</div>
-                              <div class="flex-c-c">{{formatDateTime createdAt}}</div>
-                            </article>
-                          </div>
-                        {{/each}}
+          <section class="items">
+            <div class="items__container__elements">
+              <section class="views__container--elements view__scrollbar">
+                <div class="views__content--elements items__container cleanings">
+                  <article class="items__header items__grid cleanings">
+                    <div class="flex-c-c">Estado Habitación:</div>
+                    <div class="flex-c-c">Agregado por:</div>
+                    <div class="flex-c-c">Usuario a Cargo:</div>
+                    <div class="flex-c-c">Habitación:</div>
+                    <div class="flex-c-c">Comentarios:</div>
+                    <div class="flex-c-c">Fecha Registro:</div>
+                  </article>
+                  <div class="items__data--values">
+                    {{#each cleanings}}
+                      <div class="container__data">
+                        <article class="items__data items__grid cleanings">
+                          <div class="flex-c-c"><span class="span__data__item status__occupation">{{#if referenciaEntidad.habitacionOcupacion}}{{referenciaEntidad.habitacionOcupacion.estadoHabitacion}}{{else}}{{referenciaEntidad.habitacionReserva.estadoHabitacion}}{{/if}}</span></div>
+                          <div class="flex-c-c">{{usuarioRegistroLimpieza.usuario}}</div>
+                          <div class="flex-c-c">{{usuarioACargoLimpieza.usuario}}</div>
+                          <div class="flex-c-c">{{#if referenciaEntidad.habitacionOcupacion}}{{referenciaEntidad.habitacionOcupacion.numeroHabitacion}}{{else}}{{referenciaEntidad.habitacionReserva.numeroHabitacion}}{{/if}}</div>
+                          <div class="flex-c-c">{{comentariosLimpieza}}</div>
+                          <div class="flex-c-c">{{formatDateTime createdAt}}</div>
+                        </article>
                       </div>
-                    </div>
-                  </section>
+                    {{/each}}
+                  </div>
                 </div>
               </section>
-            {{else}}
-              <section class="items">
-                <div class="items__container__elements">
-                  <section class="views__container--elements view__scrollbar">
-                    <div class="views__content--elements items__container cleanings">
-                      <article class="items__header items__grid cleanings">
-                        <div class="flex-c-c">Estado Hab:</div>
-                        <div class="flex-c-c">Agregado por:</div>
-                        <div class="flex-c-c">Usuario a Cargo:</div>
-                        <div class="flex-c-c">Habitación:</div>
-                        <div class="flex-c-c">Comentarios:</div>
-                        <div class="flex-c-c">Fecha Registro:</div>
-                      </article>
-                      <div class="items__data--values">
-                        {{#each cleanings}}
-                          <div class="container__data">
-                            <article class="items__data items__grid cleanings">
-                              <div class="flex-c-c"><span class="span__data__item status__occupation">{{estadoOcupacion}}</span></div>
-                              <div class="flex-c-c">{{#if referenciaEntidad.habitacionOcupacion}}{{referenciaEntidad.estadoOcupacion}}{{else}}{{referenciaEntidad.estadoReserva}}{{/if}}</div>
-                              <div class="flex-c-c">{{usuarioRegistroLimpieza.usuario}}</div>
-                              <div class="flex-c-c">{{usuarioACargoLimpieza.usuario}}</div>
-                              <div class="flex-c-c">{{#if referenciaEntidad.habitacionOcupacion}}{{referenciaEntidad.habitacionOcupacion.numeroHabitacion}}{{else}}{{referenciaEntidad.habitacionReserva.numeroHabitacion}}{{/if}}</div>
-                              <div class="flex-c-c">{{comentariosLimpieza}}</div>
-                              <div class="flex-c-c">{{formatDateTime createdAt}}</div>
-                            </article>
-                          </div>
-                        {{/each}}
-                      </div>
-                    </div>
-                  </section>
-                </div>
-              </section>
-            {{/if}}
-          {{/if}}
+            </div>
+          </section>
         {{else}}
           <h5 class="items__empty">No hay Habitaciones en Limpieza Intermedia para mostrar 😿</h5>
         {{/if}}

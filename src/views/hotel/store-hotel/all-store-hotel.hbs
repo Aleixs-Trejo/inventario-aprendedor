@@ -12,7 +12,7 @@
                 <article class="article__sub__header sub__header__actions">
                   <div class="sub__header__actions__container">
                     <div class="sub__header__action">
-                      <a href="/hotel" class="sub__header__link">
+                      <a href="/" class="sub__header__link">
                         <figure class="sub__header__figure">
                           <img src="/assets/icon-back.svg" alt="Icon Back" class="sub__header__img">
                         </figure>
@@ -84,108 +84,57 @@
           </div>
         </div>
         {{#if storeHotel}}
-          {{#if userRole}}
-            {{#if (eq userRole "Admin")}}
-              <section class="items">
-                <div class="items__container__elements">
-                  <section class="views__container--elements view__scrollbar">
-                      <div class="views__content--elements items__container stores__hotel">
-                        <article class="items__header items__grid stores__hotel">
-                          <div class="flex-c-c">Registrado por:</div>
-                          <div class="flex-c-c">Cod:</div>
-                          <div class="flex-c-c">Producto:</div>
-                          <div class="flex-c-c">Descripción:</div>
-                          <div class="flex-c-c">Proveedor:</div>
-                          <div class="flex-c-c">Categoría:</div>
-                          <div class="flex-c-c">Precio:</div>
-                          <div class="flex-c-c">Stock:</div>
-                          <div class="flex-c-c">Min-Stock:</div>
-                          <div class="flex-c-c">Fecha Registro:</div>
-                          <div class="flex-c-c">Acciones</div>
-                        </article>
-                        <div class="items__data--values">
-                          {{#each storeHotel}}
-                            <div class="container__data">
-                              <article class="items__data items__grid stores__hotel product__data">
-                                <div class="flex-c-c">{{usuarioRegistroAlmacenHotel.usuario}}</div>
-                                <div class="flex-c-c" data-cod="{{productoAlmacenHotel.cod}}">{{productoAlmacenHotel.cod}}</div>
-                                <div class="flex-c-c" data-nombre="{{productoAlmacenHotel.nombreProducto}}">{{productoAlmacenHotel.nombreProducto}}</div>
-                                <div class="flex-c-c" data-descripcion="{{productoAlmacenHotel.descripcionProducto}}">{{productoAlmacenHotel.descripcionProducto}}</div>
-                                <div class="flex-c-c" data-proveedor="{{productoAlmacenHotel.proveedorProducto.nombreProveedor}}">{{productoAlmacenHotel.proveedorProducto.nombreProveedor}}</div>
-                                <div class="flex-c-c" data-categoria="{{productoAlmacenHotel.categoriaProducto.nombreCategoria}}">{{productoAlmacenHotel.categoriaProducto.nombreCategoria}}</div>
-                                <div class="flex-c-c">S/{{formatCurrency productoAlmacenHotel.precioProducto}}</div>
-                                <div class="flex-c-c stocks">{{stockProductoAlmacenHotel}}</div>
-                                <div class="flex-c-c stocks__min">{{minStockProductoAlmacenHotel}}</div>
-                                <div class="flex-c-c">{{formatDateTime createdAt}}</div>
-                                <div class="flex-c-c items__data--options">
-                                  <a href="/store-hotel/{{_id}}/edit" class="options__action">
-                                    <figure class="options__figure">
-                                      <img src="../assets/icon-edit.svg" alt="Icon Edit" class="options__img">
-                                    </figure>
-                                  </a>
-                                  <a href="/store-hotel/{{_id}}/confirm-delete" class="options__action">
-                                    <figure class="options__figure">
-                                      <img src="../assets/icon-delete.svg" alt="Icon Delete" class="options__img">
-                                    </figure>
-                                  </a>
-                                </div>
-                              </article>
+          <section class="items">
+            <div class="items__container__elements">
+              <section class="views__container--elements view__scrollbar">
+                  <div class="views__content--elements items__container stores__hotel">
+                    <article class="items__header items__grid stores__hotel">
+                      <div class="flex-c-c">Registrado por:</div>
+                      <div class="flex-c-c">Cod:</div>
+                      <div class="flex-c-c">Producto:</div>
+                      <div class="flex-c-c">Descripción:</div>
+                      <div class="flex-c-c">Proveedor:</div>
+                      <div class="flex-c-c">Categoría:</div>
+                      <div class="flex-c-c">Precio:</div>
+                      <div class="flex-c-c">Stock:</div>
+                      <div class="flex-c-c">Min-Stock:</div>
+                      <div class="flex-c-c">Fecha Registro:</div>
+                      <div class="flex-c-c">Acciones</div>
+                    </article>
+                    <div class="items__data--values">
+                      {{#each storeHotel}}
+                        <div class="container__data">
+                          <article class="items__data items__grid stores__hotel product__data">
+                            <div class="flex-c-c">{{usuarioRegistroAlmacenHotel.usuario}}</div>
+                            <div class="flex-c-c" data-cod="{{productoAlmacenHotel.cod}}">{{productoAlmacenHotel.cod}}</div>
+                            <div class="flex-c-c" data-nombre="{{productoAlmacenHotel.nombreProducto}}">{{productoAlmacenHotel.nombreProducto}}</div>
+                            <div class="flex-c-c" data-descripcion="{{productoAlmacenHotel.descripcionProducto}}">{{productoAlmacenHotel.descripcionProducto}}</div>
+                            <div class="flex-c-c" data-proveedor="{{productoAlmacenHotel.proveedorProducto.nombreProveedor}}">{{productoAlmacenHotel.proveedorProducto.nombreProveedor}}</div>
+                            <div class="flex-c-c" data-categoria="{{productoAlmacenHotel.categoriaProducto.nombreCategoria}}">{{productoAlmacenHotel.categoriaProducto.nombreCategoria}}</div>
+                            <div class="flex-c-c">S/{{formatCurrency productoAlmacenHotel.precioProducto}}</div>
+                            <div class="flex-c-c stocks">{{stockProductoAlmacenHotel}}</div>
+                            <div class="flex-c-c stocks__min">{{minStockProductoAlmacenHotel}}</div>
+                            <div class="flex-c-c">{{formatDateTime createdAt}}</div>
+                            <div class="flex-c-c items__data--options">
+                              <a href="/store-hotel/{{_id}}/edit" class="options__action">
+                                <figure class="options__figure">
+                                  <img src="../assets/icon-edit.svg" alt="Icon Edit" class="options__img">
+                                </figure>
+                              </a>
+                              <a href="/store-hotel/{{_id}}/confirm-delete" class="options__action">
+                                <figure class="options__figure">
+                                  <img src="../assets/icon-delete.svg" alt="Icon Delete" class="options__img">
+                                </figure>
+                              </a>
                             </div>
-                          {{/each}}
+                          </article>
                         </div>
-                      </div>
-                  </section>
-                </div>
+                      {{/each}}
+                    </div>
+                  </div>
               </section>
-            {{else}}
-              <section class="items">
-                <div class="items__container__elements">
-                  <section class="views__container--elements view__scrollbar">
-                      <div class="views__content--elements items__container stores__hotel">
-                        <article class="items__header items__grid stores__hotel">
-                          <div class="flex-c-c">Registrado por:</div>
-                          <div class="flex-c-c">Cod:</div>
-                          <div class="flex-c-c">Producto:</div>
-                          <div class="flex-c-c">Descripción:</div>
-                          <div class="flex-c-c">Proveedor:</div>
-                          <div class="flex-c-c">Categoría:</div>
-                          <div class="flex-c-c">Precio:</div>
-                          <div class="flex-c-c">Stock:</div>
-                          <div class="flex-c-c">Min-Stock:</div>
-                          <div class="flex-c-c">Fecha Registro:</div>
-                          <div class="flex-c-c">Acciones</div>
-                        </article>
-                        <div class="items__data--values">
-                          {{#each storeHotel}}
-                            <div class="container__data">
-                              <article class="items__data items__grid stores__hotel product__data">
-                                <div class="flex-c-c">{{usuarioRegistroAlmacenHotel.usuario}}</div>
-                                <div class="flex-c-c" data-cod="{{productoAlmacenHotel.cod}}">{{productoAlmacenHotel.cod}}</div>
-                                <div class="flex-c-c" data-nombre="{{productoAlmacenHotel.nombreProducto}}">{{productoAlmacenHotel.nombreProducto}}</div>
-                                <div class="flex-c-c" data-descripcion="{{productoAlmacenHotel.descripcionProducto}}">{{productoAlmacenHotel.descripcionProducto}}</div>
-                                <div class="flex-c-c" data-proveedor="{{productoAlmacenHotel.proveedorProducto.nombreProveedor}}">{{productoAlmacenHotel.proveedorProducto.nombreProveedor}}</div>
-                                <div class="flex-c-c" data-categoria="{{productoAlmacenHotel.categoriaProducto.nombreCategoria}}">{{productoAlmacenHotel.categoriaProducto.nombreCategoria}}</div>
-                                <div class="flex-c-c">S/{{formatCurrency productoAlmacenHotel.precioProducto}}</div>
-                                <div class="flex-c-c stocks">{{stockProductoAlmacenHotel}}</div>
-                                <div class="flex-c-c stocks__min">{{minStockProductoAlmacenHotel}}</div>
-                                <div class="flex-c-c">{{formatDateTime createdAt}}</div>
-                                <div class="flex-c-c items__data--options">
-                                  <a href="/store-hotel/{{_id}}/edit" class="options__action">
-                                    <figure class="options__figure">
-                                      <img src="../assets/icon-edit.svg" alt="Icon Edit" class="options__img">
-                                    </figure>
-                                  </a>
-                                </div>
-                              </article>
-                            </div>
-                          {{/each}}
-                        </div>
-                      </div>
-                  </section>
-                </div>
-              </section>
-            {{/if}}
-          {{/if}}
+            </div>
+          </section>
         {{else}}
           <h5 class="items__empty">No hay almacén para mostrar 😿</h5>
         {{/if}}

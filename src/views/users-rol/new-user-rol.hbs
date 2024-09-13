@@ -915,8 +915,8 @@
                         <section class="permisos__container permisos__container--show">
                           <div class="permisos__group form__group--permisos">
                             <div class="permissions__header">
-                              <input type="checkbox" id="ventas-all" class="parent__checkbox">
-                              <label for="ventas-all" class="permissions__label">Todo</label>
+                              <input type="checkbox" id="ventas-hotel-all" class="parent__checkbox">
+                              <label for="ventas-hotel-all" class="permissions__label">Todo</label>
                             </div>
                             <div class="permissions__container">
                               <div class="permissions__item">
@@ -985,8 +985,8 @@
                         <section class="permisos__container permisos__container--show">
                           <div class="permisos__group form__group--permisos">
                             <div class="permissions__header">
-                              <input type="checkbox" id="balance-all" class="parent__checkbox">
-                              <label for="balance-all" class="permissions__label">Todo</label>
+                              <input type="checkbox" id="balances-hotel-all" class="parent__checkbox">
+                              <label for="balances-hotel-all" class="permissions__label">Todo</label>
                             </div>
                             <div class="permissions__container">
                               <div class="permissions__item">
@@ -1581,6 +1581,7 @@
   document.addEventListener("DOMContentLoaded", () => {
     const $parentCheckboxes = document.querySelectorAll(".parent__checkbox");
     const $permisosHeader = document.querySelectorAll(".permisos__header");
+    const $nombreRol = document.getElementById("nombre_rol");
 
     $parentCheckboxes.forEach(parent => {
       const $childCheckboxes = parent.closest(".form__group").querySelectorAll(".child__checkbox");
@@ -1606,6 +1607,14 @@
       header.addEventListener("click", () => {
         $permisosContainer.classList.toggle("permisos__container--show");
       });
+    });
+
+    // Validar que el nombreRol sea solo texto y no tenga más de un espacio
+    $nombreRol.addEventListener("input", () => {
+      const nombreRol = $nombreRol.value;
+      if (nombreRol.includes(" ")) {
+        $nombreRol.value = nombreRol.replace(/ /g, "");
+      }
     });
   });
 </script>

@@ -14,7 +14,7 @@
                     <article class="article__sub__header sub__header__actions">
                       <div class="sub__header__actions__container">
                         <div class="sub__header__action">
-                          <a href="/hotel" class="sub__header__link">
+                          <a href="{{backUrl}}" class="sub__header__link">
                             <figure class="sub__header__figure">
                               <img src="/assets/icon-back.svg" alt="Icon Back" class="sub__header__img">
                             </figure>
@@ -127,7 +127,7 @@
                                   <span class="content__li__span content__li__span--data">{{occupation.habitacionOcupacion.categoriaHabitacion.descripcionCategoriaHabitacion}}</span>
                                 </li>
                                 <li class="content__li">
-                                  <span class="content__li__span">Precio por día:</span>
+                                  <span class="content__li__span">Precio por noche:</span>
                                   <span class="content__li__span content__li__span--data">S/{{formatCurrency occupation.habitacionOcupacion.precioHabitacion}}</span>
                                 </li>
                               </ul>

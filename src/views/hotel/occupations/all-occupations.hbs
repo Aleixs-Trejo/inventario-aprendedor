@@ -12,7 +12,7 @@
                 <article class="article__sub__header sub__header__actions">
                   <div class="sub__header__actions__container">
                     <div class="sub__header__action">
-                      <a href="/hotel" class="sub__header__link">
+                      <a href="/" class="sub__header__link">
                         <figure class="sub__header__figure">
                           <img src="/assets/icon-back.svg" alt="Icon Back" class="sub__header__img">
                         </figure>
@@ -34,99 +34,50 @@
           </div>
         </div>
         {{#if occupations}}
-          {{#if userRole}}
-            {{#if (eq userRole "Admin")}}
-              <section class="items">
-                <div class="items__container__elements">
-                  <section class="views__container--elements view__scrollbar">
-                    <div class="views__content--elements items__container occupations">
-                      <article class="items__header items__grid occupations">
-                        <div class="flex-c-c">Estado:</div>
-                        <div class="flex-c-c">Agregado por:</div>
-                        <div class="flex-c-c">Cliente:</div>
-                        <div class="flex-c-c">Piso:</div>
-                        <div class="flex-c-c">Número:</div>
-                        <div class="flex-c-c">Categoría:</div>
-                        <div class="flex-c-c">Comentarios:</div>
-                        <div class="flex-c-c">Adelanto:</div>
-                        <div class="flex-c-c">Importe:</div>
-                        <div class="flex-c-c">Fecha Registro:</div>
-                        <div class="flex-c-c">Opciones:</div>
-                      </article>
-                      <div class="items__data--values">
-                        {{#each occupations}}
-                          <div class="container__data">
-                            <article class="items__data items__grid occupations">
-                              <div class="flex-c-c"><span class="span__data__item status__occupation">{{estadoOcupacion}}</span></div>
-                              <div class="flex-c-c">{{usuarioRegistroOcupacion.usuario}}</div>
-                              <div class="flex-c-c">{{nombreClienteOcupacion}}</div>
-                              <div class="flex-c-c">{{habitacionOcupacion.pisoHabitacion.numeroPiso}}</div>
-                              <div class="flex-c-c">{{habitacionOcupacion.numeroHabitacion}}</div>
-                              <div class="flex-c-c">{{habitacionOcupacion.categoriaHabitacion.nombreCategoriaHabitacion}}</div>
-                              <div class="flex-c-c">{{observacionesOcupacion}}</div>
-                              <div class="flex-c-c">S/ {{formatCurrency adelantoOcupacion}}</div>
-                              <div class="flex-c-c">S/ {{formatCurrency importeOcupacion}}</div>
-                              <div class="flex-c-c">{{formatDateTime createdAt}}</div>
-                              <div class="flex-c-c items__data--options">
-                                <a href="/occupation/{{_id}}/details" class="options__action--span">
-                                  <span class="span__details">Detalles</span>
-                                </a>
-                              </div>
-                            </article>
+          <section class="items">
+            <div class="items__container__elements">
+              <section class="views__container--elements view__scrollbar">
+                <div class="views__content--elements items__container occupations">
+                  <article class="items__header items__grid occupations">
+                    <div class="flex-c-c">Estado:</div>
+                    <div class="flex-c-c">Agregado por:</div>
+                    <div class="flex-c-c">Cliente:</div>
+                    <div class="flex-c-c">Piso:</div>
+                    <div class="flex-c-c">Número:</div>
+                    <div class="flex-c-c">Categoría:</div>
+                    <div class="flex-c-c">Comentarios:</div>
+                    <div class="flex-c-c">Adelanto:</div>
+                    <div class="flex-c-c">Importe:</div>
+                    <div class="flex-c-c">Fecha Registro:</div>
+                    <div class="flex-c-c">Opciones:</div>
+                  </article>
+                  <div class="items__data--values">
+                    {{#each occupations}}
+                      <div class="container__data">
+                        <article class="items__data items__grid occupations">
+                          <div class="flex-c-c"><span class="span__data__item status__occupation">{{estadoOcupacion}}</span></div>
+                          <div class="flex-c-c">{{usuarioRegistroOcupacion.usuario}}</div>
+                          <div class="flex-c-c">{{nombreClienteOcupacion}}</div>
+                          <div class="flex-c-c">{{habitacionOcupacion.pisoHabitacion.numeroPiso}}</div>
+                          <div class="flex-c-c">{{habitacionOcupacion.numeroHabitacion}}</div>
+                          <div class="flex-c-c">{{habitacionOcupacion.categoriaHabitacion.nombreCategoriaHabitacion}}</div>
+                          <div class="flex-c-c">{{observacionesOcupacion}}</div>
+                          <div class="flex-c-c">S/ {{formatCurrency adelantoOcupacion}}</div>
+                          <div class="flex-c-c">S/ {{formatCurrency importeOcupacion}}</div>
+                          <div class="flex-c-c">{{formatDateTime createdAt}}</div>
+                          <div class="flex-c-c items__data--options">
+                            <a href="/occupation/{{_id}}/details" class="options__action--span">
+                              <span class="span__details">Detalles</span>
+                            </a>
                           </div>
-                        {{/each}}
+                        </article>
                       </div>
-                    </div>
-                  </section>
+                    {{/each}}
+                  </div>
                 </div>
               </section>
-            {{else}}
-              <section class="items">
-                <div class="items__container__elements">
-                  <section class="views__container--elements view__scrollbar">
-                    <div class="views__content--elements items__container occupations">
-                      <article class="items__header items__grid occupations">
-                        <div class="flex-c-c">Estado:</div>
-                        <div class="flex-c-c">Agregado por:</div>
-                        <div class="flex-c-c">Cliente:</div>
-                        <div class="flex-c-c">Piso:</div>
-                        <div class="flex-c-c">Número:</div>
-                        <div class="flex-c-c">Categoría:</div>
-                        <div class="flex-c-c">Comentarios:</div>
-                        <div class="flex-c-c">Adelanto:</div>
-                        <div class="flex-c-c">Importe:</div>
-                        <div class="flex-c-c">Fecha Registro:</div>
-                        <div class="flex-c-c">Opciones:</div>
-                      </article>
-                      <div class="items__data--values">
-                        {{#each occupations}}
-                          <div class="container__data">
-                            <article class="items__data items__grid occupations">
-                              <div class="flex-c-c"><span class="span__data__item status__occupation">{{estadoReserva}}</span></div>
-                              <div class="flex-c-c">{{usuarioRegistroOcupacion.usuario}}</div>
-                              <div class="flex-c-c">{{nombreClienteOcupacion}}</div>
-                              <div class="flex-c-c">{{habitacionOcupacion.pisoHabitacion.numeroPiso}}</div>
-                              <div class="flex-c-c">{{habitacionOcupacion.numeroHabitacion}}</div>
-                              <div class="flex-c-c">{{habitacionOcupacion.categoriaHabitacion.nombreCategoriaHabitacion}}</div>
-                              <div class="flex-c-c">{{observacionesOcupacion}}</div>
-                              <div class="flex-c-c">S/ {{formatCurrency adelantoOcupacion}}</div>
-                              <div class="flex-c-c">S/ {{formatCurrency importeOcupacion}}</div>
-                              <div class="flex-c-c">{{formatDateTime createdAt}}</div>
-                              <div class="flex-c-c items__data--options">
-                                <a href="/occupation/{{_id}}/details" class="options__action--span">
-                                  <span class="span__details">Detalles</span>
-                                </a>
-                              </div>
-                            </article>
-                          </div>
-                        {{/each}}
-                      </div>
-                    </div>
-                  </section>
-                </div>
-              </section>
-            {{/if}}
-          {{/if}}
+            </div>
+          </section>
         {{else}}
           <h5 class="items__empty">No hay Habitaciones ocupadas para mostrar 😿</h5>
         {{/if}}

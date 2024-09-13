@@ -1,7 +1,7 @@
 const salesHistoryCtrl = {}
 const SalesHistory = require("../models/salesHistoryModel");
 
-// Renderizar lavista del historial de ventas cerradas
+// Renderizar la vista del historial de ventas cerradas
 salesHistoryCtrl.renderSalesHistory = async (req, res) => {
   try {
     // Renderizar las ventas cerradas

@@ -1575,6 +1575,7 @@
   document.addEventListener("DOMContentLoaded", () => {
     const $parentCheckboxes = document.querySelectorAll(".parent__checkbox");
     const $permisosHeader = document.querySelectorAll(".permisos__header");
+    const $nombreRol = document.getElementById("edit_nombre_rol");
 
     $parentCheckboxes.forEach(parent => {
       const $childCheckboxes = parent.closest(".form__group").querySelectorAll(".child__checkbox");
@@ -1600,6 +1601,14 @@
       header.addEventListener("click", () => {
         $permisosContainer.classList.toggle("permisos__container--show");
       });
+    });
+
+    // Validar que el nombreRol sea solo texto y no tenga más de un espacio
+    $nombreRol.addEventListener("input", () => {
+      const nombreRol = $nombreRol.value;
+      if (nombreRol.includes(" ")) {
+        $nombreRol.value = nombreRol.replace(/ /g, "");
+      }
     });
   });
 </script>

@@ -159,10 +159,8 @@ employeeCtrl.renderEmployees = async (req, res) => {
       .populate("rolTrabajador")
       .lean();
 
-    const userRole = req.user.trabajadorUsuario.rolTrabajador.nombreRol;
     res.render("employees/all-employees", {
       employees,
-      userRole,
     });
 
   } catch (error) {

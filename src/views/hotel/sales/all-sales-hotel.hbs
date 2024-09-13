@@ -5,46 +5,44 @@
         <div class="items__elements__title">
           <h5 class="items__name">Ventas a las habitaciones</h5>
         </div>
-        {{#if (or (eq userRole "Recepcion") (eq userRole "Admin"))}}
-          <div class="sub__header">
-            <div class="sub__header__container">
-              <article class="sub__header__content">
-                <section class="section__sub__header">
-                  <article class="article__sub__header sub__header__actions">
-                    <div class="sub__header__actions__container">
-                      <div class="sub__header__action">
-                        <a href="/hotel" class="sub__header__link">
-                          <figure class="sub__header__figure">
-                            <img src="/assets/icon-back.svg" alt="Icon Back" class="sub__header__img">
-                          </figure>
-                        </a>
-                        <span class="sub__header__span">Volver</span>
-                      </div>
-                      {{#if salesHotel}}
-                        <div class="sub__header__action action__export--excel">
-                          <a href="/hotel/sales/export-excel" class="sub__header__link">
-                            <figure class="sub__header__figure">
-                              <img src="/assets/icon-excel.svg" alt="Icon Export" class="sub__header__img">
-                            </figure>
-                          </a>
-                          <span class="sub__header__span">Exportar</span>
-                        </div>
-                      {{/if}}
-                      <div class="sub__header__action">
-                        <a href="/hotel/sales/history" class="sub__header__link">
-                          <figure class="sub__header__figure">
-                            <img src="/assets/icon-history.svg" alt="Icon History" class="sub__header__img">
-                          </figure>
-                        </a>
-                        <span class="sub__header__span">Historial</span>
-                      </div>
+        <div class="sub__header">
+          <div class="sub__header__container">
+            <article class="sub__header__content">
+              <section class="section__sub__header">
+                <article class="article__sub__header sub__header__actions">
+                  <div class="sub__header__actions__container">
+                    <div class="sub__header__action">
+                      <a href="/" class="sub__header__link">
+                        <figure class="sub__header__figure">
+                          <img src="/assets/icon-back.svg" alt="Icon Back" class="sub__header__img">
+                        </figure>
+                      </a>
+                      <span class="sub__header__span">Volver</span>
                     </div>
-                  </article>
-                </section>
-              </article>
-            </div>
+                    {{#if salesHotel}}
+                      <div class="sub__header__action action__export--excel">
+                        <a href="/hotel/sales/export-excel" class="sub__header__link">
+                          <figure class="sub__header__figure">
+                            <img src="/assets/icon-excel.svg" alt="Icon Export" class="sub__header__img">
+                          </figure>
+                        </a>
+                        <span class="sub__header__span">Exportar</span>
+                      </div>
+                    {{/if}}
+                    <div class="sub__header__action">
+                      <a href="/hotel/sales/history" class="sub__header__link">
+                        <figure class="sub__header__figure">
+                          <img src="/assets/icon-history.svg" alt="Icon History" class="sub__header__img">
+                        </figure>
+                      </a>
+                      <span class="sub__header__span">Historial</span>
+                    </div>
+                  </div>
+                </article>
+              </section>
+            </article>
           </div>
-        {{/if}}
+        </div>
         {{#if salesHotel}}
           <section class="items">
             <div class="items__container__elements">

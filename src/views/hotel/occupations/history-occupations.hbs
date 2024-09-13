@@ -26,48 +26,44 @@
           </div>
         </div>
         {{#if occupationHistory}}
-          {{#if userRole}}
-            {{#if (eq userRole "Admin")}}
-              <section class="items">
-                <div class="items__container__elements">
-                  <section class="views__container--elements view__scrollbar">
-                    <div class="views__content--elements items__container reservations__history">
-                      <article class="items__header items__grid reservations__history">
-                        <div class="flex-c-c">Tipo Historial:</div>
-                        <div class="flex-c-c">Estado:</div>
-                        <div class="flex-c-c">Agregado por:</div>
-                        <div class="flex-c-c">Cliente:</div>
-                        <div class="flex-c-c">Piso:</div>
-                        <div class="flex-c-c">Número:</div>
-                        <div class="flex-c-c">Categoría:</div>
-                        <div class="flex-c-c">Descripción:</div>
-                        <div class="flex-c-c">Precio:</div>
-                        <div class="flex-c-c">Fecha Registro:</div>
-                      </article>
-                      <div class="items__data--values">
-                        {{#each occupationHistory}}
-                          <div class="container__data">
-                            <article class="items__data items__grid reservations__history">
-                              <div class="flex-c-c">{{tipoHistorial}}</div>
-                              <div class="flex-c-c"><span class="span__data__item status__reservation">{{ocupacionHistorial.estadoOcupacion}}</span></div>
-                              <div class="flex-c-c">{{ocupacionHistorial.usuarioRegistroOcupacion.usuario}}</div>
-                              <div class="flex-c-c">{{ocupacionHistorial.nombreClienteOcupacion}}</div>
-                              <div class="flex-c-c">{{ocupacionHistorial.habitacionOcupacion.pisoHabitacion.numeroPiso}}</div>
-                              <div class="flex-c-c">{{ocupacionHistorial.habitacionOcupacion.numeroHabitacion}}</div>
-                              <div class="flex-c-c">{{ocupacionHistorial.habitacionOcupacion.categoriaHabitacion.nombreCategoriaHabitacion}}</div>
-                              <div class="flex-c-c">{{ocupacionHistorial.habitacionOcupacion.descripcionHabitacion}}</div>
-                              <div class="flex-c-c">S/ {{formatCurrency ocupacionHistorial.habitacionOcupacion.precioHabitacion}}</div>
-                              <div class="flex-c-c">{{formatDateTime ocupacionHistorial.createdAt}}</div>
-                            </article>
-                          </div>
-                        {{/each}}
+          <section class="items">
+            <div class="items__container__elements">
+              <section class="views__container--elements view__scrollbar">
+                <div class="views__content--elements items__container reservations__history">
+                  <article class="items__header items__grid reservations__history">
+                    <div class="flex-c-c">Tipo Historial:</div>
+                    <div class="flex-c-c">Estado:</div>
+                    <div class="flex-c-c">Agregado por:</div>
+                    <div class="flex-c-c">Cliente:</div>
+                    <div class="flex-c-c">Piso:</div>
+                    <div class="flex-c-c">Número:</div>
+                    <div class="flex-c-c">Categoría:</div>
+                    <div class="flex-c-c">Descripción:</div>
+                    <div class="flex-c-c">Precio:</div>
+                    <div class="flex-c-c">Fecha Registro:</div>
+                  </article>
+                  <div class="items__data--values">
+                    {{#each occupationHistory}}
+                      <div class="container__data">
+                        <article class="items__data items__grid reservations__history">
+                          <div class="flex-c-c">{{tipoHistorial}}</div>
+                          <div class="flex-c-c"><span class="span__data__item status__reservation">{{ocupacionHistorial.estadoOcupacion}}</span></div>
+                          <div class="flex-c-c">{{ocupacionHistorial.usuarioRegistroOcupacion.usuario}}</div>
+                          <div class="flex-c-c">{{ocupacionHistorial.nombreClienteOcupacion}}</div>
+                          <div class="flex-c-c">{{ocupacionHistorial.habitacionOcupacion.pisoHabitacion.numeroPiso}}</div>
+                          <div class="flex-c-c">{{ocupacionHistorial.habitacionOcupacion.numeroHabitacion}}</div>
+                          <div class="flex-c-c">{{ocupacionHistorial.habitacionOcupacion.categoriaHabitacion.nombreCategoriaHabitacion}}</div>
+                          <div class="flex-c-c">{{ocupacionHistorial.habitacionOcupacion.descripcionHabitacion}}</div>
+                          <div class="flex-c-c">S/ {{formatCurrency ocupacionHistorial.habitacionOcupacion.precioHabitacion}}</div>
+                          <div class="flex-c-c">{{formatDateTime ocupacionHistorial.createdAt}}</div>
+                        </article>
                       </div>
-                    </div>
-                  </section>
+                    {{/each}}
+                  </div>
                 </div>
               </section>
-            {{/if}}
-          {{/if}}
+            </div>
+          </section>
         {{else}}
           <h5 class="items__empty">No hay Historial de Ocupaciones para mostrar 😿</h5>
         {{/if}}

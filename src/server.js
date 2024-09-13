@@ -95,7 +95,6 @@ app.use(require("./routes/productsHistory.routes"));
 app.use(require("./routes/providersHistory.routes"));
 app.use(require("./routes/usersHistory.routes"));
 app.use(require("./routes/salesHistory.routes"));
-app.use(require("./routes/hotel.routes"));
 app.use(require("./routes/categoriesRoom.routes"));
 app.use(require("./routes/categoriesRoomsHistory.routes"));
 app.use(require("./routes/statusRoom.routes"));

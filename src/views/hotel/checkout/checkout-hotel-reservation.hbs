@@ -1,10 +1,9 @@
-<section class="section__all--details">
+<section class="section__all--form">
   <div class="content__views">
     <div class="container views__container">
       <div class="card__items">
         <div class="items__elements__title">
-          <h5 class="items__name">Detalles de la ocupación en la habitación:
-            {{reservation.habitacionReserva.numeroHabitacion}}</h5>
+          <h5 class="items__name">Detalles:</h5>
         </div>
         {{#if reservation}}
           <div class="details__container">
@@ -15,7 +14,7 @@
                     <article class="article__sub__header sub__header__actions">
                       <div class="sub__header__actions__container">
                         <div class="sub__header__action">
-                          <a href="/" class="sub__header__link">
+                          <a href="{{backUrl}}" class="sub__header__link">
                             <figure class="sub__header__figure">
                               <img src="/assets/icon-back.svg" alt="Icon Back" class="sub__header__img">
                             </figure>
@@ -31,7 +30,7 @@
             <article class="article__details">
               <section class="details__header">
                 <div class="details__header__container">
-                  <h4 class="details__header__title">Información general</h4>
+                  <h4 class="details__header__title">General</h4>
                 </div>
               </section>
               <section class="details__body">
@@ -45,10 +44,10 @@
                           </div>
                           <div class="card__body">
                             <div class="card__body__content">
-                              <ul class="card__body__content__ul">
+                              <div class="card__body__content__ul ul__occupation__room">
                                 <li class="content__li">
                                   <span class="content__li__span">Usuario a cargo:</span>
-                                  <span class="content__li__span content__li__span--data">{{reservation.usuarioReserva.usuario}}</span>
+                                  <span class="content__li__span content__li__span--data">{{reservation.usuarioReserva.trabajadorUsuario.nombreTrabajador}} {{reservation.usuarioReserva.trabajadorUsuario.apellidosTrabajador}}</span>
                                 </li>
                                 <li class="content__li">
                                   <span class="content__li__span">Cliente:</span>
@@ -76,15 +75,15 @@
                                 </li>
                                 <li class="content__li">
                                   <span class="content__li__span">Importe Total:</span>
-                                  <span class="content__li__span content__li__span--data">S/{{formatCurrency reservation.importeReserva}}</span>
+                                  <div class="content__li__span content__li__span--data" id="importe_reserva" data-importe="{{reservation.importeReserva}}">S/{{formatCurrency reservation.importeReserva}}</div>
                                 </li>
                                 <li class="content__li">
                                   <span class="content__li__span">Adelanto:</span>
-                                  <span class="content__li__span content__li__span--data">S/{{formatCurrency reservation.adelantoReserva}}</span>
+                                  <span class="content__li__span content__li__span--data" id="adelanto_reserva" data-adelanto="{{reservation.adelantoReserva}}">S/{{formatCurrency reservation.adelantoReserva}}</span>
                                 </li>
                                 <li class="content__li">
                                   <span class="content__li__span">Restante:</span>
-                                  <span class="content__li__span content__li__span--data">S/{{formatCurrency reservation.restanteReserva}}</span>
+                                  <span class="content__li__span content__li__span--data" id="restante_reserva" data-restante="{{reservation.restanteReserva}}">S/{{formatCurrency reservation.restanteReserva}}</span>
                                 </li>
                                 <li class="content__li">
                                   <span class="content__li__span">Observaciones:</span>
@@ -94,7 +93,7 @@
                                   <span class="content__li__span">Estado:</span>
                                   <span class="content__li__span content__li__span--data">{{reservation.estadoReserva}}</span>
                                 </li>
-                              </ul>
+                              </div>
                             </div>
                           </div>
                         </div>
@@ -106,7 +105,7 @@
                           </div>
                           <div class="card__body">
                             <div class="card__body__content">
-                              <ul class="card__body__content__ul">
+                              <ul class="card__body__content__ul ul__room__room">
                                 <li class="content__li">
                                   <span class="content__li__span">Piso:</span>
                                   <span class="content__li__span content__li__span--data">{{reservation.habitacionReserva.pisoHabitacion.numeroPiso}}</span>
@@ -128,7 +127,7 @@
                                   <span class="content__li__span content__li__span--data">{{reservation.habitacionReserva.categoriaHabitacion.descripcionCategoriaHabitacion}}</span>
                                 </li>
                                 <li class="content__li">
-                                  <span class="content__li__span">Precio por día:</span>
+                                  <span class="content__li__span">Precio por noche:</span>
                                   <span class="content__li__span content__li__span--data">S/{{formatCurrency reservation.habitacionReserva.precioHabitacion}}</span>
                                 </li>
                               </ul>
@@ -143,7 +142,7 @@
                           </div>
                           <div class="card__body">
                             <div class="card__body__content">
-                              <ul class="card__body__content__ul">
+                              <ul class="card__body__content__ul ul__client__room">
                                 <li class="content__li">
                                   <span class="content__li__span">Documento:</span>
                                   <span class="content__li__span content__li__span--data">{{reservation.dniClienteReserva}}</span>
@@ -172,14 +171,14 @@
                           </div>
                           <div class="card__body">
                             <div class="card__body__content">
-                              <ul class="card__body__content__ul">
+                              <ul class="card__body__content__ul ul__employee__room">
                                 <li class="content__li">
                                   <span class="content__li__span">Documento:</span>
                                   <span class="content__li__span content__li__span--data">{{reservation.usuarioReserva.trabajadorUsuario.dniTrabajador}}</span>
                                 </li>
                                 <li class="content__li">
                                   <span class="content__li__span">Nombres:</span>
-                                  <span class="content__li__span content__li__span--data">{{reservation.usuarioReserva.trabajadorUsuario.nombreTrabajador}} {{reservation.usuarioRegistroReserva.trabajadorUsuario.apellidosTrabajador}}</span>
+                                  <span class="content__li__span content__li__span--data">{{reservation.usuarioReserva.trabajadorUsuario.nombreTrabajador}} {{reservation.usuarioReserva.trabajadorUsuario.apellidosTrabajador}}</span>
                                 </li>
                                 <li class="content__li">
                                   <span class="content__li__span">Celular:</span>
@@ -253,15 +252,15 @@
                                       </li>
                                       <li class="content__li">
                                         <span class="content__li__span">Precio:</span>
-                                        <span class="content__li__span content__li__span--data">S/{{formatCurrency precioTotalVentaHotel}}</span>
+                                        <span class="content__li__span content__li__span--data" data-precio="{{precioTotalVentaHotel}}">S/{{formatCurrency precioTotalVentaHotel}}</span>
                                       </li>
                                       <li class="content__li">
                                         <span class="content__li__span">Descuento:</span>
-                                        <span class="content__li__span content__li__span--data">S/{{formatCurrency descuentoTotalVentaHotel}}</span>
+                                        <span class="content__li__span content__li__span--data" data-descuento="{{descuentoTotalVentaHotel}}">S/{{formatCurrency descuentoTotalVentaHotel}}</span>
                                       </li>
                                       <li class="content__li">
                                         <span class="content__li__span">Adelanto:</span>
-                                        <span class="content__li__span content__li__span--data">S/{{formatCurrency pagoAdelantoVentaHotel}}</span>
+                                        <span class="content__li__span content__li__span--data" data-adelanto="{{pagoAdelantoVentaHotel}}">S/{{formatCurrency pagoAdelantoVentaHotel}}</span>
                                       </li>
                                       <li class="content__li">
                                         <span class="content__li__span">Comentarios:</span>
@@ -269,11 +268,12 @@
                                       </li>
                                       <li class="content__li">
                                         <span class="content__li__span">Restante:</span>
-                                        <span class="content__li__span content__li__span--data">S/{{formatCurrency pagoRestanteVentaHotel}}</span>
+                                        <span class="content__li__span content__li__span--data" data-restante="{{pagoRestanteVentaHotel}}">S/{{formatCurrency pagoRestanteVentaHotel}}</span>
+                                      </li>
+                                      <div class="flex-c-c content__details__sale content__details__sale--room">
+                                        <button type="button" class="details__sale__button detail__btn--sale__details" data-sale-id="{{_id}}">Detalles</button>
+                                      </div>
                                     </ul>
-                                    <div class="flex-c-c content__details__sale content__details__sale--room">
-                                      <button type="button" class="details__sale__button detail__btn--sale__details" data-sale-id="{{_id}}">Detalles</button>
-                                    </div>
                                   </div>
                                   <section class="modal__fixed" data-sale-id="{{_id}}">
                                     <div class="flex-c-c modal modal__sale__products__details">
@@ -327,221 +327,116 @@
                   </div>
                 </div>
               </section>
-              <section class="details__footer">
-                <div class="details__footer__container">
-                  <div class="details__btns">
-                    {{#if (or (eq reservation.estadoReserva "Proxima") (eq reservation.estadoReserva "Tardada"))}}
-                      <button type="button" class="details__btn detail__btn--entering">Ingreso Huésped</button>
-                    {{/if}}
-                    {{#unless cleaningComplete}}
-                      {{#if (eq reservation.estadoReserva "Limpieza Intermedia")}}
-                        <button type="button" class="details__btn detail__btn--clean__fin">Fin Limpieza</button>
-                      {{else}}
-                        {{#if (eq reservation.estadoReserva "Ocupada")}}
-                          <button type="button" class="details__btn detail__btn--clean">Limpieza intermedia</button>
-                        {{/if}}
-                      {{/if}}
-                    {{/unless}}
-                    {{#if (or (eq reservation.estadoReserva "Ocupada") (eq reservation.estadoReserva "Limpieza Intermedia"))}}
-                      <button type="button" class="details__btn detail__btn--sale">Vender</button>
-                      <button type="button" class="details__btn detail__btn--finalize">CheckOut</button>
-                      <button type="button" class="details__btn detail__btn--edit">Modificar</button>
-                    {{else}}
-                      <button type="button" class="details__btn detail__btn--cancel__reservation">Cancelar</button>
-                    {{/if}}
+              <section class="details__footer details__footer--checkout">
+                <form action="{{actionUrl}}" method="POST" class="form__checkout">
+                  <div class="details__footer__container">
+                    <article class="card__content card__content__checkout">
+                      <div class="card card__info card__info__checkout">
+                        <div class="card__header">
+                          <h5 class="card__title">CheckOut</h5>
+                        </div>
+                        <div class="card__body">
+                          <div class="card__body__content">
+                            <ul class="card__body__content__ul">
+                              <li class="content__li">
+                                <article class="form__group form__group--select us__sel">
+                                  <label for="habitacion_checkout" class="form__label--select">Habitación:</label>
+                                  <select name="habitacionCheckOut" class="form__input us__sel" id="habitacion_checkout">
+                                    <option value="{{room._id}}" selected>{{room.numeroHabitacion}}</option>
+                                  </select>
+                                </article>
+                              </li>
+                              <li class="content__li">
+                                <label for="importe_adicional_checkout" class="label__checkout">Adicional:</label>
+                                <input type="number" name="importeAdicionalCheckOut" id="importe_adicional_checkout" class="form__input" required title="Importe Adicional" onkeypress="return event.charCode >= 48 && event.charCode <= 57">
+                              </li>
+                              <li class="content__li">
+                                <label for="descuento_checkout" class="label__checkout">Descuento:</label>
+                                <input type="number" name="descuentoCheckOut" id="descuento_checkout" class="form__input" required title="Descuento" onkeypress="return event.charCode >= 48 && event.charCode <= 57">
+                              </li>
+                              <li class="content__li">
+                                <label for="importe_total_checkout" class="label__checkout">Total:</label>
+                                <input type="number" name="importeTotalCheckOut" id="importe_total_checkout" class="form__input us__sel" required title="Importe Total" readonly>
+                              </li>
+                              <li class="content__li">
+                                <label for="comentarios_checkout" class="label__checkout">Comentarios:</label>
+                                <textarea name="comentariosCheckOut" id="comentarios_checkout" class="form__input form__textarea" required title="Comentarios"></textarea>
+                              </li>
+                            </ul>
+                          </div>
+                        </div>
+                        <div class="card__footer">
+                          <div class="card__footer__content">
+                            <div class="card__footer__content__checkout">
+                              <button type="button" class="details__btn detail__btn--checkout">Checkout</button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </article>
                   </div>
-                </div>
+                  <section class="modal__fixed">
+                    <div class="flex-c-c modal modal__checkout">
+                      <article class="flex-c-c article__modal">
+                        <h5 class="modal__title">¿Hacer checkout de la habitación?</h5>
+                        <div class="flex-c-c modal__btns">
+                          <button type="button" class="btn__modal__action btn__modal__action--cancelar cancel__modal--checkout">Cancelar</button>
+                          <button type="submit" class="btn__modal__action confirm__modal--checkout">Confirmar</button>
+                        </div>
+                        <div class="close__modal close__modal--checkout">
+                          <figure class="close__figure">
+                            <img src="/assets/icon-close.svg" alt="Icon Close" class="close__img">
+                          </figure>
+                        </div>
+                      </article>
+                    </div>
+                  </section>
+                </form>
               </section>
             </article>
           </div>
         {{else}}
-          <h5 class="items__empty">No hay Ocupación para mostrar 😿</h5>
+          <h5 class="items__empty">No hay Reserva para mostrar 😿</h5>
         {{/if}}
       </div>
     </div>
   </div>
 </section>
-<section class="modal__fixed">
-  <div class="flex-c-c modal modal__clean__room">
-    <article class="flex-c-c article__modal">
-      <h5 class="modal__title">¿Hacer limpieza intermedia?</h5>
-      <div class="flex-c-c modal__btns">
-        <button type="button" class="btn__modal__action btn__modal__action--cancelar cancel__modal--clean">Cancelar</button>
-        <a href="/reservation/{{reservation._id}}/clean" class="btn__modal__action confirm__modal--clean">Limpieza</a>
-      </div>
-      <div class="close__modal close__modal--clean">
-        <figure class="close__figure">
-          <img src="/assets/icon-close.svg" alt="Icon Close" class="close__img">
-        </figure>
-      </div>
-    </article>
-  </div>
-</section>
-<section class="modal__fixed">
-  <div class="flex-c-c modal modal__clean__fin__room">
-    <article class="flex-c-c article__modal">
-      <h5 class="modal__title">¿Finalizar limpieza intermedia?</h5>
-      <div class="flex-c-c modal__btns">
-        <button type="button" class="btn__modal__action btn__modal__action--cancelar cancel__modal--clean__fin">Cancelar</button>
-        <a href="/reservation/{{reservation._id}}/clean/finalize" class="btn__modal__action confirm__modal--clean__fin">Finalizar</a>
-      </div>
-      <div class="close__modal close__modal--clean__fin">
-        <figure class="close__figure">
-          <img src="/assets/icon-close.svg" alt="Icon Close" class="close__img">
-        </figure>
-      </div>
-    </article>
-  </div>
-</section>
-<section class="modal__fixed">
-  <div class="flex-c-c modal modal__edit__reservation">
-    <article class="flex-c-c article__modal">
-      <h5 class="modal__title">¿Editar reserva?</h5>
-      <div class="flex-c-c modal__btns">
-        <button type="button" class="btn__modal__action btn__modal__action--cancelar cancel__modal--edit">Cancelar</button>
-        <a href="/reservation/{{reservation._id}}/edit" class="btn__modal__action confirm__modal--edit">Editar</a>
-      </div>
-      <div class="close__modal close__modal--edit">
-        <figure class="close__figure">
-          <img src="/assets/icon-close.svg" alt="Icon Close" class="close__img">
-        </figure>
-      </div>
-    </article>
-  </div>
-</section>
-<section class="modal__fixed">
-  <div class="flex-c-c modal modal__sale__room">
-    <article class="flex-c-c article__modal">
-      <h5 class="modal__title">¿Vender producto a la habitación?</h5>
-      <div class="flex-c-c modal__btns">
-        <button type="button" class="btn__modal__action cancel__modal--sale">Cancelar</button>
-        <a href="/reservation/{{reservation._id}}/sale" class="btn__modal__action confirm__modal--sale">Vender</a>
-      </div>
-      <div class="close__modal close__modal--sale">
-        <figure class="close__figure">
-          <img src="/assets/icon-close.svg" alt="Icon Close" class="close__img">
-        </figure>
-      </div>
-    </article>
-  </div>
-</section>
-<section class="modal__fixed">
-  <div class="flex-c-c modal modal__reservation__finalize">
-    <article class="flex-c-c article__modal">
-      <h5 class="modal__title">¿Hacer checkout?</h5>
-      <div class="flex-c-c modal__btns">
-        <button type="button" class="btn__modal__action cancel__modal--finalize">Cancelar</button>
-        <a href="/reservation/{{reservation._id}}/checkout" class="btn__modal__action confirm__modal--finalize">Confirmar</a>
-      </div>
-      <div class="close__modal close__modal--finalize">
-        <figure class="close__figure">
-          <img src="/assets/icon-close.svg" alt="Icon Close" class="close__img">
-        </figure>
-      </div>
-    </article>
-  </div>
-</section>
-<section class="modal__fixed">
-  <div class="flex-c-c modal modal__reservation__cancel">
-    <article class="flex-c-c article__modal">
-      <h5 class="modal__title">¿Desea cancelar reserva?</h5>
-      <div class="flex-c-c modal__btns">
-        <button type="button" class="btn__modal__action cancel__modal--cancel">Cerrar</button>
-        <a href="/reservation/{{reservation._id}}/cancel" class="btn__modal__action confirm__modal--cancel">Anular reserva</a>
-      </div>
-      <div class="close__modal close__modal--cancel">
-        <figure class="close__figure">
-          <img src="/assets/icon-close.svg" alt="Icon Close" class="close__img">
-        </figure>
-      </div>
-    </article>
-  </div>
-</section>
-<section class="modal__fixed">
-  <div class="flex-c-c modal modal__reservation__entering">
-    <article class="flex-c-c article__modal">
-      <h5 class="modal__title">¿Confirmar ingreso del Huésped?</h5>
-      <div class="flex-c-c modal__btns">
-        <button type="button" class="btn__modal__action cancel__modal--entering">Cancelar</button>
-        <a href="/reservation/{{reservation._id}}/entering" class="btn__modal__action confirm__modal--entering">Confirmar</a>
-      </div>
-      <div class="close__modal close__modal--entering">
-        <figure class="close__figure">
-          <img src="/assets/icon-close.svg" alt="Icon Close" class="close__img">
-        </figure>
-      </div>
-  </div>
-</section>
 <script>
   document.addEventListener("DOMContentLoaded", () => {
-    const $btnModalFinalize = document.querySelector(".detail__btn--finalize");
-    const $btnModalClean = document.querySelector(".detail__btn--clean");
-    const $btnModalEdit = document.querySelector(".detail__btn--edit");
-    const $btnModalSale = document.querySelector(".detail__btn--sale");
-    const $btnModalCleanFin = document.querySelector(".detail__btn--clean__fin");
-    const $btnModalEntering = document.querySelector(".detail__btn--entering");
-    const $btnModalCancelReservation = document.querySelector(".detail__btn--cancel__reservation");
+    const $btnModalCheckOut = document.querySelector(".detail__btn--checkout");
+    const $modalCheckOut = document.querySelector(".modal__checkout");
+    const $cancelCheckOut = document.querySelector(".cancel__modal--checkout");
+    const $modalCloseCheckOut = document.querySelector(".close__modal--checkout");
 
-    const $btnsModalSaleDetails = document.querySelectorAll(".detail__btn--sale__details");
+    const $btnsModalSaleDetails = document.querySelectorAll(".details__sale__button");
 
-    const $modalFinalize = document.querySelector(".modal__reservation__finalize");
-    const $modalClean = document.querySelector(".modal__clean__room");
-    const $modalEdit = document.querySelector(".modal__edit__reservation");
-    const $modalSale = document.querySelector(".modal__sale__room");
-    const $modalCleanFin = document.querySelector(".modal__clean__fin__room");
-    const $modalEntering = document.querySelector(".modal__reservation__entering");
-    const $modalCancelReservation = document.querySelector(".modal__reservation__cancel");
+    const $importeReserva = document.getElementById("importe_reserva");
+    const $adelantoReserva = document.getElementById("adelanto_reserva");
+    const $restanteReserva = document.getElementById("restante_reserva");
 
-    const $cancelFinalize = document.querySelector(".cancel__modal--finalize");
-    const $cancelClean = document.querySelector(".cancel__modal--clean");
-    const $cancelEdit = document.querySelector(".cancel__modal--edit");
-    const $cancelSale = document.querySelector(".cancel__modal--sale");
-    const $cancelCleanFin = document.querySelector(".cancel__modal--clean__fin");
-    const $cancelEntering = document.querySelector(".cancel__modal--entering");
-    const $cancelCancelReservation = document.querySelector(".cancel__modal--cancel");
+    const $importeVentaHotel = document.getElementById("precio_total_venta_hotel");
+    const $descuentoVentaHotel = document.getElementById("descuento_total_venta_hotel");
+    const $adelantoVentaHotel = document.getElementById("pago_adelanto_venta_hotel");
+    const $restanteVentaHotel = document.getElementById("pago_restante_venta_hotel");
 
-    const $modalCloseFinalize = document.querySelector(".close__modal--finalize");
-    const $modalCloseClean = document.querySelector(".close__modal--clean");
-    const $modalCloseEdit = document.querySelector(".close__modal--edit");
-    const $modalCloseSale = document.querySelector(".close__modal--sale");
-    const $modalCloseCleanFin = document.querySelector(".close__modal--clean__fin");
-    const $modalCloseEntering = document.querySelector(".close__modal--entering");
-    const $modalCloseCancelReservation = document.querySelector(".close__modal--cancel");
+    const $importeAdicionalCheckOut = document.getElementById("importe_adicional_checkout");
+    const $descuentoCheckOut = document.getElementById("descuento_checkout");
+    const $importeTotalCheckOut = document.getElementById("importe_total_checkout");
+
+    // Por defecto el valor 0 a adicional y descuento
+    $importeAdicionalCheckOut.value = 0;
+    $descuentoCheckOut.value = 0;
 
     // Funciones para mostrar y cerrar modales
-    function showModalFinalize(e){
+    function showModalCheckOut(e){
       e.stopPropagation();
-      $modalFinalize.classList.add("modal__show");
+      $modalCheckOut.classList.add("modal__show");
     }
 
-    function showModalClean(e){
+    function closeModalCheckOut(e){
       e.stopPropagation();
-      $modalClean.classList.add("modal__show");
-    }
-
-    function showModalEdit(e){
-      e.stopPropagation();
-      $modalEdit.classList.add("modal__show");
-    }
-
-    function showModalSale(e){
-      e.stopPropagation();
-      $modalSale.classList.add("modal__show");
-    }
-
-    function showModalCleanFin(e){
-      e.stopPropagation();
-      $modalCleanFin.classList.add("modal__show");
-    }
-
-    function showModalEntering(e){
-      e.stopPropagation();
-      $modalEntering.classList.add("modal__show");
-    }
-
-    function showModalCancelReservation(e){
-      e.stopPropagation();
-      $modalCancelReservation.classList.add("modal__show");
+      $modalCheckOut.classList.remove("modal__show");
     }
 
     function showModalSaleDetails(e){
@@ -553,41 +448,6 @@
       }
     }
 
-    function closeModalFinalize(e){
-      e.stopPropagation();
-      $modalFinalize.classList.remove("modal__show");
-    }
-
-    function closeModalClean(e){
-      e.stopPropagation();
-      $modalClean.classList.remove("modal__show");
-    }
-
-    function closeModalEdit(e){
-      e.stopPropagation();
-      $modalEdit.classList.remove("modal__show");
-    }
-
-    function closeModalSale(e){
-      e.stopPropagation();
-      $modalSale.classList.remove("modal__show");
-    }
-
-    function closeModalCleanFin(e){
-      e.stopPropagation();
-      $modalCleanFin.classList.remove("modal__show");
-    }
-
-    function closeModalEntering(e){
-      e.stopPropagation();
-      $modalEntering.classList.remove("modal__show");
-    }
-
-    function closeModalCancelReservation(e){
-      e.stopPropagation();
-      $modalCancelReservation.classList.remove("modal__show");
-    }
-
     function closeModalSaleDetails(e){
       e.stopPropagation();
       const saleId = e.target.closest(".modal__fixed").dataset.saleId;
@@ -595,48 +455,6 @@
       if ($modalSaleDetails) {
         $modalSaleDetails.classList.remove("modal__show");
       }
-    }
-
-    if ($btnModalCleanFin) {
-      $btnModalCleanFin.addEventListener("click", showModalCleanFin);
-      $cancelCleanFin.addEventListener("click", closeModalCleanFin);
-      $modalCloseCleanFin.addEventListener("click", closeModalCleanFin);
-    }
-
-    if ($btnModalClean) {
-      $btnModalClean.addEventListener("click", showModalClean);
-      $cancelClean.addEventListener("click", closeModalClean);
-      $modalCloseClean.addEventListener("click", closeModalClean);
-    }
-
-    if ($btnModalFinalize) {
-      $btnModalFinalize.addEventListener("click", showModalFinalize);
-      $cancelFinalize.addEventListener("click", closeModalFinalize);
-      $modalCloseFinalize.addEventListener("click", closeModalFinalize);
-    }
-
-    if ($btnModalEdit) {
-      $btnModalEdit.addEventListener("click", showModalEdit);
-      $cancelEdit.addEventListener("click", closeModalEdit);
-      $modalCloseEdit.addEventListener("click", closeModalEdit);
-    }
-
-    if ($btnModalSale) {
-      $btnModalSale.addEventListener("click", showModalSale);
-      $cancelSale.addEventListener("click", closeModalSale);
-      $modalCloseSale.addEventListener("click", closeModalSale);
-    }
-
-    if ($btnModalEntering) {
-      $btnModalEntering.addEventListener("click", showModalEntering);
-      $cancelEntering.addEventListener("click", closeModalEntering);
-      $modalCloseEntering.addEventListener("click", closeModalEntering);
-    }
-
-    if ($btnModalCancelReservation) {
-      $btnModalCancelReservation.addEventListener("click", showModalCancelReservation);
-      $cancelCancelReservation.addEventListener("click", closeModalCancelReservation);
-      $modalCloseCancelReservation.addEventListener("click", closeModalCancelReservation);
     }
 
     $btnsModalSaleDetails.forEach(btn => {
@@ -647,5 +465,79 @@
     $modalCloseSaleDetails.forEach(btn => {
       btn.addEventListener("click", closeModalSaleDetails);
     });
+
+    $btnModalCheckOut.addEventListener("click", showModalCheckOut);
+    $cancelCheckOut.addEventListener("click", closeModalCheckOut);
+    $modalCloseCheckOut.addEventListener("click", closeModalCheckOut);
+
+    function updateTotalCheckOut() {
+      let restanteReserva = parseFloat($restanteReserva.dataset.restante);
+      let importeAdicionalCheckOut = parseFloat($importeAdicionalCheckOut.value) || 0;
+      let descuentoCheckOut = parseFloat($descuentoCheckOut.value) || 0;
+
+      let totalVentasHotel = 0;
+
+      // Iterar sobre cada venta a la habitación
+      const $ventasHotel = document.querySelectorAll(".ul__sale__room");
+      $ventasHotel.forEach(venta => {
+        let importeVentaHotel = parseFloat(venta.querySelector(".content__li__span--data[data-precio]").dataset.precio) || 0;
+        let descuentoVentaHotel = parseFloat(venta.querySelector(".content__li__span--data[data-descuento]").dataset.descuento) || 0;
+        let adelantoVentaHotel = parseFloat(venta.querySelector(".content__li__span--data[data-adelanto]").dataset.adelanto) || 0;
+        let restanteVentaHotel = parseFloat(venta.querySelector(".content__li__span--data[data-restante]").dataset.restante) || 0;
+
+        totalVentasHotel += restanteVentaHotel;
+      });
+
+      let pagoAlSalirCheckOut = restanteReserva + importeAdicionalCheckOut - descuentoCheckOut + totalVentasHotel;
+      
+      if (pagoAlSalirCheckOut < 0) {
+        alert("El importe total no puede ser negativo");
+        descuentoCheckOut = restanteReserva + importeAdicionalCheckOut;
+        $descuentoCheckOut.value = descuentoCheckOut;
+        pagoAlSalirCheckOut = 0;
+      }
+
+      $importeTotalCheckOut.value = pagoAlSalirCheckOut.toFixed(2);
+    }
+
+    // Validar el ingreso de numeros positivos
+    function validateNumberPositive(e) {
+      if (e.target.value < 0) {
+        e.target.value = 0;
+      }
+
+      if(isNaN(e.target.value)) {
+        return;
+      }
+    }
+
+    // Maneho de focus y blur en los input
+    function handleFocus(e) {
+      if (e.target.value == 0) {
+        e.target.value = "";
+      }
+    }
+
+    function handleBlur(e) {
+      if (e.target.value === "") {
+        e.target.value = 0;
+      }
+      updateTotalCheckOut();
+    }
+
+    $importeAdicionalCheckOut.addEventListener("input", e => {
+      validateNumberPositive(e);
+      updateTotalCheckOut();
+    });
+    $descuentoCheckOut.addEventListener("input", e => {
+      validateNumberPositive(e);
+      updateTotalCheckOut();
+    });
+    $importeAdicionalCheckOut.addEventListener("focus", handleFocus);
+    $importeAdicionalCheckOut.addEventListener("blur", handleBlur);
+    $descuentoCheckOut.addEventListener("focus", handleFocus);
+    $descuentoCheckOut.addEventListener("blur", handleBlur);
+
+    updateTotalCheckOut();
   });
 </script>

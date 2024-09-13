@@ -397,6 +397,7 @@ reservationCtrl.renderSaleReservation = async (req, res) => {
     const {id} = req.params;
     const reservationId = id;
     const actionUrl = `/reservation/${reservationId}/sale`;
+    const backUrl = `/reservation/${reservationId}/details`;
     const reservation = await Reservation.findById(id)
       .populate({
         path: "usuarioReserva",
@@ -434,6 +435,7 @@ reservationCtrl.renderSaleReservation = async (req, res) => {
     const currentUser = req.user;
     res.render("hotel/sales/new-sale-hotel", {
       actionUrl,
+      backUrl,
       reservation,
       room,
       storeHotel,
@@ -606,6 +608,7 @@ reservationCtrl.cancelSaleReservation = async (req, res) => {
 reservationCtrl.renderCleaningRoomReservation = async (req, res) => {
   try {
     const {id} = req.params;
+    const actionUrl = `/reservation/${id}/cleaning`;
     const reservation = await Reservation.findById(id)
       .populate({
         path: "usuarioReserva",
@@ -635,7 +638,8 @@ reservationCtrl.renderCleaningRoomReservation = async (req, res) => {
       .lean();
 
     const userRole = req.user.trabajadorUsuario.rolTrabajador.nombreRol;
-    res.render("hotel/cleaning/cleaning-room-reservation", {
+    res.render("hotel/cleaning/cleaning-room", {
+      actionUrl,
       reservation,
       room,
       usuarios,
@@ -765,6 +769,7 @@ reservationCtrl.renderCheckOutReservation = async (req, res) => {
     const {id} = req.params;
     const reservationId = id;
     const actionUrl = `/reservation/${reservationId}/checkout`;
+    const backUrl = `/reservation/${reservationId}/details`;
     const reservation = await Reservation.findById(id)
       .populate({
         path: "usuarioReserva",
@@ -834,8 +839,9 @@ reservationCtrl.renderCheckOutReservation = async (req, res) => {
       .lean();
 
     const userRole = req.user.trabajadorUsuario.rolTrabajador.nombreRol;
-    res.render("hotel/checkout/checkout-hotel", {
+    res.render("hotel/checkout/checkout-hotel-reservation", {
       actionUrl,
+      backUrl,
       reservation,
       room,
       usuarios,
