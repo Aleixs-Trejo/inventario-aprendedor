@@ -692,13 +692,11 @@ salesCtrl.renderBalanceSales = async (req, res) => {
       })
       .sort({createdAt: -1})
       .lean();
-    
-    const userRole = req.user.trabajadorUsuario.rolTrabajador.nombreRol;
+
     const currentPage = `balances`;
     res.render("sales/balance-sales", {
       balances,
-      currentPage,
-      userRole
+      currentPage
     });
   } catch (error) {
     req.flash("wrong", "Ocurrió un error al renderizar los balances, intente nuevamente.");

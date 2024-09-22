@@ -20,7 +20,13 @@ categoryHistoryCtrl.renderCategoryHistory = async (req, res) => {
     })
     .sort({createdAt: -1})
     .lean();
-    res.render('categories/categories-history', {categoriesHistory});
+    const currentPage = "categories";
+    const permisosRole = req.user.trabajadorUsuario.rolTrabajador.permisosRol;
+    res.render('categories/categories-history', {
+      categoriesHistory,
+      currentPage,
+      permisosRole
+    });
   } catch (error) {
     req.flash("wrong", "Ocurrió un error, intente nuevamente.");
     console.log("Error: ", error);

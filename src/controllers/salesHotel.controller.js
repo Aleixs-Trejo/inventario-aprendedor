@@ -32,12 +32,10 @@ salesHotelCtrl.renderAllSalesHotel = async (req, res) => {
     .sort({createdAt: -1})
     .lean();
 
-    const userRole = req.user.trabajadorUsuario.rolTrabajador.nombreRol;
     const currentPage = `sales-hotel`;
     res.render("hotel/sales/all-sales-hotel", {
       salesHotel,
-      currentPage,
-      userRole
+      currentPage
     });
   } catch (error) {
     req.flash("wrong", "Ocurrió un error al cargar las ventas, intente nuevamente.");

@@ -13,10 +13,8 @@ floorHistoryCtrl.renderFloorHistory = async (req, res) => {
       })
       .lean();
 
-    const userRole = req.user.trabajadorUsuario.rolTrabajador.nombreRol;
     res.render("hotel/floors/history-floors", {
-      floorsHistory,
-      userRole
+      floorsHistory
     });
   } catch (error) {
     req.flash("wrong", "Ocurrió un error al cargar los datos, intente nuevamente.");

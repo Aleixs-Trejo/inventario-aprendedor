@@ -28,8 +28,6 @@ indexCtrl.renderIndex = async (req, res) => {
 
     const currentUser = req.user;
 
-    const permisosRole = currentUser.trabajadorUsuario.rolTrabajador.permisosRol;
-
     // Obtener la fecha de inicio de la semana actual
     const startOfWeek = moment().startOf("week").toDate();
 
@@ -117,7 +115,6 @@ indexCtrl.renderIndex = async (req, res) => {
     if (!rooms.length) {
       return res.render("index", {
         company,
-        permisosRole,
         user,
         sales,
         products,
@@ -206,7 +203,6 @@ indexCtrl.renderIndex = async (req, res) => {
 
     res.render("index", {
       company,
-      permisosRole,
       user,
       sales,
       products,

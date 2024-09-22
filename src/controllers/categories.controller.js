@@ -78,12 +78,10 @@ categoryCtrl.renderCategories = async (req, res) => {
     const categories = await Category.find({eliminadoCategoria: false})
     .populate("usuarioRegistroCategoria")
     .lean();
-    const userRole = req.user.trabajadorUsuario.rolTrabajador.nombreRol;
     const currentPage = `categories`;
     res.render("categories/all-categories", {
       categories,
-      currentPage,
-      userRole
+      currentPage
     });
   } catch (error) {
     req.flash("wrong", "Ocurrió un error, intente nuevamente.");
@@ -116,11 +114,9 @@ categoryCtrl.renderDetailsCategory = async (req, res) => {
       .populate("categoriaHistorial")
       .sort({createdAt: -1})
       .lean();
-    const userRole = req.user.trabajadorUsuario.rolTrabajador.nombreRol;
     res.render("categories/details-category", {
       category,
-      categoryHistory,
-      userRole
+      categoryHistory
     });
   } catch (error) {
     req.flash("wrong", "Ocurrió un error al mostrar la información de la categoría, intente nuevamente.");

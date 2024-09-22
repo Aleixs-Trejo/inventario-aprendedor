@@ -6,10 +6,7 @@ const FloorHistory = require("../models/floorHistoryModel");
 // Renderizar formulario de nueva habitación
 floorCtrl.renderRegisterFloor = async (req, res) =>{
   try {
-    const userRole = req.user.trabajadorUsuario.rolTrabajador.nombreRol;
-    res.render("hotel/floors/new-floor", {
-      userRole
-    });
+    res.render("hotel/floors/new-floor");
   } catch (error) {
     req.flash("wrong", "Ocurrió un error al cargar el formulario de nuevo piso, intente nuevamente.");
     console.log("Error: ", error);
@@ -68,12 +65,10 @@ floorCtrl.renderFloors = async (req, res) => {
       .populate("usuarioRegistroPiso")
       .lean();
 
-    const userRole = req.user.trabajadorUsuario.rolTrabajador.nombreRol;
     const currentPage = `floors`;
     res.render("hotel/floors/all-floors", {
       floors,
-      currentPage,
-      userRole
+      currentPage
     });
   } catch (error) {
     req.flash("wrong", "Ocurrió un error al cargar los datos, intente nuevamente.");
@@ -94,10 +89,8 @@ floorCtrl.renderEditFloor = async (req, res) => {
       return res.redirect("/floors");
     };
 
-    const userRole = req.user.trabajadorUsuario.rolTrabajador.nombreRol;
     res.render("hotel/floors/edit-floor", {
-      floor,
-      userRole
+      floor
     });
   } catch (error) {
     req.flash("wrong", "Ocurrió un error al cargar el formulario de edición, intente nuevamente.");
@@ -127,9 +120,8 @@ floorCtrl.renderDeleteFloor = async (req, res) => {
     const floor = await Floor.findById(id)
       .populate("usuarioRegistroPiso")
       .lean();
-    
-    const userRole = req.user.trabajadorUsuario.rolTrabajador.nombreRol;
-    res.render("hotel/floors/delete-floor", {floor, userRole});
+
+    res.render("hotel/floors/delete-floor", {floor});
   } catch (error) {
     req.flash("wrong", "Ocurrió un error al cargar la eliminación, intente nuevamente.");
     console.log("Error: ", error);

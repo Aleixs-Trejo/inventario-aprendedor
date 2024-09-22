@@ -100,12 +100,10 @@ providersCtrl.renderProviders = async (req, res) => {
       .populate("usuarioRegistroProveedor")
       .lean();
 
-    const userRole = req.user.trabajadorUsuario.rolTrabajador.nombreRol;
     const currentPage = `providers`;
     res.render("providers/all-providers", {
       providers,
-      currentPage,
-      userRole
+      currentPage
     });
   } catch (error) {
     req.flash("wrong", "Ocurrió un error, intente nuevamente.");
@@ -183,11 +181,9 @@ providersCtrl.renderProviderDetails = async (req, res) => {
       .populate("proveedorHistorial")
       .lean();
     
-    const userRole = req.user.trabajadorUsuario.rolTrabajador.nombreRol;
     res.render("providers/details-provider", {
       provider,
-      providerHistory,
-      userRole
+      providerHistory
     });
   } catch (error) {
     req.flash("wrong", "Ocurrió un error al mostrar los detalles del proveedor, intente nuevamente.");

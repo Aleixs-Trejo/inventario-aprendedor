@@ -18,10 +18,8 @@ occupationHistoryCtrl.renderOccupationHistory = async (req, res) => {
       .sort({createdAt: -1})
       .lean();
 
-    const userRole = req.user.trabajadorUsuario.rolTrabajador.nombreRol;
     res.render("hotel/occupations/history-occupations", {
-      occupationHistory,
-      userRole
+      occupationHistory
     });
   } catch (error) {
     req.flash("wrong", "Ocurrió un error al cargar los detalles de la reserva, intente nuevamente.");

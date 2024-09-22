@@ -29,13 +29,9 @@ salesHistoryCtrl.renderSalesHistory = async (req, res) => {
       })
       .sort({createdAt: -1})
       .lean();
-    
-    const userRole = req.user.trabajadorUsuario.rolTrabajador.nombreRol;
 
-    console.log("Hisotrial de ventas: ", salesHistory);
     res.render("sales/history-sales", {
-      salesHistory,
-      userRole
+      salesHistory
     });
   } catch (error) {
     req.flash("wrong", "Ocurrió un error, intente nuevamente.");

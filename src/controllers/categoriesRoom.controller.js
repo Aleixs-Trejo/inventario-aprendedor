@@ -65,12 +65,10 @@ categoryRoomCtrl.renderCategoriesRoom = async (req, res) => {
       .sort({createdAt: -1})
       .lean();
     
-    const userRole = req.user.trabajadorUsuario.rolTrabajador.nombreRol;
     const currentPage = `categories-room`;
     res.render("hotel/categories-room/all-categories-room", {
       categoriesRooms,
-      currentPage,
-      userRole
+      currentPage
     });
   } catch (error) {
     req.flash("wrong", "Ocurrió un error al cargar las categorías de la vista, intente nuevamente.");

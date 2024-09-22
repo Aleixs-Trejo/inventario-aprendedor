@@ -41,11 +41,9 @@ checkOutHotelHistoryCtrl.renderCheckOutHotelHistory = async (req, res) => {
       }
     }
     console.log("CheckOutHotelHistory: ", checkOutHotelHistory);
-    const userRole = req.user.trabajadorUsuario.rolTrabajador.nombreRol;
     console.log("checkOutHotelHistory: ", checkOutHotelHistory);
     res.render("hotel/checkout/history-checkouts", {
-      checkOutHotelHistory,
-      userRole
+      checkOutHotelHistory
     });
   } catch (error) {
     req.flash("wrong", "Ocurrió un error al mostrar el checkouthistory de hotel, intente nuevamente.");

@@ -29,12 +29,10 @@ cleaningCtrl.renderCleaning = async (req, res) => {
       }
     }
 
-    const userRole = req.user.trabajadorUsuario.rolTrabajador.nombreRol;
     const currentPage = `cleanings`;
     res.render("hotel/cleaning/all-cleanings", {
       cleanings,
-      currentPage,
-      userRole
+      currentPage
     });
   } catch (error) {
     req.flash("wrong", "Ocurrió un error al cargar la lista de limpieza Intermedia, intente nuevamente.");

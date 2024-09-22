@@ -21,11 +21,9 @@ reservationCtrl.renderRegisterReservation = async (req, res) => {
       .populate("categoriaHabitacion")
       .populate("estadoHabitacion")
       .lean();
-    const userRole = req.user.trabajadorUsuario.rolTrabajador.nombreRol;
 
     res.render("hotel/reservation/new-reservation", {
-      room,
-      userRole
+      room
     });
   } catch (error) {
     req.flash("wrong", "Ocurrió un error al cargar el formulario de nueva habitación, intente nuevamente.");
@@ -128,12 +126,10 @@ reservationCtrl.renderAllReservations = async (req, res) => {
       .sort({createdAt: -1})
       .lean();
     
-    const userRole = req.user.trabajadorUsuario.rolTrabajador.nombreRol;
     const currentPage = `reservations`;
     res.render("hotel/reservation/all-reservations", {
       reservations,
-      currentPage,
-      userRole
+      currentPage
     });
   } catch (error) {
     req.flash("wrong", "Ocurrió un error al cargar los detalles de la reserva, intente nuevamente.");
@@ -203,15 +199,12 @@ reservationCtrl.renderDetailsReservation = async (req, res) => {
       .lean();
 
     const cleaningComplete = cleaningRoom && cleaningRoom.fechaFinLimpieza;
-    
-    const userRole = req.user.trabajadorUsuario.rolTrabajador.nombreRol;
-    console.log("saleReservation: ", saleReservation);
+
     res.render("hotel/reservation/detail-reservation", {
       reservation: reservationLean,
       saleReservation,
       cleaningRoom,
-      cleaningComplete,
-      userRole
+      cleaningComplete
     });
   } catch (error) {
     req.flash("wrong", "Ocurrió un error al cargar los detalles de la reserva, intente nuevamente.");
@@ -297,12 +290,10 @@ reservationCtrl.renderEditReservation = async (req, res) => {
       })
       .populate("pisoHabitacion categoriaHabitacion")
       .lean();
-    
-    const userRole = req.user.trabajadorUsuario.rolTrabajador.nombreRol;
+
     res.render("hotel/reservation/edit-reservation", {
       reservation,
-      room,
-      userRole
+      room
     });
   } catch (error) {
     req.flash("wrong", "Ocurrió un error al cargar el formulario de edición de la reserva, intente nuevamente.");
@@ -639,13 +630,11 @@ reservationCtrl.renderCleaningRoomReservation = async (req, res) => {
       })
       .lean();
 
-    const userRole = req.user.trabajadorUsuario.rolTrabajador.nombreRol;
     res.render("hotel/cleaning/cleaning-room", {
       actionUrl,
       reservation,
       room,
-      usuarios,
-      userRole
+      usuarios
     });
   } catch (error) {
     req.flash("wrong", "Ocurrió un error al cargar el formulario de limpieza intermedia, intente nuevamente.");
@@ -840,7 +829,6 @@ reservationCtrl.renderCheckOutReservation = async (req, res) => {
       })
       .lean();
 
-    const userRole = req.user.trabajadorUsuario.rolTrabajador.nombreRol;
     res.render("hotel/checkout/checkout-hotel-reservation", {
       actionUrl,
       backUrl,
@@ -848,8 +836,7 @@ reservationCtrl.renderCheckOutReservation = async (req, res) => {
       room,
       usuarios,
       cleaningRoom,
-      saleReservation,
-      userRole
+      saleReservation
     });
   } catch (error) {
     req.flash("wrong", "Ocurrió un error al cargar el formulario de checkout, intente nuevamente.");

@@ -67,12 +67,11 @@ statusRoomCtrl.renderStatusRoom = async (req, res) => {
       .populate("usuarioRegistroEstadoHabitacion")
       .sort({createdAt: -1})
       .lean();
-    const userRole = req.user.trabajadorUsuario.rolTrabajador.nombreRol;
+
     const currentPage = `status-room`;
     res.render("hotel/status-room/all-status-room", {
       statusRooms,
-      currentPage,
-      userRole
+      currentPage
     });
   } catch (error) {
     req.flash("wrong", "Ocurrió un error al cargar la vista, intente nuevamente.");

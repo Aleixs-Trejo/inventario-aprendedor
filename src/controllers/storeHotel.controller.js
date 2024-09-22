@@ -13,10 +13,9 @@ storeHotelCtrl.renderRegisterStoreHotel = async (req, res) => {
       .populate("categoriaProducto")
       .sort({cod: 1})
       .lean();
-    const userRole = req.user.trabajadorUsuario.rolTrabajador.nombreRol;
+
     res.render("hotel/store-hotel/new-store-hotel", {
-      products,
-      userRole
+      products
     });
   } catch (error) {
     req.flash("wrong", "Ocurrió un error al mostrar la vista de registro de productos en el almacén, intente nuevamente.");
@@ -83,12 +82,11 @@ storeHotelCtrl.renderAllStoreHotel = async (req, res) => {
       })
       .sort({"productoAlmacenHotel.cod": 1})
       .lean();
-    const userRole = req.user.trabajadorUsuario.rolTrabajador.nombreRol;
-    const currentPage = `stores-hotel`;
+
+    const currentPage = `store-hotel`;
     res.render("hotel/store-hotel/all-store-hotel", {
       storeHotel,
-      currentPage,
-      userRole
+      currentPage
     });
   } catch (error) {
     req.flash("wrong", "Ocurrió un error al mostrar la vista de productos en el almacén, intente nuevamente.");
@@ -112,11 +110,10 @@ storeHotelCtrl.renderEditStoreHotel = async (req, res) => {
       .populate("proveedorProducto")
       .populate("categoriaProducto")
       .lean();
-    const userRole = req.user.trabajadorUsuario.rolTrabajador.nombreRol;
+
     res.render("hotel/store-hotel/edit-store-hotel", {
       storeHotel,
-      products,
-      userRole
+      products
     });
   } catch (error) {
     req.flash("wrong", "Ocurrió un error al mostrar la vista de edición de productos en el almacén, intente nuevamente.");
@@ -150,10 +147,9 @@ storeHotelCtrl.renderDeleteStoreHotel = async (req, res) => {
         populate: "categoriaProducto proveedorProducto"
       })
       .lean();
-    const userRole = req.user.trabajadorUsuario.rolTrabajador.nombreRol;
+
     res.render("hotel/store-hotel/delete-store-hotel", {
-      storeHotel,
-      userRole
+      storeHotel
     });
   } catch (error) {
     req.flash("wrong", "Ocurrió un error al mostrar la vista de eliminación de productos en el almacén, intente nuevamente.");

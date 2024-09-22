@@ -17,10 +17,9 @@ storeHotelHistoryCtrl.renderAllStoreHotelHistory = async (req, res) => {
         ]
       })
       .lean();
-    const userRole = req.user.trabajadorUsuario.rolTrabajador.nombreRol;
+
     res.render("hotel/store-hotel/history-store-hotel", {
-      storeHotelHistory,
-      userRole
+      storeHotelHistory
     });
   } catch (error) {
     req.flash("wrong", "Ocurrió un error al mostrar la vista de historial de productos en el almacén, intente nuevamente.");

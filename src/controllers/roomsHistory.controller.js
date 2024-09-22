@@ -22,10 +22,8 @@ roomsHistoryCtrl.renderRoomsHistory = async (req, res) => {
       .sort({createdAt: -1})
       .lean();
 
-    const userRole = req.user.trabajadorUsuario.rolTrabajador.nombreRol;
     res.render("hotel/rooms/history-rooms", {
-      roomsHistory,
-      userRole
+      roomsHistory
     });
   } catch (error) {
     req.flash("wrong", "Ocurrió un error al cargar el historial de habitaciones, intente nuevamente.");

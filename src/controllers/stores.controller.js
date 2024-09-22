@@ -169,12 +169,11 @@ storeCtrl.renderStores = async (req, res) => {
       .populate("almacenStockUbicacion")
       .lean();
     
-    const userRole = req.user.trabajadorUsuario.rolTrabajador.nombreRol;
+
     const currentPage = `stores`;
     res.render("stores/all-stores", {
       stores,
-      currentPage,
-      userRole
+      currentPage
     });
   } catch (error) {
     req.flash("wrong", "Ocurrió un error, intente nuevamente.");
@@ -203,7 +202,6 @@ storeCtrl.renderEditStore = async (req, res) => {
       .lean();
     const stockLocations = await StockLocation.find().lean();
 
-    const userRole = req.user.trabajadorUsuario.rolTrabajador.nombreRol;
     res.render("stores/edit-store", {
       store,
       products: products.reduce((acc, product) => {
@@ -213,8 +211,7 @@ storeCtrl.renderEditStore = async (req, res) => {
       stockLocations: stockLocations.reduce((acc, stockLocation) => {
         acc[stockLocation._id] = stockLocation;
         return acc;
-      }, {}),
-      userRole
+      }, {})
     });
   } catch (error) {
     req.flash("wrong", "Ocurrió un error, intente nuevamente.");
@@ -336,11 +333,9 @@ storeCtrl.renderDetailsStore = async (req, res) => {
       .sort({createdAt: -1})
       .lean();
 
-    const userRole = req.user.trabajadorUsuario.rolTrabajador.nombreRol;
     res.render("stores/details-store", {
       store,
-      storeHistory,
-      userRole
+      storeHistory
     });
   } catch (error) {
     req.flash("wrong", "Ocurrió un error al renderizar los detalles del producto, intente nuevamente.");

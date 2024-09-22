@@ -27,7 +27,7 @@
             <h2 class="form__title">Editar Rol</h2>
             <div class="form__img">
               <figure class="login__figure">
-                <img src="/assets/logo-aprendedor.webp" alt="Logo Aprendedor" class="login__img">
+                <img src="{{logoUrl}}" alt="Logo Aprendedor" class="login__img">
               </figure>
             </div>
             <section class="form__container">
@@ -63,19 +63,19 @@
                           </div>
                           <div class="permissions__container">
                             <div class="permissions__item">
-                              <input type="checkbox" name="permisosRol" id="crear-rol" class="child__checkbox" value="crear-rol">
+                              <input type="checkbox" name="permisosRol" id="crear-rol" class="child__checkbox" value="crear-rol" {{#hasPermission permisosRol 'crear-rol'}}checked{{/hasPermission}}>
                               <label for="crear-rol" class="permissions__label">Crear</label>
                             </div>
                             <div class="permissions__item">
-                              <input type="checkbox" name="permisosRol" id="editar-rol" class="child__checkbox" value="editar-rol">
+                              <input type="checkbox" name="permisosRol" id="editar-rol" class="child__checkbox" value="editar-rol" {{#hasPermission permisosRol "editar-rol"}}checked{{/hasPermission}}>
                               <label for="editar-rol" class="permissions__label">Editar</label>
                             </div>
                             <div class="permissions__item">
-                              <input type="checkbox" name="permisosRol" id="eliminar-rol" class="child__checkbox" value="eliminar-rol">
+                              <input type="checkbox" name="permisosRol" id="eliminar-rol" class="child__checkbox" value="eliminar-rol" {{#hasPermission permisosRol "eliminar-rol"}}checked{{/hasPermission}}>
                               <label for="eliminar-rol" class="permissions__label">Eliminar</label>
                             </div>
                             <div class="permissions__item">
-                              <input type="checkbox" name="permisosRol" id="ver-rol" class="child__checkbox" value="ver-rol">
+                              <input type="checkbox" name="permisosRol" id="ver-rol" class="child__checkbox" value="ver-rol" {{#hasPermission permisosRol "ver-rol"}}checked{{/hasPermission}}>
                               <label for="ver-rol" class="permissions__label">Ver roles</label>
                             </div>
                           </div>
@@ -98,31 +98,31 @@
                           </div>
                           <div class="permissions__container">
                             <div class="permissions__item">
-                              <input type="checkbox" name="permisosRol" id="crear-trabajador" class="child__checkbox" value="crear-trabajador">
+                              <input type="checkbox" name="permisosRol" id="crear-trabajador" class="child__checkbox" value="crear-trabajador" {{#hasPermission permisosRol "crear-trabajador"}}checked{{/hasPermission}}>
                               <label for="crear-trabajador" class="permissions__label">Crear</label>
                             </div>
                             <div class="permissions__item">
-                              <input type="checkbox" name="permisosRol" id="editar-trabajador" class="child__checkbox" value="editar-trabajador">
+                              <input type="checkbox" name="permisosRol" id="editar-trabajador" class="child__checkbox" value="editar-trabajador" {{#hasPermission permisosRol "editar-trabajador"}}checked{{/hasPermission}}>
                               <label for="editar-trabajador" class="permissions__label">Editar</label>
                             </div>
                             <div class="permissions__item">
-                              <input type="checkbox" name="permisosRol" id="eliminar-trabajador" class="child__checkbox" value="eliminar-trabajador">
+                              <input type="checkbox" name="permisosRol" id="eliminar-trabajador" class="child__checkbox" value="eliminar-trabajador" {{#hasPermission permisosRol "eliminar-trabajador"}}checked{{/hasPermission}}>
                               <label for="eliminar-trabajador" class="permissions__label">Eliminar</label>
                             </div>
                             <div class="permissions__item">
-                              <input type="checkbox" name="permisosRol" id="ver-trabajadores" class="child__checkbox" value="ver-trabajador">
+                              <input type="checkbox" name="permisosRol" id="ver-trabajadores" class="child__checkbox" value="ver-trabajador" {{#hasPermission permisosRol "ver-trabajador"}}checked{{/hasPermission}}>
                               <label for="ver-trabajadores" class="permissions__label">Ver trabajadores</label>
                             </div>
                             <div class="permissions__item">
-                              <input type="checkbox" name="permisosRol" id="ver-trabajadores-detalle" class="child__checkbox" value="ver-trabajador-detalle">
+                              <input type="checkbox" name="permisosRol" id="ver-trabajadores-detalle" class="child__checkbox" value="ver-trabajador-detalle" {{#hasPermission permisosRol "ver-trabajador-detalle"}}checked{{/hasPermission}}>
                               <label for="ver-trabajadores-detalle" class="permissions__label">Ver Detalles</label>
                             </div>
                             <div class="permissions__item">
-                              <input type="checkbox" name="permisosRol" id="historial-trabajador" class="child__checkbox" value="historial-trabajador">
+                              <input type="checkbox" name="permisosRol" id="historial-trabajador" class="child__checkbox" value="historial-trabajador" {{#hasPermission permisosRol "historial-trabajador"}}checked{{/hasPermission}}>
                               <label for="historial-trabajador" class="permissions__label">ver Historial</label>
                             </div>
                             <div class="permissions__item">
-                              <input type="checkbox" name="permisosRol" id="exportar-trabajador" class="child__checkbox" value="exportar-trabajador">
+                              <input type="checkbox" name="permisosRol" id="exportar-trabajador" class="child__checkbox" value="exportar-trabajador" {{#hasPermission permisosRol "exportar-trabajador"}}checked{{/hasPermission}}>
                               <label for="exportar-trabajador" class="permissions__label">Exportar</label>
                             </div>
                           </div>
@@ -145,19 +145,19 @@
                           </div>
                           <div class="permissions__container">
                             <div class="permissions__item">
-                              <input type="checkbox" name="permisosRol" id="crear-usuario" class="child__checkbox" value="crear-usuario">
+                              <input type="checkbox" name="permisosRol" id="crear-usuario" class="child__checkbox" value="crear-usuario" {{#hasPermission permisosRol "crear-usuario"}}checked{{/hasPermission}}>
                               <label for="crear-usuario" class="permissions__label">Crear</label>
                             </div>
                             <div class="permissions__item">
-                              <input type="checkbox" name="permisosRol" id="editar-usuario" class="child__checkbox" value="editar-usuario">
+                              <input type="checkbox" name="permisosRol" id="editar-usuario" class="child__checkbox" value="editar-usuario" {{#hasPermission permisosRol "editar-usuario"}}checked{{/hasPermission}}>
                               <label for="editar-usuario" class="permissions__label">Editar</label>
                             </div>
                             <div class="permissions__item">
-                              <input type="checkbox" name="permisosRol" id="eliminar-usuario" class="child__checkbox" value="eliminar-usuario">
+                              <input type="checkbox" name="permisosRol" id="eliminar-usuario" class="child__checkbox" value="eliminar-usuario" {{#hasPermission permisosRol "eliminar-usuario"}}checked{{/hasPermission}}>
                               <label for="eliminar-usuario" class="permissions__label">Eliminar</label>
                             </div>
                             <div class="permissions__item">
-                              <input type="checkbox" name="permisosRol" id="ver-usuario" class="child__checkbox" value="ver-usuario">
+                              <input type="checkbox" name="permisosRol" id="ver-usuario" class="child__checkbox" value="ver-usuario" {{#hasPermission permisosRol "ver-usuario"}}checked{{/hasPermission}}>
                               <label for="ver-usuario" class="permissions__label">Ver usuarios</label>
                             </div>
                           </div>
@@ -180,31 +180,31 @@
                           </div>
                           <div class="permissions__container">
                             <div class="permissions__item">
-                              <input type="checkbox" name="permisosRol" id="crear-proveedor" class="child__checkbox" value="crear-proveedor">
+                              <input type="checkbox" name="permisosRol" id="crear-proveedor" class="child__checkbox" value="crear-proveedor" {{#hasPermission permisosRol "crear-proveedor"}}checked{{/hasPermission}}>
                               <label for="crear-proveedor" class="permissions__label">Crear</label>
                             </div>
                             <div class="permissions__item">
-                              <input type="checkbox" name="permisosRol" id="editar-proveedor" class="child__checkbox" value="editar-proveedor">
+                              <input type="checkbox" name="permisosRol" id="editar-proveedor" class="child__checkbox" value="editar-proveedor" {{#hasPermission permisosRol "editar-proveedor"}}checked{{/hasPermission}}>
                               <label for="editar-proveedor" class="permissions__label">Editar</label>
                             </div>
                             <div class="permissions__item">
-                              <input type="checkbox" name="permisosRol" id="eliminar-proveedor" class="child__checkbox" value="eliminar-proveedor">
+                              <input type="checkbox" name="permisosRol" id="eliminar-proveedor" class="child__checkbox" value="eliminar-proveedor" {{#hasPermission permisosRol "eliminar-proveedor"}}checked{{/hasPermission}}>
                               <label for="eliminar-proveedor" class="permissions__label">Eliminar</label>
                             </div>
                             <div class="permissions__item">
-                              <input type="checkbox" name="permisosRol" id="ver-proveedores" class="child__checkbox" value="ver-proveedor">
+                              <input type="checkbox" name="permisosRol" id="ver-proveedores" class="child__checkbox" value="ver-proveedor" {{#hasPermission permisosRol "ver-proveedor"}}checked{{/hasPermission}}>
                               <label for="ver-proveedores" class="permissions__label">Ver proveedores</label>
                             </div>
                             <div class="permissions__item">
-                              <input type="checkbox" name="permisosRol" id="ver-proveedores-detalle" class="child__checkbox" value="ver-proveedor-detalle">
+                              <input type="checkbox" name="permisosRol" id="ver-proveedores-detalle" class="child__checkbox" value="ver-proveedor-detalle" {{#hasPermission permisosRol "ver-proveedor-detalle"}}checked{{/hasPermission}}>
                               <label for="ver-proveedores-detalle" class="permissions__label">Ver Detalles</label>
                             </div>
                             <div class="permissions__item">
-                              <input type="checkbox" name="permisosRol" id="historial-proveedor" class="child__checkbox" value="historial-proveedor">
+                              <input type="checkbox" name="permisosRol" id="historial-proveedor" class="child__checkbox" value="historial-proveedor" {{#hasPermission permisosRol "historial-proveedor"}}checked{{/hasPermission}}>
                               <label for="historial-proveedor" class="permissions__label">ver Historial</label>
                             </div>
                             <div class="permissions__item">
-                              <input type="checkbox" name="permisosRol" id="exportar-proveedor" class="child__checkbox" value="exportar-proveedor">
+                              <input type="checkbox" name="permisosRol" id="exportar-proveedor" class="child__checkbox" value="exportar-proveedor" {{#hasPermission permisosRol "exportar-proveedor"}}checked{{/hasPermission}}>
                               <label for="exportar-proveedor" class="permissions__label">Exportar</label>
                             </div>
                           </div>
@@ -227,27 +227,27 @@
                           </div>
                           <div class="permissions__container">
                             <div class="permissions__item">
-                              <input type="checkbox" name="permisosRol" id="crear-categoria" class="child__checkbox" value="crear-categoria">
+                              <input type="checkbox" name="permisosRol" id="crear-categoria" class="child__checkbox" value="crear-categoria" {{#hasPermission permisosRol "crear-categoria"}}checked{{/hasPermission}}>
                               <label for="crear-categoria" class="permissions__label">Crear</label>
                             </div>
                             <div class="permissions__item">
-                              <input type="checkbox" name="permisosRol" id="editar-categoria" class="child__checkbox" value="editar-categoria">
+                              <input type="checkbox" name="permisosRol" id="editar-categoria" class="child__checkbox" value="editar-categoria" {{#hasPermission permisosRol "editar-categoria"}}checked{{/hasPermission}}>
                               <label for="editar-categoria" class="permissions__label">Editar</label>
                             </div>
                             <div class="permissions__item">
-                              <input type="checkbox" name="permisosRol" id="eliminar-categoria" class="child__checkbox" value="eliminar-categoria">
+                              <input type="checkbox" name="permisosRol" id="eliminar-categoria" class="child__checkbox" value="eliminar-categoria" {{#hasPermission permisosRol "eliminar-categoria"}}checked{{/hasPermission}}>
                               <label for="eliminar-categoria" class="permissions__label">Eliminar</label>
                             </div>
                             <div class="permissions__item">
-                              <input type="checkbox" name="permisosRol" id="ver-categorias" class="child__checkbox" value="ver-categoria">
+                              <input type="checkbox" name="permisosRol" id="ver-categorias" class="child__checkbox" value="ver-categoria" {{#hasPermission permisosRol "ver-categoria"}}checked{{/hasPermission}}>
                               <label for="ver-categorias" class="permissions__label">Ver categorías</label>
                             </div>
                             <div class="permissions__item">
-                              <input type="checkbox" name="permisosRol" id="ver-categorias-detalle" class="child__checkbox" value="ver-categoria-detalle">
+                              <input type="checkbox" name="permisosRol" id="ver-categorias-detalle" class="child__checkbox" value="ver-categoria-detalle" {{#hasPermission permisosRol "ver-categoria-detalle"}}checked{{/hasPermission}}>
                               <label for="ver-categorias-detalle" class="permissions__label">Ver Detalles</label>
                             </div>
                             <div class="permissions__item">
-                              <input type="checkbox" name="permisosRol" id="historial-categoria" class="child__checkbox" value="historial-categoria">
+                              <input type="checkbox" name="permisosRol" id="historial-categoria" class="child__checkbox" value="historial-categoria" {{#hasPermission permisosRol "historial-categoria"}}checked{{/hasPermission}}>
                               <label for="historial-categoria" class="permissions__label">ver Historial</label>
                             </div>
                           </div>
@@ -270,19 +270,19 @@
                           </div>
                           <div class="permissions__container">
                             <div class="permissions__item">
-                              <input type="checkbox" name="permisosRol" id="crear-sucursal" class="child__checkbox" value="crear-sucursal">
+                              <input type="checkbox" name="permisosRol" id="crear-sucursal" class="child__checkbox" value="crear-sucursal" {{#hasPermission permisosRol "crear-sucursal"}}checked{{/hasPermission}}>
                               <label for="crear-sucursal" class="permissions__label">Crear</label>
                             </div>
                             <div class="permissions__item">
-                              <input type="checkbox" name="permisosRol" id="editar-sucursal" class="child__checkbox" value="editar-sucursal">
+                              <input type="checkbox" name="permisosRol" id="editar-sucursal" class="child__checkbox" value="editar-sucursal" {{#hasPermission permisosRol "editar-sucursal"}}checked{{/hasPermission}}>
                               <label for="editar-sucursal" class="permissions__label">Editar</label>
                             </div>
                             <div class="permissions__item">
-                              <input type="checkbox" name="permisosRol" id="eliminar-sucursal" class="child__checkbox" value="eliminar-sucursal">
+                              <input type="checkbox" name="permisosRol" id="eliminar-sucursal" class="child__checkbox" value="eliminar-sucursal" {{#hasPermission permisosRol "eliminar-sucursal"}}checked{{/hasPermission}}>
                               <label for="eliminar-sucursal" class="permissions__label">Eliminar</label>
                             </div>
                             <div class="permissions__item">
-                              <input type="checkbox" name="permisosRol" id="ver-sucursales" class="child__checkbox" value="ver-sucursal">
+                              <input type="checkbox" name="permisosRol" id="ver-sucursales" class="child__checkbox" value="ver-sucursal" {{#hasPermission permisosRol "ver-sucursal"}}checked{{/hasPermission}}>
                               <label for="ver-sucursales" class="permissions__label">Ver sucursales</label>
                             </div>
                           </div>
@@ -305,27 +305,27 @@
                           </div>
                           <div class="permissions__container">
                             <div class="permissions__item">
-                              <input type="checkbox" name="permisosRol" id="crear-cliente" class="child__checkbox" value="crear-cliente">
+                              <input type="checkbox" name="permisosRol" id="crear-cliente" class="child__checkbox" value="crear-cliente" {{#hasPermission permisosRol "crear-cliente"}}checked{{/hasPermission}}>
                               <label for="crear-cliente" class="permissions__label">Crear</label>
                             </div>
                             <div class="permissions__item">
-                              <input type="checkbox" name="permisosRol" id="editar-cliente" class="child__checkbox" value="editar-cliente">
+                              <input type="checkbox" name="permisosRol" id="editar-cliente" class="child__checkbox" value="editar-cliente" {{#hasPermission permisosRol "editar-cliente"}}checked{{/hasPermission}}>
                               <label for="editar-cliente" class="permissions__label">Editar</label>
                             </div>
                             <div class="permissions__item">
-                              <input type="checkbox" name="permisosRol" id="eliminar-cliente" class="child__checkbox" value="eliminar-cliente">
+                              <input type="checkbox" name="permisosRol" id="eliminar-cliente" class="child__checkbox" value="eliminar-cliente" {{#hasPermission permisosRol "eliminar-cliente"}}checked{{/hasPermission}}>
                               <label for="eliminar-cliente" class="permissions__label">Eliminar</label>
                             </div>
                             <div class="permissions__item">
-                              <input type="checkbox" name="permisosRol" id="ver-cliente" class="child__checkbox" value="ver-cliente">
+                              <input type="checkbox" name="permisosRol" id="ver-cliente" class="child__checkbox" value="ver-cliente" {{#hasPermission permisosRol "ver-cliente"}}checked{{/hasPermission}}>
                               <label for="ver-cliente" class="permissions__label">Ver clientes</label>
                             </div>
                             <div class="permissions__item">
-                              <input type="checkbox" name="permisosRol" id="ver-cliente-detalle" class="child__checkbox" value="ver-cliente-detalle">
+                              <input type="checkbox" name="permisosRol" id="ver-cliente-detalle" class="child__checkbox" value="ver-cliente-detalle" {{#hasPermission permisosRol "ver-cliente-detalle"}}checked{{/hasPermission}}>
                               <label for="ver-cliente-detalle" class="permissions__label">Ver Detalles</label>
                             </div>
                             <div class="permissions__item">
-                              <input type="checkbox" name="permisosRol" id="historial-cliente" class="child__checkbox" value="historial-cliente">
+                              <input type="checkbox" name="permisosRol" id="historial-cliente" class="child__checkbox" value="historial-cliente" {{#hasPermission permisosRol "historial-cliente"}}checked{{/hasPermission}}>
                               <label for="historial-cliente" class="permissions__label">ver Historial</label>
                             </div>
                           </div>
@@ -348,31 +348,31 @@
                           </div>
                           <div class="permissions__container">
                             <div class="permissions__item">
-                              <input type="checkbox" name="permisosRol" id="crear-producto" class="child__checkbox" value="crear-producto">
+                              <input type="checkbox" name="permisosRol" id="crear-producto" class="child__checkbox" value="crear-producto" {{#hasPermission permisosRol "crear-producto"}}checked{{/hasPermission}}>
                               <label for="crear-producto" class="permissions__label">Crear</label>
                             </div>
                             <div class="permissions__item">
-                              <input type="checkbox" name="permisosRol" id="editar-producto" class="child__checkbox" value="editar-producto">
+                              <input type="checkbox" name="permisosRol" id="editar-producto" class="child__checkbox" value="editar-producto" {{#hasPermission permisosRol "editar-producto"}}checked{{/hasPermission}}>
                               <label for="editar-producto" class="permissions__label">Editar</label>
                             </div>
                             <div class="permissions__item">
-                              <input type="checkbox" name="permisosRol" id="eliminar-producto" class="child__checkbox" value="eliminar-producto">
+                              <input type="checkbox" name="permisosRol" id="eliminar-producto" class="child__checkbox" value="eliminar-producto" {{#hasPermission permisosRol "eliminar-producto"}}checked{{/hasPermission}}>
                               <label for="eliminar-producto" class="permissions__label">Eliminar</label>
                             </div>
                             <div class="permissions__item">
-                              <input type="checkbox" name="permisosRol" id="ver-producto" class="child__checkbox" value="ver-producto">
+                              <input type="checkbox" name="permisosRol" id="ver-producto" class="child__checkbox" value="ver-producto" {{#hasPermission permisosRol "ver-producto"}}checked{{/hasPermission}}>
                               <label for="ver-producto" class="permissions__label">Ver productos</label>
                             </div>
                             <div class="permissions__item">
-                              <input type="checkbox" name="permisosRol" id="exportar-producto" class="child__checkbox" value="exportar-producto">
+                              <input type="checkbox" name="permisosRol" id="exportar-producto" class="child__checkbox" value="exportar-producto" {{#hasPermission permisosRol "exportar-producto"}}checked{{/hasPermission}}>
                               <label for="exportar-producto" class="permissions__label">Exportar</label>
                             </div>
                             <div class="permissions__item">
-                              <input type="checkbox" name="permisosRol" id="detalles-producto" class="child__checkbox" value="ver-detalle-producto">
+                              <input type="checkbox" name="permisosRol" id="detalles-producto" class="child__checkbox" value="ver-detalle-producto" {{#hasPermission permisosRol "ver-detalle-producto"}}checked{{/hasPermission}}>
                               <label for="detalles-producto" class="permissions__label">Ver detalles</label>
                             </div>
                             <div class="permissions__item">
-                              <input type="checkbox" name="permisosRol" id="historial-producto" class="child__checkbox" value="historial-producto">
+                              <input type="checkbox" name="permisosRol" id="historial-producto" class="child__checkbox" value="historial-producto" {{#hasPermission permisosRol "historial-producto"}}checked{{/hasPermission}}>
                               <label for="historial-producto" class="permissions__label">Ver historial</label>
                             </div>
                           </div>
@@ -395,35 +395,35 @@
                           </div>
                           <div class="permissions__container">
                             <div class="permissions__item">
-                              <input type="checkbox" name="permisosRol" id="crear-almacen" class="child__checkbox" value="crear-almacen">
+                              <input type="checkbox" name="permisosRol" id="crear-almacen" class="child__checkbox" value="crear-almacen" {{#hasPermission permisosRol "crear-almacen"}}checked{{/hasPermission}}>
                               <label for="crear-almacen" class="permissions__label">Agregar Prod</label>
                             </div>
                             <div class="permissions__item">
-                              <input type="checkbox" name="permisosRol" id="editar-almacen" class="child__checkbox" value="editar-almacen">
+                              <input type="checkbox" name="permisosRol" id="editar-almacen" class="child__checkbox" value="editar-almacen" {{#hasPermission permisosRol "editar-almacen"}}checked{{/hasPermission}}>
                               <label for="editar-almacen" class="permissions__label">Editar</label>
                             </div>
                             <div class="permissions__item">
-                              <input type="checkbox" name="permisosRol" id="eliminar-almacen" class="child__checkbox" value="eliminar-almacen">
+                              <input type="checkbox" name="permisosRol" id="eliminar-almacen" class="child__checkbox" value="eliminar-almacen" {{#hasPermission permisosRol "eliminar-almacen"}}checked{{/hasPermission}}>
                               <label for="eliminar-almacen" class="permissions__label">Eliminar</label>
                             </div>
                             <div class="permissions__item">
-                              <input type="checkbox" name="permisosRol" id="ver-almacen" class="child__checkbox" value="ver-almacen">
+                              <input type="checkbox" name="permisosRol" id="ver-almacen" class="child__checkbox" value="ver-almacen" {{#hasPermission permisosRol "ver-almacen"}}checked{{/hasPermission}}>
                               <label for="ver-almacen" class="permissions__label">Ver almacén</label>
                             </div>
                             <div class="permissions__item">
-                              <input type="checkbox" name="permisosRol" id="alertas-almacen" class="child__checkbox" value="alertas-almacen">
+                              <input type="checkbox" name="permisosRol" id="alertas-almacen" class="child__checkbox" value="alertas-almacen" {{#hasPermission permisosRol "alertas-almacen"}}checked{{/hasPermission}}>
                               <label for="alertas-almacen" class="permissions__label">Ver alertas</label>
                             </div>
                             <div class="permissions__item">
-                              <input type="checkbox" name="permisosRol" id="exportar-almacen" class="child__checkbox" value="exportar-almacen">
+                              <input type="checkbox" name="permisosRol" id="exportar-almacen" class="child__checkbox" value="exportar-almacen" {{#hasPermission permisosRol "exportar-almacen"}}checked{{/hasPermission}}>
                               <label for="exportar-almacen" class="permissions__label">Exportar</label>
                             </div>
                             <div class="permissions__item">
-                              <input type="checkbox" name="permisosRol" id="detalles-almacen" class="child__checkbox" value="ver-detalle-almacen">
+                              <input type="checkbox" name="permisosRol" id="detalles-almacen" class="child__checkbox" value="ver-detalle-almacen" {{#hasPermission permisosRol "ver-detalle-almacen"}}checked{{/hasPermission}}>
                               <label for="detalles-almacen" class="permissions__label">Ver detalles</label>
                             </div>
                             <div class="permissions__item">
-                              <input type="checkbox" name="permisosRol" id="historial-almacen" class="child__checkbox" value="historial-almacen">
+                              <input type="checkbox" name="permisosRol" id="historial-almacen" class="child__checkbox" value="historial-almacen" {{#hasPermission permisosRol "historial-almacen"}}checked{{/hasPermission}}>
                               <label for="historial-almacen" class="permissions__label">Ver historial</label>
                             </div>
                           </div>
@@ -451,43 +451,43 @@
                                 <label for="crear-venta" class="permissions__label">Realizar</label>
                               </div>
                               <div class="permissions__item">
-                                <input type="checkbox" name="permisosRol" id="ver-ventas" class="child__checkbox" value="ver-ventas">
+                                <input type="checkbox" name="permisosRol" id="ver-ventas" class="child__checkbox" value="ver-ventas" {{#hasPermission permisosRol "ver-ventas"}}checked{{/hasPermission}}>
                                 <label for="ver-ventas" class="permissions__label">Ver ventas</label>
                               </div>
                               <div class="permissions__item">
-                                <input type="checkbox" name="permisosRol" id="ver-detalle-venta" class="child__checkbox" value="ver-detalle-venta">
+                                <input type="checkbox" name="permisosRol" id="ver-detalle-venta" class="child__checkbox" value="ver-detalle-venta" {{#hasPermission permisosRol "ver-detalle-venta"}}checked{{/hasPermission}}>
                                 <label for="ver-detalle-venta" class="permissions__label">Ver detalles</label>
                               </div>
                               <div class="permissions__item">
-                                <input type="checkbox" name="permisosRol" id="ticket-venta" class="child__checkbox" value="ticket-venta">
+                                <input type="checkbox" name="permisosRol" id="ticket-venta" class="child__checkbox" value="ticket-venta" {{#hasPermission permisosRol "ticket-venta"}}checked{{/hasPermission}}>
                                 <label for="ticket-venta" class="permissions__label">Imprimir Ticket</label>
                               </div>
                               <div class="permissions__item">
-                                <input type="checkbox" name="permisosRol" id="boleta-venta" class="child__checkbox" value="boleta-venta">
+                                <input type="checkbox" name="permisosRol" id="boleta-venta" class="child__checkbox" value="boleta-venta" {{#hasPermission permisosRol "boleta-venta"}}checked{{/hasPermission}}>
                                 <label for="boleta-venta" class="permissions__label">Imprimir Boleta</label>
                               </div>
                               <div class="permissions__item">
-                                <input type="checkbox" name="permisosRol" id="email-venta" class="child__checkbox" value="email-venta">
+                                <input type="checkbox" name="permisosRol" id="email-venta" class="child__checkbox" value="email-venta" {{#hasPermission permisosRol "email-venta"}}checked{{/hasPermission}}>
                                 <label for="email-venta" class="permissions__label">Enviar por Correo</label>
                               </div>
                               <div class="permissions__item">
-                                <input type="checkbox" name="permisosRol" id="cancelar-venta" class="child__checkbox" value="cancelar-venta">
+                                <input type="checkbox" name="permisosRol" id="cancelar-venta" class="child__checkbox" value="cancelar-venta" {{#hasPermission permisosRol "cancelar-venta"}}checked{{/hasPermission}}>
                                 <label for="cancelar-venta" class="permissions__label">Cancelar</label>
                               </div>
                               <div class="permissions__item">
-                                <input type="checkbox" name="permisosRol" id="exportar-venta" class="child__checkbox" value="exportar-venta">
+                                <input type="checkbox" name="permisosRol" id="exportar-venta" class="child__checkbox" value="exportar-venta" {{#hasPermission permisosRol "exportar-venta"}}checked{{/hasPermission}}>
                                 <label for="exportar-venta" class="permissions__label">Exportar</label>
                               </div>
                               <div class="permissions__item">
-                                <input type="checkbox" name="permisosRol" id="cerrar-caja-venta" class="child__checkbox" value="cerrar-caja-venta">
+                                <input type="checkbox" name="permisosRol" id="cerrar-caja-venta" class="child__checkbox" value="cerrar-caja-venta" {{#hasPermission permisosRol "cerrar-caja-venta"}}checked{{/hasPermission}}>
                                 <label for="cerrar-caja-venta" class="permissions__label">Cerrar caja</label>
                               </div>
                               <div class="permissions__item">
-                                <input type="checkbox" name="permisosRol" id="historial-venta" class="child__checkbox" value="historial-venta">
+                                <input type="checkbox" name="permisosRol" id="historial-venta" class="child__checkbox" value="historial-venta" {{#hasPermission permisosRol "historial-venta"}}checked{{/hasPermission}}>
                                 <label for="historial-venta" class="permissions__label">Ver cierres</label>
                               </div>
                               <div class="permissions__item">
-                                <input type="checkbox" name="permisosRol" id="ver-detalle-cierre-venta" class="child__checkbox" value="ver-detalle-cierre-venta">
+                                <input type="checkbox" name="permisosRol" id="ver-detalle-cierre-venta" class="child__checkbox" value="ver-detalle-cierre-venta" {{#hasPermission permisosRol "ver-detalle-cierre-venta"}}checked{{/hasPermission}}>
                                 <label for="ver-detalle-cierre-venta" class="permissions__label">Ver detalles del cierre</label>
                               </div>
                             </div>
@@ -510,11 +510,11 @@
                             </div>
                             <div class="permissions__container">
                               <div class="permissions__item">
-                                <input type="checkbox" name="permisosRol" id="ver-balance" class="child__checkbox" value="ver-balance">
+                                <input type="checkbox" name="permisosRol" id="ver-balance" class="child__checkbox" value="ver-balance" {{#hasPermission permisosRol "ver-balance"}}checked{{/hasPermission}}>
                                 <label for="ver-balance" class="permissions__label">Ver balances</label>
                               </div>
                               <div class="permissions__item">
-                                <input type="checkbox" name="permisosRol" id="exportar-balance" class="child__checkbox" value="exportar-balance">
+                                <input type="checkbox" name="permisosRol" id="exportar-balance" class="child__checkbox" value="exportar-balance" {{#hasPermission permisosRol "exportar-balance"}}checked{{/hasPermission}}>
                                 <label for="exportar-balance" class="permissions__label">Exportar</label>
                               </div>
                             </div>
@@ -539,23 +539,23 @@
                             </div>
                             <div class="permissions__container">
                               <div class="permissions__item">
-                                <input type="checkbox" name="permisosRol" id="crear-categoria-habitacion" class="child__checkbox" value="crear-categoria-habitacion">
+                                <input type="checkbox" name="permisosRol" id="crear-categoria-habitacion" class="child__checkbox" value="crear-categoria-habitacion" {{#hasPermission permisosRol "crear-categoria-habitacion"}}checked{{/hasPermission}}>
                                 <label for="crear-categoria-habitacion" class="permissions__label">Crear</label>
                               </div>
                               <div class="permissions__item">
-                                <input type="checkbox" name="permisosRol" id="editar-categoria-habitacion" class="child__checkbox" value="editar-categoria-habitacion">
+                                <input type="checkbox" name="permisosRol" id="editar-categoria-habitacion" class="child__checkbox" value="editar-categoria-habitacion" {{#hasPermission permisosRol "editar-categoria-habitacion"}}checked{{/hasPermission}}>
                                 <label for="editar-categoria-habitacion" class="permissions__label">Editar</label>
                               </div>
                               <div class="permissions__item">
-                                <input type="checkbox" name="permisosRol" id="eliminar-categoria-habitacion" class="child__checkbox" value="eliminar-categoria-habitacion">
+                                <input type="checkbox" name="permisosRol" id="eliminar-categoria-habitacion" class="child__checkbox" value="eliminar-categoria-habitacion" {{#hasPermission permisosRol "eliminar-categoria-habitacion"}}checked{{/hasPermission}}>
                                 <label for="eliminar-categoria-habitacion" class="permissions__label">Eliminar</label>
                               </div>
                               <div class="permissions__item">
-                                <input type="checkbox" name="permisosRol" id="ver-categoria-habitacion" class="child__checkbox" value="ver-categoria-habitacion">
+                                <input type="checkbox" name="permisosRol" id="ver-categoria-habitacion" class="child__checkbox" value="ver-categoria-habitacion" {{#hasPermission permisosRol "ver-categoria-habitacion"}}checked{{/hasPermission}}>
                                 <label for="ver-categoria-habitacion" class="permissions__label">Ver categorias</label>
                               </div>
                               <div class="permissions__item">
-                                <input type="checkbox" name="permisosRol" id="historial-categoria-habitacion" class="child__checkbox" value="historial-categoria-habitacion">
+                                <input type="checkbox" name="permisosRol" id="historial-categoria-habitacion" class="child__checkbox" value="historial-categoria-habitacion" {{#hasPermission permisosRol "historial-categoria-habitacion"}}checked{{/hasPermission}}>
                                 <label for="historial-categoria-habitacion" class="permissions__label">Ver Historial</label>
                               </div>
                             </div>
@@ -578,23 +578,23 @@
                             </div>
                             <div class="permissions__container">
                               <div class="permissions__item">
-                                <input type="checkbox" name="permisosRol" id="crear-estado-habitacion" class="child__checkbox" value="crear-estado-habitacion">
+                                <input type="checkbox" name="permisosRol" id="crear-estado-habitacion" class="child__checkbox" value="crear-estado-habitacion" {{#hasPermission permisosRol "crear-estado-habitacion"}}checked{{/hasPermission}}>
                                 <label for="crear-estado-habitacion" class="permissions__label">Crear</label>
                               </div>
                               <div class="permissions__item">
-                                <input type="checkbox" name="permisosRol" id="editar-estado-habitacion" class="child__checkbox" value="editar-estado-habitacion">
+                                <input type="checkbox" name="permisosRol" id="editar-estado-habitacion" class="child__checkbox" value="editar-estado-habitacion" {{#hasPermission permisosRol "editar-estado-habitacion"}}checked{{/hasPermission}}>
                                 <label for="editar-estado-habitacion" class="permissions__label">Editar</label>
                               </div>
                               <div class="permissions__item">
-                                <input type="checkbox" name="permisosRol" id="eliminar-estado-habitacion" class="child__checkbox" value="eliminar-estado-habitacion">
+                                <input type="checkbox" name="permisosRol" id="eliminar-estado-habitacion" class="child__checkbox" value="eliminar-estado-habitacion" {{#hasPermission permisosRol "eliminar-estado-habitacion"}}checked{{/hasPermission}}>
                                 <label for="eliminar-estado-habitacion" class="permissions__label">Eliminar</label>
                               </div>
                               <div class="permissions__item">
-                                <input type="checkbox" name="permisosRol" id="ver-estado-habitacion" class="child__checkbox" value="ver-estado-habitacion">
+                                <input type="checkbox" name="permisosRol" id="ver-estado-habitacion" class="child__checkbox" value="ver-estado-habitacion" {{#hasPermission permisosRol "ver-estado-habitacion"}}checked{{/hasPermission}}>
                                 <label for="ver-estado-habitacion" class="permissions__label">Ver estados</label>
                               </div>
                               <div class="permissions__item">
-                                <input type="checkbox" name="permisosRol" id="historial-estado-habitacion" class="child__checkbox" value="historial-estado-habitacion">
+                                <input type="checkbox" name="permisosRol" id="historial-estado-habitacion" class="child__checkbox" value="historial-estado-habitacion" {{#hasPermission permisosRol "historial-estado-habitacion"}}checked{{/hasPermission}}>
                                 <label for="historial-estado-habitacion" class="permissions__label">Ver Historial</label>
                               </div>
                             </div>
@@ -617,23 +617,23 @@
                             </div>
                             <div class="permissions__container">
                               <div class="permissions__item">
-                                <input type="checkbox" name="permisosRol" id="crear-piso-hotel" class="child__checkbox" value="crear-piso-hotel">
+                                <input type="checkbox" name="permisosRol" id="crear-piso-hotel" class="child__checkbox" value="crear-piso-hotel" {{#hasPermission permisosRol "crear-piso-hotel"}}checked{{/hasPermission}}>
                                 <label for="crear-piso-hotel" class="permissions__label">Crear</label>
                               </div>
                               <div class="permissions__item">
-                                <input type="checkbox" name="permisosRol" id="editar-piso-hotel" class="child__checkbox" value="editar-piso-hotel">
+                                <input type="checkbox" name="permisosRol" id="editar-piso-hotel" class="child__checkbox" value="editar-piso-hotel" {{#hasPermission permisosRol "editar-piso-hotel"}}checked{{/hasPermission}}>
                                 <label for="editar-piso-hotel" class="permissions__label">Editar</label>
                               </div>
                               <div class="permissions__item">
-                                <input type="checkbox" name="permisosRol" id="eliminar-piso-hotel" class="child__checkbox" value="eliminar-piso-hotel">
+                                <input type="checkbox" name="permisosRol" id="eliminar-piso-hotel" class="child__checkbox" value="eliminar-piso-hotel" {{#hasPermission permisosRol "eliminar-piso-hotel"}}checked{{/hasPermission}}>
                                 <label for="eliminar-piso-hotel" class="permissions__label">Eliminar</label>
                               </div>
                               <div class="permissions__item">
-                                <input type="checkbox" name="permisosRol" id="ver-piso-hotel" class="child__checkbox" value="ver-piso-hotel">
+                                <input type="checkbox" name="permisosRol" id="ver-piso-hotel" class="child__checkbox" value="ver-piso-hotel" {{#hasPermission permisosRol "ver-piso-hotel"}}checked{{/hasPermission}}>
                                 <label for="ver-piso-hotel" class="permissions__label">Ver pisos</label>
                               </div>
                               <div class="permissions__item">
-                                <input type="checkbox" name="permisosRol" id="historial-piso-hotel" class="child__checkbox" value="historial-piso-hotel">
+                                <input type="checkbox" name="permisosRol" id="historial-piso-hotel" class="child__checkbox" value="historial-piso-hotel" {{#hasPermission permisosRol "historial-piso-hotel"}}checked{{/hasPermission}}>
                                 <label for="historial-piso-hotel" class="permissions__label">Ver Historial</label>
                               </div>
                             </div>
@@ -656,27 +656,27 @@
                             </div>
                             <div class="permissions__container">
                               <div class="permissions__item">
-                                <input type="checkbox" name="permisosRol" id="crear-habitacion" class="child__checkbox" value="crear-habitacion">
+                                <input type="checkbox" name="permisosRol" id="crear-habitacion" class="child__checkbox" value="crear-habitacion" {{#hasPermission permisosRol "crear-habitacion"}}checked{{/hasPermission}}>
                                 <label for="crear-habitacion" class="permissions__label">Crear</label>
                               </div>
                               <div class="permissions__item">
-                                <input type="checkbox" name="permisosRol" id="editar-habitacion" class="child__checkbox" value="editar-habitacion">
+                                <input type="checkbox" name="permisosRol" id="editar-habitacion" class="child__checkbox" value="editar-habitacion" {{#hasPermission permisosRol "editar-habitacion"}}checked{{/hasPermission}}>
                                 <label for="editar-habitacion" class="permissions__label">Editar</label>
                               </div>
                               <div class="permissions__item">
-                                <input type="checkbox" name="permisosRol" id="eliminar-habitacion" class="child__checkbox" value="eliminar-habitacion">
+                                <input type="checkbox" name="permisosRol" id="eliminar-habitacion" class="child__checkbox" value="eliminar-habitacion" {{#hasPermission permisosRol "eliminar-habitacion"}}checked{{/hasPermission}}>
                                 <label for="eliminar-habitacion" class="permissions__label">Eliminar</label>
                               </div>
                               <div class="permissions__item">
-                                <input type="checkbox" name="permisosRol" id="ver-habitacion" class="child__checkbox" value="ver-habitacion">
+                                <input type="checkbox" name="permisosRol" id="ver-habitacion" class="child__checkbox" value="ver-habitacion" {{#hasPermission permisosRol "ver-habitacion"}}checked{{/hasPermission}}>
                                 <label for="ver-habitacion" class="permissions__label">Ver habitaciones</label>
                               </div>
                               <div class="permissions__item">
-                                <input type="checkbox" name="permisosRol" id="ver-detalle-habitacion" class="child__checkbox" value="ver-detalle-habitacion">
+                                <input type="checkbox" name="permisosRol" id="ver-detalle-habitacion" class="child__checkbox" value="ver-detalle-habitacion" {{#hasPermission permisosRol "ver-detalle-habitacion"}}checked{{/hasPermission}}>
                                 <label for="ver-detalle-habitacion" class="permissions__label">Ver Detalles</label>
                               </div>
                               <div class="permissions__item">
-                                <input type="checkbox" name="permisosRol" id="historial-habitacion" class="child__checkbox" value="historial-habitacion">
+                                <input type="checkbox" name="permisosRol" id="historial-habitacion" class="child__checkbox" value="historial-habitacion" {{#hasPermission permisosRol "historial-habitacion"}}checked{{/hasPermission}}>
                                 <label for="historial-habitacion" class="permissions__label">ver Historial</label>
                               </div>
                             </div>
@@ -699,23 +699,23 @@
                             </div>
                             <div class="permissions__container">
                               <div class="permissions__item">
-                                <input type="checkbox" name="permisosRol" id="crear-mantenimiento" class="child__checkbox" value="crear-mantenimiento">
+                                <input type="checkbox" name="permisosRol" id="crear-mantenimiento" class="child__checkbox" value="crear-mantenimiento" {{#hasPermission permisosRol "crear-mantenimiento"}}checked{{/hasPermission}}>
                                 <label for="crear-mantenimiento" class="permissions__label">Registrar</label>
                               </div>
                               <div class="permissions__item">
-                                <input type="checkbox" name="permisosRol" id="ver-detalle-mantenimiento" class="child__checkbox" value="ver-detalle-mantenimiento">
+                                <input type="checkbox" name="permisosRol" id="ver-detalle-mantenimiento" class="child__checkbox" value="ver-detalle-mantenimiento" {{#hasPermission permisosRol "ver-detalle-mantenimiento"}}checked{{/hasPermission}}>
                                 <label for="ver-detalle-mantenimiento" class="permissions__label">Ver Detalles</label>
                               </div>
                               <div class="permissions__item">
-                                <input type="checkbox" name="permisosRol" id="ver-mantenimiento" class="child__checkbox" value="ver-mantenimiento">
+                                <input type="checkbox" name="permisosRol" id="ver-mantenimiento" class="child__checkbox" value="ver-mantenimiento" {{#hasPermission permisosRol "ver-mantenimiento"}}checked{{/hasPermission}}>
                                 <label for="ver-mantenimiento" class="permissions__label">Ver mantenimientos</label>
                               </div>
                               <div class="permissions__item">
-                                <input type="checkbox" name="permisosRol" id="finalizar-mantenimiento" class="child__checkbox" value="finalizar-mantenimiento">
+                                <input type="checkbox" name="permisosRol" id="finalizar-mantenimiento" class="child__checkbox" value="finalizar-mantenimiento" {{#hasPermission permisosRol "finalizar-mantenimiento"}}checked{{/hasPermission}}>
                                 <label for="finalizar-mantenimiento" class="permissions__label">Finalizar</label>
                               </div>
                               <div class="permissions__item">
-                                <input type="checkbox" name="permisosRol" id="historial-mantenimiento" class="child__checkbox" value="historial-mantenimiento">
+                                <input type="checkbox" name="permisosRol" id="historial-mantenimiento" class="child__checkbox" value="historial-mantenimiento" {{#hasPermission permisosRol "historial-mantenimiento"}}checked{{/hasPermission}}>
                                 <label for="historial-mantenimiento" class="permissions__label">Ver Historial</label>
                               </div>
                             </div>
@@ -738,43 +738,43 @@
                             </div>
                             <div class="permissions__container">
                               <div class="permissions__item">
-                                <input type="checkbox" name="permisosRol" id="crear-reserva" class="child__checkbox" value="crear-reserva">
+                                <input type="checkbox" name="permisosRol" id="crear-reserva" class="child__checkbox" value="crear-reserva" {{#hasPermission permisosRol "crear-reserva"}}checked{{/hasPermission}}>
                                 <label for="crear-reserva" class="permissions__label">Registrar</label>
                               </div>
                               <div class="permissions__item">
-                                <input type="checkbox" name="permisosRol" id="ver-detalle-reserva" class="child__checkbox" value="ver-detalle-reserva">
+                                <input type="checkbox" name="permisosRol" id="ver-detalle-reserva" class="child__checkbox" value="ver-detalle-reserva" {{#hasPermission permisosRol "ver-detalle-reserva"}}checked{{/hasPermission}}>
                                 <label for="ver-detalle-reserva" class="permissions__label">Ver Detalles</label>
                               </div>
                               <div class="permissions__item">
-                                <input type="checkbox" name="permisosRol" id="ver-reserva" class="child__checkbox" value="ver-reserva">
+                                <input type="checkbox" name="permisosRol" id="ver-reserva" class="child__checkbox" value="ver-reserva" {{#hasPermission permisosRol "ver-reserva"}}checked{{/hasPermission}}>
                                 <label for="ver-reserva" class="permissions__label">Ver reservas</label>
                               </div>
                               <div class="permissions__item">
-                                <input type="checkbox" name="permisosRol" id="cancelar-reserva" class="child__checkbox" value="cancelar-reserva">
+                                <input type="checkbox" name="permisosRol" id="cancelar-reserva" class="child__checkbox" value="cancelar-reserva" {{#hasPermission permisosRol "cancelar-reserva"}}checked{{/hasPermission}}>
                                 <label for="cancelar-reserva" class="permissions__label">Cancelar</label>
                               </div>
                               <div class="permissions__item">
-                                <input type="checkbox" name="permisosRol" id="editar-reserva" class="child__checkbox" value="editar-reserva">
+                                <input type="checkbox" name="permisosRol" id="editar-reserva" class="child__checkbox" value="editar-reserva" {{#hasPermission permisosRol "editar-reserva"}}checked{{/hasPermission}}>
                                 <label for="editar-reserva" class="permissions__label">Editar</label>
                               </div>
                               <div class="permissions__item">
-                                <input type="checkbox" name="permisosRol" id="ingresar-huesped" class="child__checkbox" value="ingresar-huesped">
+                                <input type="checkbox" name="permisosRol" id="ingresar-huesped" class="child__checkbox" value="ingresar-huesped" {{#hasPermission permisosRol "ingresar-huesped"}}checked{{/hasPermission}}>
                                 <label for="ingresar-huesped" class="permissions__label">Ingreso huésped</label>
                               </div>
                               <div class="permissions__item">
-                                <input type="checkbox" name="permisosRol" id="venta-reserva" class="child__checkbox" value="venta-reserva">
+                                <input type="checkbox" name="permisosRol" id="venta-reserva" class="child__checkbox" value="venta-reserva" {{#hasPermission permisosRol "venta-reserva"}}checked{{/hasPermission}}>
                                 <label for="venta-reserva" class="permissions__label">Registrar venta</label>
                               </div>
                               <div class="permissions__item">
-                                <input type="checkbox" name="permisosRol" id="limpieza-reserva" class="child__checkbox" value="limpieza-reserva">
+                                <input type="checkbox" name="permisosRol" id="limpieza-reserva" class="child__checkbox" value="limpieza-reserva" {{#hasPermission permisosRol "limpieza-reserva"}}checked{{/hasPermission}}>
                                 <label for="limpieza-reserva" class="permissions__label">Registrar limpieza</label>
                               </div>
                               <div class="permissions__item">
-                                <input type="checkbox" name="permisosRol" id="finalizar-reserva" class="child__checkbox" value="finalizar-reserva">
+                                <input type="checkbox" name="permisosRol" id="finalizar-reserva" class="child__checkbox" value="finalizar-reserva" {{#hasPermission permisosRol "finalizar-reserva"}}checked{{/hasPermission}}>
                                 <label for="finalizar-reserva" class="permissions__label">Finalizar</label>
                               </div>
                               <div class="permissions__item">
-                                <input type="checkbox" name="permisosRol" id="historial-reserva" class="child__checkbox" value="historial-reserva">
+                                <input type="checkbox" name="permisosRol" id="historial-reserva" class="child__checkbox" value="historial-reserva" {{#hasPermission permisosRol "historial-reserva"}}checked{{/hasPermission}}>
                                 <label for="historial-reserva" class="permissions__label">Ver Historial</label>
                               </div>
                             </div>
@@ -797,35 +797,35 @@
                             </div>
                             <div class="permissions__container">
                               <div class="permissions__item">
-                                <input type="checkbox" name="permisosRol" id="crear-ocupacion" class="child__checkbox" value="crear-ocupacion">
+                                <input type="checkbox" name="permisosRol" id="crear-ocupacion" class="child__checkbox" value="crear-ocupacion" {{#hasPermission permisosRol "crear-ocupacion"}}checked{{/hasPermission}}>
                                 <label for="crear-ocupacion" class="permissions__label">Registrar</label>
                               </div>
                               <div class="permissions__item">
-                                <input type="checkbox" name="permisosRol" id="ver-detalle-ocupacion" class="child__checkbox" value="ver-detalle-ocupacion">
+                                <input type="checkbox" name="permisosRol" id="ver-detalle-ocupacion" class="child__checkbox" value="ver-detalle-ocupacion" {{#hasPermission permisosRol "ver-detalle-ocupacion"}}checked{{/hasPermission}}>
                                 <label for="ver-detalle-ocupacion" class="permissions__label">Ver Detalles</label>
                               </div>
                               <div class="permissions__item">
-                                <input type="checkbox" name="permisosRol" id="ver-ocupacion" class="child__checkbox" value="ver-ocupacion">
+                                <input type="checkbox" name="permisosRol" id="ver-ocupacion" class="child__checkbox" value="ver-ocupacion" {{#hasPermission permisosRol "ver-ocupacion"}}checked{{/hasPermission}}>
                                 <label for="ver-ocupacion" class="permissions__label">Ver ocupaciones</label>
                               </div>
                               <div class="permissions__item">
-                                <input type="checkbox" name="permisosRol" id="editar-ocupacion" class="child__checkbox" value="editar-ocupacion">
+                                <input type="checkbox" name="permisosRol" id="editar-ocupacion" class="child__checkbox" value="editar-ocupacion" {{#hasPermission permisosRol "editar-ocupacion"}}checked{{/hasPermission}}>
                                 <label for="editar-ocupacion" class="permissions__label">Editar</label>
                               </div>
                               <div class="permissions__item">
-                                <input type="checkbox" name="permisosRol" id="venta-ocupacion" class="child__checkbox" value="venta-ocupacion">
+                                <input type="checkbox" name="permisosRol" id="venta-ocupacion" class="child__checkbox" value="venta-ocupacion" {{#hasPermission permisosRol "venta-ocupacion"}}checked{{/hasPermission}}>
                                 <label for="venta-ocupacion" class="permissions__label">Registrar venta</label>
                               </div>
                               <div class="permissions__item">
-                                <input type="checkbox" name="permisosRol" id="limpieza-ocupacion" class="child__checkbox" value="limpieza-ocupacion">
+                                <input type="checkbox" name="permisosRol" id="limpieza-ocupacion" class="child__checkbox" value="limpieza-ocupacion" {{#hasPermission permisosRol "limpieza-ocupacion"}}checked{{/hasPermission}}>
                                 <label for="limpieza-ocupacion" class="permissions__label">Registrar limpieza</label>
                               </div>
                               <div class="permissions__item">
-                                <input type="checkbox" name="permisosRol" id="finalizar-ocupacion" class="child__checkbox" value="finalizar-ocupacion">
+                                <input type="checkbox" name="permisosRol" id="finalizar-ocupacion" class="child__checkbox" value="finalizar-ocupacion" {{#hasPermission permisosRol "finalizar-ocupacion"}}checked{{/hasPermission}}>
                                 <label for="finalizar-ocupacion" class="permissions__label">Finalizar</label>
                               </div>
                               <div class="permissions__item">
-                                <input type="checkbox" name="permisosRol" id="historial-ocupacion" class="child__checkbox" value="historial-ocupacion">
+                                <input type="checkbox" name="permisosRol" id="historial-ocupacion" class="child__checkbox" value="historial-ocupacion" {{#hasPermission permisosRol "historial-ocupacion"}}checked{{/hasPermission}}>
                                 <label for="historial-ocupacion" class="permissions__label">Ver Historial</label>
                               </div>
                             </div>
@@ -848,11 +848,11 @@
                             </div>
                             <div class="permissions__container">
                               <div class="permissions__item">
-                                <input type="checkbox" name="permisosRol" id="ver-limpieza-intermedia" class="child__checkbox" value="ver-limpieza-intermedia">
+                                <input type="checkbox" name="permisosRol" id="ver-limpieza-intermedia" class="child__checkbox" value="ver-limpieza-intermedia" {{#hasPermission permisosRol "ver-limpieza-intermedia"}}checked{{/hasPermission}}>
                                 <label for="ver-limpieza-intermedia" class="permissions__label">Ver limpiezas intermedias</label>
                               </div>
                               <div class="permissions__item">
-                                <input type="checkbox" name="permisosRol" id="historial-limpieza-intermedia" class="child__checkbox" value="historial-limpieza-intermedia">
+                                <input type="checkbox" name="permisosRol" id="historial-limpieza-intermedia" class="child__checkbox" value="historial-limpieza-intermedia" {{#hasPermission permisosRol "historial-limpieza-intermedia"}}checked{{/hasPermission}}>
                                 <label for="historial-limpieza-intermedia" class="permissions__label">Ver Historial</label>
                               </div>
                             </div>
@@ -875,23 +875,23 @@
                             </div>
                             <div class="permissions__container">
                               <div class="permissions__item">
-                                <input type="checkbox" name="permisosRol" id="registrar-producto-almacen" class="child__checkbox" value="registrar-producto-almacen">
+                                <input type="checkbox" name="permisosRol" id="registrar-producto-almacen" class="child__checkbox" value="registrar-producto-almacen" {{#hasPermission permisosRol "registrar-producto-almacen"}}checked{{/hasPermission}}>
                                 <label for="registrar-producto-almacen" class="permissions__label">Registrar</label>
                               </div>
                               <div class="permissions__item">
-                                <input type="checkbox" name="permisosRol" id="editar-producto-almacen" class="child__checkbox" value="editar-producto-almacen">
+                                <input type="checkbox" name="permisosRol" id="editar-producto-almacen" class="child__checkbox" value="editar-producto-almacen" {{#hasPermission permisosRol "editar-producto-almacen"}}checked{{/hasPermission}}>
                                 <label for="editar-producto-almacen" class="permissions__label">Editar</label>
                               </div>
                               <div class="permissions__item">
-                                <input type="checkbox" name="permisosRol" id="eliminar-producto-almacen" class="child__checkbox" value="eliminar-producto-almacen">
+                                <input type="checkbox" name="permisosRol" id="eliminar-producto-almacen" class="child__checkbox" value="eliminar-producto-almacen" {{#hasPermission permisosRol "eliminar-producto-almacen"}}checked{{/hasPermission}}>
                                 <label for="eliminar-producto-almacen" class="permissions__label">Eliminar</label>
                               </div>
                               <div class="permissions__item">
-                                <input type="checkbox" name="permisosRol" id="ver-producto-almacen" class="child__checkbox" value="ver-producto-almacen">
+                                <input type="checkbox" name="permisosRol" id="ver-producto-almacen" class="child__checkbox" value="ver-producto-almacen" {{#hasPermission permisosRol "ver-producto-almacen"}}checked{{/hasPermission}}>
                                 <label for="ver-producto-almacen" class="permissions__label">Ver productos</label>
                               </div>
                               <div class="permissions__item">
-                                <input type="checkbox" name="permisosRol" id="historial-producto-almacen" class="child__checkbox" value="historial-producto-almacen">
+                                <input type="checkbox" name="permisosRol" id="historial-producto-almacen" class="child__checkbox" value="historial-producto-almacen" {{#hasPermission permisosRol "historial-producto-almacen"}}checked{{/hasPermission}}>
                                 <label for="historial-producto-almacen" class="permissions__label">Ver Historial</label>
                               </div>
                             </div>
@@ -914,19 +914,19 @@
                             </div>
                             <div class="permissions__container">
                               <div class="permissions__item">
-                                <input type="checkbox" name="permisosRol" id="ver-venta-hotel" class="child__checkbox" value="ver-venta-hotel">
+                                <input type="checkbox" name="permisosRol" id="ver-venta-hotel" class="child__checkbox" value="ver-venta-hotel" {{#hasPermission permisosRol "ver-venta-hotel"}}checked{{/hasPermission}}>
                                 <label for="ver-venta-hotel" class="permissions__label">Ver ventas</label>
                               </div>
                               <div class="permissions__item">
-                                <input type="checkbox" name="permisosRol" id="ver-detalle-venta-hotel" class="child__checkbox" value="ver-detalle-venta-hotel">
+                                <input type="checkbox" name="permisosRol" id="ver-detalle-venta-hotel" class="child__checkbox" value="ver-detalle-venta-hotel" {{#hasPermission permisosRol "ver-detalle-venta-hotel"}}checked{{/hasPermission}}>
                                 <label for="ver-detalle-venta-hotel" class="permissions__label">Ver Detalles</label>
                               </div>
                               <div class="permissions__item">
-                                <input type="checkbox" name="permisosRol" id="historial-venta-hotel" class="child__checkbox" value="historial-venta-hotel">
+                                <input type="checkbox" name="permisosRol" id="historial-venta-hotel" class="child__checkbox" value="historial-venta-hotel" {{#hasPermission permisosRol "historial-venta-hotel"}}checked{{/hasPermission}}>
                                 <label for="historial-venta-hotel" class="permissions__label">Ver Historial</label>
                               </div>
                               <div class="permissions__item">
-                                <input type="checkbox" name="permisosRol" id="ver-detalle-historial-venta-hotel" class="child__checkbox" value="ver-detalle-historial-venta-hotel">
+                                <input type="checkbox" name="permisosRol" id="ver-detalle-historial-venta-hotel" class="child__checkbox" value="ver-detalle-historial-venta-hotel" {{#hasPermission permisosRol "ver-detalle-historial-venta-hotel"}}checked{{/hasPermission}}>
                                 <label for="ver-detalle-historial-venta-hotel" class="permissions__label">Ver Detalles del Historial</label>
                               </div>
                             </div>
@@ -949,19 +949,19 @@
                             </div>
                             <div class="permissions__container">
                               <div class="permissions__item">
-                                <input type="checkbox" name="permisosRol" id="ver-checkout-hotel" class="child__checkbox" value="ver-checkout-hotel">
+                                <input type="checkbox" name="permisosRol" id="ver-checkout-hotel" class="child__checkbox" value="ver-checkout-hotel" {{#hasPermission permisosRol "ver-checkout-hotel"}}checked{{/hasPermission}}>
                                 <label for="ver-checkout-hotel" class="permissions__label">Ver checkouts</label>
                               </div>
                               <div class="permissions__item">
-                                <input type="checkbox" name="permisosRol" id="cerrar-checkout-hotel" class="child__checkbox" value="cerrar-checkout-hotel">
+                                <input type="checkbox" name="permisosRol" id="cerrar-checkout-hotel" class="child__checkbox" value="cerrar-checkout-hotel" {{#hasPermission permisosRol "cerrar-checkout-hotel"}}checked{{/hasPermission}}>
                                 <label for="cerrar-checkout-hotel" class="permissions__label">Cerrar checkouts</label>
                               </div>
                               <div class="permissions__item">
-                                <input type="checkbox" name="permisosRol" id="ver-detalle-checkout-hotel" class="child__checkbox" value="ver-detalle-checkout-hotel">
+                                <input type="checkbox" name="permisosRol" id="ver-detalle-checkout-hotel" class="child__checkbox" value="ver-detalle-checkout-hotel" {{#hasPermission permisosRol "ver-detalle-checkout-hotel"}}checked{{/hasPermission}}>
                                 <label for="ver-detalle-checkout-hotel" class="permissions__label">Ver Detalles</label>
                               </div>
                               <div class="permissions__item">
-                                <input type="checkbox" name="permisosRol" id="historial-checkout-hotel" class="child__checkbox" value="historial-checkout-hotel">
+                                <input type="checkbox" name="permisosRol" id="historial-checkout-hotel" class="child__checkbox" value="historial-checkout-hotel" {{#hasPermission permisosRol "historial-checkout-hotel"}}checked{{/hasPermission}}>
                                 <label for="historial-checkout-hotel" class="permissions__label">Ver Historial</label>
                               </div>
                             </div>
@@ -984,11 +984,11 @@
                             </div>
                             <div class="permissions__container">
                               <div class="permissions__item">
-                                <input type="checkbox" name="permisosRol" id="ver-balance-hotel" class="child__checkbox" value="ver-balance-hotel">
+                                <input type="checkbox" name="permisosRol" id="ver-balance-hotel" class="child__checkbox" value="ver-balance-hotel" {{#hasPermission permisosRol "ver-balance-hotel"}}checked{{/hasPermission}}>
                                 <label for="ver-balance-hotel" class="permissions__label">Ver balance</label>
                               </div>
                               <div class="permissions__item">
-                                <input type="checkbox" name="permisosRol" id="exportar-balance-hotel" class="child__checkbox" value="exportar-balance-hotel">
+                                <input type="checkbox" name="permisosRol" id="exportar-balance-hotel" class="child__checkbox" value="exportar-balance-hotel" {{#hasPermission permisosRol "exportar-balance-hotel"}}checked{{/hasPermission}}>
                                 <label for="exportar-balance-hotel" class="permissions__label">Exportar</label>
                               </div>
                             </div>
@@ -1013,47 +1013,47 @@
                             </div>
                             <div class="permissions__container">
                               <div class="permissions__item">
-                                <input type="checkbox" name="permisosRol" id="crear-venta" class="child__checkbox" value="crear-venta">
+                                <input type="checkbox" name="permisosRol" id="crear-venta" class="child__checkbox" value="crear-venta" {{#hasPermission permisosRol "crear-venta"}}checked{{/hasPermission}}>
                                 <label for="crear-venta" class="permissions__label">Realizar</label>
                               </div>
                               <div class="permissions__item">
-                                <input type="checkbox" name="permisosRol" id="ver-ventas" class="child__checkbox" value="ver-ventas">
+                                <input type="checkbox" name="permisosRol" id="ver-ventas" class="child__checkbox" value="ver-ventas" {{#hasPermission permisosRol "ver-ventas"}}checked{{/hasPermission}}>
                                 <label for="ver-ventas" class="permissions__label">Ver ventas</label>
                               </div>
                               <div class="permissions__item">
-                                <input type="checkbox" name="permisosRol" id="ver-detalle-venta" class="child__checkbox" value="ver-detalle-venta">
+                                <input type="checkbox" name="permisosRol" id="ver-detalle-venta" class="child__checkbox" value="ver-detalle-venta" {{#hasPermission permisosRol "ver-detalle-venta"}}checked{{/hasPermission}}>
                                 <label for="ver-detalle-venta" class="permissions__label">Ver detalles</label>
                               </div>
                               <div class="permissions__item">
-                                <input type="checkbox" name="permisosRol" id="ticket-venta" class="child__checkbox" value="ticket-venta">
+                                <input type="checkbox" name="permisosRol" id="ticket-venta" class="child__checkbox" value="ticket-venta" {{#hasPermission permisosRol "ticket-venta"}}checked{{/hasPermission}}>
                                 <label for="ticket-venta" class="permissions__label">Imprimir Ticket</label>
                               </div>
                               <div class="permissions__item">
-                                <input type="checkbox" name="permisosRol" id="boleta-venta" class="child__checkbox" value="boleta-venta">
+                                <input type="checkbox" name="permisosRol" id="boleta-venta" class="child__checkbox" value="boleta-venta" {{#hasPermission permisosRol "boleta-venta"}}checked{{/hasPermission}}>
                                 <label for="boleta-venta" class="permissions__label">Imprimir Boleta</label>
                               </div>
                               <div class="permissions__item">
-                                <input type="checkbox" name="permisosRol" id="email-venta" class="child__checkbox" value="email-venta">
+                                <input type="checkbox" name="permisosRol" id="email-venta" class="child__checkbox" value="email-venta" {{#hasPermission permisosRol "email-venta"}}checked{{/hasPermission}}>
                                 <label for="email-venta" class="permissions__label">Enviar por Correo</label>
                               </div>
                               <div class="permissions__item">
-                                <input type="checkbox" name="permisosRol" id="cancelar-venta" class="child__checkbox" value="cancelar-venta">
+                                <input type="checkbox" name="permisosRol" id="cancelar-venta" class="child__checkbox" value="cancelar-venta" {{#hasPermission permisosRol "cancelar-venta"}}checked{{/hasPermission}}>
                                 <label for="cancelar-venta" class="permissions__label">Cancelar</label>
                               </div>
                               <div class="permissions__item">
-                                <input type="checkbox" name="permisosRol" id="exportar-venta" class="child__checkbox" value="exportar-venta">
+                                <input type="checkbox" name="permisosRol" id="exportar-venta" class="child__checkbox" value="exportar-venta" {{#hasPermission permisosRol "exportar-venta"}}checked{{/hasPermission}}>
                                 <label for="exportar-venta" class="permissions__label">Exportar</label>
                               </div>
                               <div class="permissions__item">
-                                <input type="checkbox" name="permisosRol" id="cerrar-caja-venta" class="child__checkbox" value="cerrar-caja-venta">
+                                <input type="checkbox" name="permisosRol" id="cerrar-caja-venta" class="child__checkbox" value="cerrar-caja-venta" {{#hasPermission permisosRol "cerrar-caja-venta"}}checked{{/hasPermission}}>
                                 <label for="cerrar-caja-venta" class="permissions__label">Cerrar caja</label>
                               </div>
                               <div class="permissions__item">
-                                <input type="checkbox" name="permisosRol" id="historial-venta" class="child__checkbox" value="historial-venta">
+                                <input type="checkbox" name="permisosRol" id="historial-venta" class="child__checkbox" value="historial-venta" {{#hasPermission permisosRol "historial-venta"}}checked{{/hasPermission}}>
                                 <label for="historial-venta" class="permissions__label">Ver cierres</label>
                               </div>
                               <div class="permissions__item">
-                                <input type="checkbox" name="permisosRol" id="ver-detalle-cierre-venta" class="child__checkbox" value="ver-detalle-cierre-venta">
+                                <input type="checkbox" name="permisosRol" id="ver-detalle-cierre-venta" class="child__checkbox" value="ver-detalle-cierre-venta" {{#hasPermission permisosRol "ver-detalle-cierre-venta"}}checked{{/hasPermission}}>
                                 <label for="ver-detalle-cierre-venta" class="permissions__label">Ver detalles del cierre</label>
                               </div>
                             </div>
@@ -1076,11 +1076,11 @@
                             </div>
                             <div class="permissions__container">
                               <div class="permissions__item">
-                                <input type="checkbox" name="permisosRol" id="ver-balance" class="child__checkbox" value="ver-balance">
+                                <input type="checkbox" name="permisosRol" id="ver-balance" class="child__checkbox" value="ver-balance" {{#hasPermission permisosRol "ver-balance"}}checked{{/hasPermission}}>
                                 <label for="ver-balance" class="permissions__label">Ver balances</label>
                               </div>
                               <div class="permissions__item">
-                                <input type="checkbox" name="permisosRol" id="exportar-balance" class="child__checkbox" value="exportar-balance">
+                                <input type="checkbox" name="permisosRol" id="exportar-balance" class="child__checkbox" value="exportar-balance" {{#hasPermission permisosRol "exportar-balance"}}checked{{/hasPermission}}>
                                 <label for="exportar-balance" class="permissions__label">Exportar</label>
                               </div>
                             </div>
@@ -1103,23 +1103,23 @@
                             </div>
                             <div class="permissions__container">
                               <div class="permissions__item">
-                                <input type="checkbox" name="permisosRol" id="crear-categoria-habitacion" class="child__checkbox" value="crear-categoria-habitacion">
+                                <input type="checkbox" name="permisosRol" id="crear-categoria-habitacion" class="child__checkbox" value="crear-categoria-habitacion" {{#hasPermission permisosRol "crear-categoria-habitacion"}}checked{{/hasPermission}}>
                                 <label for="crear-categoria-habitacion" class="permissions__label">Crear</label>
                               </div>
                               <div class="permissions__item">
-                                <input type="checkbox" name="permisosRol" id="editar-categoria-habitacion" class="child__checkbox" value="editar-categoria-habitacion">
+                                <input type="checkbox" name="permisosRol" id="editar-categoria-habitacion" class="child__checkbox" value="editar-categoria-habitacion" {{#hasPermission permisosRol "editar-categoria-habitacion"}}checked{{/hasPermission}}>
                                 <label for="editar-categoria-habitacion" class="permissions__label">Editar</label>
                               </div>
                               <div class="permissions__item">
-                                <input type="checkbox" name="permisosRol" id="eliminar-categoria-habitacion" class="child__checkbox" value="eliminar-categoria-habitacion">
+                                <input type="checkbox" name="permisosRol" id="eliminar-categoria-habitacion" class="child__checkbox" value="eliminar-categoria-habitacion" {{#hasPermission permisosRol "eliminar-categoria-habitacion"}}checked{{/hasPermission}}>
                                 <label for="eliminar-categoria-habitacion" class="permissions__label">Eliminar</label>
                               </div>
                               <div class="permissions__item">
-                                <input type="checkbox" name="permisosRol" id="ver-categoria-habitacion" class="child__checkbox" value="ver-categoria-habitacion">
+                                <input type="checkbox" name="permisosRol" id="ver-categoria-habitacion" class="child__checkbox" value="ver-categoria-habitacion" {{#hasPermission permisosRol "ver-categoria-habitacion"}}checked{{/hasPermission}}>
                                 <label for="ver-categoria-habitacion" class="permissions__label">Ver categorias</label>
                               </div>
                               <div class="permissions__item">
-                                <input type="checkbox" name="permisosRol" id="historial-categoria-habitacion" class="child__checkbox" value="historial-categoria-habitacion">
+                                <input type="checkbox" name="permisosRol" id="historial-categoria-habitacion" class="child__checkbox" value="historial-categoria-habitacion" {{#hasPermission permisosRol "historial-categoria-habitacion"}}checked{{/hasPermission}}>
                                 <label for="historial-categoria-habitacion" class="permissions__label">Ver Historial</label>
                               </div>
                             </div>
@@ -1142,23 +1142,23 @@
                             </div>
                             <div class="permissions__container">
                               <div class="permissions__item">
-                                <input type="checkbox" name="permisosRol" id="crear-estado-habitacion" class="child__checkbox" value="crear-estado-habitacion">
+                                <input type="checkbox" name="permisosRol" id="crear-estado-habitacion" class="child__checkbox" value="crear-estado-habitacion" {{#hasPermission permisosRol "crear-estado-habitacion"}}checked{{/hasPermission}}>
                                 <label for="crear-estado-habitacion" class="permissions__label">Crear</label>
                               </div>
                               <div class="permissions__item">
-                                <input type="checkbox" name="permisosRol" id="editar-estado-habitacion" class="child__checkbox" value="editar-estado-habitacion">
+                                <input type="checkbox" name="permisosRol" id="editar-estado-habitacion" class="child__checkbox" value="editar-estado-habitacion" {{#hasPermission permisosRol "editar-estado-habitacion"}}checked{{/hasPermission}}>
                                 <label for="editar-estado-habitacion" class="permissions__label">Editar</label>
                               </div>
                               <div class="permissions__item">
-                                <input type="checkbox" name="permisosRol" id="eliminar-estado-habitacion" class="child__checkbox" value="eliminar-estado-habitacion">
+                                <input type="checkbox" name="permisosRol" id="eliminar-estado-habitacion" class="child__checkbox" value="eliminar-estado-habitacion" {{#hasPermission permisosRol "eliminar-estado-habitacion"}}checked{{/hasPermission}}>
                                 <label for="eliminar-estado-habitacion" class="permissions__label">Eliminar</label>
                               </div>
                               <div class="permissions__item">
-                                <input type="checkbox" name="permisosRol" id="ver-estado-habitacion" class="child__checkbox" value="ver-estado-habitacion">
+                                <input type="checkbox" name="permisosRol" id="ver-estado-habitacion" class="child__checkbox" value="ver-estado-habitacion" {{#hasPermission permisosRol "ver-estado-habitacion"}}checked{{/hasPermission}}>
                                 <label for="ver-estado-habitacion" class="permissions__label">Ver estados</label>
                               </div>
                               <div class="permissions__item">
-                                <input type="checkbox" name="permisosRol" id="historial-estado-habitacion" class="child__checkbox" value="historial-estado-habitacion">
+                                <input type="checkbox" name="permisosRol" id="historial-estado-habitacion" class="child__checkbox" value="historial-estado-habitacion" {{#hasPermission permisosRol "historial-estado-habitacion"}}checked{{/hasPermission}}>
                                 <label for="historial-estado-habitacion" class="permissions__label">Ver Historial</label>
                               </div>
                             </div>
@@ -1181,23 +1181,23 @@
                             </div>
                             <div class="permissions__container">
                               <div class="permissions__item">
-                                <input type="checkbox" name="permisosRol" id="crear-piso-hotel" class="child__checkbox" value="crear-piso-hotel">
+                                <input type="checkbox" name="permisosRol" id="crear-piso-hotel" class="child__checkbox" value="crear-piso-hotel" {{#hasPermission permisosRol "crear-piso-hotel"}}checked{{/hasPermission}}>
                                 <label for="crear-piso-hotel" class="permissions__label">Crear</label>
                               </div>
                               <div class="permissions__item">
-                                <input type="checkbox" name="permisosRol" id="editar-piso-hotel" class="child__checkbox" value="editar-piso-hotel">
+                                <input type="checkbox" name="permisosRol" id="editar-piso-hotel" class="child__checkbox" value="editar-piso-hotel" {{#hasPermission permisosRol "editar-piso-hotel"}}checked{{/hasPermission}}>
                                 <label for="editar-piso-hotel" class="permissions__label">Editar</label>
                               </div>
                               <div class="permissions__item">
-                                <input type="checkbox" name="permisosRol" id="eliminar-piso-hotel" class="child__checkbox" value="eliminar-piso-hotel">
+                                <input type="checkbox" name="permisosRol" id="eliminar-piso-hotel" class="child__checkbox" value="eliminar-piso-hotel" {{#hasPermission permisosRol "eliminar-piso-hotel"}}checked{{/hasPermission}}>
                                 <label for="eliminar-piso-hotel" class="permissions__label">Eliminar</label>
                               </div>
                               <div class="permissions__item">
-                                <input type="checkbox" name="permisosRol" id="ver-piso-hotel" class="child__checkbox" value="ver-piso-hotel">
+                                <input type="checkbox" name="permisosRol" id="ver-piso-hotel" class="child__checkbox" value="ver-piso-hotel" {{#hasPermission permisosRol "ver-piso-hotel"}}checked{{/hasPermission}}>
                                 <label for="ver-piso-hotel" class="permissions__label">Ver pisos</label>
                               </div>
                               <div class="permissions__item">
-                                <input type="checkbox" name="permisosRol" id="historial-piso-hotel" class="child__checkbox" value="historial-piso-hotel">
+                                <input type="checkbox" name="permisosRol" id="historial-piso-hotel" class="child__checkbox" value="historial-piso-hotel" {{#hasPermission permisosRol "historial-piso-hotel"}}checked{{/hasPermission}}>
                                 <label for="historial-piso-hotel" class="permissions__label">Ver Historial</label>
                               </div>
                             </div>
@@ -1220,27 +1220,27 @@
                             </div>
                             <div class="permissions__container">
                               <div class="permissions__item">
-                                <input type="checkbox" name="permisosRol" id="crear-habitacion" class="child__checkbox" value="crear-habitacion">
+                                <input type="checkbox" name="permisosRol" id="crear-habitacion" class="child__checkbox" value="crear-habitacion" {{#hasPermission permisosRol "crear-habitacion"}}checked{{/hasPermission}}>
                                 <label for="crear-habitacion" class="permissions__label">Crear</label>
                               </div>
                               <div class="permissions__item">
-                                <input type="checkbox" name="permisosRol" id="editar-habitacion" class="child__checkbox" value="editar-habitacion">
+                                <input type="checkbox" name="permisosRol" id="editar-habitacion" class="child__checkbox" value="editar-habitacion" {{#hasPermission permisosRol "editar-habitacion"}}checked{{/hasPermission}}>
                                 <label for="editar-habitacion" class="permissions__label">Editar</label>
                               </div>
                               <div class="permissions__item">
-                                <input type="checkbox" name="permisosRol" id="eliminar-habitacion" class="child__checkbox" value="eliminar-habitacion">
+                                <input type="checkbox" name="permisosRol" id="eliminar-habitacion" class="child__checkbox" value="eliminar-habitacion" {{#hasPermission permisosRol "eliminar-habitacion"}}checked{{/hasPermission}}>
                                 <label for="eliminar-habitacion" class="permissions__label">Eliminar</label>
                               </div>
                               <div class="permissions__item">
-                                <input type="checkbox" name="permisosRol" id="ver-habitacion" class="child__checkbox" value="ver-habitacion">
+                                <input type="checkbox" name="permisosRol" id="ver-habitacion" class="child__checkbox" value="ver-habitacion" {{#hasPermission permisosRol "ver-habitacion"}}checked{{/hasPermission}}>
                                 <label for="ver-habitacion" class="permissions__label">Ver habitaciones</label>
                               </div>
                               <div class="permissions__item">
-                                <input type="checkbox" name="permisosRol" id="ver-detalle-habitacion" class="child__checkbox" value="ver-detalle-habitacion">
+                                <input type="checkbox" name="permisosRol" id="ver-detalle-habitacion" class="child__checkbox" value="ver-detalle-habitacion" {{#hasPermission permisosRol "ver-detalle-habitacion"}}checked{{/hasPermission}}>
                                 <label for="ver-detalle-habitacion" class="permissions__label">Ver Detalles</label>
                               </div>
                               <div class="permissions__item">
-                                <input type="checkbox" name="permisosRol" id="historial-habitacion" class="child__checkbox" value="historial-habitacion">
+                                <input type="checkbox" name="permisosRol" id="historial-habitacion" class="child__checkbox" value="historial-habitacion" {{#hasPermission permisosRol "historial-habitacion"}}checked{{/hasPermission}}>
                                 <label for="historial-habitacion" class="permissions__label">ver Historial</label>
                               </div>
                             </div>
@@ -1263,23 +1263,23 @@
                             </div>
                             <div class="permissions__container">
                               <div class="permissions__item">
-                                <input type="checkbox" name="permisosRol" id="crear-mantenimiento" class="child__checkbox" value="crear-mantenimiento">
+                                <input type="checkbox" name="permisosRol" id="crear-mantenimiento" class="child__checkbox" value="crear-mantenimiento" {{#hasPermission permisosRol "crear-mantenimiento"}}checked{{/hasPermission}}>
                                 <label for="crear-mantenimiento" class="permissions__label">Registrar</label>
                               </div>
                               <div class="permissions__item">
-                                <input type="checkbox" name="permisosRol" id="ver-detalle-mantenimiento" class="child__checkbox" value="ver-detalle-mantenimiento">
+                                <input type="checkbox" name="permisosRol" id="ver-detalle-mantenimiento" class="child__checkbox" value="ver-detalle-mantenimiento" {{#hasPermission permisosRol "ver-detalle-mantenimiento"}}checked{{/hasPermission}}>
                                 <label for="ver-detalle-mantenimiento" class="permissions__label">Ver Detalles</label>
                               </div>
                               <div class="permissions__item">
-                                <input type="checkbox" name="permisosRol" id="ver-mantenimiento" class="child__checkbox" value="ver-mantenimiento">
+                                <input type="checkbox" name="permisosRol" id="ver-mantenimiento" class="child__checkbox" value="ver-mantenimiento" {{#hasPermission permisosRol "ver-mantenimiento"}}checked{{/hasPermission}}>
                                 <label for="ver-mantenimiento" class="permissions__label">Ver mantenimientos</label>
                               </div>
                               <div class="permissions__item">
-                                <input type="checkbox" name="permisosRol" id="finalizar-mantenimiento" class="child__checkbox" value="finalizar-mantenimiento">
+                                <input type="checkbox" name="permisosRol" id="finalizar-mantenimiento" class="child__checkbox" value="finalizar-mantenimiento" {{#hasPermission permisosRol "finalizar-mantenimiento"}}checked{{/hasPermission}}>
                                 <label for="finalizar-mantenimiento" class="permissions__label">Finalizar</label>
                               </div>
                               <div class="permissions__item">
-                                <input type="checkbox" name="permisosRol" id="historial-mantenimiento" class="child__checkbox" value="historial-mantenimiento">
+                                <input type="checkbox" name="permisosRol" id="historial-mantenimiento" class="child__checkbox" value="historial-mantenimiento" {{#hasPermission permisosRol "historial-mantenimiento"}}checked{{/hasPermission}}>
                                 <label for="historial-mantenimiento" class="permissions__label">Ver Historial</label>
                               </div>
                             </div>
@@ -1302,43 +1302,43 @@
                             </div>
                             <div class="permissions__container">
                               <div class="permissions__item">
-                                <input type="checkbox" name="permisosRol" id="crear-reserva" class="child__checkbox" value="crear-reserva">
+                                <input type="checkbox" name="permisosRol" id="crear-reserva" class="child__checkbox" value="crear-reserva" {{#hasPermission permisosRol "crear-reserva"}}checked{{/hasPermission}}>
                                 <label for="crear-reserva" class="permissions__label">Registrar</label>
                               </div>
                               <div class="permissions__item">
-                                <input type="checkbox" name="permisosRol" id="ver-detalle-reserva" class="child__checkbox" value="ver-detalle-reserva">
+                                <input type="checkbox" name="permisosRol" id="ver-detalle-reserva" class="child__checkbox" value="ver-detalle-reserva" {{#hasPermission permisosRol "ver-detalle-reserva"}}checked{{/hasPermission}}>
                                 <label for="ver-detalle-reserva" class="permissions__label">Ver Detalles</label>
                               </div>
                               <div class="permissions__item">
-                                <input type="checkbox" name="permisosRol" id="ver-reserva" class="child__checkbox" value="ver-reserva">
+                                <input type="checkbox" name="permisosRol" id="ver-reserva" class="child__checkbox" value="ver-reserva" {{#hasPermission permisosRol "ver-reserva"}}checked{{/hasPermission}}>
                                 <label for="ver-reserva" class="permissions__label">Ver reservas</label>
                               </div>
                               <div class="permissions__item">
-                                <input type="checkbox" name="permisosRol" id="cancelar-reserva" class="child__checkbox" value="cancelar-reserva">
+                                <input type="checkbox" name="permisosRol" id="cancelar-reserva" class="child__checkbox" value="cancelar-reserva" {{#hasPermission permisosRol "cancelar-reserva"}}checked{{/hasPermission}}>
                                 <label for="cancelar-reserva" class="permissions__label">Cancelar</label>
                               </div>
                               <div class="permissions__item">
-                                <input type="checkbox" name="permisosRol" id="editar-reserva" class="child__checkbox" value="editar-reserva">
+                                <input type="checkbox" name="permisosRol" id="editar-reserva" class="child__checkbox" value="editar-reserva" {{#hasPermission permisosRol "editar-reserva"}}checked{{/hasPermission}}>
                                 <label for="editar-reserva" class="permissions__label">Editar</label>
                               </div>
                               <div class="permissions__item">
-                                <input type="checkbox" name="permisosRol" id="ingresar-huesped" class="child__checkbox" value="ingresar-huesped">
+                                <input type="checkbox" name="permisosRol" id="ingresar-huesped" class="child__checkbox" value="ingresar-huesped" {{#hasPermission permisosRol "ingresar-huesped"}}checked{{/hasPermission}}>
                                 <label for="ingresar-huesped" class="permissions__label">Ingreso huésped</label>
                               </div>
                               <div class="permissions__item">
-                                <input type="checkbox" name="permisosRol" id="venta-reserva" class="child__checkbox" value="venta-reserva">
+                                <input type="checkbox" name="permisosRol" id="venta-reserva" class="child__checkbox" value="venta-reserva" {{#hasPermission permisosRol "venta-reserva"}}checked{{/hasPermission}}>
                                 <label for="venta-reserva" class="permissions__label">Registrar venta</label>
                               </div>
                               <div class="permissions__item">
-                                <input type="checkbox" name="permisosRol" id="limpieza-reserva" class="child__checkbox" value="limpieza-reserva">
+                                <input type="checkbox" name="permisosRol" id="limpieza-reserva" class="child__checkbox" value="limpieza-reserva" {{#hasPermission permisosRol "limpieza-reserva"}}checked{{/hasPermission}}>
                                 <label for="limpieza-reserva" class="permissions__label">Registrar limpieza</label>
                               </div>
                               <div class="permissions__item">
-                                <input type="checkbox" name="permisosRol" id="finalizar-reserva" class="child__checkbox" value="finalizar-reserva">
+                                <input type="checkbox" name="permisosRol" id="finalizar-reserva" class="child__checkbox" value="finalizar-reserva" {{#hasPermission permisosRol "finalizar-reserva"}}checked{{/hasPermission}}>
                                 <label for="finalizar-reserva" class="permissions__label">Finalizar</label>
                               </div>
                               <div class="permissions__item">
-                                <input type="checkbox" name="permisosRol" id="historial-reserva" class="child__checkbox" value="historial-reserva">
+                                <input type="checkbox" name="permisosRol" id="historial-reserva" class="child__checkbox" value="historial-reserva" {{#hasPermission permisosRol "historial-reserva"}}checked{{/hasPermission}}>
                                 <label for="historial-reserva" class="permissions__label">Ver Historial</label>
                               </div>
                             </div>
@@ -1361,35 +1361,35 @@
                             </div>
                             <div class="permissions__container">
                               <div class="permissions__item">
-                                <input type="checkbox" name="permisosRol" id="crear-ocupacion" class="child__checkbox" value="crear-ocupacion">
+                                <input type="checkbox" name="permisosRol" id="crear-ocupacion" class="child__checkbox" value="crear-ocupacion" {{#hasPermission permisosRol "crear-ocupacion"}}checked{{/hasPermission}}>
                                 <label for="crear-ocupacion" class="permissions__label">Registrar</label>
                               </div>
                               <div class="permissions__item">
-                                <input type="checkbox" name="permisosRol" id="ver-detalle-ocupacion" class="child__checkbox" value="ver-detalle-ocupacion">
+                                <input type="checkbox" name="permisosRol" id="ver-detalle-ocupacion" class="child__checkbox" value="ver-detalle-ocupacion" {{#hasPermission permisosRol "ver-detalle-ocupacion"}}checked{{/hasPermission}}>
                                 <label for="ver-detalle-ocupacion" class="permissions__label">Ver Detalles</label>
                               </div>
                               <div class="permissions__item">
-                                <input type="checkbox" name="permisosRol" id="ver-ocupacion" class="child__checkbox" value="ver-ocupacion">
+                                <input type="checkbox" name="permisosRol" id="ver-ocupacion" class="child__checkbox" value="ver-ocupacion" {{#hasPermission permisosRol "ver-ocupacion"}}checked{{/hasPermission}}>
                                 <label for="ver-ocupacion" class="permissions__label">Ver ocupaciones</label>
                               </div>
                               <div class="permissions__item">
-                                <input type="checkbox" name="permisosRol" id="editar-ocupacion" class="child__checkbox" value="editar-ocupacion">
+                                <input type="checkbox" name="permisosRol" id="editar-ocupacion" class="child__checkbox" value="editar-ocupacion" {{#hasPermission permisosRol "editar-ocupacion"}}checked{{/hasPermission}}>
                                 <label for="editar-ocupacion" class="permissions__label">Editar</label>
                               </div>
                               <div class="permissions__item">
-                                <input type="checkbox" name="permisosRol" id="venta-ocupacion" class="child__checkbox" value="venta-ocupacion">
+                                <input type="checkbox" name="permisosRol" id="venta-ocupacion" class="child__checkbox" value="venta-ocupacion" {{#hasPermission permisosRol "venta-ocupacion"}}checked{{/hasPermission}}>
                                 <label for="venta-ocupacion" class="permissions__label">Registrar venta</label>
                               </div>
                               <div class="permissions__item">
-                                <input type="checkbox" name="permisosRol" id="limpieza-ocupacion" class="child__checkbox" value="limpieza-ocupacion">
+                                <input type="checkbox" name="permisosRol" id="limpieza-ocupacion" class="child__checkbox" value="limpieza-ocupacion" {{#hasPermission permisosRol "limpieza-ocupacion"}}checked{{/hasPermission}}>
                                 <label for="limpieza-ocupacion" class="permissions__label">Registrar limpieza</label>
                               </div>
                               <div class="permissions__item">
-                                <input type="checkbox" name="permisosRol" id="finalizar-ocupacion" class="child__checkbox" value="finalizar-ocupacion">
+                                <input type="checkbox" name="permisosRol" id="finalizar-ocupacion" class="child__checkbox" value="finalizar-ocupacion" {{#hasPermission permisosRol "finalizar-ocupacion"}}checked{{/hasPermission}}>
                                 <label for="finalizar-ocupacion" class="permissions__label">Finalizar</label>
                               </div>
                               <div class="permissions__item">
-                                <input type="checkbox" name="permisosRol" id="historial-ocupacion" class="child__checkbox" value="historial-ocupacion">
+                                <input type="checkbox" name="permisosRol" id="historial-ocupacion" class="child__checkbox" value="historial-ocupacion" {{#hasPermission permisosRol "historial-ocupacion"}}checked{{/hasPermission}}>
                                 <label for="historial-ocupacion" class="permissions__label">Ver Historial</label>
                               </div>
                             </div>
@@ -1412,11 +1412,11 @@
                             </div>
                             <div class="permissions__container">
                               <div class="permissions__item">
-                                <input type="checkbox" name="permisosRol" id="ver-limpieza-intermedia" class="child__checkbox" value="ver-limpieza-intermedia">
+                                <input type="checkbox" name="permisosRol" id="ver-limpieza-intermedia" class="child__checkbox" value="ver-limpieza-intermedia" {{#hasPermission permisosRol "ver-limpieza-intermedia"}}checked{{/hasPermission}}>
                                 <label for="ver-limpieza-intermedia" class="permissions__label">Ver limpiezas intermedias</label>
                               </div>
                               <div class="permissions__item">
-                                <input type="checkbox" name="permisosRol" id="historial-limpieza-intermedia" class="child__checkbox" value="historial-limpieza-intermedia">
+                                <input type="checkbox" name="permisosRol" id="historial-limpieza-intermedia" class="child__checkbox" value="historial-limpieza-intermedia" {{#hasPermission permisosRol "historial-limpieza-intermedia"}}checked{{/hasPermission}}>
                                 <label for="historial-limpieza-intermedia" class="permissions__label">Ver Historial</label>
                               </div>
                             </div>
@@ -1426,7 +1426,7 @@
                       <!-- ALMACÉN DE HOTEL -->
                       <article class="form__group form__group--permisos">
                         <div class="permisos__header">
-                          <span class="permisos__span">Almacén</span>
+                          <span class="permisos__span">Almacén Hotel</span>
                           <figure class="permisos__header__figure">
                             <img src="/assets/icon-arrow--blue.svg" alt="Icon Arrow" class="permisos__header__img">
                           </figure>
@@ -1434,28 +1434,28 @@
                         <section class="permisos__container permisos__container--show">
                           <div class="permisos__group form__group--permisos">
                             <div class="permissions__header">
-                              <input type="checkbox" id="almacen-all" class="parent__checkbox">
-                              <label for="almacen-all" class="permissions__label">Todo</label>
+                              <input type="checkbox" id="almacen-hotel-all" class="parent__checkbox">
+                              <label for="almacen-hotel-all" class="permissions__label">Todo</label>
                             </div>
                             <div class="permissions__container">
                               <div class="permissions__item">
-                                <input type="checkbox" name="permisosRol" id="registrar-producto-almacen" class="child__checkbox" value="registrar-producto-almacen">
+                                <input type="checkbox" name="permisosRol" id="registrar-producto-almacen" class="child__checkbox" value="registrar-producto-almacen" {{#hasPermission permisosRol "registrar-producto-almacen"}}checked{{/hasPermission}}>
                                 <label for="registrar-producto-almacen" class="permissions__label">Registrar</label>
                               </div>
                               <div class="permissions__item">
-                                <input type="checkbox" name="permisosRol" id="editar-producto-almacen" class="child__checkbox" value="editar-producto-almacen">
+                                <input type="checkbox" name="permisosRol" id="editar-producto-almacen" class="child__checkbox" value="editar-producto-almacen" {{#hasPermission permisosRol "editar-producto-almacen"}}checked{{/hasPermission}}>
                                 <label for="editar-producto-almacen" class="permissions__label">Editar</label>
                               </div>
                               <div class="permissions__item">
-                                <input type="checkbox" name="permisosRol" id="eliminar-producto-almacen" class="child__checkbox" value="eliminar-producto-almacen">
+                                <input type="checkbox" name="permisosRol" id="eliminar-producto-almacen" class="child__checkbox" value="eliminar-producto-almacen" {{#hasPermission permisosRol "eliminar-producto-almacen"}}checked{{/hasPermission}}>
                                 <label for="eliminar-producto-almacen" class="permissions__label">Eliminar</label>
                               </div>
                               <div class="permissions__item">
-                                <input type="checkbox" name="permisosRol" id="ver-producto-almacen" class="child__checkbox" value="ver-producto-almacen">
+                                <input type="checkbox" name="permisosRol" id="ver-producto-almacen" class="child__checkbox" value="ver-producto-almacen" {{#hasPermission permisosRol "ver-producto-almacen"}}checked{{/hasPermission}}>
                                 <label for="ver-producto-almacen" class="permissions__label">Ver productos</label>
                               </div>
                               <div class="permissions__item">
-                                <input type="checkbox" name="permisosRol" id="historial-producto-almacen" class="child__checkbox" value="historial-producto-almacen">
+                                <input type="checkbox" name="permisosRol" id="historial-producto-almacen" class="child__checkbox" value="historial-producto-almacen" {{#hasPermission permisosRol "historial-producto-almacen"}}checked{{/hasPermission}}>
                                 <label for="historial-producto-almacen" class="permissions__label">Ver Historial</label>
                               </div>
                             </div>
@@ -1478,19 +1478,19 @@
                             </div>
                             <div class="permissions__container">
                               <div class="permissions__item">
-                                <input type="checkbox" name="permisosRol" id="ver-venta-hotel" class="child__checkbox" value="ver-venta-hotel">
+                                <input type="checkbox" name="permisosRol" id="ver-venta-hotel" class="child__checkbox" value="ver-venta-hotel" {{#hasPermission permisosRol "ver-venta-hotel"}}checked{{/hasPermission}}>
                                 <label for="ver-venta-hotel" class="permissions__label">Ver ventas</label>
                               </div>
                               <div class="permissions__item">
-                                <input type="checkbox" name="permisosRol" id="ver-detalle-venta-hotel" class="child__checkbox" value="ver-detalle-venta-hotel">
+                                <input type="checkbox" name="permisosRol" id="ver-detalle-venta-hotel" class="child__checkbox" value="ver-detalle-venta-hotel" {{#hasPermission permisosRol "ver-detalle-venta-hotel"}}checked{{/hasPermission}}>
                                 <label for="ver-detalle-venta-hotel" class="permissions__label">Ver Detalles</label>
                               </div>
                               <div class="permissions__item">
-                                <input type="checkbox" name="permisosRol" id="historial-venta-hotel" class="child__checkbox" value="historial-venta-hotel">
+                                <input type="checkbox" name="permisosRol" id="historial-venta-hotel" class="child__checkbox" value="historial-venta-hotel" {{#hasPermission permisosRol "historial-venta-hotel"}}checked{{/hasPermission}}>
                                 <label for="historial-venta-hotel" class="permissions__label">Ver Historial</label>
                               </div>
                               <div class="permissions__item">
-                                <input type="checkbox" name="permisosRol" id="ver-detalle-historial-venta-hotel" class="child__checkbox" value="ver-detalle-historial-venta-hotel">
+                                <input type="checkbox" name="permisosRol" id="ver-detalle-historial-venta-hotel" class="child__checkbox" value="ver-detalle-historial-venta-hotel" {{#hasPermission permisosRol "ver-detalle-historial-venta-hotel"}}checked{{/hasPermission}}>
                                 <label for="ver-detalle-historial-venta-hotel" class="permissions__label">Ver Detalles del Historial</label>
                               </div>
                             </div>
@@ -1513,19 +1513,19 @@
                             </div>
                             <div class="permissions__container">
                               <div class="permissions__item">
-                                <input type="checkbox" name="permisosRol" id="ver-checkout-hotel" class="child__checkbox" value="ver-checkout-hotel">
+                                <input type="checkbox" name="permisosRol" id="ver-checkout-hotel" class="child__checkbox" value="ver-checkout-hotel" {{#hasPermission permisosRol "ver-checkout-hotel"}}checked{{/hasPermission}}>
                                 <label for="ver-checkout-hotel" class="permissions__label">Ver checkouts</label>
                               </div>
                               <div class="permissions__item">
-                                <input type="checkbox" name="permisosRol" id="cerrar-checkout-hotel" class="child__checkbox" value="cerrar-checkout-hotel">
+                                <input type="checkbox" name="permisosRol" id="cerrar-checkout-hotel" class="child__checkbox" value="cerrar-checkout-hotel" {{#hasPermission permisosRol "cerrar-checkout-hotel"}}checked{{/hasPermission}}>
                                 <label for="cerrar-checkout-hotel" class="permissions__label">Cerrar checkouts</label>
                               </div>
                               <div class="permissions__item">
-                                <input type="checkbox" name="permisosRol" id="ver-detalle-checkout-hotel" class="child__checkbox" value="ver-detalle-checkout-hotel">
+                                <input type="checkbox" name="permisosRol" id="ver-detalle-checkout-hotel" class="child__checkbox" value="ver-detalle-checkout-hotel" {{#hasPermission permisosRol "ver-detalle-checkout-hotel"}}checked{{/hasPermission}}>
                                 <label for="ver-detalle-checkout-hotel" class="permissions__label">Ver Detalles</label>
                               </div>
                               <div class="permissions__item">
-                                <input type="checkbox" name="permisosRol" id="historial-checkout-hotel" class="child__checkbox" value="historial-checkout-hotel">
+                                <input type="checkbox" name="permisosRol" id="historial-checkout-hotel" class="child__checkbox" value="historial-checkout-hotel" {{#hasPermission permisosRol "historial-checkout-hotel"}}checked{{/hasPermission}}>
                                 <label for="historial-checkout-hotel" class="permissions__label">Ver Historial</label>
                               </div>
                             </div>
@@ -1543,16 +1543,16 @@
                         <section class="permisos__container permisos__container--show">
                           <div class="permisos__group form__group--permisos">
                             <div class="permissions__header">
-                              <input type="checkbox" id="balance-all" class="parent__checkbox">
-                              <label for="balance-all" class="permissions__label">Todo</label>
+                              <input type="checkbox" id="balance-hotel-all" class="parent__checkbox">
+                              <label for="balance-hotel-all" class="permissions__label">Todo</label>
                             </div>
                             <div class="permissions__container">
                               <div class="permissions__item">
-                                <input type="checkbox" name="permisosRol" id="ver-balance-hotel" class="child__checkbox" value="ver-balance-hotel">
+                                <input type="checkbox" name="permisosRol" id="ver-balance-hotel" class="child__checkbox" value="ver-balance-hotel" {{#hasPermission permisosRol "ver-balance-hotel"}}checked{{/hasPermission}}>
                                 <label for="ver-balance-hotel" class="permissions__label">Ver balance</label>
                               </div>
                               <div class="permissions__item">
-                                <input type="checkbox" name="permisosRol" id="exportar-balance-hotel" class="child__checkbox" value="exportar-balance-hotel">
+                                <input type="checkbox" name="permisosRol" id="exportar-balance-hotel" class="child__checkbox" value="exportar-balance-hotel" {{#hasPermission permisosRol "exportar-balance-hotel"}}checked{{/hasPermission}}>
                                 <label for="exportar-balance-hotel" class="permissions__label">Exportar</label>
                               </div>
                             </div>
@@ -1579,6 +1579,11 @@
 
     $parentCheckboxes.forEach(parent => {
       const $childCheckboxes = parent.closest(".form__group").querySelectorAll(".child__checkbox");
+      
+
+      // Verificar si todos los hijos están marcados, si es así, marcar el padre
+      const $allChildrenChecked = Array.from($childCheckboxes).every(child => child.checked);
+      parent.checked = $allChildrenChecked;
 
       // Marcar o desmarcar los hijos cuando el padre cambia
       parent.addEventListener("change", () => {

@@ -8,7 +8,8 @@ helpers.isAuthenticated = async (req, res, next) => {
     .populate({
       path: "trabajadorUsuario",
       populate: {
-        path: "rolTrabajador"
+        path: "rolTrabajador",
+        populate: "permisosRol"
       }
     })
     .lean();

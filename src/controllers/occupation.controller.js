@@ -27,10 +27,8 @@ occupationCtrl.renderRegisterOccupation = async (req, res) => {
       return res.redirect("/hotel");
     };
 
-    const userRole = req.user.trabajadorUsuario.rolTrabajador.nombreRol;
     res.render("hotel/occupations/new-occupation", {
-      room,
-      userRole
+      room
     });
   } catch (error) {
     req.flash("wrong", "Ocurrió un error al registrar la ocupación, intente nuevamente");
@@ -136,12 +134,10 @@ occupationCtrl.renderAllOccupations = async (req, res) => {
       .sort({createdAt: -1})
       .lean();
 
-    const userRole = req.user.trabajadorUsuario.rolTrabajador.nombreRol;
     const currentPage = `occupations`;
     res.render("hotel/occupations/all-occupations", {
       occupations,
-      currentPage,
-      userRole
+      currentPage
     });
   } catch (error) {
     req.flash("wrong", "Ocurrió un error al cargar los detalles de la reserva, intente nuevamente.");
@@ -212,13 +208,11 @@ occupationCtrl.renderDetailOccupation = async (req, res) => {
 
     const cleaningComplete = cleaningRoom && cleaningRoom.fechaFinLimpieza;
 
-    const userRole = req.user.trabajadorUsuario.rolTrabajador.nombreRol;
     res.render("hotel/occupations/details-occupation", {
       occupation: occupationLean,
       saleOccupation,
       cleaningRoom,
-      cleaningComplete,
-      userRole
+      cleaningComplete
     });
   } catch (error) {
     req.flash("wrong", "Ocurrió un error al cargar los detalles de la reserva, intente nuevamente.");
@@ -250,11 +244,9 @@ occupationCtrl.renderEditOccupation = async (req, res) => {
       .populate("pisoHabitacion categoriaHabitacion")
       .lean();
 
-    const userRole = req.user.trabajadorUsuario.rolTrabajador.nombreRol;
     res.render("hotel/occupations/edit-occupation", {
       room,
-      occupation,
-      userRole
+      occupation
     });
   } catch (error) {
     req.flash("wrong", "Ocurrió un error al cargar el formulario para editar la reserva, intente nuevamente.");
@@ -568,13 +560,11 @@ occupationCtrl.renderCleaningRoomOccupation = async (req, res) => {
       })
       .lean();
 
-    const userRole = req.user.trabajadorUsuario.rolTrabajador.nombreRol;
     res.render("hotel/cleaning/cleaning-room", {
       actionUrl,
       occupation,
       room,
-      usuarios,
-      userRole
+      usuarios
     });
 
   } catch (error) {
@@ -767,7 +757,6 @@ occupationCtrl.renderCheckOutHotel = async (req, res) => {
       })
       .lean();
 
-    const userRole = req.user.trabajadorUsuario.rolTrabajador.nombreRol;
     res.render("hotel/checkout/checkout-hotel-occupation", {
       actionUrl,
       backUrl,
@@ -775,8 +764,7 @@ occupationCtrl.renderCheckOutHotel = async (req, res) => {
       room,
       usuarios,
       cleaningRoom,
-      saleOccupation,
-      userRole
+      saleOccupation
     });
   } catch (error) {
     req.flash("wrong", "Ocurrió un error al cargar el formulario para checkout, intente nuevamente.");

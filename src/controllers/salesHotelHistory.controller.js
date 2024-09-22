@@ -39,11 +39,9 @@ salesHotelHistoryCtrl.renderSalesHotelHistory = async (req, res) => {
       })
       .sort({createdAt: -1})
       .lean();
-    
-    const userRole = req.user.trabajadorUsuario.rolTrabajador.nombreRol;
+
     res.render("hotel/sales/history-sales-hotel", {
-      salesHotelHistory,
-      userRole
+      salesHotelHistory
     });
   } catch (error) {
     req.flash("wrong", "Ocurrió un error al mostrar las ventas cerradas, intente nuevamente.");

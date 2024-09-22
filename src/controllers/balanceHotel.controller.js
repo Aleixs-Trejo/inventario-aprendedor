@@ -28,13 +28,11 @@ balanceHotelCtrl.renderBalanceHotel = async (req, res) => {
       .sort({createdAt: -1})
       .lean();
 
-    const userRole = req.user.trabajadorUsuario.rolTrabajador.nombreRol;
     const currentPage = `balance-hotel`;
     console.log("Balance de checkOuts: ", balanceHotel);
     res.render("hotel/balance/all-balance-hotel", {
       balanceHotel,
-      currentPage,
-      userRole
+      currentPage
     });
   } catch (error) {
     req.flash("wrong", "Ocurrió un error al mostrar la vista de balance de checkOuts, intente nuevamente.");

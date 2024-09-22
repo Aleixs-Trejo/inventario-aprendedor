@@ -22,11 +22,8 @@ reservationHistoryCtrl.renderReservationHistory = async (req, res) => {
       .sort({createdAt: -1})
       .lean();
 
-    const userRole = req.user.trabajadorUsuario.rolTrabajador.nombreRol;
-    console.log("Reservation History: ", reservationHistory);
     res.render("hotel/reservation/history-reservations", {
-      reservationHistory,
-      userRole
+      reservationHistory
     });
   } catch (error) {
     req.flash("wrong", "Ocurrió un error al cargar los detalles de la reserva, intente nuevamente.");

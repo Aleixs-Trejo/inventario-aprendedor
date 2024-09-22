@@ -17,10 +17,9 @@ maintenancesHistoryCtrl.renderMaintenancesHistory = async (req, res) => {
       })
       .sort({createdAt: -1})
       .lean();
-    const userRole = req.user.trabajadorUsuario.rolTrabajador.nombreRol;
+
     res.render("hotel/maintenance-room/history-maintenances", {
-      maintenancesHistory,
-      userRole
+      maintenancesHistory
     });
   } catch (error) {
     req.flash("wrong", "Ocurrió un error al cargar la vista, intente nuevamente.");

@@ -16,11 +16,8 @@ statusRoomHistoryCtrl.renderStatusRoomHistory = async (req, res) => {
       .sort({createdAt: -1})
       .lean();
 
-    const userRole = req.user.trabajadorUsuario.rolTrabajador.nombreRol;
-    console.log("Historial de estados: ", statusRoomHistory);
     res.render("hotel/status-room/history-status-room", {
-      statusRoomHistory,
-      userRole
+      statusRoomHistory
     });
   } catch (error) {
     req.flash("wrong", "Ocurrió un error al cargar la vista del historial, intente nuevamente.");

@@ -33,10 +33,9 @@ productHistoryCtrl.renderProductsHistory = async (req, res) => {
     .populate("categoriaProductoHistorial")
     .sort({createdAt: -1})
     .lean();
-    const userRole = req.user.trabajadorUsuario.rolTrabajador.nombreRol;
+
     res.render("products/history-products", {
-      productsHistory,
-      userRole
+      productsHistory
     });
   } catch (error) {
     req.flash("wrong", "Ocurrió un error, intente nuevamente");

@@ -55,12 +55,10 @@ checkOutHotelCtrl.renderCheckOuts = async (req, res) => {
       }
     }
 
-    const userRole = req.user.trabajadorUsuario.rolTrabajador.nombreRol;
     const currentPage = `checkouts-hotel`;
     res.render("hotel/checkout/all-checkouts", {
       checkOutsHotel,
-      currentPage,
-      userRole
+      currentPage
     });
   } catch (error) {
     req.flash("wrong", "Ocurrió un error al cargar los checkouts, intente nuevamente.");
@@ -252,13 +250,11 @@ checkOutHotelCtrl.renderCheckOutDetails = async (req, res) => {
         .lean();
     }
 
-    const userRole = req.user.trabajadorUsuario.rolTrabajador.nombreRol;
     res.render("hotel/checkout/checkout-details", {
       checkOutHotel,
       entidad,
       limpieza,
-      sales,
-      userRole
+      sales
     });
   } catch (error) {
     req.flash("wrong", "Ocurrió un error al mostrar los detalles de la actividad de checkout, intente nuevamente.");

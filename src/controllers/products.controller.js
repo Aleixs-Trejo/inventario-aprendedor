@@ -140,12 +140,10 @@ productsCtrl.renderProducts = async (req, res) => {
     .populate("categoriaProducto")
     .lean();
 
-    const userRole = req.user.trabajadorUsuario.rolTrabajador.nombreRol;
     const currentPage = `products`;
     res.render("products/all-products", {
       products,
-      currentPage,
-      userRole
+      currentPage
     });
   } catch (error) {
     req.flash("wrong", "Ocurrió un error, intente nuevamente");
@@ -178,7 +176,6 @@ productsCtrl.renderEditProduct = async (req, res) => {
       throw new Error("No se encontraron los usuarios, proveedores o categorías");
     }
 
-    const userRole = req.user.trabajadorUsuario.rolTrabajador.nombreRol;
     res.render("products/edit-product", {
       product,
       usuarios: usuarios.reduce((acc, usuario) => {
@@ -192,10 +189,8 @@ productsCtrl.renderEditProduct = async (req, res) => {
       categorias: categorias.reduce((acc, categoria) => {
         acc[categoria._id] = categoria;
         return acc;
-      }, {}),
-      userRole
+      }, {})
     });
-    console.log("Rol de usuario desde editar producto: ", userRole);
   } catch (error) {
     req.flash("wrong", "Ocurrió un error, intente nuevamente");
     console.error("Error:", error);
@@ -277,11 +272,9 @@ productsCtrl.renderDetailsProduct = async (req, res) => {
       .sort({createdAt: -1})
       .lean();
 
-    const userRole = req.user.trabajadorUsuario.rolTrabajador.nombreRol;
     res.render("products/details-product", {
       product,
-      productHistory,
-      userRole
+      productHistory
     });
   } catch (error) {
     req.flash("wrong", "Ocurrió un error al mostrar los detalles del producto, intente nuevamente.");

@@ -15,10 +15,8 @@ categoriesRoomHistoryCtrl.renderCategoriesRoomHistory = async (req, res) => {
       .sort({createdAt: -1})
       .lean();
 
-    const userRole = req.user.trabajadorUsuario.rolTrabajador.nombreRol;
     res.render("hotel/categories-room/history-categories-room", {
-      categoriesRoomHistory,
-      userRole
+      categoriesRoomHistory
     });
   } catch (error) {
     req.flash("wrong", "Ocurrió un error al cargar la vista, intente nuevamente.");

@@ -37,10 +37,8 @@ cleaningHistoryCtrl.renderCleaningHistory = async (req, res) => {
       }
     }
 
-    const userRole = req.user.trabajadorUsuario.rolTrabajador.nombreRol;
     res.render("hotel/cleaning/cleaning-history", {
-      cleaningHistory,
-      userRole
+      cleaningHistory
     });
   } catch (error) {
     req.flash("wrong", "Ocurrió un error al cargar el historial de limpieza, intente nuevamente.");

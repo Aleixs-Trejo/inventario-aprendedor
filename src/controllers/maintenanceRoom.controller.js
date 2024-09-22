@@ -26,13 +26,11 @@ maintenanceRoomCtrl.renderRegisterMaintenanceRoom = async (req, res) => {
           }
         })
         .lean();
-    
-    const userRole = req.user.trabajadorUsuario.rolTrabajador.nombreRol;
+
     console.log("room: ", room);
     res.render("hotel/maintenance-room/new-maintenance", {
       room,
-      users,
-      userRole
+      users
     });
   } catch (error) {
     req.flash("wrong", "Ocurrió un error, intente nuevamente.");
@@ -110,11 +108,9 @@ maintenanceRoomCtrl.renderDetailMaintenanceRoom = async (req, res) => {
       })
       .populate("usuarioMantenimiento")
       .lean();
-    const userRole = req.user.trabajadorUsuario.rolTrabajador.nombreRol;
-    console.log("maintenanceRoom: ", maintenanceRoom);
+
     res.render("hotel/maintenance-room/detail-maintenance", {
-      maintenanceRoom,
-      userRole
+      maintenanceRoom
     });
   } catch (error) {
     req.flash("wrong", "Ocurrió un error, intente nuevamente. " + error);
@@ -191,14 +187,10 @@ maintenanceRoomCtrl.renderMaintenances = async (req, res) => {
       .sort({createdAt: -1})
       .lean();
 
-    console.log("maintenances: ", maintenances);
-
-    const userRole = req.user.trabajadorUsuario.rolTrabajador.nombreRol;
     const currentPage = `maintenance-room`;
     res.render("hotel/maintenance-room/all-maintenances", {
       maintenances,
-      currentPage,
-      userRole
+      currentPage
     });
   } catch (error) {
     req.flash("wrong", "Ocurrió un error, intente nuevamente. " + error);

@@ -10,12 +10,9 @@ roomsCtrl.renderRegisterRoom = async (req, res) =>{
   try {
     const floors = await Floor.find({eliminadoPiso: false}).lean();
     const roomCategories = await RoomCategory.find({eliminadoCategoriaHabitacion: false}).lean();
-    console.log("RoomCategories: ", roomCategories);
-    const userRole = req.user.trabajadorUsuario.rolTrabajador.nombreRol;
     res.render("hotel/rooms/new-room", {
       floors,
-      roomCategories,
-      userRole
+      roomCategories
     });
   } catch (error) {
     req.flash("wrong", "Ocurrió un error al cargar el formulario de nueva habitación, intente nuevamente.");
@@ -108,12 +105,10 @@ roomsCtrl.renderRooms = async (req, res) => {
       .populate("categoriaHabitacion")
       .lean();
 
-    const userRole = req.user.trabajadorUsuario.rolTrabajador.nombreRol;
     const currentPage = `rooms`;
     res.render("hotel/rooms/all-rooms", {
       rooms,
-      currentPage,
-      userRole
+      currentPage
     });
   } catch (error) {
     req.flash("wrong", "Ocurrió un error al cargar la lista de habitaciones, intente nuevamente.");
@@ -150,15 +145,13 @@ roomsCtrl.renderEditRoom = async (req, res) => {
       return res.redirect("/rooms");
     };
 
-    const userRole = req.user.trabajadorUsuario.rolTrabajador.nombreRol;
     console.log("roomCategories: ", roomCategories);
     res.render("hotel/rooms/edit-room", {
       room,
       roomCategories: roomCategories.reduce((acc, roomCategory) => {
         acc[roomCategory._id] = roomCategory;
         return acc;
-      }, {}),
-      userRole
+      }, {})
     });
   } catch (error) {
     req.flash("wrong", "Ocurrió un error al cargar el formulario de edición, intente nuevamente.");
@@ -244,11 +237,9 @@ roomsCtrl.renderRoomDetails = async (req, res) => {
       .sort({createdAt: -1})
       .lean();
 
-    const userRole = req.user.trabajadorUsuario.rolTrabajador.nombreRol;
     res.render("hotel/rooms/details-room", {
       room,
-      roomHistory,
-      userRole
+      roomHistory
     });
   } catch (error) {
     req.flash("wrong", "Ocurrió un error al cargar los detalles de la habitación, intente nuevamente.");

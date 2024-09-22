@@ -156,7 +156,6 @@ usersCtrl.login = (req, res, next) => {
       req.flash("wrong", "Datos inválidos");
       return res.redirect("/");
     }
-    console.log("Usuario: ", user)
     // Si el usuario se autentica correctamente, iniciar sesión en la sesión y redirigir al usuario
     req.login(user, (err) => {
       if (err) return next(err);
@@ -180,7 +179,6 @@ usersCtrl.renderUsers = async (req, res) => {
     // Filtrar los usuarios que tengan un trabajador asociado no eliminado
     const filteredUsers = users.filter(user => user.trabajadorUsuario !== null);
 
-    // const userRole = req.user.trabajadorUsuario.rolTrabajador.nombreRol || null;
     const currentPage = `users`;
     res.render("users/all-users", {
       users: filteredUsers,

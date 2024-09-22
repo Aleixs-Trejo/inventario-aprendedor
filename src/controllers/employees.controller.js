@@ -262,11 +262,9 @@ employeeCtrl.renderDetailsEmployee = async (req, res) => {
       .populate("rolTrabajadorHistorial")
       .sort({createdAt: -1})
       .lean();
-    const userRole = req.user.trabajadorUsuario.rolTrabajador.nombreRol;
     res.render("employees/details-employee", {
       employee,
-      employeeHistory,
-      userRole
+      employeeHistory
     });
   } catch (error) {
     req.flash("wrong", "Ocurrió un error al mostrar los detalles del trabajador, intente nuevamente.");

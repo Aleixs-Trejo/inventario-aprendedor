@@ -112,13 +112,10 @@ clientsCtrl.renderClients = async (req, res) => {
     .populate("usuarioRegistroCliente")
     .lean();
 
-    const userRole = req.user.trabajadorUsuario.rolTrabajador.nombreRol;
-
     const currentPage = `clients`;
     res.render("clients/all-clients", {
       clients,
-      currentPage,
-      userRole
+      currentPage
     });
   } catch (error) {
     req.flash("wrong", "Ocurrió un error, intente nuevamente.");
@@ -149,11 +146,10 @@ clientsCtrl.renderDetailsClient = async (req, res) => {
       })
       .sort({createdAt: -1})
       .lean();
-    const userRole = req.user.trabajadorUsuario.rolTrabajador.nombreRol;
+
     res.render("clients/details-client", {
       client,
       clientHistory,
-      userRole
     });
   } catch (error) {
     req.flash("wrong", "Ocurrió un error al mostrar los detalles del cliente, intente nuevamente.");

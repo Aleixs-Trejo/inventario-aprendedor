@@ -8,7 +8,9 @@ const passport = require("passport");
 const coockieParser = require("cookie-parser");
 const { formatDateTime } = require("./helpers/date");
 const { formatCurrency } = require("./helpers/currency");
+const { hasPermission } = require("./helpers/permission");
 const Company = require("./models/companyModel");
+const User = require("./models/userModel");
 
 //Initialization
 const app = express();
@@ -34,6 +36,7 @@ app.engine(".hbs", exphbs.engine(
       or: (...args) => args[0] || args[1],
       formatDateTime,
       formatCurrency,
+      hasPermission,
     }
   }
 ));
@@ -71,6 +74,35 @@ app.use(async (req, res, next) => {
       res.locals.logoUrl = company.imagenCompany ? `/uploads/${company.imagenCompany}` : `/assets/logo-aprendedor.webp`;
     } else {
       res.locals.logoUrl = `/assets/logo-aprendedor.webp`;
+    }
+
+    if (req.user) {
+      try {
+        const usuario = await User.findById(req.user._id)
+          .populate({
+            path: "trabajadorUsuario",
+            populate: "rolTrabajador"
+          })
+          .lean();
+  
+        if (usuario && usuario.trabajadorUsuario && usuario.trabajadorUsuario.rolTrabajador) {
+          const rolTrabajador = usuario.trabajadorUsuario.rolTrabajador;
+  
+          // Guardar roles y permisos
+          res.locals.roles = rolTrabajador;
+          res.locals.permisosRol = rolTrabajador.permisosRol || [];
+        } else {
+          res.locals.roles = [];
+          res.locals.permisosRol = [];
+        }
+      } catch (error) {
+        console.log("Error al obtener roles y permisos del usuario: ", error);
+        res.locals.roles = [];
+        res.locals.permisosRol = [];
+      }
+    } else {
+      res.locals.roles = [];
+      res.locals.permisosRol = [];
     }
   } catch (error) {
     console.log("Error al obtener la company: ", error);
