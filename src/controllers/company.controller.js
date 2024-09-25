@@ -1,17 +1,21 @@
 const companyCtrl = {};
 
 const Company = require("../models/companyModel");
+const User = require("../models/userModel");
+const getPlanLimits = require("../config/planLimits");
 
 // Renderizar vista para registrar empresa
 companyCtrl.renderRegisterCompany = async (req, res) => {
   try {
-    const existingCompanies = await Company.find({eliminadoCompany: false}).lean();
+    const users = await User.find({eliminadoUsuario: false}).lean();
+    const currentUsers = users.length;
 
-    if (existingCompanies && existingCompanies.length >= process.env.MAX_COMPANIES) {
-      req.flash("wrong", "Ya tienes más de " + process.env.MAX_COMPANIES + " empresas registradas.");
-      console.log(`Máximo número de Compañías alcanzado, el máximo permitido es de ${process.env.MAX_COMPANIES} y tienes ${existingCompanies.length}`);
+    if (currentUsers > 1) {
+      req.flash("wrong", "No tienes autorización para registrar otro negocio");
+      console.log("No tienes autorización para registrar otro negocio");
       return res.redirect("/");
     }
+
     return res.render("company/new-company");
   } catch (error) {
     req.flash("wrong", "Ocurrió un error al renderizar la página de registro de empresa, intente nuevamente.");
@@ -51,7 +55,7 @@ companyCtrl.registerCompany = async (req, res) => {
       nombreCompany,
       celularCompany,
       correoCompany,
-      direccionCompany
+      direccionCompany,
     } = req.body;
 
     const validationError = validateCompanyFields(req);
@@ -63,14 +67,9 @@ companyCtrl.registerCompany = async (req, res) => {
 
     const imagenCompany = req.file.filename;
 
-    // Validar si hay otra empresa registrada
-    const existingCompanies = await Company.find({eliminadoCompany: false}).lean();
+    const limits = getPlanLimits(planCompany);
 
-    if (existingCompanies && existingCompanies.length >= process.env.MAX_COMPANIES) {
-      req.flash("wrong", "Ya tienes más de " + process.env.MAX_COMPANIES + " empresas registradas.");
-      console.log(`Máximo número de Compañías alcanzado, el máximo permitido es de ${process.env.MAX_COMPANIES} y tienes ${existingCompanies.length}`);
-      return res.redirect("/");
-    }
+    // Validar si hay otra empresa registrada
 
     const newCompany = new Company({
       comercioCompany,
@@ -79,7 +78,9 @@ companyCtrl.registerCompany = async (req, res) => {
       celularCompany,
       correoCompany,
       direccionCompany,
-      imagenCompany
+      imagenCompany,
+      planCompany: "basico",
+      ...limits
     });
 
     await newCompany.save();
@@ -140,6 +141,7 @@ companyCtrl.updateCompany = async (req, res) => {
   try {
     const {id} = req.params;
     const {
+      comercioCompany,
       rucCompany,
       nombreCompany,
       celularCompany,
@@ -148,7 +150,7 @@ companyCtrl.updateCompany = async (req, res) => {
       imagenCompany
     } = req.body;
 
-    if (!rucCompany || !nombreCompany || !celularCompany || !correoCompany || !direccionCompany || !imagenCompany) {
+    if (!comercioCompany || !rucCompany || !nombreCompany || !celularCompany || !correoCompany || !direccionCompany || !imagenCompany) {
       req.flash("wrong", "Los campos obligatorios no han sido llenados, intente nuevamente.");
       return res.redirect(`company/${id}/edit`);
     }

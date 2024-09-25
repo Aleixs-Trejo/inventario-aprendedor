@@ -35,6 +35,11 @@ const CompanySchema = new Schema(
       type: Boolean,
       default: false
     },
+    planCompany: {
+      type: String,
+      enum: ["basico", "mediano", "amplio"], // Tipos de planes de servicio
+      default: "basico"
+    },
     maxProveedoresCompany: {
       type: Number,
       default: 5

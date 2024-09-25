@@ -4,19 +4,20 @@
       <div class="voucher__content">
         <section class="voucher__header">
           <figure class="voucher__figure">
-            <img src="/assets/logo-aprendedor.webp" alt="Logo Aprendedor" class="voucher__img">
+            <img src="{{logoUrl}}" alt="Logo Aprendedor" class="voucher__img">
           </figure>
         </section>
         <section class="voucher__company">
-          <span class="company__name">Nombre del negocio</span>
-          <span class="company__ruc">20563529378</span>
-          <span class="company__address">CC. El Hueco, Stand C8-9 / Av. Abancay 837, Lima 15001</span>
-          <span class="company__email">company@email.com</span>
-          <span class="company__phone">+51 999 999 999</span>
+          <span class="company__name">{{company.nombreCompany}}</span>
+          <span class="company__ruc">{{company.rucCompany}}</span>
+          <span class="company__address">{{company.direccionCompany}}</span>
+          <span class="company__email">{{company.correoCompany}}</span>
+          <span class="company__phone">{{company.celularCompany}}</span>
         </section>
         <section class="voucher__description">
           <h4 class="voucher__title">BOLETA DE VENTA ELECTRÓNICA</h4>
           <span class="voucher__id">{{sale.ventaID}}</span>
+          <div class="print__btn"></div>
         </section>
         <section class="voucher__sale--info">
           <article class="sale__info">
@@ -86,6 +87,7 @@
   document.addEventListener("DOMContentLoaded", () => {
     const header = document.querySelector(".header");
     const aside = document.querySelector(".aside");
+    const toggleAside = document.querySelector(".toggle__aside");
     const main = document.querySelector(".main");
     const mainContent = document.querySelector(".main__content");
     const subTotal = document.querySelector(".sub__total");
@@ -95,6 +97,7 @@
     function styleVoucher(){
       header.remove();
       aside.remove();
+      toggleAside.remove();
       main.style.height = "max-content";
       main.style.margin = "0";
       main.style.backgroundColor = "transparent";
@@ -103,5 +106,13 @@
     };
 
     styleVoucher();
+
+    // Imprimir ticket
+    const printBtn = document.querySelector(".print__btn");
+    if (printBtn) {
+      printBtn.addEventListener("click", () => {
+        window.print();
+      });
+    }
   })
 </script>

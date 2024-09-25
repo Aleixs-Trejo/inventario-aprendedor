@@ -11,14 +11,19 @@ const {
   renderDeleteCategory,
   renderDetailsCategory
 } = require("../controllers/categories.controller");
+
 const {
   isAuthenticated,
   havePermission
 } = require("../helpers/auth");
 
+const {
+  maxCategories
+} = require("../helpers/capacity");
+
 //Crear categoría
-router.get("/categories/register", isAuthenticated, havePermission("crear-categoria"), renderRegisterCategory);
-router.post("/categories/register", isAuthenticated, havePermission("crear-categoria"), registerCategory);
+router.get("/categories/register", isAuthenticated, havePermission("crear-categoria"), maxCategories, renderRegisterCategory);
+router.post("/categories/register", isAuthenticated, havePermission("crear-categoria"), maxCategories, registerCategory);
 
 //Mostrar Categorías
 router.get("/categories", isAuthenticated, havePermission("ver-categoria"), renderCategories);
@@ -27,7 +32,7 @@ router.get("/categories", isAuthenticated, havePermission("ver-categoria"), rend
 router.get("/categories/:id/edit", isAuthenticated, havePermission("editar-categoria"),  renderEditCategory);
 router.post("/categories/:id/edit", isAuthenticated, havePermission("editar-categoria"), updateCategory);
 
-// Nostrar detalles de una categoría
+// Mostrar detalles de una categoría
 router.get("/categories/:id/details", isAuthenticated, havePermission("ver-categoria-detalle"), renderDetailsCategory);
 
 //Eliminar Categorías

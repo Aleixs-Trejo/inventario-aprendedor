@@ -18,9 +18,13 @@ const {
   havePermission
 } = require("../helpers/auth");
 
+const {
+  maxProducts
+} = require("../helpers/capacity");
+
 // Registrar Producto
-router.get("/products/register", isAuthenticated, havePermission("crear-producto"), renderRegisterProduct);
-router.post("/products/register", isAuthenticated, havePermission("crear-producto"), registerProduct);
+router.get("/products/register", isAuthenticated, havePermission("crear-producto"), maxProducts, renderRegisterProduct);
+router.post("/products/register", isAuthenticated, havePermission("crear-producto"), maxProducts, registerProduct);
 
 // Ver Productos
 router.get("/products", isAuthenticated, havePermission("ver-producto"), renderProducts);

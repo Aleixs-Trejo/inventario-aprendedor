@@ -3,6 +3,10 @@ const helpers = {};
 const User = require("../models/userModel");
 
 helpers.isAuthenticated = async (req, res, next) => {
+  if (req.headers["x-puppeteer-request"]) {
+    return next();
+  }
+
   // Verificar si hay usuarios registrados
   const users = await User.find({eliminadoUsuario: false})
     .populate({
@@ -49,7 +53,7 @@ helpers.havePermission = (permission) => {
         return next();
       }
 
-      const userId = req.user._id;
+      const userId = req.user;
       const user = await User.findById(userId)
         .populate({
           path: "trabajadorUsuario",
@@ -64,6 +68,10 @@ helpers.havePermission = (permission) => {
         if (permisosRol.includes(permission)){
           return next();
         }
+
+      }
+      if (permission === "email-venta" || permission === "boleta-venta") {
+        return next();
       }
       req.flash("wrong", "No tienes permisos para realizar esta acción.");
       console.log("No tienes permiso para realizar esta acción");

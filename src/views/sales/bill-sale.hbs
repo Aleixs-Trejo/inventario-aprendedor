@@ -6,21 +6,23 @@
           <article class="sale__company">
             <div class="bill__logo">
               <figure class="bill__figure">
-                <img src="/assets/logo-aprendedor.webp" alt="Logo Aprendedor" class="bill__img">
+                <img src="{{logoUrl}}" alt="Logo Aprendedor" class="bill__img">
               </figure>
             </div>
             <div class="bill__company">
-              <span class="company__name">Nombre del negocio</span>
-              <span class="company__ruc">20563529378</span>
-              <span class="company__address">CC. El Hueco, Stand C8-9 / Av. Abancay 837, Lima 15001</span>
-              <span class="company__email">company@email.com</span>
+              <span class="company__name">{{company.nombreCompany}}</span>
+              <span class="company__ruc">{{company.rucCompany}}</span>
+              <span class="company__address">{{company.direccionCompany}}</span>
+              <span class="company__email">{{company.correoCompany}}</span>
+              <span class="company__phone">{{company.celularCompany}}</span>
             </div>
           </article>
           <article class="bill__sale--info">
             <div class="bill__description">
-              <h5 class="company__ruc">R.U.C. N° 20563529378</h5>
+              <h5 class="company__ruc">R.U.C. N° {{company.rucCompany}}</h5>
               <h5 class="bill__title">BOLETA DE VENTA ELECTRÓNICA</h5>
               <h5 class="bill__id">{{sale.ventaID}}</h5>
+              <div class="print__btn"></div>
             </div>
             <div class="sale__info sale__info--bill">
               <span class="sale__data">Fecha<span>: {{formatDateTime sale.createdAt}}</span></span>
@@ -93,12 +95,27 @@
   document.addEventListener("DOMContentLoaded", () => {
     const header = document.querySelector(".header");
     const aside = document.querySelector(".aside");
+    const toggleAside = document.querySelector(".toggle__aside");
+    const title = document.querySelector("title");
+
+    // Modificar la etiqueta title del head del HTML
+    title.innerHTML = "Boleta de Venta Electronica";
 
     function styleBill(){
       header.remove();
       aside.remove();
+      toggleAside.remove();
     };
 
     styleBill();
+
+    // Imprimir boleta
+    const printBtn = document.querySelector(".print__btn");
+    if (printBtn) {
+      printBtn.addEventListener("click", () => {
+        window.print();
+      });
+    }
+
   })
 </script>

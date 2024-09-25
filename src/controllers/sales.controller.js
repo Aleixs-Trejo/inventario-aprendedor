@@ -1,7 +1,7 @@
 const salesCtrl = {};
 
 const XLSX = require("xlsx");
-const transporter = require("../config/nodemailer");
+const { createTransporter } = require("../config/nodemailer");
 const generatePDF = require("../config/puppeteer");
 
 const Sale = require("../models/saleModel");
@@ -64,6 +64,8 @@ salesCtrl.searchClient = async (req, res) => {
         usuarioRegistroCliente: req.user._id,
         dniCliente: "00000000",
         nombreCliente: "Cliente Varios",
+        celularCliente: "-",
+        correoCliente: "-",
         eliminadoCliente: false
       });
       await newClient.save();
@@ -253,6 +255,7 @@ salesCtrl.renderDetailSale = async (req, res) => {
 salesCtrl.renderVoucherSale = async (req, res) => {
   try {
     // Generar voucher con la información de la venta
+    const company = await Company.findOne({eliminadoCompany: false}).lean();
     const {id} = req.params;
     const sale = await Sale.findById(id)
       .populate({
@@ -279,7 +282,8 @@ salesCtrl.renderVoucherSale = async (req, res) => {
       sale,
       total,
       igv,
-      subTotal
+      subTotal,
+      company
     });
   } catch (error) {
     req.flash("wrong", "Ocurrió un error al generar el voucher, intente nuevamente.");
@@ -292,6 +296,7 @@ salesCtrl.renderVoucherSale = async (req, res) => {
 salesCtrl.renderBillSale = async (req, res) => {
   try {
     // Generar boleta de venta con la información de la venta
+    const company = await Company.findOne({eliminadoCompany: false}).lean();
     const {id} = req.params;
     const sale = await Sale.findById(id)
       .populate({
@@ -316,7 +321,8 @@ salesCtrl.renderBillSale = async (req, res) => {
       sale,
       total,
       igv,
-      subTotal
+      subTotal,
+      company
     });
   } catch(error) {
     req.flash("wrong", "Ocurrió un error al generar la boleta, intente nuevamente.");
@@ -325,9 +331,10 @@ salesCtrl.renderBillSale = async (req, res) => {
   }
 };
 
-// Mostrar boleta de venta
+// Envio de boleta a correo
 salesCtrl.generateBillPDF = async (req, res) => {
   try {
+
     const { id } = req.params;
     const sale = await Sale.findById(id)
       .populate({
@@ -358,8 +365,10 @@ salesCtrl.generateBillPDF = async (req, res) => {
     // Enviar el PDF a correo
     let mailClient = sale.clienteVenta.correoCliente || "null";
     const mailCompany = company.correoCompany;
-    console.log("mailClient: ", mailClient);
-    if (mailClient) {
+
+    const transporter = await createTransporter();
+
+    if (mailClient && mailCompany) {
       const mailOptions = {
         to: mailClient,
         from: mailCompany,
@@ -377,13 +386,14 @@ salesCtrl.generateBillPDF = async (req, res) => {
       try {
         await transporter.sendMail(mailOptions);
         console.log("Boleta de venta enviada exitosamente a correo.");
+        console.log("mailOptions: ", mailOptions);
       } catch (error) {
         req.flash("wrong", "Ocurrió un error al enviar el PDF a correo, intente nuevamente.");
+        console.log("mailOptions: ", mailOptions);
         console.log("Error: ", error);
         return res.redirect("/sales");
       }
     }
-
 
     res.setHeader("Content-Type", "application/pdf");
     res.setHeader("Access-Control-Allow-Origin", "*");
@@ -534,8 +544,6 @@ salesCtrl.closeRegister = async (req, res) => {
 
     const totalCierreVentas = ventasPendientes.reduce((total, venta) => total + parseFloat(venta.precioTotalVenta), 0);
 
-    const totalIngresos = ventasPendientes.reduce((total, venta) => total + parseFloat(venta.precioTotalVenta), 0);
-
     // Confirmar ventas pendientes y mantener canceladas las ventas canceladas
     await Sale.updateMany({estadoVenta: "Pendiente"}, {estadoVenta: "Confirmada", ventaCerrada: true});
     await Sale.updateMany({estadoVenta: "Cancelada"}, {ventaCerrada: true});
@@ -554,11 +562,14 @@ salesCtrl.closeRegister = async (req, res) => {
 
     await nuevoCierreCaja.save();
 
+    const totalVentas = totalVentasPendientes;
+    const gananciasNetas = totalCierreVentas;
+
     const newBalance = new Balance({
       usuarioRegistroBalance: req.user._id,
       ventasBalance: nuevoCierreCaja._id,
-      totalVentas: totalCierreVentas,
-      gananciasNetas: totalIngresos,
+      totalVentas,
+      gananciasNetas
     });
 
     await newBalance.save();
@@ -618,10 +629,43 @@ salesCtrl.cancelSale = async (req, res) => {
       req.flash("wrong", "La venta no fue encontrada.");
       return res.redirect("/sales");
     }
+
+    // Verificar si la venta está cerrada
+    if (sale.ventaCerrada) {
+      // Actualizar el historial de ventas
+      const saleHistory = await SaleHistory.findOne({"ventaHistorial.cierreVentas": id});
+
+      if (saleHistory) {
+        await SaleHistory.updateOne(
+          {"ventaHistorial.cierreVentas": id},
+          {
+            $set: { "ventaHistorial.$.estadoVenta": "cancelada" },
+            $inc: {
+              totalVentasConfirmadas: -1,
+              totalVentasCanceladas: +1,
+              totalCierreVentas: -sale.precioTotalVenta,
+              totalDescuentosVentas: -sale.descuentoTotalVenta
+            }
+          }
+        );
+
+        // Actualizar el balance correspondiente a ese historial de ventas
+        await Balance.updateOne(
+          { ventasBalance: saleHistory._id },
+          {
+            $inc: {
+              totalVentas: -1,
+              gananciasNetas: -sale.precioTotalVenta,
+            }
+          }
+        );
+      }
+    }
     
     // Cambiar el estado a Cancelada
     sale.estadoVenta = "Cancelada";
 
+    // Devolver productos al almacén
     const productosVendidos = sale.productosVenta;
 
     for (const producto of productosVendidos) {
@@ -646,16 +690,7 @@ salesCtrl.cancelSale = async (req, res) => {
       }
     }
     await sale.save();
-
-    // Buscar y actualizar el historial de ventas asociado a la venta
-    await SaleHistory.updateOne(
-      {"ventaHistorial.cierreVentas": id},
-      {
-        $set: {"ventaHistorial.$.estadoVenta": "Cancelada"},
-        $inc: {totalVentasConfirmadas: -1, totalVentasCanceladas: +1, totalCierreVentas: -sale.precioTotalVenta}
-      }
-    );
-
+    
     req.flash("success", "Venta cancelada exitosamente.");
     res.redirect("/sales");
   } catch (error) {
@@ -694,6 +729,7 @@ salesCtrl.renderBalanceSales = async (req, res) => {
       .lean();
 
     const currentPage = `balances`;
+    console.log("balances: ", balances);
     res.render("sales/balance-sales", {
       balances,
       currentPage

@@ -95,7 +95,7 @@ storeCtrl.registerStore = async (req, res) => {
             almacenProductoHistorial: almacenProducto,
             almacenStockUbicacionHistorial: almacenStockUbicacion,
             almacenStockHistorial: stock,
-            almacenMinStockHistorial: minStock
+            almacenMinStockHistorial: almacenMinStock
           });
           await newStoreHistory.save();
         } else {

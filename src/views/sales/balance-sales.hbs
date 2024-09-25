@@ -19,74 +19,74 @@
                       </a>
                       <span class="sub__header__span">Volver</span>
                     </div>
-                    {{#if (eq userRole "Admin")}}
-                      {{#if balances}}
-                        <div class="sub__header__action action__export--excel">
-                          <button class="sub__header__link" id="exportExcel">
-                            <figure class="sub__header__figure">
-                              <img src="/assets/icon-excel.svg" alt="Icon History" class="sub__header__img">
-                            </figure>
-                          </button>
-                          <span class="sub__header__span">Exportar</span>
-                        </div>
-                      {{/if}}
+                    {{#if balances}}
+                      <div class="sub__header__action action__export--excel">
+                        <button class="sub__header__link" id="exportExcel">
+                          <figure class="sub__header__figure">
+                            <img src="/assets/icon-excel.svg" alt="Icon History" class="sub__header__img">
+                          </figure>
+                        </button>
+                        <span class="sub__header__span">Exportar</span>
+                      </div>
                     {{/if}}
                   </div>
                 </article>
+                {{#if balances}}
+                  <article class="article__sub__header sub__header__filters">
+                    <div class="sub__header__filters__container">
+                      <div class="sub__header__filter filter__date">
+                        <div class="filter__data--balance">
+                          <h5 class="filter__title">Ver balances entre:</h5>
+                          <article class="flex-c-c data__balance">
+                            <div class="filter__data">
+                              <label for="fechaInicial" class="filter__label">Fecha inicial:</label>
+                              <input type="date" id="fechaInicial" name="fechaInicial" class="input__data--balance">
+                            </div>
+                            <div class="filter__data">
+                              <label for="fechaFinal" class="filter__label">Fecha Final:</label>
+                              <input type="date" id="fechaFinal" name="fechaFinal" class="input__data--balance">
+                            </div>
+                            <button type="button" id="filterButton" class="filter__button">Filtrar</button>
+                          </article>
+                        </div>
+                        <div class="total__balances flex-c-c us__sel">
+                          <span class="total__balance--title">Total: S/ <span class="total__close__register"></span></span>
+                        </div>
+                      </div>
+                    </div>
+                  </article>
+                {{/if}}
               </section>
             </article>
           </div>
         </div>
         {{#if balances}}
-          {{#if userRole}}
-            {{#if (eq userRole "Admin")}}
-              <article class="items__actions">
-                <div class="filter__data--balance">
-                  <h5 class="filter__title">Ver balances entre:</h5>
-                  <article class="flex-c-c data__balance">
-                    <div class="filter__data">
-                      <label for="fechaInicial" class="filter__label">Fecha inicial:</label>
-                      <input type="date" id="fechaInicial" name="fechaInicial" class="input__data--balance">
-                    </div>
-                    <div class="filter__data">
-                      <label for="fechaFinal" class="filter__label">Fecha Final:</label>
-                      <input type="date" id="fechaFinal" name="fechaFinal" class="input__data--balance">
-                    </div>
-                    <button type="button" id="filterButton" class="filter__button">Filtrar</button>
+          <section class="items" id="balancesContainer">
+            <div class="items__container__elements">
+              <section class="views__container--elements view__scrollbar">
+                <div class="views__content--elements items__container balances">
+                  <article class="items__header items__grid balances">
+                    <div class="flex-c-c">Usuario:</div>
+                    <div class="flex-c-c">Total de Ventas:</div>
+                    <div class="flex-c-c">Ingresos:</div>
+                    <div class="flex-c-c">Fecha de Cierre:</div>
                   </article>
-                </div>
-                <div class="total__balances us__sel">
-                  <span class="total__balance--title">Total: S/ <span class="total__close__register"></span></span>
-                </div>
-              </article>
-              <section class="items" id="balancesContainer">
-                <div class="items__container__elements">
-                  <section class="views__container--elements view__scrollbar">
-                    <div class="views__content--elements items__container balances">
-                      <article class="items__header items__grid balances">
-                        <div class="flex-c-c">Usuario:</div>
-                        <div class="flex-c-c">Total de Ventas:</div>
-                        <div class="flex-c-c">Ingresos:</div>
-                        <div class="flex-c-c">Fecha de Cierre:</div>
-                      </article>
-                      <div class="balances__data--views" id="balancesData">
-                        {{#each balances}}
-                          <div class="balance__views">
-                            <article class="items__data items__grid balances balance__data">
-                              <div class="flex-c-c">{{usuarioRegistroBalance.usuario}}</div>
-                              <div class="flex-c-c">{{totalVentas}}</div>
-                              <div class="flex-c-c">S/ <span class="ganancias__netas">{{formatCurrency gananciasNetas}}</span></div>
-                              <div class="flex-c-c fecha__balance">{{formatDateTime ventasBalance.createdAt}}</div>
-                            </article>
-                          </div>
-                        {{/each}}
+                  <div class="items__data--values" id="balancesData">
+                    {{#each balances}}
+                      <div class="balance__views">
+                        <article class="items__data items__grid balances balance__data">
+                          <div class="flex-c-c">{{usuarioRegistroBalance.usuario}}</div>
+                          <div class="flex-c-c">{{totalVentas}}</div>
+                          <div class="flex-c-c">S/ <span class="ganancias__netas">{{formatCurrency gananciasNetas}}</span></div>
+                          <div class="flex-c-c fecha__balance">{{formatDateTime ventasBalance.createdAt}}</div>
+                        </article>
                       </div>
-                    </div>
-                  </section>
+                    {{/each}}
+                  </div>
                 </div>
               </section>
-            {{/if}}
-          {{/if}}
+            </div>
+          </section>
         {{else}}
           <h5 class="items__empty">No hay Balances para mostrar 😿</h5>
         {{/if}}

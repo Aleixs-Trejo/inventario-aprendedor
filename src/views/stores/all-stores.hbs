@@ -47,106 +47,106 @@
                     {{/if}}
                   </div>
                 </article>
-                <article class="article__sub__header sub__header__filters">
-                  <div class="sub__header__filters__container">
-                    <div class="sub__header__filter search__by">
-                      <select name="search" id="select-search">
-                        <option selected value="cod">Buscar por Código</option>
-                        <option value="nombre">Buscar por Nombre</option>
-                        <option value="descripcion">Buscar por Descripción</option>
-                        <option value="proveedor">Buscar por Proveedor</option>
-                        <option value="categoria">Buscar por Categoria</option>
-                      </select>
+                {{#if stores}}
+                  <article class="article__sub__header sub__header__filters">
+                    <div class="sub__header__filters__container">
+                      <div class="sub__header__filter search__by">
+                        <select name="search" id="select-search">
+                          <option selected value="cod">Buscar por Código</option>
+                          <option value="nombre">Buscar por Nombre</option>
+                          <option value="descripcion">Buscar por Descripción</option>
+                          <option value="proveedor">Buscar por Proveedor</option>
+                          <option value="categoria">Buscar por Categoria</option>
+                        </select>
+                      </div>
+                      <div class="sub__header__filter flex-c-c input__search--container">
+                        <label for="search-element" class="label__search">
+                          <figure class="search__figure">
+                            <img src="/assets/icon-search.svg" alt="Icon Search" class="search__img">
+                          </figure>
+                        </label>
+                        <input class="input__search" type="search" id="search-element" placeholder="Busca un producto" title="Busca un producto">
+                      </div>
+                      <div class="sub__header__filter flex-c-c order__items">
+                        <button type="button" class="order__container">
+                          <figure class="order__figure">
+                            <img src="/assets/icon-order.svg" alt="Icon Filter" class="filter__img">
+                          </figure>
+                          <div class="order__by">
+                            <select name="order" id="select-order">
+                              <option value="asc" selected>Ascendente</option>
+                              <option value="desc">Descendente</option>
+                            </select>
+                          </div>
+                        </button>
+                      </div>
                     </div>
-                    <div class="sub__header__filter flex-c-c input__search--container">
-                      <label for="search-element" class="label__search">
-                        <figure class="search__figure">
-                          <img src="/assets/icon-search.svg" alt="Icon Search" class="search__img">
-                        </figure>
-                      </label>
-                      <input class="input__search" type="search" id="search-element" placeholder="Busca un producto" title="Busca un producto">
-                    </div>
-                    <div class="sub__header__filter flex-c-c order__items">
-                      <button type="button" class="order__container">
-                        <figure class="order__figure">
-                          <img src="/assets/icon-order.svg" alt="Icon Filter" class="filter__img">
-                        </figure>
-                        <div class="order__by">
-                          <select name="order" id="select-order">
-                            <option value="asc" selected>Ascendente</option>
-                            <option value="desc">Descendente</option>
-                          </select>
-                        </div>
-                      </button>
-                    </div>
-                  </div>
-                </article>
+                  </article>
+                {{/if}}
               </section>
             </article>
           </div>
         </div>
         {{#if stores}}
-          {{#if userRole}}
-              <section class="items">
-                <div class="items__container__elements">
-                  <section class="views__container--elements view__scrollbar">
-                    <div class="views__content--elements items__container stores">
-                      <article class="items__header items__grid stores">
-                        <div class="flex-c-c">Registrado por</div>
-                        <div class="flex-c-c">Cod</div>
-                        <div class="flex-c-c">Producto</div>
-                        <div class="flex-c-c">Descripción</div>
-                        <div class="flex-c-c">Proveedor</div>
-                        <div class="flex-c-c">Categoría</div>
-                        <div class="flex-c-c">Ubicacion</div>
-                        <div class="flex-c-c">Precio</div>
-                        <div class="flex-c-c">Stock</div>
-                        <div class="flex-c-c">Min-Stock</div>
-                        <div class="flex-c-c">Fecha Registro</div>
-                        <div class="flex-c-c">Acciones</div>
-                      </article>
-                      <div class="items__data--values">
-                        {{#each stores}}
-                          <div class="container__data">
-                            <article class="items__data items__grid stores product__data">
-                              <div class="flex-c-c">{{almacenUsuario.usuario}}</div>
-                              <div class="flex-c-c" data-cod="{{almacenProducto.cod}}">{{almacenProducto.cod}}</div>
-                              <div class="flex-c-c" data-nombre="{{almacenProducto.nombreProducto}}">{{almacenProducto.nombreProducto}}</div>
-                              <div class="flex-c-c" data-descripcion="{{almacenProducto.descripcionProducto}}">{{almacenProducto.descripcionProducto}}</div>
-                              <div class="flex-c-c" data-proveedor="{{almacenProducto.proveedorProducto.nombreProveedor}}">{{almacenProducto.proveedorProducto.nombreProveedor}}</div>
-                              <div class="flex-c-c" data-categoria="{{almacenProducto.categoriaProducto.nombreCategoria}}">{{almacenProducto.categoriaProducto.nombreCategoria}}</div>
-                              <div class="flex-c-c">{{almacenStockUbicacion.nombreStockUbicacion}}</div>
-                              <div class="flex-c-c">S/{{formatCurrency almacenProducto.precioProducto}}</div>
-                              <div class="flex-c-c stocks">{{almacenStock}}</div>
-                              <div class="flex-c-c stocks__min">{{almacenMinStock}}</div>
-                              <div class="flex-c-c">{{formatDateTime createdAt}}</div>
-                              <div class="flex-c-c items__data--options">
-                                <a href="/stores/{{_id}}/details" class="options__action">
-                                  <figure class="options__figure">
-                                    <img src="/assets/icon-edit.svg" alt="Icon Details" class="options__img">
-                                  </figure>
-                                  <span class="span__detail">Detalles</span>
-                                </a>
-                                <a href="/stores/{{_id}}/edit" class="options__action">
-                                  <figure class="options__figure">
-                                    <img src="/assets/icon-edit.svg" alt="Icon Edit" class="options__img">
-                                  </figure>
-                                </a>
-                                <a href="/stores/{{_id}}/confirm-delete" class="options__action">
-                                  <figure class="options__figure">
-                                    <img src="/assets/icon-delete.svg" alt="Icon Delete" class="options__img">
-                                  </figure>
-                                </a>
-                              </div>
-                            </article>
+          <section class="items">
+            <div class="items__container__elements">
+              <section class="views__container--elements view__scrollbar">
+                <div class="views__content--elements items__container stores">
+                  <article class="items__header items__grid stores">
+                    <div class="flex-c-c">Registrado por</div>
+                    <div class="flex-c-c">Cod</div>
+                    <div class="flex-c-c">Producto</div>
+                    <div class="flex-c-c">Descripción</div>
+                    <div class="flex-c-c">Proveedor</div>
+                    <div class="flex-c-c">Categoría</div>
+                    <div class="flex-c-c">Ubicacion</div>
+                    <div class="flex-c-c">Precio</div>
+                    <div class="flex-c-c">Stock</div>
+                    <div class="flex-c-c">Min-Stock</div>
+                    <div class="flex-c-c">Fecha Registro</div>
+                    <div class="flex-c-c">Acciones</div>
+                  </article>
+                  <div class="items__data--values">
+                    {{#each stores}}
+                      <div class="container__data">
+                        <article class="items__data items__grid stores product__data">
+                          <div class="flex-c-c">{{almacenUsuario.usuario}}</div>
+                          <div class="flex-c-c" data-cod="{{almacenProducto.cod}}">{{almacenProducto.cod}}</div>
+                          <div class="flex-c-c" data-nombre="{{almacenProducto.nombreProducto}}">{{almacenProducto.nombreProducto}}</div>
+                          <div class="flex-c-c" data-descripcion="{{almacenProducto.descripcionProducto}}">{{almacenProducto.descripcionProducto}}</div>
+                          <div class="flex-c-c" data-proveedor="{{almacenProducto.proveedorProducto.nombreProveedor}}">{{almacenProducto.proveedorProducto.nombreProveedor}}</div>
+                          <div class="flex-c-c" data-categoria="{{almacenProducto.categoriaProducto.nombreCategoria}}">{{almacenProducto.categoriaProducto.nombreCategoria}}</div>
+                          <div class="flex-c-c">{{almacenStockUbicacion.nombreStockUbicacion}}</div>
+                          <div class="flex-c-c">S/{{formatCurrency almacenProducto.precioProducto}}</div>
+                          <div class="flex-c-c stocks">{{almacenStock}}</div>
+                          <div class="flex-c-c stocks__min">{{almacenMinStock}}</div>
+                          <div class="flex-c-c">{{formatDateTime createdAt}}</div>
+                          <div class="flex-c-c items__data--options">
+                            <a href="/stores/{{_id}}/details" class="options__action">
+                              <figure class="options__figure">
+                                <img src="/assets/icon-edit.svg" alt="Icon Details" class="options__img">
+                              </figure>
+                              <span class="span__detail">Detalles</span>
+                            </a>
+                            <a href="/stores/{{_id}}/edit" class="options__action">
+                              <figure class="options__figure">
+                                <img src="/assets/icon-edit.svg" alt="Icon Edit" class="options__img">
+                              </figure>
+                            </a>
+                            <a href="/stores/{{_id}}/confirm-delete" class="options__action">
+                              <figure class="options__figure">
+                                <img src="/assets/icon-delete.svg" alt="Icon Delete" class="options__img">
+                              </figure>
+                            </a>
                           </div>
-                        {{/each}}
+                        </article>
                       </div>
-                    </div>
-                  </section>
+                    {{/each}}
+                  </div>
                 </div>
               </section>
-          {{/if}}
+            </div>
+          </section>
         {{else}}
           <h5 class="items__empty">No hay almacén para mostrar 😿</h5>
         {{/if}}

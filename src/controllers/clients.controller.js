@@ -55,22 +55,22 @@ clientsCtrl.registerClient = async (req, res) => {
       if (dniClient){
         console.log("El DNI ya está registrado: ", dniClient)
         req.flash("wrong", "El DNI o RUC ya está registrado");
-        res.redirect("/clients/register");
+        return res.redirect("/clients/register");
       } else if (celularCliente && celularClient){
         console.log("El celular ya está registrado: ", celularClient)
         req.flash("wrong", "El celular ya está registrado");
-        res.redirect("/clients/register");
+        return res.redirect("/clients/register");
       } else if (correoCliente && correoClient){
         console.log("El correo ya está registrado: ", correoClient);
         req.flash("wrong", "El correo ya está registrado");
-        res.redirect("/clients/register");
+        return res.redirect("/clients/register");
       } else {
         const clienteRegistrado = {
           usuarioRegistroCliente: req.user._id,
           dniCliente,
           nombreCliente,
-          celularCliente: celularClient ? celularClient : "-",
-          correoCliente: correoClient ? correoClient : "-"
+          celularCliente: celularCliente ? celularCliente : "-",
+          correoCliente: correoCliente ? correoCliente : "-"
         };
 
         const newClient = new Client(clienteRegistrado);

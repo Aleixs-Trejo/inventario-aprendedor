@@ -75,98 +75,55 @@
           </div>
         </div>
         {{#if clients}}
-          {{#if userRole}}
-            {{#if (eq userRole "Admin")}}
-              <section class="items">
-                <div class="items__container__elements">
-                  <section class="views__container--elements view__scrollbar">
-                    <div class="views__content--elements items__container clients">
-                      <article class="items__header items__grid clients">
-                        <div class="flex-c-c">Registrado por</div>
-                        <div class="flex-c-c">DNI/RUC</div>
-                        <div class="flex-c-c">Nombres</div>
-                        <div class="flex-c-c">Celular</div>
-                        <div class="flex-c-c">Correo</div>
-                        <div class="flex-c-c">Fecha</div>
-                        <div class="flex-c-c">Opciones</div>
-                      </article>
-                      <div class="items__data--values">
-                        {{#each clients}}
-                          <div class="container__data">
-                            <article class="items__data items__grid clients product__data">
-                              <div class="flex-c-c">{{usuarioRegistroCliente.usuario}}</div>
-                              <div class="flex-c-c" data-dni="{{dniCliente}}">{{dniCliente}}</div>
-                              <div class="flex-c-c" data-nombre="{{nombreCliente}}">{{nombreCliente}}</div>
-                              <div class="flex-c-c" data-celular="{{celularCliente}}">{{#if celularCliente}}{{celularCliente}}{{else}}-{{/if}}</div>
-                              <div class="flex-c-c" data-correo="{{correoCliente}}">{{#if correoCliente}}{{correoCliente}}{{else}}-{{/if}}</div>
-                              <div class="flex-c-c">{{formatDateTime createdAt}}</div>
-                              <div class="flex-c-c items__data--options">
-                                <a href="/client/{{_id}}/details" class="options__action">
-                                  <figure class="options__figure">
-                                    <img src="/assets/icon-edit.svg" alt="Icon Details" class="options__img">
-                                  </figure>
-                                  <span class="span__detail">Detalles</span>
-                                </a>
-                                <a href="/clients/{{_id}}/edit" class="options__action">
-                                  <figure class="options__figure">
-                                    <img src="/assets/icon-edit.svg" alt="Icon Edit" class="options__img">
-                                  </figure>
-                                </a>
-                                <a href="/clients/{{_id}}/confirm-delete" class="options__action">
-                                  <figure class="options__figure">
-                                    <img src="/assets/icon-delete.svg" alt="Icon Delete" class="options__img">
-                                  </figure>
-                                </a>
-                              </div>
-                            </article>
+          <section class="items">
+            <div class="items__container__elements">
+              <section class="views__container--elements view__scrollbar">
+                <div class="views__content--elements items__container clients">
+                  <article class="items__header items__grid clients">
+                    <div class="flex-c-c">Registrado por</div>
+                    <div class="flex-c-c">DNI/RUC</div>
+                    <div class="flex-c-c">Nombres</div>
+                    <div class="flex-c-c">Celular</div>
+                    <div class="flex-c-c">Correo</div>
+                    <div class="flex-c-c">Fecha</div>
+                    <div class="flex-c-c">Opciones</div>
+                  </article>
+                  <div class="items__data--values">
+                    {{#each clients}}
+                      <div class="container__data">
+                        <article class="items__data items__grid clients product__data">
+                          <div class="flex-c-c">{{usuarioRegistroCliente.usuario}}</div>
+                          <div class="flex-c-c" data-dni="{{dniCliente}}">{{dniCliente}}</div>
+                          <div class="flex-c-c" data-nombre="{{nombreCliente}}">{{nombreCliente}}</div>
+                          <div class="flex-c-c" data-celular="{{celularCliente}}">{{#if celularCliente}}{{celularCliente}}{{else}}-{{/if}}</div>
+                          <div class="flex-c-c" data-correo="{{correoCliente}}">{{#if correoCliente}}{{correoCliente}}{{else}}-{{/if}}</div>
+                          <div class="flex-c-c">{{formatDateTime createdAt}}</div>
+                          <div class="flex-c-c items__data--options">
+                            <a href="/client/{{_id}}/details" class="options__action">
+                              <figure class="options__figure">
+                                <img src="/assets/icon-edit.svg" alt="Icon Details" class="options__img">
+                              </figure>
+                              <span class="span__detail">Detalles</span>
+                            </a>
+                            <a href="/clients/{{_id}}/edit" class="options__action">
+                              <figure class="options__figure">
+                                <img src="/assets/icon-edit.svg" alt="Icon Edit" class="options__img">
+                              </figure>
+                            </a>
+                            <a href="/clients/{{_id}}/confirm-delete" class="options__action">
+                              <figure class="options__figure">
+                                <img src="/assets/icon-delete.svg" alt="Icon Delete" class="options__img">
+                              </figure>
+                            </a>
                           </div>
-                        {{/each}}
+                        </article>
                       </div>
-                    </div>
-                  </section>
+                    {{/each}}
+                  </div>
                 </div>
               </section>
-            {{else}}
-              <section class="items">
-                <div class="items__container__elements">
-                  <section class="views__container--elements view__scrollbar">
-                    <div class="views__content--elements items__container clients">
-                      <article class="items__header items__grid clients">
-                        <div class="flex-c-c">Registrado por</div>
-                        <div class="flex-c-c">DNI/RUC</div>
-                        <div class="flex-c-c">Nombres</div>
-                        <div class="flex-c-c">Celular</div>
-                        <div class="flex-c-c">Correo</div>
-                        <div class="flex-c-c">Fecha</div>
-                        <div class="flex-c-c">Acciones</div>
-                      </article>
-                      <div class="items__data--values">
-                        {{#each clients}}
-                          <div class="container__data">
-                            <article class="items__data items__grid clients product__data">
-                              <div class="flex-c-c">{{usuarioRegistroCliente.usuario}}</div>
-                              <div class="flex-c-c" data-dni="{{dniCliente}}">{{dniCliente}}</div>
-                              <div class="flex-c-c" data-nombre="{{nombreCliente}}">{{nombreCliente}}</div>
-                              <div class="flex-c-c" data-celular="{{celularCliente}}">{{#if celularCliente}}{{celularCliente}}{{else}}-{{/if}}</div>
-                              <div class="flex-c-c" data-correo="{{correoCliente}}">{{#if correoCliente}}{{correoCliente}}{{else}}-{{/if}}</div>
-                              <div class="flex-c-c">{{formatDateTime createdAt}}</div>
-                              <div class="flex-c-c items__data--options">
-                                <a href="/clients/{{_id}}/edit" class="options__action">
-                                  <figure class="options__figure">
-                                    <img src="../assets/icon-edit.svg" alt="Icon Edit" class="options__img">
-                                  </figure>
-                                </a>
-                              </div>
-                            </article>
-                          </div>
-                        {{/each}}
-                      </div>
-                    </div>
-                  </section>
-                </div>
-              </section>
-            {{/if}}
-          {{/if}}
+            </div>
+          </section>
         {{else}}
           <h5 class="items__empty">No hay clientes para mostrar 😿</h5>
         {{/if}}

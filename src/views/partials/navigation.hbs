@@ -12,18 +12,25 @@
               </figure>
             </div>
             <div class="profile__data">
-              <div class="profile__name">
-                {{#if user}}
-                  <div class="name">Usuario: {{user.usuario}}</div>
-                  {{#if user.trabajadorUsuario}}
-                    <div class="rol">Rol: {{user.trabajadorUsuario.rolTrabajador.nombreRol}}</div>
+              <div class="profile__data__content">
+                <div class="profile__name">
+                  {{#if user}}
+                    <span class="name">Usuario: {{user.usuario}}</span>
+                    {{#if user.trabajadorUsuario}}
+                      <span class="rol">Rol: {{user.trabajadorUsuario.rolTrabajador.nombreRol}}</span>
+                    {{else}}
+                      <span class="rol">Rol: -</span>
+                    {{/if}}
                   {{else}}
-                    <div class="rol">Rol: -</div>
+                    <span class="name">Usuario: -</span>
+                    <span class="rol">Rol: -</span>
                   {{/if}}
-                {{else}}
-                  <div class="name">Usuario: -</div>
-                  <div class="rol">Rol: -</div>
-                {{/if}}
+                </div>
+                <button class="profile__data__theme flex-c-c">
+                  <figure class="theme__figure">
+                    <img src="/assets/icon-light.svg" alt="Icon Dark Theme" class="theme__img">
+                  </figure>
+                </button>
               </div>
               <div class="flex-c-c profile__photo">
                 <figure class="photo__figure">
@@ -38,12 +45,14 @@
                       <img src="/assets/icon-logout.svg" id="logout" alt="Icon Logout" class="logout__img">
                     </figure>
                   </a>
-                  <a href="/company/details" class="configuration profile__logout">
-                    <span class="logout__span">Configuración</span>
-                    <figure class="logout__figure">
-                      <img src="/assets/icon-settings.svg" id="logout" alt="Icon Logout" class="logout__img">
-                    </figure>
-                  </a>
+                  {{#hasPermission permisosRol "editar-company"}}
+                    <a href="/company/details" class="configuration profile__logout">
+                      <span class="logout__span">Configuración</span>
+                      <figure class="logout__figure">
+                        <img src="/assets/icon-settings.svg" id="logout" alt="Icon Logout" class="logout__img">
+                      </figure>
+                    </a>
+                  {{/hasPermission}}
                 </div>
               {{/if}}
             </div>
@@ -527,25 +536,29 @@
     </aside>
     <div class="flex-c-c toggle__aside toggle__aside--active">
       <figure class="toggle__figure">
-        <img src="/assets/icon-arrow--blue.svg" alt="Icon Arrow" class="toggle__img">
+        <img src="/assets/icon-arrow--aside.svg" alt="Icon Arrow" class="toggle__img">
       </figure>
     </div>
     <script>
       document.addEventListener("DOMContentLoaded", async () => {
         try{
           const response = await fetch(`/stores/low-stock-count`);
+
           const data = await response.json();
 
-          const lowStockCount = data.lowStockProducts || 0;
+          if (data) {
+            const lowStockCount = data.lowStockProducts || 0;
 
-          const listElement = document.querySelector(".element__store");
-          if (lowStockCount > 0) {
-            listElement.classList.add("stock__alert__min");
-            const spanElement = document.createElement("span");
-            spanElement.classList.add("stock__count");
-            spanElement.textContent = lowStockCount;
-            listElement.appendChild(spanElement);
+            const listElement = document.querySelector(".element__store");
+            if (lowStockCount > 0) {
+              listElement.classList.add("stock__alert__min");
+              const spanElement = document.createElement("span");
+              spanElement.classList.add("stock__count");
+              spanElement.textContent = lowStockCount;
+              listElement.appendChild(spanElement);
+            }
           }
+
         } catch (error) {
           console.error("Error: ", error);
         }

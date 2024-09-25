@@ -1,5 +1,4 @@
 const puppeteer = require("puppeteer");
-const transporter = require("./nodemailer");
 
 // Creamos función para enviar el PDF a Gmail
 async function generatePDF(url) {
@@ -20,6 +19,11 @@ async function generatePDF(url) {
   const page = await browser.newPage();
   console.log("New Page opened");
 
+  // Header personalizado
+  await page.setExtraHTTPHeaders({
+    "X-Puppeteer-Request": "true"
+  });
+
   console.log("Navigating to URL: ", url);
   await page.goto(url, { waitUntil: "domcontentloaded", timeout: 30000 });
   console.log("Page Navigated")
@@ -30,31 +34,11 @@ async function generatePDF(url) {
   const pdf = await page.pdf({
     format: "A4",
     printBackground: true,
-    margin: 0
+    margin: 0,
+    pageRanges: "", // Incluye todas las páginas
+    scale: 1
   });
-  console.log("PDF generated");
-
-  /* // Enviar el PDF a Gmail
-  const mailOptions = {
-    to: "alexistrejoxd1@gmail.com",
-    from: "alexistrejoxd@gmail.com",
-    subject: "Boleta de venta Electrónica",
-    text: "Adjuntamos la boleta de venta electrónica de su compra.",
-    attachments: [
-      {
-        filename: "boleta-venta.pdf",
-        content: pdf,
-        contentType: "application/pdf"
-      }
-    ]
-  };
-
-  try {
-    await transporter.sendMail(mailOptions);
-    console.log("Boleta de venta enviada exitosamente a Gmail.");
-  } catch (error) {
-    console.log("Error enviando el PDF a Gmail:", error);
-  } */
+  console.log("PDF generated: ", pdf);
 
   await browser.close();
   console.log("Browser closed");

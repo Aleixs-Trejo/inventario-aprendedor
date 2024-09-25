@@ -18,9 +18,13 @@ const {
   havePermission
 } = require("../helpers/auth");
 
+const {
+  maxEmployees
+} = require("../helpers/capacity");
+
 //Registro de trabajador
-router.get("/employees/register", isAuthenticated, havePermission("crear-trabajador"), renderRegisterEmployee);
-router.post("/employees/register", isAuthenticated, havePermission("crear-trabajador"), registerEmployee);
+router.get("/employees/register", isAuthenticated, havePermission("crear-trabajador"), maxEmployees, renderRegisterEmployee);
+router.post("/employees/register", isAuthenticated, havePermission("crear-trabajador"),maxEmployees, registerEmployee);
 
 //Mostrar Trabajadores
 router.get("/employees", isAuthenticated, havePermission("ver-trabajador"), renderEmployees);

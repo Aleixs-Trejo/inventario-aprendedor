@@ -16,9 +16,13 @@ const {
   havePermission
 } = require("../helpers/auth");
 
+const {
+  maxStockLocations
+} = require("../helpers/capacity");
+
 //Registrar nueva ubicacion
-router.get("/stock-locations/register", isAuthenticated, havePermission("crear-sucursal"), renderRegisterStockLocation);
-router.post("/stock-locations/register", isAuthenticated, havePermission("crear-sucursal"), registerStockLocation);
+router.get("/stock-locations/register", isAuthenticated, havePermission("crear-sucursal"), maxStockLocations, renderRegisterStockLocation);
+router.post("/stock-locations/register", isAuthenticated, havePermission("crear-sucursal"), maxStockLocations, registerStockLocation);
 
 //Mostrar Ubicaciones
 router.get("/stock-locations", isAuthenticated, havePermission("ver-sucursal"), renderStockLocations);

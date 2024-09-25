@@ -19,9 +19,15 @@ const {
   havePermission
 } = require("../helpers/auth");
 
+
+const {
+  maxEmployees
+} = require("../helpers/capacity");
+
+
 //Registro de usuarios
-router.get("/users/register", isAuthenticated, havePermission("crear-usuario"), renderRegisterUser);
-router.post("/users/register", isAuthenticated, havePermission("crear-usuario"), registerUser);
+router.get("/users/register", isAuthenticated, havePermission("crear-usuario"), maxEmployees, renderRegisterUser);
+router.post("/users/register", isAuthenticated, havePermission("crear-usuario"), maxEmployees, registerUser);
 
 //Inicio de sesión
 router.get("/users/login", renderLoginUser);

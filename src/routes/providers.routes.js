@@ -18,9 +18,13 @@ const {
   havePermission
 } = require("../helpers/auth");
 
+const {
+  maxProviders
+} = require("../helpers/capacity");
+
 //Registrar Proveedor
-router.get("/providers/register", isAuthenticated, renderRegisterProvider);
-router.post("/providers/register", isAuthenticated, havePermission("crear-proveedor"), registerProvider);
+router.get("/providers/register", isAuthenticated, havePermission("crear-proveedor"), maxProviders, renderRegisterProvider);
+router.post("/providers/register", isAuthenticated, havePermission("crear-proveedor"), maxProviders, registerProvider);
 
 //Mostrar Proveedores
 router.get("/providers", isAuthenticated, havePermission("ver-proveedor"), renderProviders);

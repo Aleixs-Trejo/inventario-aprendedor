@@ -101,6 +101,7 @@ providersCtrl.renderProviders = async (req, res) => {
       .lean();
 
     const currentPage = `providers`;
+    console.log("proveedores: ", providers);
     res.render("providers/all-providers", {
       providers,
       currentPage

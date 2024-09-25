@@ -42,90 +42,51 @@
           </div>
         </div>
         {{#if categories}}
-          {{#if userRole}}
-            {{#if (eq userRole "Admin")}}
-              <section class="items">
-                <div class="items__container__elements">
-                  <section class="views__container--elements view__scrollbar">
-                    <div class="views__content--elements items__container categories">
-                      <article class="items__header items__grid categories">
-                        <div class="flex-c-c">Agregado por</div>
-                        <div class="flex-c-c">Categoría</div>
-                        <div class="flex-c-c">Descripción</div>
-                        <div class="flex-c-c">Fecha Registro</div>
-                        <div class="flex-c-c">Acciones</div>
-                      </article>
-                      <div class="items__data--values">
-                        {{#each categories}}
-                          <div class="container__data">
-                            <article class="items__data items__grid categories">
-                              <div class="flex-c-c">{{usuarioRegistroCategoria.usuario}}</div>
-                              <div class="flex-c-c">{{nombreCategoria}}</div>
-                              <div class="flex-c-c">{{descripcionCategoria}}</div>
-                              <div class="flex-c-c">{{formatDateTime createdAt}}</div>
-                              <div class="flex-c-c items__data--options">
-                                <a href="/categories/{{_id}}/details" class="options__action">
-                                  <figure class="options__figure">
-                                    <img src="/assets/icon-edit.svg" alt="Icon Details" class="options__img">
-                                  </figure>
-                                  <span class="span__detail">Detalles</span>
-                                </a>
-                                <a href="/categories/{{_id}}/edit" class="options__action">
-                                  <figure class="options__figure">
-                                    <img src="/assets/icon-edit.svg" alt="Icon Edit" class="options__img">
-                                  </figure>
-                                </a>
-                                <a href="/categories/{{_id}}/confirm-delete" class="options__action">
-                                  <figure class="options__figure">
-                                    <img src="/assets/icon-delete.svg" alt="Icon Delete" class="options__img">
-                                  </figure>
-                                </a>
-                              </div>
-                            </article>
+          <section class="items">
+            <div class="items__container__elements">
+              <section class="views__container--elements view__scrollbar">
+                <div class="views__content--elements items__container categories">
+                  <article class="items__header items__grid categories">
+                    <div class="flex-c-c">Agregado por</div>
+                    <div class="flex-c-c">Categoría</div>
+                    <div class="flex-c-c">Descripción</div>
+                    <div class="flex-c-c">Fecha Registro</div>
+                    <div class="flex-c-c">Acciones</div>
+                  </article>
+                  <div class="items__data--values">
+                    {{#each categories}}
+                      <div class="container__data">
+                        <article class="items__data items__grid categories">
+                          <div class="flex-c-c">{{usuarioRegistroCategoria.usuario}}</div>
+                          <div class="flex-c-c">{{nombreCategoria}}</div>
+                          <div class="flex-c-c">{{descripcionCategoria}}</div>
+                          <div class="flex-c-c">{{formatDateTime createdAt}}</div>
+                          <div class="flex-c-c items__data--options">
+                            <a href="/categories/{{_id}}/details" class="options__action">
+                              <figure class="options__figure">
+                                <img src="/assets/icon-edit.svg" alt="Icon Details" class="options__img">
+                              </figure>
+                              <span class="span__detail">Detalles</span>
+                            </a>
+                            <a href="/categories/{{_id}}/edit" class="options__action">
+                              <figure class="options__figure">
+                                <img src="/assets/icon-edit.svg" alt="Icon Edit" class="options__img">
+                              </figure>
+                            </a>
+                            <a href="/categories/{{_id}}/confirm-delete" class="options__action">
+                              <figure class="options__figure">
+                                <img src="/assets/icon-delete.svg" alt="Icon Delete" class="options__img">
+                              </figure>
+                            </a>
                           </div>
-                        {{/each}}
+                        </article>
                       </div>
-                    </div>
-                  </section>
+                    {{/each}}
+                  </div>
                 </div>
               </section>
-            {{else}}
-              <section class="items">
-                <div class="items__container__elements">
-                  <section class="views__container--elements view__scrollbar">
-                    <div class="views__content--elements items__container categories">
-                      <article class="items__header items__grid categories">
-                        <div class="flex-c-c">Agregado por</div>
-                        <div class="flex-c-c">Categoría</div>
-                        <div class="flex-c-c">Descripción</div>
-                        <div class="flex-c-c">Fecha Registro</div>
-                        <div class="flex-c-c">Acciones</div>
-                      </article>
-                      <div class="items__data--values">
-                        {{#each categories}}
-                          <div class="container__data">
-                            <article class="items__data items__grid categories">
-                              <div class="flex-c-c">{{usuarioRegistroCategoria.usuario}}</div>
-                              <div class="flex-c-c">{{nombreCategoria}}</div>
-                              <div class="flex-c-c">{{descripcionCategoria}}</div>
-                              <div class="flex-c-c">{{formatDateTime createdAt}}</div>
-                              <div class="flex-c-c items__data--options">
-                                <a href="/categories/{{_id}}/edit" class="options__action">
-                                  <figure class="options__figure">
-                                    <img src="../assets/icon-edit.svg" alt="Icon Edit" class="options__img">
-                                  </figure>
-                                </a>
-                              </div>
-                            </article>
-                          </div>
-                        {{/each}}
-                      </div>
-                    </div>
-                  </section>
-                </div>
-              </section>
-            {{/if}}
-          {{/if}}
+            </div>
+          </section>
         {{else}}
           <h5 class="items__empty">No hay Categorías para mostrar 😿</h5>
         {{/if}}

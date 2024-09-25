@@ -1,13 +1,23 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" class="html dark">
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Inventario-Aprendedor</title>
+    <script>
+      (() => {
+        if (localStorage.getItem("lightTheme") === "enabled") {
+          document.querySelector(".html").classList.replace("dark", "light");
+        } else {
+          document.querySelector(".html").classList.replace("light", "dark");
+        }
+        console.log("LightTheme: ", localStorage.getItem("lightTheme"));
+      })();
+    </script>
+    <script defer src="/js/main.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" async>
-    <script defer src="/js/main.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.css" />
     <script defer src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.js"></script>
     <link rel="stylesheet" href="/css/style.css">

@@ -47,6 +47,37 @@
                 <div class="form__groups form__groups--permisos">
                   <h5 class="form__group__header">Establecer Permisos</h5>
                   <section class="section__permisos">
+                    <!-- COMPANY -->
+                    <article class="form__group form__group--permisos">
+                      <div class="permisos__header">
+                        <span class="permisos__span">Company</span>
+                        <figure class="permisos__header__figure">
+                          <img src="/assets/icon-arrow--blue.svg" alt="Icon Arrow" class="permisos__header__img">
+                        </figure>
+                      </div>
+                      <section class="permisos__container permisos__container--show">
+                        <div class="permisos__group">
+                          <div class="permissions__header">
+                            <input type="checkbox" id="company-all" class="parent__checkbox">
+                            <label for="company-all" class="permissions__label">Todo</label>
+                          </div>
+                          <div class="permissions__container">
+                            <div class="permissions__item">
+                              <input type="checkbox" name="permisosRol" id="crear-company" class="child__checkbox" value="crear-company" {{#hasPermission permisosRol "crear-company"}}checked{{/hasPermission}}>
+                              <label for="crear-company" class="permissions__label">Crear</label>
+                            </div>
+                            <div class="permissions__item">
+                              <input type="checkbox" name="permisosRol" id="editar-company" class="child__checkbox" value="editar-company" {{#hasPermission permisosRol "editar-company"}}checked{{/hasPermission}}>
+                              <label for="editar-company" class="permissions__label">Editar</label>
+                            </div>
+                            <div class="permissions__item">
+                              <input type="checkbox" name="permisosRol" id="ver-company" class="child__checkbox" value="ver-company" {{#hasPermission permisosRol "ver-company"}}checked{{/hasPermission}}>
+                              <label for="ver-company" class="permissions__label">Ver company</label>
+                            </div>
+                          </div>
+                        </div>
+                      </section>
+                    </article>
                     <!-- ROLES -->
                     <article class="form__group form__group--permisos">
                       <div class="permisos__header">

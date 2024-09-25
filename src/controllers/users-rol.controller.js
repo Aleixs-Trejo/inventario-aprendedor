@@ -104,7 +104,16 @@ usersRolCtrl.renderEditUserRol = async (req, res) => {
 usersRolCtrl.updateUserRol = async (req, res) => {
   try {
     const {id} = req.params;
-    await UserRol.findByIdAndUpdate(id, req.body);
+    const userRol = await UserRol.findById(id).lean();
+    const permisosRol = req.body.permisosRol;
+    const permisosNuevos = userRol.permisosRol.filter(permisos => !permisosRol.includes(permisos));
+    console.log("Permisos totales: ", permisosRol);
+    console.log("Permisos nuevos: ", permisosNuevos);
+    await UserRol.findByIdAndUpdate(id, {
+      nombreRol: req.body.nombreRol,
+      descripcionRol: req.body.descripcionRol,
+      permisosRol
+    });
     req.flash("success", "Rol actualizado exitosamente");
     res.redirect("/users-rol");
   } catch (error) {

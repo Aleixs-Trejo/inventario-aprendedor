@@ -42,7 +42,7 @@ router.get("/sales/:id/voucher", isAuthenticated, havePermission("ticket-venta")
 // Mostrar Boleta de venta
 router.get("/sales/:id/bill", isAuthenticated, havePermission("boleta-venta"), renderBillSale);
 
-// Descargar boleta en PDF
+// Descargar boleta en PDF y enviar por correo
 router.get("/sales/:id/download", isAuthenticated, havePermission("email-venta"), generateBillPDF);
 
 // Cancelar Venta

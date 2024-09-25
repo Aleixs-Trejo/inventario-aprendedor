@@ -18,60 +18,66 @@
     </article>
   </div>
 </div>
-<section class="section__form">
-  <form action="/products/register" method="POST" class="form">
-    <div class="form__content">
-      <h2 class="form__title">Registrar un nuevo Producto</h2>
-      <div class="form__img">
-        <figure class="login__figure">
-          <img src="/assets/logo-aprendedor.webp" alt="Logo Aprendedor" class="login__img">
-        </figure>
-      </div>
-      <section class="form__container">
-        <article class="form__group form__group--select">
-          <label for="rol_trabjador" class="form__label--select">Selecciona el Proveedor:</label>
-          <select name="proveedorProducto" id="proveedor_producto" class="form__input" required>
-            <option selected disabled value="">Proveedor:</option>
-            {{#each providers}}
-              <option value="{{_id}}">{{nombreProveedor}}</option>
-            {{/each}}
-          </select>
-          <span class="form__span--select">¿No encuentras el Proveedor? <a class="select__cta" href="/providers/register">Regístralo aquí</a></span>
-        </article>
-        <article class="form__group form__group--select">
-          <label for="categoria_producto" class="form__label--select">Selecciona la Categoría:</label>
-          <select name="categoriaProducto" id="categoria_producto" class="form__input" required>
-            <option selected disabled value="">Categoría:</option>
-            {{#each categories}}
-              <option value="{{_id}}">{{nombreCategoria}}</option>
-            {{/each}}
-          </select>
-          <span class="form__span--select">¿No encuentras la Categoría? <a class="select__cta" href="/categories/register">Regístralo aquí</a></span>
-        </article>
-        <article class="form__group">
-          <input class="form__input" type="number" name="cod" id="cod_producto" placeholder=" " title="Nombre del producto" required>
-          <label for="cod_producto" class="form__label">Código:</label>
-          <span class="form__line"></span>
-        </article>
-        <article class="form__group">
-          <input class="form__input" type="text" name="nombreProducto" id="nombre_producto" placeholder=" " title="Nombre del producto" required>
-          <label for="nombre_producto" class="form__label">Nombre:</label>
-          <span class="form__line"></span>
-        </article>
-        <article class="form__group">
-          <textarea name="descripcionProducto" id="descripcion_producto" class="form__input form__textarea" placeholder=" " title="Descripción del producto" required></textarea>
-          <label for="descripcion_producto" class="form__label">Descripción:</label>
-          <span class="form__line"></span>
-        </article>
-        <article class="form__group">
-          <input class="form__input" type="text" name="precioProducto" id="precio_product" placeholder=" " title="Precio del producto" required>
-          <label for="precio_product" class="form__label">Precio:</label>
-          <span class="form__line"></span>
-        </article>
-        <button class="form__submit">Agregar</button>
+<section class="section__all--forms">
+  <div class="container__form__container">
+    <div class="container">
+      <section class="section__form">
+        <form action="/products/register" method="POST" class="form">
+          <div class="form__content">
+            <h2 class="form__title">Registrar un nuevo Producto</h2>
+            <div class="form__img">
+              <figure class="login__figure">
+                <img src="{{logoUrl}}" alt="Logo Aprendedor" class="login__img">
+              </figure>
+            </div>
+            <section class="form__container">
+              <article class="form__group form__group--select">
+                <label for="rol_trabjador" class="form__label--select">Selecciona el Proveedor:</label>
+                <select name="proveedorProducto" id="proveedor_producto" class="form__input" required>
+                  <option selected disabled value="">Proveedor:</option>
+                  {{#each providers}}
+                    <option value="{{_id}}">{{nombreProveedor}}</option>
+                  {{/each}}
+                </select>
+                <span class="form__span--select">¿No encuentras el Proveedor? <a class="select__cta" href="/providers/register">Regístralo aquí</a></span>
+              </article>
+              <article class="form__group form__group--select">
+                <label for="categoria_producto" class="form__label--select">Selecciona la Categoría:</label>
+                <select name="categoriaProducto" id="categoria_producto" class="form__input" required>
+                  <option selected disabled value="">Categoría:</option>
+                  {{#each categories}}
+                    <option value="{{_id}}">{{nombreCategoria}}</option>
+                  {{/each}}
+                </select>
+                <span class="form__span--select">¿No encuentras la Categoría? <a class="select__cta" href="/categories/register">Regístralo aquí</a></span>
+              </article>
+              <article class="form__group">
+                <input class="form__input" type="number" name="cod" id="cod_producto" placeholder=" " title="Nombre del producto" required>
+                <label for="cod_producto" class="form__label">Código:</label>
+                <span class="form__line"></span>
+              </article>
+              <article class="form__group">
+                <input class="form__input" type="text" name="nombreProducto" id="nombre_producto" placeholder=" " title="Nombre del producto" required>
+                <label for="nombre_producto" class="form__label">Nombre:</label>
+                <span class="form__line"></span>
+              </article>
+              <article class="form__group">
+                <textarea name="descripcionProducto" id="descripcion_producto" class="form__input form__textarea" placeholder=" " title="Descripción del producto" required></textarea>
+                <label for="descripcion_producto" class="form__label">Descripción:</label>
+                <span class="form__line"></span>
+              </article>
+              <article class="form__group">
+                <input class="form__input" type="text" name="precioProducto" id="precio_product" placeholder=" " title="Precio del producto" required>
+                <label for="precio_product" class="form__label">Precio:</label>
+                <span class="form__line"></span>
+              </article>
+              <button class="form__submit">Agregar</button>
+            </section>
+          </div>
+        </form>
       </section>
     </div>
-  </form>
+  </div>
 </section>
 <script>
   function filterOptions(event, selectId) {
