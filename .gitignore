@@ -11,5 +11,3 @@ Dockerfile
 docker-compose.yml
 
 .dockerignore
-
-planLimits.js

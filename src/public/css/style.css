@@ -315,6 +315,22 @@ input[type="number"]::-webkit-outer-spin-button{
   font-family: var(--font-poppins);
 }
 
+.toggle__password{
+  cursor: pointer;
+  position: absolute;
+  right: 0;
+  top: 20%;
+  width: 2rem;
+  aspect-ratio: 1/1;
+  border-radius: 50%;
+  overflow: hidden;
+  transition: all 0.3s ease;
+
+  &:hover {
+    background-color: #666;
+  }
+}
+
 .form__textarea{
   resize: none;
   height: 7rem;
@@ -327,6 +343,8 @@ input[type="number"]::-webkit-outer-spin-button{
   top: 0.8rem;
   left: 0.4rem;
   transition: transform 0.3s ease-in-out;
+  background-color: #fff;
+  z-index: 3;
 }
 
 .form__group--select{
@@ -2393,7 +2411,7 @@ input[type="number"]::-webkit-outer-spin-button{
 }
 
 .sales__index{
-  grid-template-columns: 10% 1fr 20% 20% 8% 10% 10%;
+  grid-template-columns: 10% 15% 1fr 1fr 8% 10% 15%;
 }
 
 .store__history__index{
@@ -4336,6 +4354,7 @@ html.dark{
 
     & .form__label, .form__label--select{
       color: #ccc;
+      background-color: var(--color__sections__dark);
     }
 
     & select.form__input{
@@ -4365,6 +4384,12 @@ html.dark{
       }
     }
 
+    & .toggle__password{
+      &:hover {
+        background-color: var(--color__table__head__dark);
+      }
+    }
+
     & .form__span--select{
       color: #ccc;
     }
@@ -4380,6 +4405,10 @@ html.dark{
     & span.permisos__span, label.permissions__label {
       color: #ccc !important;
     }
+  }
+
+  & .permisos__header:hover{
+    background-color: var(--color__table__head__dark) !important;
   }
 
   & .form__sale, .form__store{

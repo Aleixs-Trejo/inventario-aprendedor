@@ -11,6 +11,6 @@ const {
 } = require("../helpers/auth");
 
 // Mostrar historial de productos en almacén
-router.get("/store-hotel/history", isAuthenticated, havePermission("historial-producto-almacen"), renderAllStoreHotelHistory);
+router.get("/store-hotel/history", isAuthenticated, havePermission("historial-producto-almacen-hotel"), renderAllStoreHotelHistory);
 
 module.exports = router;

@@ -19,6 +19,11 @@
               <article class="form__group">
                 <input class="form__input" type="password" name="password" id="password" placeholder=" " required>
                 <label for="password" class="form__label">Contraseña:</label>
+                <div class="toggle__password flex-c-c">
+                  <figure class="toggle__password__figure">
+                    <img src="/assets/icon-visibility--white.svg" alt="Icon Visibility" class="toggle__password__img">
+                  </figure>
+                </div>
                 <span class="form__line"></span>
               </article>
               <button class="form__submit">Ingresar</button>
@@ -31,16 +36,18 @@
 </section>
 <script>
   document.addEventListener("DOMContentLoaded", function () {
-    const $inputUser = document.getElementById("user");
+    const $inputUser = document.getElementById("user"),
+          $togglePassword = document.querySelector(".toggle__password"),
+          $password = document.getElementById("password"),
+          $togglePasswordImg = document.querySelector(".toggle__password__img");
 
     const initialize = () => {
-      $inputUser.addEventListener("keyup", function (event) {
+      $inputUser.addEventListener("keyup", (event) => {
         if (event.key === "Enter") {
           event.preventDefault();
           document.getElementById("password").focus();
         }
       });
-      console.log("Línea 43")
       // Convertir a minúsculas los caracteres del usuario
       $inputUser.addEventListener("input", function () {
         const user = $inputUser.value.toLowerCase();
@@ -48,5 +55,18 @@
       });
     };
     initialize();
+
+    // Cambiar el tipo de password a text
+    $togglePassword.addEventListener("click", () => {
+      if ($password.type === "password") {
+        // Cambiar el tipo de password a text
+        $password.type = "text";
+        $togglePasswordImg.src = "/assets/icon-no-visibility--white.svg";
+      } else if ($password.type === "text") {
+        // Cambiar el tipo de password de text a password
+        $password.type = "password";
+        $togglePasswordImg.src = "/assets/icon-visibility--white.svg";
+      }
+    });
   });
 </script>

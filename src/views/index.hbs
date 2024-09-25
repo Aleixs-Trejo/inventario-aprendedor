@@ -9,331 +9,395 @@
                 <h5 class="section__title">Acceso rápido:</h5>
                 <ul class="fast__btns">
                   {{#if user.trabajadorUsuario}}
-                    <li class="fast__btn fast__btn--empleados" style="--color__area: #4fb128">
-                      <a href="/employees" class="fast__link">
-                        <div class="fast__icon">
-                          <figure class="fast__figure">
-                            <img src="/assets/icon-employee.svg" alt="Icon Employees" class="fast__img">
-                          </figure>
-                        </div>
-                        <h4 class="fast__title">Empleados</h4>
-                      </a>
-                    </li>
-                    <li class="fast__btn fast__btn--usuarios" style="--color__area: #002d88">
-                      <a href="/users" class="fast__link">
-                        <div class="fast__icon">
-                          <figure class="fast__figure">
-                            <img src="/assets/icon-users.svg" alt="Icon Users" class="fast__img">
-                          </figure>
-                        </div>
-                        <h4 class="fast__title">Usuarios</h4>
-                      </a>
-                    </li>
-                    <li class="fast__btn fast__btn--proveedores" style="--color__area: #3f51b5">
-                      <a href="/providers" class="fast__link">
-                        <div class="fast__icon">
-                          <figure class="fast__figure">
-                            <img src="/assets/icon-provider.svg" alt="Icon Provider" class="fast__img">
-                          </figure>
-                        </div>
-                        <h4 class="fast__title">Proveedores</h4>
-                      </a>
-                    </li>
-                    <li class="fast__btn fast__btn--productos" style="--color__area: #ffb703">
-                      <a href="/products" class="fast__link">
-                        <div class="fast__icon">
-                          <figure class="fast__figure">
-                            <img src="/assets/icon-products.svg" alt="Icon Procuts" class="fast__img">
-                          </figure>
-                        </div>
-                        <h4 class="fast__title">Productos</h4>
-                      </a>
-                    </li>
-                    <li class="fast__btn fast__btn--categorias" style="--color__area: #ff006e">
-                      <a href="/categories" class="fast__link">
-                        <div class="fast__icon">
-                          <figure class="fast__figure">
-                            <img src="/assets/icon-computer-cell.svg" alt="Icon Categories" class="fast__img">
-                          </figure>
-                        </div>
-                        <h4 class="fast__title">Categorías</h4>
-                      </a>
-                    </li>
-                    <li class="fast__btn fast__btn--clientes" style="--color__area: #f44336">
-                      <a href="/clients" class="fast__link">
-                        <div class="fast__icon">
-                          <figure class="fast__figure">
-                            <img src="/assets/icon-users.svg" alt="Icon Clientes" class="fast__img">
-                          </figure>
-                        </div>
-                        <h4 class="fast__title">Clientes</h4>
-                      </a>
-                    </li>
+                    {{#hasPermission permisosRol "ver-trabajador"}}
+                      <li class="fast__btn fast__btn--empleados" style="--color__area: #4fb128">
+                        <a href="/employees" class="fast__link">
+                          <div class="fast__icon">
+                            <figure class="fast__figure">
+                              <img src="/assets/icon-employee.svg" alt="Icon Employees" class="fast__img">
+                            </figure>
+                          </div>
+                          <h4 class="fast__title">Empleados</h4>
+                        </a>
+                      </li>
+                    {{/hasPermission}}
+                    {{#hasPermission permisosRol "ver-usuario"}}
+                      <li class="fast__btn fast__btn--usuarios" style="--color__area: #002d88">
+                        <a href="/users" class="fast__link">
+                          <div class="fast__icon">
+                            <figure class="fast__figure">
+                              <img src="/assets/icon-users.svg" alt="Icon Users" class="fast__img">
+                            </figure>
+                          </div>
+                          <h4 class="fast__title">Usuarios</h4>
+                        </a>
+                      </li>
+                    {{/hasPermission}}
+                    {{#hasPermission permisosRol "ver-proveedor"}}
+                      <li class="fast__btn fast__btn--proveedores" style="--color__area: #3f51b5">
+                        <a href="/providers" class="fast__link">
+                          <div class="fast__icon">
+                            <figure class="fast__figure">
+                              <img src="/assets/icon-provider.svg" alt="Icon Provider" class="fast__img">
+                            </figure>
+                          </div>
+                          <h4 class="fast__title">Proveedores</h4>
+                        </a>
+                      </li>
+                    {{/hasPermission}}
+                    {{#hasPermission permisosRol "ver-producto"}}
+                      <li class="fast__btn fast__btn--productos" style="--color__area: #ffb703">
+                        <a href="/products" class="fast__link">
+                          <div class="fast__icon">
+                            <figure class="fast__figure">
+                              <img src="/assets/icon-products.svg" alt="Icon Procuts" class="fast__img">
+                            </figure>
+                          </div>
+                          <h4 class="fast__title">Productos</h4>
+                        </a>
+                      </li>
+                    {{/hasPermission}}
+                    {{#hasPermission permisosRol "ver-categoria"}}
+                      <li class="fast__btn fast__btn--categorias" style="--color__area: #ff006e">
+                        <a href="/categories" class="fast__link">
+                          <div class="fast__icon">
+                            <figure class="fast__figure">
+                              <img src="/assets/icon-computer-cell.svg" alt="Icon Categories" class="fast__img">
+                            </figure>
+                          </div>
+                          <h4 class="fast__title">Categorías</h4>
+                        </a>
+                      </li>
+                    {{/hasPermission}}
+                    {{#hasPermission permisosRol "ver-cliente"}}
+                      <li class="fast__btn fast__btn--clientes" style="--color__area: #f44336">
+                        <a href="/clients" class="fast__link">
+                          <div class="fast__icon">
+                            <figure class="fast__figure">
+                              <img src="/assets/icon-users.svg" alt="Icon Clientes" class="fast__img">
+                            </figure>
+                          </div>
+                          <h4 class="fast__title">Clientes</h4>
+                        </a>
+                      </li>
+                    {{/hasPermission}}
                     {{#if (eq company.comercioCompany "minimarket")}}
-                      <li class="fast__btn fast__btn--ventas" style="--color__area: #2196f3">
-                        <a href="/sales" class="fast__link">
-                          <div class="fast__icon">
-                            <figure class="fast__figure">
-                              <img src="/assets/icon-buy-bag.svg" alt="Icon Cart" class="fast__img">
-                            </figure>
-                          </div>
-                          <h4 class="fast__title">Ventas</h4>
-                        </a>
-                      </li>
-                      <li class="fast__btn fast__btn--almacen" style="--color__area: #9c27b0">
-                        <a href="/stores" class="fast__link">
-                          <div class="fast__icon">
-                            <figure class="fast__figure">
-                              <img src="/assets/icon-cart.svg" alt="Icon Clientes" class="fast__img">
-                            </figure>
-                          </div>
-                          <h4 class="fast__title">Almacen</h4>
-                        </a>
-                      </li>
+                      {{#hasPermission permisosRol "ver-ventas"}}
+                        <li class="fast__btn fast__btn--ventas" style="--color__area: #2196f3">
+                          <a href="/sales" class="fast__link">
+                            <div class="fast__icon">
+                              <figure class="fast__figure">
+                                <img src="/assets/icon-buy-bag.svg" alt="Icon Cart" class="fast__img">
+                              </figure>
+                            </div>
+                            <h4 class="fast__title">Ventas</h4>
+                          </a>
+                        </li>
+                      {{/hasPermission}}
+                      {{#hasPermission permisosRol "ver-almacen"}}
+                        <li class="fast__btn fast__btn--almacen" style="--color__area: #9c27b0">
+                          <a href="/stores" class="fast__link">
+                            <div class="fast__icon">
+                              <figure class="fast__figure">
+                                <img src="/assets/icon-cart.svg" alt="Icon Clientes" class="fast__img">
+                              </figure>
+                            </div>
+                            <h4 class="fast__title">Almacen</h4>
+                          </a>
+                        </li>
+                      {{/hasPermission}}
                     {{/if}}
                     {{#if (eq company.comercioCompany "hotel")}}
-                      <li class="fast__btn fast__btn--productos" style="--color__area: #fb5607">
-                        <a href="/categories-room" class="fast__link">
-                          <div class="fast__icon">
-                            <figure class="fast__figure">
-                              <img src="/assets/icon-category-room.svg" alt="Icon Category" class="fast__img">
-                            </figure>
-                          </div>
-                          <h4 class="fast__title">Categorías</h4>
-                        </a>
-                      </li>
-                      <li class="fast__btn fast__btn--productos" style="--color__area: #3a86ff">
-                        <a href="/status-room" class="fast__link">
-                          <div class="fast__icon">
-                            <figure class="fast__figure">
-                              <img src="/assets/icon-status-room.svg" alt="Icon Status" class="fast__img">
-                            </figure>
-                          </div>
-                          <h4 class="fast__title">Estados</h4>
-                        </a>
-                      </li>
-                      <li class="fast__btn fast__btn--productos" style="--color__area: #ffbd00">
-                        <a href="/rooms" class="fast__link">
-                          <div class="fast__icon">
-                            <figure class="fast__figure">
-                              <img src="/assets/icon-bed.svg" alt="Icon Bed" class="fast__img">
-                            </figure>
-                          </div>
-                          <h4 class="fast__title">Habitaciones</h4>
-                        </a>
-                      </li>
-                      <li class="fast__btn fast__btn--productos" style="--color__area: #ad2831">
-                        <a href="/maintenances" class="fast__link">
-                          <div class="fast__icon">
-                            <figure class="fast__figure">
-                              <img src="/assets/icon-tools.svg" alt="Icon Tools" class="fast__img">
-                            </figure>
-                          </div>
-                          <h4 class="fast__title">Mantenimientos</h4>
-                        </a>
-                      </li>
-                      <li class="fast__btn fast__btn--productos" style="--color__area: #3a0ca3">
-                        <a href="/reservations" class="fast__link">
-                          <div class="fast__icon">
-                            <figure class="fast__figure">
-                              <img src="/assets/icon-room.svg" alt="Icon Floor" class="fast__img">
-                            </figure>
-                          </div>
-                          <h4 class="fast__title">Reservas</h4>
-                        </a>
-                      </li>
-                      <li class="fast__btn fast__btn--productos" style="--color__area: #14213d">
-                        <a href="/store-hotel" class="fast__link">
-                          <div class="fast__icon">
-                            <figure class="fast__figure">
-                              <img src="/assets/icon-store.svg" alt="Icon Store" class="fast__img">
-                            </figure>
-                          </div>
-                          <h4 class="fast__title">Almacén</h4>
-                        </a>
-                      </li>
-                      <li class="fast__btn fast__btn--productos" style="--color__area: #386641">
-                        <a href="/occupations" class="fast__link">
-                          <div class="fast__icon">
-                            <figure class="fast__figure">
-                              <img src="/assets/icon-occupation.svg" alt="Icon Occupation" class="fast__img">
-                            </figure>
-                          </div>
-                          <h4 class="fast__title">Ocupados</h4>
-                        </a>
-                      </li>
-                      <li class="fast__btn fast__btn--productos" style="--color__area: #023047">
-                        <a href="/cleanings" class="fast__link">
-                          <div class="fast__icon">
-                            <figure class="fast__figure">
-                              <img src="/assets/icon-clean.svg" alt="Icon Clean" class="fast__img">
-                            </figure>
-                          </div>
-                          <h4 class="fast__title">Uso-Limpieza</h4>
-                        </a>
-                      </li>
-                      <li class="fast__btn fast__btn--productos" style="--color__area: #ff006e">
-                        <a href="/checkouts" class="fast__link">
-                          <div class="fast__icon">
-                            <figure class="fast__figure">
-                              <img src="/assets/icon-check-white.svg" alt="Icon Checkout" class="fast__img">
-                            </figure>
-                          </div>
-                          <h4 class="fast__title">Salidas</h4>
-                        </a>
-                      </li>
-                      <li class="fast__btn fast__btn--productos" style="--color__area: #8338ec">
-                        <a href="/hotel/balance" class="fast__link">
-                          <div class="fast__icon">
-                            <figure class="fast__figure">
-                              <img src="/assets/icon-balance.svg" alt="Icon Balance" class="fast__img">
-                            </figure>
-                          </div>
-                          <h4 class="fast__title">Balances</h4>
-                        </a>
-                      </li>
-                      <li class="fast__btn fast__btn--productos" style="--color__area: #06d6a0">
-                        <a href="/hotel/sales" class="fast__link">
-                          <div class="fast__icon">
-                            <figure class="fast__figure">
-                              <img src="/assets/icon-cart.svg" alt="Icon Sales" class="fast__img">
-                            </figure>
-                          </div>
-                          <h4 class="fast__title">Ventas</h4>
-                        </a>
-                      </li>
+                      {{#hasPermission permisosRol "ver-categoria-habitacion"}}
+                        <li class="fast__btn fast__btn--productos" style="--color__area: #fb5607">
+                          <a href="/categories-room" class="fast__link">
+                            <div class="fast__icon">
+                              <figure class="fast__figure">
+                                <img src="/assets/icon-category-room.svg" alt="Icon Category" class="fast__img">
+                              </figure>
+                            </div>
+                            <h4 class="fast__title">Categorías</h4>
+                          </a>
+                        </li>
+                      {{/hasPermission}}
+                      {{#hasPermission permisosRol "ver-estado-habitacion"}}
+                        <li class="fast__btn fast__btn--productos" style="--color__area: #3a86ff">
+                          <a href="/status-room" class="fast__link">
+                            <div class="fast__icon">
+                              <figure class="fast__figure">
+                                <img src="/assets/icon-status-room.svg" alt="Icon Status" class="fast__img">
+                              </figure>
+                            </div>
+                            <h4 class="fast__title">Estados</h4>
+                          </a>
+                        </li>
+                      {{/hasPermission}}
+                      {{#hasPermission permisosRol "ver-habitacion"}}
+                        <li class="fast__btn fast__btn--productos" style="--color__area: #ffbd00">
+                          <a href="/rooms" class="fast__link">
+                            <div class="fast__icon">
+                              <figure class="fast__figure">
+                                <img src="/assets/icon-bed.svg" alt="Icon Bed" class="fast__img">
+                              </figure>
+                            </div>
+                            <h4 class="fast__title">Habitaciones</h4>
+                          </a>
+                        </li>
+                      {{/hasPermission}}
+                      {{#hasPermission permisosRol "ver-mantenimiento"}}
+                        <li class="fast__btn fast__btn--productos" style="--color__area: #ad2831">
+                          <a href="/maintenances" class="fast__link">
+                            <div class="fast__icon">
+                              <figure class="fast__figure">
+                                <img src="/assets/icon-tools.svg" alt="Icon Tools" class="fast__img">
+                              </figure>
+                            </div>
+                            <h4 class="fast__title">Mantenimientos</h4>
+                          </a>
+                        </li>
+                      {{/hasPermission}}
+                      {{#hasPermission permisosRol "ver-reserva"}}
+                        <li class="fast__btn fast__btn--productos" style="--color__area: #3a0ca3">
+                          <a href="/reservations" class="fast__link">
+                            <div class="fast__icon">
+                              <figure class="fast__figure">
+                                <img src="/assets/icon-room.svg" alt="Icon Floor" class="fast__img">
+                              </figure>
+                            </div>
+                            <h4 class="fast__title">Reservas</h4>
+                          </a>
+                        </li>
+                      {{/hasPermission}}
+                      {{#hasPermission permisosRol "ver-producto-almacen-hotel"}}
+                        <li class="fast__btn fast__btn--productos" style="--color__area: #14213d">
+                          <a href="/store-hotel" class="fast__link">
+                            <div class="fast__icon">
+                              <figure class="fast__figure">
+                                <img src="/assets/icon-store.svg" alt="Icon Store" class="fast__img">
+                              </figure>
+                            </div>
+                            <h4 class="fast__title">Almacén</h4>
+                          </a>
+                        </li>
+                      {{/hasPermission}}
+                      {{#hasPermission permisosRol "ver-ocupacion"}}
+                        <li class="fast__btn fast__btn--productos" style="--color__area: #386641">
+                          <a href="/occupations" class="fast__link">
+                            <div class="fast__icon">
+                              <figure class="fast__figure">
+                                <img src="/assets/icon-occupation.svg" alt="Icon Occupation" class="fast__img">
+                              </figure>
+                            </div>
+                            <h4 class="fast__title">Ocupados</h4>
+                          </a>
+                        </li>
+                      {{/hasPermission}}
+                      {{#hasPermission permisosRol "ver-limpieza-intermedia"}}
+                        <li class="fast__btn fast__btn--productos" style="--color__area: #023047">
+                          <a href="/cleanings" class="fast__link">
+                            <div class="fast__icon">
+                              <figure class="fast__figure">
+                                <img src="/assets/icon-clean.svg" alt="Icon Clean" class="fast__img">
+                              </figure>
+                            </div>
+                            <h4 class="fast__title">Uso-Limpieza</h4>
+                          </a>
+                        </li>
+                      {{/hasPermission}}
+                      {{#hasPermission permisosRol "ver-checkout-hotel"}}
+                        <li class="fast__btn fast__btn--productos" style="--color__area: #ff006e">
+                          <a href="/checkouts" class="fast__link">
+                            <div class="fast__icon">
+                              <figure class="fast__figure">
+                                <img src="/assets/icon-check-white.svg" alt="Icon Checkout" class="fast__img">
+                              </figure>
+                            </div>
+                            <h4 class="fast__title">Salidas</h4>
+                          </a>
+                        </li>
+                      {{/hasPermission}}
+                      {{#hasPermission permisosRol "ver-balance-hotel"}}
+                        <li class="fast__btn fast__btn--productos" style="--color__area: #8338ec">
+                          <a href="/hotel/balance" class="fast__link">
+                            <div class="fast__icon">
+                              <figure class="fast__figure">
+                                <img src="/assets/icon-balance.svg" alt="Icon Balance" class="fast__img">
+                              </figure>
+                            </div>
+                            <h4 class="fast__title">Balances</h4>
+                          </a>
+                        </li>
+                      {{/hasPermission}}
+                      {{#hasPermission permisosRol "ver-venta-hotel"}}
+                        <li class="fast__btn fast__btn--productos" style="--color__area: #06d6a0">
+                          <a href="/hotel/sales" class="fast__link">
+                            <div class="fast__icon">
+                              <figure class="fast__figure">
+                                <img src="/assets/icon-cart.svg" alt="Icon Sales" class="fast__img">
+                              </figure>
+                            </div>
+                            <h4 class="fast__title">Ventas</h4>
+                          </a>
+                        </li>
+                      {{/hasPermission}}
                     {{/if}}
                     {{#if (eq company.comercioCompany "minimarkethotel")}}
-                      <li class="fast__btn fast__btn--ventas" style="--color__area: #2196f3">
-                        <a href="/sales" class="fast__link">
-                          <div class="fast__icon">
-                            <figure class="fast__figure">
-                              <img src="/assets/icon-buy-bag.svg" alt="Icon Cart" class="fast__img">
-                            </figure>
-                          </div>
-                          <h4 class="fast__title">Ventas</h4>
-                        </a>
-                      </li>
-                      <li class="fast__btn fast__btn--almacen" style="--color__area: #9c27b0">
-                        <a href="/stores" class="fast__link">
-                          <div class="fast__icon">
-                            <figure class="fast__figure">
-                              <img src="/assets/icon-cart.svg" alt="Icon Clientes" class="fast__img">
-                            </figure>
-                          </div>
-                          <h4 class="fast__title">Almacen</h4>
-                        </a>
-                      </li>
-                      <li class="fast__btn fast__btn--productos" style="--color__area: #fb5607">
-                        <a href="/categories-room" class="fast__link">
-                          <div class="fast__icon">
-                            <figure class="fast__figure">
-                              <img src="/assets/icon-category-room.svg" alt="Icon Category" class="fast__img">
-                            </figure>
-                          </div>
-                          <h4 class="fast__title">Categorías</h4>
-                        </a>
-                      </li>
-                      <li class="fast__btn fast__btn--productos" style="--color__area: #3a86ff">
-                        <a href="/status-room" class="fast__link">
-                          <div class="fast__icon">
-                            <figure class="fast__figure">
-                              <img src="/assets/icon-status-room.svg" alt="Icon Status" class="fast__img">
-                            </figure>
-                          </div>
-                          <h4 class="fast__title">Estados</h4>
-                        </a>
-                      </li>
-                      <li class="fast__btn fast__btn--productos" style="--color__area: #ffbd00">
-                        <a href="/rooms" class="fast__link">
-                          <div class="fast__icon">
-                            <figure class="fast__figure">
-                              <img src="/assets/icon-bed.svg" alt="Icon Bed" class="fast__img">
-                            </figure>
-                          </div>
-                          <h4 class="fast__title">Habitaciones</h4>
-                        </a>
-                      </li>
-                      <li class="fast__btn fast__btn--productos" style="--color__area: #ad2831">
-                        <a href="/maintenances" class="fast__link">
-                          <div class="fast__icon">
-                            <figure class="fast__figure">
-                              <img src="/assets/icon-tools.svg" alt="Icon Tools" class="fast__img">
-                            </figure>
-                          </div>
-                          <h4 class="fast__title">Mantenimientos</h4>
-                        </a>
-                      </li>
-                      <li class="fast__btn fast__btn--productos" style="--color__area: #3a0ca3">
-                        <a href="/reservations" class="fast__link">
-                          <div class="fast__icon">
-                            <figure class="fast__figure">
-                              <img src="/assets/icon-room.svg" alt="Icon Floor" class="fast__img">
-                            </figure>
-                          </div>
-                          <h4 class="fast__title">Reservas</h4>
-                        </a>
-                      </li>
-                      <li class="fast__btn fast__btn--productos" style="--color__area: #14213d">
-                        <a href="/store-hotel" class="fast__link">
-                          <div class="fast__icon">
-                            <figure class="fast__figure">
-                              <img src="/assets/icon-store.svg" alt="Icon Store" class="fast__img">
-                            </figure>
-                          </div>
-                          <h4 class="fast__title">Almacén</h4>
-                        </a>
-                      </li>
-                      <li class="fast__btn fast__btn--productos" style="--color__area: #386641">
-                        <a href="/occupations" class="fast__link">
-                          <div class="fast__icon">
-                            <figure class="fast__figure">
-                              <img src="/assets/icon-occupation.svg" alt="Icon Occupation" class="fast__img">
-                            </figure>
-                          </div>
-                          <h4 class="fast__title">Ocupados</h4>
-                        </a>
-                      </li>
-                      <li class="fast__btn fast__btn--productos" style="--color__area: #023047">
-                        <a href="/cleanings" class="fast__link">
-                          <div class="fast__icon">
-                            <figure class="fast__figure">
-                              <img src="/assets/icon-clean.svg" alt="Icon Clean" class="fast__img">
-                            </figure>
-                          </div>
-                          <h4 class="fast__title">Uso-Limpieza</h4>
-                        </a>
-                      </li>
-                      <li class="fast__btn fast__btn--productos" style="--color__area: #ff006e">
-                        <a href="/checkouts" class="fast__link">
-                          <div class="fast__icon">
-                            <figure class="fast__figure">
-                              <img src="/assets/icon-check-white.svg" alt="Icon Checkout" class="fast__img">
-                            </figure>
-                          </div>
-                          <h4 class="fast__title">Salidas</h4>
-                        </a>
-                      </li>
-                      <li class="fast__btn fast__btn--productos" style="--color__area: #8338ec">
-                        <a href="/hotel/balance" class="fast__link">
-                          <div class="fast__icon">
-                            <figure class="fast__figure">
-                              <img src="/assets/icon-balance.svg" alt="Icon Balance" class="fast__img">
-                            </figure>
-                          </div>
-                          <h4 class="fast__title">Balances</h4>
-                        </a>
-                      </li>
-                      <li class="fast__btn fast__btn--productos" style="--color__area: #06d6a0">
-                        <a href="/hotel/sales" class="fast__link">
-                          <div class="fast__icon">
-                            <figure class="fast__figure">
-                              <img src="/assets/icon-cart.svg" alt="Icon Sales" class="fast__img">
-                            </figure>
-                          </div>
-                          <h4 class="fast__title">Ventas</h4>
-                        </a>
-                      </li>
+                      {{#hasPermission permisosRol "ver-ventas"}}
+                        <li class="fast__btn fast__btn--ventas" style="--color__area: #2196f3">
+                          <a href="/sales" class="fast__link">
+                            <div class="fast__icon">
+                              <figure class="fast__figure">
+                                <img src="/assets/icon-buy-bag.svg" alt="Icon Cart" class="fast__img">
+                              </figure>
+                            </div>
+                            <h4 class="fast__title">Ventas</h4>
+                          </a>
+                        </li>
+                      {{/hasPermission}}
+                      {{#hasPermission permisosRol "ver-almacen"}}
+                        <li class="fast__btn fast__btn--almacen" style="--color__area: #9c27b0">
+                          <a href="/stores" class="fast__link">
+                            <div class="fast__icon">
+                              <figure class="fast__figure">
+                                <img src="/assets/icon-cart.svg" alt="Icon Clientes" class="fast__img">
+                              </figure>
+                            </div>
+                            <h4 class="fast__title">Almacen</h4>
+                          </a>
+                        </li>
+                      {{/hasPermission}}
+                      {{#hasPermission permisosRol "ver-categoria-habitacion"}}
+                        <li class="fast__btn fast__btn--productos" style="--color__area: #fb5607">
+                          <a href="/categories-room" class="fast__link">
+                            <div class="fast__icon">
+                              <figure class="fast__figure">
+                                <img src="/assets/icon-category-room.svg" alt="Icon Category" class="fast__img">
+                              </figure>
+                            </div>
+                            <h4 class="fast__title">Categorías</h4>
+                          </a>
+                        </li>
+                      {{/hasPermission}}
+                      {{#hasPermission permisosRol "ver-estado-habitacion"}}
+                        <li class="fast__btn fast__btn--productos" style="--color__area: #3a86ff">
+                          <a href="/status-room" class="fast__link">
+                            <div class="fast__icon">
+                              <figure class="fast__figure">
+                                <img src="/assets/icon-status-room.svg" alt="Icon Status" class="fast__img">
+                              </figure>
+                            </div>
+                            <h4 class="fast__title">Estados</h4>
+                          </a>
+                        </li>
+                      {{/hasPermission}}
+                      {{#hasPermission permisosRol "ver-habitacion"}}
+                        <li class="fast__btn fast__btn--productos" style="--color__area: #ffbd00">
+                          <a href="/rooms" class="fast__link">
+                            <div class="fast__icon">
+                              <figure class="fast__figure">
+                                <img src="/assets/icon-bed.svg" alt="Icon Bed" class="fast__img">
+                              </figure>
+                            </div>
+                            <h4 class="fast__title">Habitaciones</h4>
+                          </a>
+                        </li>
+                      {{/hasPermission}}
+                      {{#hasPermission permisosRol "ver-mantenimiento"}}
+                        <li class="fast__btn fast__btn--productos" style="--color__area: #ad2831">
+                          <a href="/maintenances" class="fast__link">
+                            <div class="fast__icon">
+                              <figure class="fast__figure">
+                                <img src="/assets/icon-tools.svg" alt="Icon Tools" class="fast__img">
+                              </figure>
+                            </div>
+                            <h4 class="fast__title">Mantenimientos</h4>
+                          </a>
+                        </li>
+                      {{/hasPermission}}
+                      {{#hasPermission permisosRol "ver-reserva"}}
+                        <li class="fast__btn fast__btn--productos" style="--color__area: #3a0ca3">
+                          <a href="/reservations" class="fast__link">
+                            <div class="fast__icon">
+                              <figure class="fast__figure">
+                                <img src="/assets/icon-room.svg" alt="Icon Floor" class="fast__img">
+                              </figure>
+                            </div>
+                            <h4 class="fast__title">Reservas</h4>
+                          </a>
+                        </li>
+                      {{/hasPermission}}
+                      {{#hasPermission permisosRol "ver-producto-almacen-hotel"}}
+                        <li class="fast__btn fast__btn--productos" style="--color__area: #14213d">
+                          <a href="/store-hotel" class="fast__link">
+                            <div class="fast__icon">
+                              <figure class="fast__figure">
+                                <img src="/assets/icon-store.svg" alt="Icon Store" class="fast__img">
+                              </figure>
+                            </div>
+                            <h4 class="fast__title">Almacén</h4>
+                          </a>
+                        </li>
+                      {{/hasPermission}}
+                      {{#hasPermission permisosRol "ver-ocupacion"}}
+                        <li class="fast__btn fast__btn--productos" style="--color__area: #386641">
+                          <a href="/occupations" class="fast__link">
+                            <div class="fast__icon">
+                              <figure class="fast__figure">
+                                <img src="/assets/icon-occupation.svg" alt="Icon Occupation" class="fast__img">
+                              </figure>
+                            </div>
+                            <h4 class="fast__title">Ocupados</h4>
+                          </a>
+                        </li>
+                      {{/hasPermission}}
+                      {{#hasPermission permisosRol "ver-limpieza-intermedia"}}
+                        <li class="fast__btn fast__btn--productos" style="--color__area: #023047">
+                          <a href="/cleanings" class="fast__link">
+                            <div class="fast__icon">
+                              <figure class="fast__figure">
+                                <img src="/assets/icon-clean.svg" alt="Icon Clean" class="fast__img">
+                              </figure>
+                            </div>
+                            <h4 class="fast__title">Uso-Limpieza</h4>
+                          </a>
+                        </li>
+                      {{/hasPermission}}
+                      {{#hasPermission permisosRol "ver-checkout-hotel"}}
+                        <li class="fast__btn fast__btn--productos" style="--color__area: #ff006e">
+                          <a href="/checkouts" class="fast__link">
+                            <div class="fast__icon">
+                              <figure class="fast__figure">
+                                <img src="/assets/icon-check-white.svg" alt="Icon Checkout" class="fast__img">
+                              </figure>
+                            </div>
+                            <h4 class="fast__title">Salidas</h4>
+                          </a>
+                        </li>
+                      {{/hasPermission}}
+                      {{#hasPermission permisosRol "ver-balance-hotel"}}
+                        <li class="fast__btn fast__btn--productos" style="--color__area: #8338ec">
+                          <a href="/hotel/balance" class="fast__link">
+                            <div class="fast__icon">
+                              <figure class="fast__figure">
+                                <img src="/assets/icon-balance.svg" alt="Icon Balance" class="fast__img">
+                              </figure>
+                            </div>
+                            <h4 class="fast__title">Balances</h4>
+                          </a>
+                        </li>
+                      {{/hasPermission}}
+                      {{#hasPermission permisosRol "ver-venta-hotel"}}
+                        <li class="fast__btn fast__btn--productos" style="--color__area: #06d6a0">
+                          <a href="/hotel/sales" class="fast__link">
+                            <div class="fast__icon">
+                              <figure class="fast__figure">
+                                <img src="/assets/icon-cart.svg" alt="Icon Sales" class="fast__img">
+                              </figure>
+                            </div>
+                            <h4 class="fast__title">Ventas</h4>
+                          </a>
+                        </li>
+                      {{/hasPermission}}
                     {{/if}}
                   {{/if}}
                 </ul>
@@ -342,423 +406,390 @@
           </div>
         </div>
       </section>
-      <section class="section__container">
-        <div class="section__content">
-          <div class="container">
-            <article class="article__primary">
-              <div class="primary__content">
-                <h5 class="section__title">Estado de ventas en la semana:</h5>
-                {{#if sales}}
-                  <section class="items">
-                    <div class="items__container__elements">
-                      <section class="views__container--elements view__scrollbar">
-                        <div class="views__content--elements items__container sales__index">
-                          <article class="items__header items__grid sales__index">
-                            <div class="flex-c-c">Estado</div>
-                            <div class="flex-c-c">ID</div>
-                            <div class="flex-c-c">Vendedor</div>
-                            <div class="flex-c-c">Cliente</div>
-                            <div class="flex-c-c">Cant</div>
-                            <div class="flex-c-c">Total</div>
-                            <div class="flex-c-c">Fecha</div>
-                          </article>
-                          <div class="items__data--values">
-                            {{#each sales}}
-                              <div class="container__data">
-                                <article class="items__data items__grid sales__index">
-                                  <div class="flex-c-c"><span class="estado__venta">{{estadoVenta}}</span></div>
-                                  <div class="flex-c-c">{{_id}}</div>
-                                  <div class="flex-c-c">{{usuarioVenta.trabajadorUsuario.nombreTrabajador}} {{usuarioVenta.trabajadorUsuario.apellidosTrabajador}}</div>
-                                  <div class="flex-c-c">{{clienteVenta.nombreCliente}}</div>
-                                  <div class="flex-c-c">{{tipoProductosVenta}}</div>
-                                  <div class="flex-c-c total__venta">S/ {{formatCurrency precioTotalVenta}}</div>
-                                  <div class="flex-c-c">{{formatDateTime createdAt}}</div>
-                                </article>
+      {{#if (or (eq company.comercioCompany "minimarket") (eq company.comercioCompany "minimarkethotel"))}}
+        {{#hasPermission permisosRol "ver-ventas"}}
+          <section class="section__container">
+            <div class="section__content">
+              <div class="container">
+                <article class="article__primary">
+                  <div class="primary__content">
+                    <h5 class="section__title">Estado de ventas en la semana:</h5>
+                    {{#if sales}}
+                      <section class="items">
+                        <div class="items__container__elements">
+                          <section class="views__container--elements view__scrollbar">
+                            <div class="views__content--elements items__container sales__index">
+                              <article class="items__header items__grid sales__index">
+                                <div class="flex-c-c">Estado</div>
+                                <div class="flex-c-c">ID</div>
+                                <div class="flex-c-c">Vendedor</div>
+                                <div class="flex-c-c">Cliente</div>
+                                <div class="flex-c-c">Cant</div>
+                                <div class="flex-c-c">Total</div>
+                                <div class="flex-c-c">Fecha</div>
+                              </article>
+                              <div class="items__data--values">
+                                {{#each sales}}
+                                  <div class="container__data">
+                                    <article class="items__data items__grid sales__index">
+                                      <div class="flex-c-c"><span class="estado__venta">{{estadoVenta}}</span></div>
+                                      <div class="flex-c-c">{{ventaID}}</div>
+                                      <div class="flex-c-c">{{usuarioVenta.trabajadorUsuario.nombreTrabajador}} {{usuarioVenta.trabajadorUsuario.apellidosTrabajador}}</div>
+                                      <div class="flex-c-c">{{clienteVenta.nombreCliente}}</div>
+                                      <div class="flex-c-c">{{tipoProductosVenta}}</div>
+                                      <div class="flex-c-c total__venta">S/ {{formatCurrency precioTotalVenta}}</div>
+                                      <div class="flex-c-c">{{formatDateTime createdAt}}</div>
+                                    </article>
+                                  </div>
+                                {{/each}}
                               </div>
-                            {{/each}}
-                          </div>
+                            </div>
+                          </section>
                         </div>
                       </section>
-                    </div>
-                  </section>
-                {{else}}
-                  <h5 class="items__empty">No hay Ventas para mostrar 😿</h5>
-                {{/if}}
+                    {{else}}
+                      <h5 class="items__empty">No hay Ventas para mostrar 😿</h5>
+                    {{/if}}
+                  </div>
+                </article>
               </div>
-            </article>
-          </div>
-        </div>
-      </section>
-      <section class="section__container">
-        <div class="section__content">
-          <div class="container">
-            <article class="article__primary">
-              <div class="primary__content">
-                <h5 class="section__title">Productos ingresados al almacen en la semana:</h5>
-                {{#if stores}}
-                  <section class="items">
-                    <div class="items__container__elements">
-                      <section class="views__container--elements view__scrollbar">
-                        <div class="views__content--elements items__container store__history__index">
-                          <article class="items__header items__grid store__history__index">
-                            <div class="flex-c-c">Tipo:</div>
-                            <div class="flex-c-c">Reg por:</div>
-                            <div class="flex-c-c">Cod:</div>
-                            <div class="flex-c-c">Descr:</div>
-                            <div class="flex-c-c">Prov:</div>
-                            <div class="flex-c-c">Cat:</div>
-                            <div class="flex-c-c">Ubic:</div>
-                            <div class="flex-c-c">Precio:</div>
-                            <div class="flex-c-c">Stock:</div>
-                            <div class="flex-c-c">Min:</div>
-                            <div class="flex-c-c">Fecha:</div>
-                          </article>
-                          <div class="items__data--values">
-                            {{#each stores}}
-                              <div class="container__data">
-                                <article class="items__data items__grid store__history__index">
-                                  <div class="flex-c-c"><span class="registros">{{tipoHistorial}}</span></div>
-                                  <div class="flex-c-c">{{almacenHistorial.almacenUsuario.usuario}}</div>
-                                  <div class="flex-c-c">{{almacenHistorial.almacenProducto.cod}}</div>
-                                  <div class="flex-c-c">{{almacenHistorial.almacenProducto.descripcionProducto}}</div>
-                                  <div class="flex-c-c">{{almacenHistorial.almacenProducto.proveedorProducto.nombreProveedor}}</div>
-                                  <div class="flex-c-c">{{almacenHistorial.almacenProducto.categoriaProducto.nombreCategoria}}</div>
-                                  <div class="flex-c-c">{{almacenHistorial.almacenStockUbicacion.nombreStockUbicacion}}</div>
-                                  <div class="flex-c-c">S/{{formatCurrency almacenHistorial.almacenProducto.precioProducto}}</div>
-                                  <div class="flex-c-c">{{almacenHistorial.almacenStock}}</div>
-                                  <div class="flex-c-c">{{almacenHistorial.almacenMinStock}}</div>
-                                  <div class="flex-c-c">{{formatDateTime almacenHistorial.createdAt}}</div>
-                                </article>
+            </div>
+          </section>
+        {{/hasPermission}}
+      {{/if}}
+      {{#if (or (eq company.comercioCompany "minimarket") (eq company.comercioCompany "minimarkethotel"))}}
+        {{#hasPermission permisosRol "ver-almacen"}}
+          <section class="section__container">
+            <div class="section__content">
+              <div class="container">
+                <article class="article__primary">
+                  <div class="primary__content">
+                    <h5 class="section__title">Productos ingresados al almacen en la semana:</h5>
+                    {{#if stores}}
+                      <section class="items">
+                        <div class="items__container__elements">
+                          <section class="views__container--elements view__scrollbar">
+                            <div class="views__content--elements items__container store__history__index">
+                              <article class="items__header items__grid store__history__index">
+                                <div class="flex-c-c">Tipo:</div>
+                                <div class="flex-c-c">Reg por:</div>
+                                <div class="flex-c-c">Cod:</div>
+                                <div class="flex-c-c">Descr:</div>
+                                <div class="flex-c-c">Prov:</div>
+                                <div class="flex-c-c">Cat:</div>
+                                <div class="flex-c-c">Ubic:</div>
+                                <div class="flex-c-c">Precio:</div>
+                                <div class="flex-c-c">Stock:</div>
+                                <div class="flex-c-c">Min:</div>
+                                <div class="flex-c-c">Fecha:</div>
+                              </article>
+                              <div class="items__data--values">
+                                {{#each stores}}
+                                  <div class="container__data">
+                                    <article class="items__data items__grid store__history__index">
+                                      <div class="flex-c-c"><span class="registros">{{tipoHistorial}}</span></div>
+                                      <div class="flex-c-c">{{almacenHistorial.almacenUsuario.usuario}}</div>
+                                      <div class="flex-c-c">{{almacenHistorial.almacenProducto.cod}}</div>
+                                      <div class="flex-c-c">{{almacenHistorial.almacenProducto.descripcionProducto}}</div>
+                                      <div class="flex-c-c">{{almacenHistorial.almacenProducto.proveedorProducto.nombreProveedor}}</div>
+                                      <div class="flex-c-c">{{almacenHistorial.almacenProducto.categoriaProducto.nombreCategoria}}</div>
+                                      <div class="flex-c-c">{{almacenHistorial.almacenStockUbicacion.nombreStockUbicacion}}</div>
+                                      <div class="flex-c-c">S/{{formatCurrency almacenHistorial.almacenProducto.precioProducto}}</div>
+                                      <div class="flex-c-c">{{almacenHistorial.almacenStock}}</div>
+                                      <div class="flex-c-c">{{almacenHistorial.almacenMinStock}}</div>
+                                      <div class="flex-c-c">{{formatDateTime almacenHistorial.createdAt}}</div>
+                                    </article>
+                                  </div>
+                                {{/each}}
                               </div>
-                            {{/each}}
-                          </div>
+                            </div>
+                          </section>
                         </div>
                       </section>
-                    </div>
-                  </section>
-                {{else}}
-                  <h5 class="items__empty">No hay productos ingresados al almacen en la semana 😿</h5>
-                {{/if}}
+                    {{else}}
+                      <h5 class="items__empty">No hay productos ingresados al almacen en la semana 😿</h5>
+                    {{/if}}
+                  </div>
+                </article>
               </div>
-            </article>
-          </div>
-        </div>
-      </section>
-      <section class="section__container">
-        <div class="section__content">
-          <div class="container">
-            <article class="article__primary">
-              <div class="primary__content">
-                <h5 class="section__title">Productos registrados en la semana:</h5>
-                {{#if products}}
-                  <section class="items">
-                    <div class="items__container__elements">
-                      <section class="views__container--elements view__scrollbar">
-                        <div class="views__content--elements items__container products__history__index">
-                          <article class="items__header items__grid products__history__index">
-                            <div class="flex-c-c">Tipo:</div>
-                            <div class="flex-c-c">Reg por:</div>
-                            <div class="flex-c-c">Cod:</div>
-                            <div class="flex-c-c">Nombre:</div>
-                            <div class="flex-c-c">Descr:</div>
-                            <div class="flex-c-c">Prov:</div>
-                            <div class="flex-c-c">Cat:</div>
-                            <div class="flex-c-c">Precio:</div>
-                            <div class="flex-c-c">Fecha:</div>
-                          </article>
-                          <div class="items__data--values">
-                            {{#each products}}
-                              <div class="container__data">
-                                <article class="items__data items__grid products__history__index">
-                                  <div class="flex-c-c"><span class="registros">{{tipoHistorial}}</span></div>
-                                  <div class="flex-c-c">{{productoHistorial.usuarioProducto.usuario}}</div>
-                                  <div class="flex-c-c">{{productoHistorial.cod}}</div>
-                                  <div class="flex-c-c">{{productoHistorial.nombreProducto}}</div>
-                                  <div class="flex-c-c">{{productoHistorial.descripcionProducto}}</div>
-                                  <div class="flex-c-c">{{productoHistorial.proveedorProducto.nombreProveedor}}</div>
-                                  <div class="flex-c-c">{{productoHistorial.categoriaProducto.nombreCategoria}}</div>
-                                  <div class="flex-c-c">S/{{formatCurrency productoHistorial.precioProducto}}</div>
-                                  <div class="flex-c-c">{{formatDateTime productoHistorial.createdAt}}</div>
-                                </article>
-                              </div>
-                            {{/each}}
+            </div>
+          </section>
+        {{/hasPermission}}
+      {{/if}}
+      {{#hasPermission permisosRol "ver-producto"}}
+        <section class="section__container">
+          <div class="section__content">
+            <div class="container">
+              <article class="article__primary">
+                <div class="primary__content">
+                  <h5 class="section__title">Productos registrados en la semana:</h5>
+                  {{#if products}}
+                    <section class="items">
+                      <div class="items__container__elements">
+                        <section class="views__container--elements view__scrollbar">
+                          <div class="views__content--elements items__container products__history__index">
+                            <article class="items__header items__grid products__history__index">
+                              <div class="flex-c-c">Tipo:</div>
+                              <div class="flex-c-c">Reg por:</div>
+                              <div class="flex-c-c">Cod:</div>
+                              <div class="flex-c-c">Nombre:</div>
+                              <div class="flex-c-c">Descr:</div>
+                              <div class="flex-c-c">Prov:</div>
+                              <div class="flex-c-c">Cat:</div>
+                              <div class="flex-c-c">Precio:</div>
+                              <div class="flex-c-c">Fecha:</div>
+                            </article>
+                            <div class="items__data--values">
+                              {{#each products}}
+                                <div class="container__data">
+                                  <article class="items__data items__grid products__history__index">
+                                    <div class="flex-c-c"><span class="registros">{{tipoHistorial}}</span></div>
+                                    <div class="flex-c-c">{{productoHistorial.usuarioProducto.usuario}}</div>
+                                    <div class="flex-c-c">{{productoHistorial.cod}}</div>
+                                    <div class="flex-c-c">{{productoHistorial.nombreProducto}}</div>
+                                    <div class="flex-c-c">{{productoHistorial.descripcionProducto}}</div>
+                                    <div class="flex-c-c">{{productoHistorial.proveedorProducto.nombreProveedor}}</div>
+                                    <div class="flex-c-c">{{productoHistorial.categoriaProducto.nombreCategoria}}</div>
+                                    <div class="flex-c-c">S/{{formatCurrency productoHistorial.precioProducto}}</div>
+                                    <div class="flex-c-c">{{formatDateTime productoHistorial.createdAt}}</div>
+                                  </article>
+                                </div>
+                              {{/each}}
+                            </div>
                           </div>
-                        </div>
-                      </section>
-                    </div>
-                  </section>
-                {{else}}
-                  <h5 class="items__empty">No hay productos registrados en la semana 😿</h5>
-                {{/if}}
-              </div>
-            </article>
-          </div>
-        </div>
-      </section>
-      <section class="section__container">
-        <div class="section__content">
-          <div class="container">
-            <article class="article__primary">
-              <div class="primary__content">
-                <h5 class="section__title">Usuarios, roles y actividades:</h5>
-                {{#if users}}
-                  <section class="items">
-                    <div class="items__container__elements">
-                      <section class="views__container--elements view__scrollbar">
-                        <div class="views__content--elements items__container users__history__index">
-                          <article class="items__header items__grid users__history__index">
-                            <div class="flex-c-c">Tipo:</div>
-                            <div class="flex-c-c">Rol:</div>
-                            <div class="flex-c-c">DNI:</div>
-                            <div class="flex-c-c">Nombre:</div>
-                            <div class="flex-c-c">Celular:</div>
-                            <div class="flex-c-c">Correo:</div>
-                            <div class="flex-c-c">Usuario:</div>
-                            <div class="flex-c-c">Fecha:</div>
-                          </article>
-                          <div class="items__data--values">
-                            {{#each users}}
-                              <div class="container__data">
-                                <article class="items__data items__grid users__history__index">
-                                  <div class="flex-c-c"><span class="registros">{{tipoHistorial}}</span></div>
-                                  <div class="flex-c-c">{{usuarioHistorial.trabajadorUsuario.rolTrabajador.nombreRol}}</div>
-                                  <div class="flex-c-c">{{usuarioHistorial.trabajadorUsuario.dniTrabajador}}</div>
-                                  <div class="flex-c-c">{{usuarioHistorial.trabajadorUsuario.nombreTrabajador}} {{usuarioHistorial.trabajadorUsuario.apellidosTrabajador}}</div>
-                                  <div class="flex-c-c">{{usuarioHistorial.trabajadorUsuario.celularTrabajador}}</div>
-                                  <div class="flex-c-c">{{usuarioHistorial.trabajadorUsuario.correoTrabajador}}</div>
-                                  <div class="flex-c-c">{{usuarioHistorial.usuario}}</div>
-                                  <div class="flex-c-c">{{formatDateTime usuarioHistorial.trabajadorUsuario.createdAt}}</div>
-                                </article>
-                              </div>
-                            {{/each}}
-                          </div>
-                        </div>
-                      </section>
-                    </div>
-                  </section>
-                {{else}}
-                  <h5 class="items__empty">No hay actividades registradas en la semana 😿</h5>
-                {{/if}}
-              </div>
-            </article>
-          </div>
-        </div>
-      </section>
-      <section class="section__container">
-        <div class="section__content">
-          <div class="container">
-            <article class="article__primary">
-              <div class="primary__content">
-                <h5 class="section__title">Recepción:</h5>
-                {{#if rooms}}
-                  <div class="stats__container">
-                    <section class="stats stats__header">
-                      <div class="stats__header__container">
-                        <div class="stats__header--stat stat__header--selected" data-filter="all">
-                          <span class="stat__span">Total Habitaciones:</span>
-                          <span class="stat__span">{{rooms.length}}</span>
-                        </div>
-                        <div class="stats__header--stat" data-filter="disponible">
-                          <span class="stat__span">Disponibles:</span>
-                          <span class="stat__span">{{roomsDisponible}}</span>
-                        </div>
-                        <div class="stats__header--stat" data-filter="ocupado">
-                          <span class="stat__span">Ocupadas:</span>
-                          <span class="stat__span">{{roomsOcupada}}</span>
-                        </div>
-                        <div class="stats__header--stat" data-filter="reservado">
-                          <span class="stat__span">Reservadas:</span>
-                          <span class="stat__span">{{roomsReservada}}</span>
-                        </div>
-                        <div class="stats__header--stat" data-filter="limpieza">
-                          <span class="stat__span">En Limpieza:</span>
-                          <span class="stat__span">{{roomsEnLimpieza}}</span>
-                        </div>
-                        <div class="stats__header--stat" data-filter="mantenimiento">
-                          <span class="stat__span">En Mantenimiento:</span>
-                          <span class="stat__span">{{roomsEnMantenimiento}}</span>
-                        </div>
-                        <div class="stats__header--stat" data-filter="limpiezaPendiente">
-                          <span class="stat__span">Limpieza Pendiente:</span>
-                          <span class="stat__span">{{roomsLimpiezaPendiente}}</span>
-                        </div>
+                        </section>
                       </div>
                     </section>
-                    <section class="stats stats__body">
-                      <div class="stats__body--rooms items__grid items__rooms__hotel">
-                        {{#each rooms}}
-                          <article class="card__container" {{#if (eq estadoHabitacion "Disponible")}} data-estado="disponible"{{/if}}{{#if (eq estadoHabitacion "Ocupado")}} data-estado="ocupado"{{/if}}{{#if (eq estadoHabitacion "Reservado")}} data-estado="reservado"{{/if}}{{#if (eq estadoHabitacion "Limpieza")}} data-estado="limpieza"{{/if}}{{#if (eq estadoHabitacion "Mantenimiento")}} data-estado="mantenimiento"{{/if}} {{#if (eq estadoHabitacion "Limpieza Pendiente")}} data-estado="limpiezaPendiente"{{/if}}>
-                            <div class="card">
-                              <div class="card__content bg__card" style="--bg__card: url('../../assets/room.webp');">
-                                <span class="span__bg__card">Habitación: {{numeroHabitacion}}</span>
-                              </div>
-                              <div class="flex-c-c card__texts" {{#if (eq estadoHabitacion "Disponible")}}style='--bg__card__texts: #185f2988;'{{/if}}{{#if (eq estadoHabitacion "Ocupado")}}style='--bg__card__texts: #77260088;'{{/if}}{{#if (eq estadoHabitacion "Reservado")}}style='--bg__card__texts: #0b214a88;'{{/if}}{{#if (eq estadoHabitacion "Limpieza")}}style='--bg__card__texts: #46340288;'{{/if}}{{#if (eq estadoHabitacion "Mantenimiento")}}style='--bg__card__texts: #4e060b88;'{{/if}} {{#if (eq estadoHabitacion "Limpieza Pendiente")}}style='--bg__card__texts: #219ebc88;'{{/if}}>
-                                <div class="room__info">
-                                  <div class="info__container">
-                                    <div class="info__item">
-                                      <span class="info__item__title">Habitación:</span>
-                                      <span class="info__item__value">{{numeroHabitacion}}</span>
-                                    </div>
-                                    <div class="info__item">
-                                      <span class="info__item__title">Categoría:</span>
-                                      <span class="info__item__value">{{categoriaHabitacion.nombreCategoriaHabitacion}}</span>
-                                    </div>
-                                    <div class="info__item">
-                                      <span class="info__item__title">Precio:</span>
-                                      <span class="info__item__value">S/{{formatCurrency precioHabitacion}}</span>
-                                    </div>
-                                    <div class="info__item">
-                                      <span class="info__item__title">Estado:</span>
-                                      <span class="info__item__value">{{estadoHabitacion}}</span>
+                  {{else}}
+                    <h5 class="items__empty">No hay productos registrados en la semana 😿</h5>
+                  {{/if}}
+                </div>
+              </article>
+            </div>
+          </div>
+        </section>
+      {{/hasPermission}}
+      {{#hasPermission permisosRol "ver-usuario"}}
+        <section class="section__container">
+          <div class="section__content">
+            <div class="container">
+              <article class="article__primary">
+                <div class="primary__content">
+                  <h5 class="section__title">Usuarios, roles y actividades:</h5>
+                  {{#if users}}
+                    <section class="items">
+                      <div class="items__container__elements">
+                        <section class="views__container--elements view__scrollbar">
+                          <div class="views__content--elements items__container users__history__index">
+                            <article class="items__header items__grid users__history__index">
+                              <div class="flex-c-c">Tipo:</div>
+                              <div class="flex-c-c">Rol:</div>
+                              <div class="flex-c-c">DNI:</div>
+                              <div class="flex-c-c">Nombre:</div>
+                              <div class="flex-c-c">Celular:</div>
+                              <div class="flex-c-c">Correo:</div>
+                              <div class="flex-c-c">Usuario:</div>
+                              <div class="flex-c-c">Fecha:</div>
+                            </article>
+                            <div class="items__data--values">
+                              {{#each users}}
+                                <div class="container__data">
+                                  <article class="items__data items__grid users__history__index">
+                                    <div class="flex-c-c"><span class="registros">{{tipoHistorial}}</span></div>
+                                    <div class="flex-c-c">{{usuarioHistorial.trabajadorUsuario.rolTrabajador.nombreRol}}</div>
+                                    <div class="flex-c-c">{{usuarioHistorial.trabajadorUsuario.dniTrabajador}}</div>
+                                    <div class="flex-c-c">{{usuarioHistorial.trabajadorUsuario.nombreTrabajador}} {{usuarioHistorial.trabajadorUsuario.apellidosTrabajador}}</div>
+                                    <div class="flex-c-c">{{usuarioHistorial.trabajadorUsuario.celularTrabajador}}</div>
+                                    <div class="flex-c-c">{{usuarioHistorial.trabajadorUsuario.correoTrabajador}}</div>
+                                    <div class="flex-c-c">{{usuarioHistorial.usuario}}</div>
+                                    <div class="flex-c-c">{{formatDateTime usuarioHistorial.trabajadorUsuario.createdAt}}</div>
+                                  </article>
+                                </div>
+                              {{/each}}
+                            </div>
+                          </div>
+                        </section>
+                      </div>
+                    </section>
+                  {{else}}
+                    <h5 class="items__empty">No hay actividades registradas en la semana 😿</h5>
+                  {{/if}}
+                </div>
+              </article>
+            </div>
+          </div>
+        </section>
+      {{/hasPermission}}
+      {{#if (or (eq company.comercioCompany "hotel") (eq company.comercioCompany "minimarkethotel"))}}
+        {{#hasPermission permisosRol "ver-habitacion"}}
+          <section class="section__container">
+            <div class="section__content">
+              <div class="container">
+                <article class="article__primary">
+                  <div class="primary__content">
+                    <h5 class="section__title">Recepción:</h5>
+                    {{#if rooms}}
+                      <div class="stats__container">
+                        <section class="stats stats__header">
+                          <div class="stats__header__container">
+                            <div class="stats__header--stat stat__header--selected" data-filter="all">
+                              <span class="stat__span">Total Habitaciones:</span>
+                              <span class="stat__span">{{rooms.length}}</span>
+                            </div>
+                            <div class="stats__header--stat" data-filter="disponible">
+                              <span class="stat__span">Disponibles:</span>
+                              <span class="stat__span">{{roomsDisponible}}</span>
+                            </div>
+                            <div class="stats__header--stat" data-filter="ocupado">
+                              <span class="stat__span">Ocupadas:</span>
+                              <span class="stat__span">{{roomsOcupada}}</span>
+                            </div>
+                            <div class="stats__header--stat" data-filter="reservado">
+                              <span class="stat__span">Reservadas:</span>
+                              <span class="stat__span">{{roomsReservada}}</span>
+                            </div>
+                            <div class="stats__header--stat" data-filter="limpieza">
+                              <span class="stat__span">En Limpieza:</span>
+                              <span class="stat__span">{{roomsEnLimpieza}}</span>
+                            </div>
+                            <div class="stats__header--stat" data-filter="mantenimiento">
+                              <span class="stat__span">En Mantenimiento:</span>
+                              <span class="stat__span">{{roomsEnMantenimiento}}</span>
+                            </div>
+                            <div class="stats__header--stat" data-filter="limpiezaPendiente">
+                              <span class="stat__span">Limpieza Pendiente:</span>
+                              <span class="stat__span">{{roomsLimpiezaPendiente}}</span>
+                            </div>
+                          </div>
+                        </section>
+                        <section class="stats stats__body">
+                          <div class="stats__body--rooms items__grid items__rooms__hotel">
+                            {{#each rooms}}
+                              <article class="card__container" {{#if (eq estadoHabitacion "Disponible")}} data-estado="disponible"{{/if}}{{#if (eq estadoHabitacion "Ocupado")}} data-estado="ocupado"{{/if}}{{#if (eq estadoHabitacion "Reservado")}} data-estado="reservado"{{/if}}{{#if (eq estadoHabitacion "Limpieza")}} data-estado="limpieza"{{/if}}{{#if (eq estadoHabitacion "Mantenimiento")}} data-estado="mantenimiento"{{/if}} {{#if (eq estadoHabitacion "Limpieza Pendiente")}} data-estado="limpiezaPendiente"{{/if}}>
+                                <div class="card">
+                                  <div class="card__content bg__card" style="--bg__card: url('../../assets/room.webp');">
+                                    <span class="span__bg__card">Habitación: {{numeroHabitacion}}</span>
+                                  </div>
+                                  <div class="flex-c-c card__texts" {{#if (eq estadoHabitacion "Disponible")}}style='--bg__card__texts: #185f2988;'{{/if}}{{#if (eq estadoHabitacion "Ocupado")}}style='--bg__card__texts: #77260088;'{{/if}}{{#if (eq estadoHabitacion "Reservado")}}style='--bg__card__texts: #0b214a88;'{{/if}}{{#if (eq estadoHabitacion "Limpieza")}}style='--bg__card__texts: #46340288;'{{/if}}{{#if (eq estadoHabitacion "Mantenimiento")}}style='--bg__card__texts: #4e060b88;'{{/if}} {{#if (eq estadoHabitacion "Limpieza Pendiente")}}style='--bg__card__texts: #219ebc88;'{{/if}}>
+                                    <div class="room__info">
+                                      <div class="info__container">
+                                        <div class="info__item">
+                                          <span class="info__item__title">Habitación:</span>
+                                          <span class="info__item__value">{{numeroHabitacion}}</span>
+                                        </div>
+                                        <div class="info__item">
+                                          <span class="info__item__title">Categoría:</span>
+                                          <span class="info__item__value">{{categoriaHabitacion.nombreCategoriaHabitacion}}</span>
+                                        </div>
+                                        <div class="info__item">
+                                          <span class="info__item__title">Precio:</span>
+                                          <span class="info__item__value">S/{{formatCurrency precioHabitacion}}</span>
+                                        </div>
+                                        <div class="info__item">
+                                          <span class="info__item__title">Estado:</span>
+                                          <span class="info__item__value">{{estadoHabitacion}}</span>
+                                        </div>
+                                      </div>
                                     </div>
                                   </div>
                                 </div>
-                              </div>
-                            </div>
-                            <section class="modal__fixed">
-                              <div class="flex-c-c modal modal__disponible">
-                                <article class="flex-c-c article__modal">
-                                  <h5 class="modal__title">Selecciona Opción</h5>
-                                  <div class="flex-c-c modal__btns">
-                                    <a href="/occupation/{{_id}}/register" class="btn__modal__action action--occupation">Ocupar</a>
-                                    <a href="/maintenance/{{_id}}/register" class="btn__modal__action action--mantenimiento">Mantenimiento</a>
-                                    <a href="/reservation/{{_id}}/register" class="btn__modal__action action--reservar">Reservar</a>
+                                <section class="modal__fixed">
+                                  <div class="flex-c-c modal modal__disponible">
+                                    <article class="flex-c-c article__modal">
+                                      <h5 class="modal__title">Selecciona Opción</h5>
+                                      <div class="flex-c-c modal__btns">
+                                        <a href="/occupation/{{_id}}/register" class="btn__modal__action action--occupation">Ocupar</a>
+                                        <a href="/maintenance/{{_id}}/register" class="btn__modal__action action--mantenimiento">Mantenimiento</a>
+                                        <a href="/reservation/{{_id}}/register" class="btn__modal__action action--reservar">Reservar</a>
+                                      </div>
+                                      <div class="close__modal close__modal__disponible">
+                                        <figure class="close__figure">
+                                          <img src="/assets/icon-close.svg" alt="Icon Close" class="close__img">
+                                        </figure>
+                                      </div>
+                                    </article>
                                   </div>
-                                  <div class="close__modal close__modal__disponible">
-                                    <figure class="close__figure">
-                                      <img src="/assets/icon-close.svg" alt="Icon Close" class="close__img">
-                                    </figure>
+                                </section>
+                                <section class="modal__fixed">
+                                  <div class="flex-c-c modal modal__mantenimiento">
+                                    <article class="flex-c-c article__modal">
+                                      <h5 class="modal__title">Selecciona Opción</h5>
+                                      <div class="flex-c-c modal__btns">
+                                        <button type="button" class="btn__modal__action modal__cancel--mantenimiento">Cancelar</button>
+                                        <a href="/maintenance/{{maintenanceRoomId}}/details" class="btn__modal__action action--mantenimiento">Detalles</a>
+                                      </div>
+                                      <div class="close__modal close__modal__mantenimiento">
+                                        <figure class="close__figure">
+                                          <img src="/assets/icon-close.svg" alt="Icon Close" class="close__img">
+                                        </figure>
+                                      </div>
+                                    </article>
                                   </div>
-                                </article>
-                              </div>
-                            </section>
-                            <section class="modal__fixed">
-                              <div class="flex-c-c modal modal__mantenimiento">
-                                <article class="flex-c-c article__modal">
-                                  <h5 class="modal__title">Selecciona Opción</h5>
-                                  <div class="flex-c-c modal__btns">
-                                    <button type="button" class="btn__modal__action modal__cancel--mantenimiento">Cancelar</button>
-                                    <a href="/maintenance/{{maintenanceRoomId}}/details" class="btn__modal__action action--mantenimiento">Detalles</a>
+                                </section>
+                                <section class="modal__fixed">
+                                  <div class="flex-c-c modal modal__limpieza">
+                                    <article class="flex-c-c article__modal">
+                                      <h5 class="modal__title">Selecciona Opción</h5>
+                                      <div class="flex-c-c modal__btns">
+                                        <button type="button" class="btn__modal__action modal__cancel--limpieza">Cancelar</button>
+                                        <a href="/maintenance/{{_id}}/register" class="btn__modal__action action--mantenimiento">Mantenimiento</a>
+                                      </div>
+                                      <div class="close__modal close__modal__limpieza">
+                                        <figure class="close__figure">
+                                          <img src="/assets/icon-close.svg" alt="Icon Close" class="close__img">
+                                        </figure>
+                                      </div>
+                                    </article>
                                   </div>
-                                  <div class="close__modal close__modal__mantenimiento">
-                                    <figure class="close__figure">
-                                      <img src="/assets/icon-close.svg" alt="Icon Close" class="close__img">
-                                    </figure>
+                                </section>
+                                <section class="modal__fixed">
+                                  <div class="flex-c-c modal modal__reservado">
+                                    <article class="flex-c-c article__modal">
+                                      <h5 class="modal__title">Selecciona Opción</h5>
+                                      <div class="flex-c-c modal__btns">
+                                        <button type="button" class="btn__modal__action modal__cancel--reservado">Cancelar</button>
+                                        <a href="/reservation/{{reservationId}}/details" class="btn__modal__action action--reservar">Detalles</a>
+                                      </div>
+                                      <div class="close__modal close__modal__reservado">
+                                        <figure class="close__figure">
+                                          <img src="/assets/icon-close.svg" alt="Icon Close" class="close__img">
+                                        </figure>
+                                      </div>
+                                    </article>
                                   </div>
-                                </article>
-                              </div>
-                            </section>
-                            <section class="modal__fixed">
-                              <div class="flex-c-c modal modal__limpieza">
-                                <article class="flex-c-c article__modal">
-                                  <h5 class="modal__title">Selecciona Opción</h5>
-                                  <div class="flex-c-c modal__btns">
-                                    <button type="button" class="btn__modal__action modal__cancel--limpieza">Cancelar</button>
-                                    <a href="/maintenance/{{_id}}/register" class="btn__modal__action action--mantenimiento">Mantenimiento</a>
+                                </section>
+                                <section class="modal__fixed">
+                                  <div class="flex-c-c modal modal__ocupado">
+                                    <article class="flex-c-c article__modal">
+                                      <h5 class="modal__title">Selecciona Opción</h5>
+                                      <div class="flex-c-c modal__btns">
+                                        <button type="button" class="btn__modal__action modal__cancel--ocupado">Cancelar</button>
+                                        <a href="/occupation/{{occupationId}}/details" class="btn__modal__action action--actividad">Detalles</a>
+                                      </div>
+                                      <div class="close__modal close__modal__ocupado">
+                                        <figure class="close__figure">
+                                          <img src="/assets/icon-close.svg" alt="Icon Close" class="close__img">
+                                        </figure>
+                                      </div>
+                                    </article>
                                   </div>
-                                  <div class="close__modal close__modal__limpieza">
-                                    <figure class="close__figure">
-                                      <img src="/assets/icon-close.svg" alt="Icon Close" class="close__img">
-                                    </figure>
-                                  </div>
-                                </article>
-                              </div>
-                            </section>
-                            <section class="modal__fixed">
-                              <div class="flex-c-c modal modal__reservado">
-                                <article class="flex-c-c article__modal">
-                                  <h5 class="modal__title">Selecciona Opción</h5>
-                                  <div class="flex-c-c modal__btns">
-                                    <button type="button" class="btn__modal__action modal__cancel--reservado">Cancelar</button>
-                                    <a href="/reservation/{{reservationId}}/details" class="btn__modal__action action--reservar">Detalles</a>
-                                  </div>
-                                  <div class="close__modal close__modal__reservado">
-                                    <figure class="close__figure">
-                                      <img src="/assets/icon-close.svg" alt="Icon Close" class="close__img">
-                                    </figure>
-                                  </div>
-                                </article>
-                              </div>
-                            </section>
-                            <section class="modal__fixed">
-                              <div class="flex-c-c modal modal__ocupado">
-                                <article class="flex-c-c article__modal">
-                                  <h5 class="modal__title">Selecciona Opción</h5>
-                                  <div class="flex-c-c modal__btns">
-                                    <button type="button" class="btn__modal__action modal__cancel--ocupado">Cancelar</button>
-                                    <a href="/occupation/{{occupationId}}/details" class="btn__modal__action action--actividad">Detalles</a>
-                                  </div>
-                                  <div class="close__modal close__modal__ocupado">
-                                    <figure class="close__figure">
-                                      <img src="/assets/icon-close.svg" alt="Icon Close" class="close__img">
-                                    </figure>
-                                  </div>
-                                </article>
-                              </div>
-                            </section>
-                          </article>
-                        {{/each}}
-                        <h5 class="filter__empty" style="display: none;">No hay habitaciones para mostrar 😿</h5>
-                      </div>
-                    </section>
-                  </div>
-                {{else}}
-                  <h5 class="items__empty">No hay Habitaciones para mostrar 😿</h5>
-                {{/if}}
-              </div>
-            </article>
-          </div>
-        </div>
-      </section>
-      <section class="section__container">
-        <div class="section__content">
-          <div class="container">
-            <article class="article__primary">
-              <div class="primary__content">
-                <h5 class="section__title">Historial de habitaciones:</h5>
-                {{#if roomsHistory}}
-                  <section class="items">
-                    <div class="items__container__elements">
-                      <section class="views__container--elements view__scrollbar">
-                        <div class="views__content--elements items__container index__room__history">
-                          <article class="items__header items__grid index__room__history">
-                            <div class="flex-c-c">Tipo de Registro:</div>
-                            <div class="flex-c-c">Registrado por:</div>
-                            <div class="flex-c-c">Habitación:</div>
-                            <div class="flex-c-c">Descripción:</div>
-                            <div class="flex-c-c">Categoría:</div>
-                            <div class="flex-c-c">Precio:</div>
-                            <div class="flex-c-c">Estado:</div>
-                            <div class="flex-c-c">Fecha Registro:</div>
-                          </article>
-                          <div class="items__data--values">
-                            {{#each roomsHistory}}
-                              <div class="container__data">
-                                <article class="items__data items__grid index__room__history">
-                                  <div class="flex-c-c"><span class="span__data__item tipo__historial">{{tipoHistorial}}</span></div>
-                                  <div class="flex-c-c">{{habitacionHistorial.usuarioRegistroHabitacion.usuario}}</div>
-                                  <div class="flex-c-c">{{habitacionHistorial.numeroHabitacion}}</div>
-                                  <div class="flex-c-c">{{habitacionHistorial.descripcionHabitacion}}</div>
-                                  <div class="flex-c-c">{{habitacionHistorial.categoriaHabitacion.nombreCategoriaHabitacion}}</div>
-                                  <div class="flex-c-c">S/ {{formatCurrency habitacionHistorial.precioHabitacion}}</div>
-                                  <div class="flex-c-c"><span class="span__data__item status__room">{{habitacionHistorial.estadoHabitacion}}</span></div>
-                                  <div class="flex-c-c">{{formatDateTime habitacionHistorial.createdAt}}</div>
-                                </article>
-                              </div>
+                                </section>
+                              </article>
                             {{/each}}
+                            <h5 class="filter__empty" style="display: none;">No hay habitaciones para mostrar 😿</h5>
                           </div>
-                        </div>
-                      </section>
-                    </div>
-                  </section>
-                {{else}}
-                  <h5 class="items__empty">No hay historial de habitaciones para mostrar 😿</h5>
-                {{/if}}
+                        </section>
+                      </div>
+                    {{else}}
+                      <h5 class="items__empty">No hay Habitaciones para mostrar 😿</h5>
+                    {{/if}}
+                  </div>
+                </article>
               </div>
-            </article>
-          </div>
-        </div>
-      </section>
+            </div>
+          </section>
+        {{/hasPermission}}
+      {{/if}}
     {{/if}}
   </section>
 </div>

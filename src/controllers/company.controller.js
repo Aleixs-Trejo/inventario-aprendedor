@@ -67,6 +67,8 @@ companyCtrl.registerCompany = async (req, res) => {
 
     const imagenCompany = req.file.filename;
 
+    const planCompany = "basico";
+
     const limits = getPlanLimits(planCompany);
 
     // Validar si hay otra empresa registrada
@@ -79,7 +81,7 @@ companyCtrl.registerCompany = async (req, res) => {
       correoCompany,
       direccionCompany,
       imagenCompany,
-      planCompany: "basico",
+      planCompany,
       ...limits
     });
 
