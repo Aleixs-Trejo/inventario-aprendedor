@@ -46,7 +46,7 @@
                     </figure>
                   </a>
                   {{#hasPermission permisosRol "editar-company"}}
-                    <a href="/company/details" class="configuration profile__logout">
+                    <a href="/company/{{company._id}}/details" class="configuration profile__logout">
                       <span class="logout__span">Configuración</span>
                       <figure class="logout__figure">
                         <img src="/assets/icon-settings.svg" id="logout" alt="Icon Logout" class="logout__img">
@@ -539,30 +539,32 @@
         <img src="/assets/icon-arrow--aside.svg" alt="Icon Arrow" class="toggle__img">
       </figure>
     </div>
-    <script>
-      document.addEventListener("DOMContentLoaded", async () => {
-        try{
-          const response = await fetch(`/stores/low-stock-count`);
+    {{#hasPermission permisosRol "alertas-almacen"}}
+      <script>
+        document.addEventListener("DOMContentLoaded", async () => {
+          try{
+            const response = await fetch(`/stores/low-stock-count`);
 
-          const data = await response.json();
+            const data = await response.json();
 
-          if (data) {
-            const lowStockCount = data.lowStockProducts || 0;
+            if (data) {
+              const lowStockCount = data.lowStockProducts || 0;
 
-            const listElement = document.querySelector(".element__store");
-            if (lowStockCount > 0) {
-              listElement.classList.add("stock__alert__min");
-              const spanElement = document.createElement("span");
-              spanElement.classList.add("stock__count");
-              spanElement.textContent = lowStockCount;
-              listElement.appendChild(spanElement);
+              const listElement = document.querySelector(".element__store");
+              if (lowStockCount > 0) {
+                listElement.classList.add("stock__alert__min");
+                const spanElement = document.createElement("span");
+                spanElement.classList.add("stock__count");
+                spanElement.textContent = lowStockCount;
+                listElement.appendChild(spanElement);
+              }
             }
-          }
 
-        } catch (error) {
-          console.error("Error: ", error);
-        }
-      });
-    </script>
+          } catch (error) {
+            console.error("Error: ", error);
+          }
+        });
+      </script>
+    {{/hasPermission}}
   {{/if}}
 {{/if}}

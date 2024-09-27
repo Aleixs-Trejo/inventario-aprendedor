@@ -1,24 +1,5 @@
 {{#if user}}
-  <div class="sub__header sub__header--fixed">
-    <div class="sub__header__container">
-      <article class="sub__header__content">
-        <section class="section__sub__header">
-          <article class="article__sub__header sub__header__actions">
-            <div class="sub__header__actions__container">
-              <div class="sub__header__action">
-                <a href="/employees" class="sub__header__link">
-                  <figure class="sub__header__figure">
-                    <img src="/assets/icon-back.svg" alt="Icon back" class="sub__header__img">
-                  </figure>
-                </a>
-                <span class="sub__header__span">Volver</span>
-              </div>
-            </div>
-          </article>
-        </section>
-      </article>
-    </div>
-  </div>
+  {{> back-form backUrl = "/employees"}}
 {{/if}}
 <div class="section__all--forms">
   <div class="container__form__container">

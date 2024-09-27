@@ -28,6 +28,6 @@ router.post("/company/register", maxCompanies, upload.single("imagenCompany"), r
 router.get("/company/:id/details", isAuthenticated, havePermission("ver-company"), renderDetailsCompany);
 
 // Editar detalles de una compañía
-router.post("/company/:id/edit", isAuthenticated, havePermission("editar-company"), upload.single("imagenCompany"), renderDetailsCompany);
+router.post("/company/:id/update", isAuthenticated, havePermission("editar-company"), upload.single("imagenCompany"), renderDetailsCompany);
 
 module.exports = router;

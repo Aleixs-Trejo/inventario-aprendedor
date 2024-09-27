@@ -1,0 +1,85 @@
+<section class="section__all--views">
+  <div class="content__views">
+    <div class="container views__container">
+      <div class="card__items">
+        <div class="items__elements__title">
+          <h5 class="items__name">Registros</h5>
+        </div>
+        <div class="sub__header">
+          <div class="sub__header__container">
+            <article class="sub__header__content">
+              <section class="section__sub__header">
+                <article class="article__sub__header sub__header__actions">
+                  <div class="sub__header__actions__container">
+                    <div class="sub__header__action">
+                      <a href="/" class="sub__header__link">
+                        <figure class="sub__header__figure">
+                          <img src="/assets/icon-back.svg" alt="Icon Back" class="sub__header__img">
+                        </figure>
+                      </a>
+                      <span class="sub__header__span">Volver</span>
+                    </div>
+                    {{#if records}}
+                      <div class="sub__header__action action__export--excel">
+                        <a href="/records/export-excel" class="sub__header__link">
+                          <figure class="sub__header__figure">
+                            <img src="/assets/icon-excel.svg" alt="Icon Excel" class="sub__header__img">
+                          </figure>
+                        </a>
+                        <span class="sub__header__span">Exportar</span>
+                      </div>
+                    {{/if}}
+                  </div>
+                </article>
+              </section>
+            </article>
+          </div>
+        </div>
+        {{#if records}}
+          <section class="items">
+            <div class="items__container__elements">
+              <section class="views__container--elements view__scrollbar">
+                <div class="views__content--elements items__container records">
+                  <article class="items__header items__grid records">
+                    <div class="flex-c-c">Registrado por</div>
+                    <div class="flex-c-c">Tipo de Registro</div>
+                    <div class="flex-c-c">Cod</div>
+                    <div class="flex-c-c">Producto</div>
+                    <div class="flex-c-c">Descripción</div>
+                    <div class="flex-c-c">Proveedor</div>
+                    <div class="flex-c-c">Categoría</div>
+                    <div class="flex-c-c">Sucursal</div>
+                    <div class="flex-c-c">Venta Asociada</div>
+                    <div class="flex-c-c">Cantidad</div>
+                    <div class="flex-c-c">Fecha Registro</div>
+                  </article>
+                  <div class="items__data--values" id="data-container">
+                    {{#each records}}
+                      <div class="container__data">
+                        <article class="items__data items__grid records record__data">
+                          <div class="flex-c-c">{{usuarioRegistroRegistro.usuario}}</div>
+                          <div class="flex-c-c tipo__registro" data-tipo="{{tipoRegistro}}">{{tipoRegistro}}</div>
+                          <div class="flex-c-c nombre__producto" data-cod="{{productoRegistro.cod}}">{{productoRegistro.cod}}</div>
+                          <div class="flex-c-c nombre__producto" data-nombre="{{productoRegistro.nombreProducto}}">{{productoRegistro.nombreProducto}}</div>
+                          <div class="flex-c-c descripcion__producto" data-descripcion="{{productoRegistro.descripcionProducto}}">{{productoRegistro.descripcionProducto}}</div>
+                          <div class="flex-c-c proveedor__producto" data-proveedor="{{proveedorProductoRegistro.nombreProveedor}}">{{proveedorProductoRegistro.nombreProveedor}}</div>
+                          <div class="flex-c-c categoria__producto" data-categoria="{{categoriaProductoRegistro.nombreCategoria}}">{{categoriaProductoRegistro.nombreCategoria}}</div>
+                          <div class="flex-c-c sucursal__producto" data-sucursal="{{sucursalRegistro.nombreStockUbicacion}}">{{sucursalRegistro.nombreStockUbicacion}}</div>
+                          <div class="flex-c-c venta__producto" data-venta="{{ventaAsociada.ventaID}}">{{#if ventaAsociada}}{{ventaAsociada.ventaID}}{{else}}-{{/if}}</div>
+                          <div class="flex-c-c cantidad__producto" data-cantidad="{{cantidadProductoRegistro}}">{{cantidadProductoRegistro}}</div>
+                          <div class="flex-c-c fecha__producto">{{formatDateTime createdAt}}</div>
+                        </article>
+                      </div>
+                    {{/each}}
+                  </div>
+                </div>
+              </section>
+            </div>
+          </section>
+        {{else}}
+          <h5 class="items__empty">No hay Registros para mostrar 😿</h5>
+        {{/if}}
+      </div>
+    </div>
+  </div>
+</section>

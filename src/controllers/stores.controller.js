@@ -5,6 +5,7 @@ const Store = require("../models/storeModel");
 const Product = require("../models/productModel");
 const StockLocation = require("../models/stockLocationModel");
 const StoreHistory = require("../models/storeHistoryModel");
+const Record = require("../models/recordModel");
 
 //Registrar productos en almacén
 storeCtrl.renderRegisterStore = async (req, res) => {
@@ -98,6 +99,20 @@ storeCtrl.registerStore = async (req, res) => {
             almacenMinStockHistorial: almacenMinStock
           });
           await newStoreHistory.save();
+
+          // Guardar registro como Ingreso
+          const newRecord = new Record({
+            usuarioRegistroRegistro: req.user._id,
+            tipoRegistro: "Ingreso",
+            productoRegistro: almacenProducto,
+            sucursalRegistro: almacenStockUbicacion,
+            ventaAsociada: null,
+            proveedorProductoRegistro: productInProducts.proveedorProducto,
+            categoriaProductoRegistro: productInProducts.categoriaProducto,
+            cantidadProductoRegistro: stock
+          });
+          console.log("Registro creado: ", newRecord);
+          await newRecord.save();
         } else {
           // Producto no encontrado, agregar al almacén
           const newStore = new Store({
@@ -120,6 +135,20 @@ storeCtrl.registerStore = async (req, res) => {
             almacenMinStockHistorial: minStock
           });
           await newStoreHistory.save();
+
+          // Guardar registro como Ingreso
+          const newRecord = new Record({
+            usuarioRegistroRegistro: req.user._id,
+            tipoRegistro: "Ingreso",
+            productoRegistro: almacenProducto,
+            sucursalRegistro: almacenStockUbicacion,
+            ventaAsociada: null,
+            proveedorProductoRegistro: productInProducts.proveedorProducto,
+            categoriaProductoRegistro: productInProducts.categoriaProducto,
+            cantidadProductoRegistro: stock
+          });
+          console.log("Registro creado: ", newRecord);
+          await newRecord.save();
         }
 
         await productInProducts.save();
@@ -146,7 +175,7 @@ storeCtrl.findLowStockProducts = async (req, res) => {
       eliminadoProductoAlmacen: false,
       $expr: { $lte: ["$almacenStock", "$almacenMinStock"] }
     });
-  
+
     res.json({lowStockProducts});
   } catch (error) {
     req.flash("wrong", "Ocurrió un error, intente nuevamente.");
@@ -226,14 +255,28 @@ storeCtrl.updateStore = async (req, res) => {
     const updatedStoreItem = req.body; // Obtener nuevos datos del formulario
 
     // Producto editado
-    const editedStoreItem = await Store.findById(id);
+    const editedStoreItem = await Store.findById(id)
+      .populate({
+        path: "almacenProducto",
+        populate: {
+          path: "proveedorProducto categoriaProducto"
+        }
+      })
+      .populate("almacenStockUbicacion");
 
     // Verificar misma ubicación
     const existingProductSameLocation = await Store.findOne({
       almacenProducto: editedStoreItem.almacenProducto,
       almacenStockUbicacion: updatedStoreItem.almacenStockUbicacion,
       _id: { $ne: id }
-    });
+    })
+      .populate({
+        path: "almacenProducto",
+        populate: {
+          path: "proveedorProducto categoriaProducto"
+        }
+      })
+      .populate("almacenStockUbicacion");
 
     // Unir stocks
     if (existingProductSameLocation) {
@@ -256,10 +299,31 @@ storeCtrl.updateStore = async (req, res) => {
       });
       await newStoreHistory.save();
 
+      // Guardar registro como Modificacion
+      const newRecord = new Record({
+        usuarioRegistroRegistro: req.user._id,
+        tipoRegistro: "Modificacion-sucursal",
+        productoRegistro: editedStoreItem.almacenProducto,
+        sucursalRegistro: editedStoreItem.almacenStockUbicacion,
+        ventaAsociada: null,
+        proveedorProductoRegistro: existingProductSameLocation.almacenProducto.proveedorProducto,
+        categoriaProductoRegistro: existingProductSameLocation.almacenProducto.categoriaProducto,
+        cantidadProductoRegistro: editedStoreItem.almacenStock
+      });
+      console.log("Registro creado: ", newRecord);
+      await newRecord.save();
+
       req.flash("success", "Producto actualizado exitosamente.");
       res.redirect("/stores");
     } else {
-      const updatedStore = await Store.findByIdAndUpdate(id, updatedStoreItem, {new: true});
+      const updatedStore = await Store.findByIdAndUpdate(id, updatedStoreItem, {new: true})
+        .populate({
+          path: "almacenProducto",
+          populate: {
+            path: "proveedorProducto categoriaProducto"
+          }
+        })
+        .populate("almacenStockUbicacion");
 
       // Guardar entrada en el historial
       const newStoreHistory = new StoreHistory({
@@ -272,6 +336,20 @@ storeCtrl.updateStore = async (req, res) => {
         almacenMinStockHistorial: updatedStoreItem.almacenMinStock
       });
       await newStoreHistory.save();
+
+      // Guardar registro como Modificacion
+      const newRecord = new Record({
+        usuarioRegistroRegistro: req.user._id,
+        tipoRegistro: "Modificacion",
+        productoRegistro: updatedStoreItem.almacenProducto,
+        sucursalRegistro: updatedStoreItem.almacenStockUbicacion,
+        ventaAsociada: null,
+        proveedorProductoRegistro: updatedStore.almacenProducto.proveedorProducto,
+        categoriaProductoRegistro: updatedStore.almacenProducto.categoriaProducto,
+        cantidadProductoRegistro: updatedStoreItem.almacenStock
+      });
+      console.log("Registro creado: ", newRecord);
+      await newRecord.save();
 
       req.flash("success", "Producto actualizado exitosamente.");
       res.redirect("/stores");

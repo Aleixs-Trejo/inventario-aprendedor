@@ -19,22 +19,28 @@
                       </a>
                       <span class="sub__header__span">Volver</span>
                     </div>
-                    <div class="sub__header__action">
-                      <a href="/categories/register" class="sub__header__link">
-                        <figure class="sub__header__figure">
-                          <img src="/assets/icon-add.svg" alt="Icon Add" class="sub__header__img">
-                        </figure>
-                      </a>
-                      <span class="sub__header__span">Nueva Categoría</span>
-                    </div>
-                    <div class="sub__header__action">
-                      <a href="/categories/history" class="sub__header__link">
-                        <figure class="sub__header__figure">
-                          <img src="/assets/icon-history.svg" alt="Icon History" class="sub__header__img">
-                        </figure>
-                      </a>
-                      <span class="sub__header__span">Historial</span>
-                    </div>
+                    {{#hasPermission permisosRol "crear-categoria"}}
+                      <div class="sub__header__action">
+                        <a href="/categories/register" class="sub__header__link">
+                          <figure class="sub__header__figure">
+                            <img src="/assets/icon-add.svg" alt="Icon Add" class="sub__header__img">
+                          </figure>
+                        </a>
+                        <span class="sub__header__span">Nueva Categoría</span>
+                      </div>
+                    {{/hasPermission}}
+                    {{#if categories}}
+                      {{#hasPermission permisosRol "historial-categoria"}}
+                        <div class="sub__header__action">
+                          <a href="/categories/history" class="sub__header__link">
+                            <figure class="sub__header__figure">
+                              <img src="/assets/icon-history.svg" alt="Icon History" class="sub__header__img">
+                            </figure>
+                          </a>
+                          <span class="sub__header__span">Historial</span>
+                        </div>
+                      {{/hasPermission}}
+                    {{/if}}
                   </div>
                 </article>
               </section>
@@ -62,22 +68,28 @@
                           <div class="flex-c-c">{{descripcionCategoria}}</div>
                           <div class="flex-c-c">{{formatDateTime createdAt}}</div>
                           <div class="flex-c-c items__data--options">
-                            <a href="/categories/{{_id}}/details" class="options__action">
-                              <figure class="options__figure">
-                                <img src="/assets/icon-edit.svg" alt="Icon Details" class="options__img">
-                              </figure>
-                              <span class="span__detail">Detalles</span>
-                            </a>
-                            <a href="/categories/{{_id}}/edit" class="options__action">
-                              <figure class="options__figure">
-                                <img src="/assets/icon-edit.svg" alt="Icon Edit" class="options__img">
-                              </figure>
-                            </a>
-                            <a href="/categories/{{_id}}/confirm-delete" class="options__action">
-                              <figure class="options__figure">
-                                <img src="/assets/icon-delete.svg" alt="Icon Delete" class="options__img">
-                              </figure>
-                            </a>
+                            {{#hasPermission ../permisosRol "ver-categoria-detalle"}}
+                              <a href="/categories/{{_id}}/details" class="options__action">
+                                <figure class="options__figure">
+                                  <img src="/assets/icon-edit.svg" alt="Icon Details" class="options__img">
+                                </figure>
+                                <span class="span__detail">Detalles</span>
+                              </a>
+                            {{/hasPermission}}
+                            {{#hasPermission ../permisosRol "editar-categoria"}}
+                              <a href="/categories/{{_id}}/edit" class="options__action">
+                                <figure class="options__figure">
+                                  <img src="/assets/icon-edit.svg" alt="Icon Edit" class="options__img">
+                                </figure>
+                              </a>
+                            {{/hasPermission}}
+                            {{#hasPermission ../permisosRol "eliminar-categoria"}}
+                              <a href="/categories/{{_id}}/confirm-delete" class="options__action">
+                                <figure class="options__figure">
+                                  <img src="/assets/icon-delete.svg" alt="Icon Delete" class="options__img">
+                                </figure>
+                              </a>
+                            {{/hasPermission}}
                           </div>
                         </article>
                       </div>

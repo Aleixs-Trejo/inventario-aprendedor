@@ -29,7 +29,9 @@ app.engine(".hbs", exphbs.engine(
       eq: function (a, b){
         return a === b; // devuelve true si son iguales
       },
-      or: (...args) => args[0] || args[1],
+      or: (...args) => {
+        return args.some(Boolean);
+      },
       formatDateTime,
       formatCurrency,
       hasPermission,
@@ -120,6 +122,7 @@ app.use(require("./routes/stockLocations.routes"));
 app.use(require("./routes/stores.routes"));
 app.use(require("./routes/sales.routes"));
 app.use(require("./routes/storeHistory.routes"));
+app.use(require("./routes/records.routes"));
 app.use(require("./routes/categoriesHistory.routes"));
 app.use(require("./routes/clientsHistory.routes"));
 app.use(require("./routes/employeesHistory.routes"));
@@ -154,9 +157,9 @@ app.use(require("./routes/salesHotelHistory.routes"));
 //Static Files
 app.use(express.static(path.join(__dirname, "public")));
 
-/* // Redirigir a principal en caso de que la ruta no exista
+// Redirigir a principal en caso de que la ruta no exista
 app.use((req, res, next) => {
   res.status(404).redirect("/");
-}); */
+});
 
 module.exports = app;

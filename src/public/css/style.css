@@ -428,6 +428,7 @@ input[type="number"]::-webkit-outer-spin-button{
   & .form__group--permisos {
     flex-direction: column;
     align-items: flex-start;
+    align-items: stretch;
     & .permisos__header {
       cursor: pointer;
       width: 100%;
@@ -1298,6 +1299,7 @@ input[type="number"]::-webkit-outer-spin-button{
 .body:has(.header) .main__content:has(.index__main) {
   height: unset;
   min-height: 100dvh;
+  min-height: calc(100dvh - var(--header__height));
 }
 
 .body:not(:has(.aside)) .main {
@@ -2136,7 +2138,7 @@ input[type="number"]::-webkit-outer-spin-button{
 }
 
 .items__container.records{
-  min-width: 30rem;
+  min-width: 115rem;
 }
 
 .items__container.stores{
@@ -2168,7 +2170,7 @@ input[type="number"]::-webkit-outer-spin-button{
 }
 
 .items__container.categories__history{
-  min-width: 45rem;
+  min-width: 50rem;
 }
 
 .items__container.employees__history{
@@ -2351,7 +2353,7 @@ input[type="number"]::-webkit-outer-spin-button{
 }
 
 .records{
-  grid-template-columns: 25% 1fr 7rem;
+  grid-template-columns: 9% 9% 5% 9% 1fr 9% 9% 9% 9% 7% 9%;
 }
 
 .stores{
@@ -2383,7 +2385,7 @@ input[type="number"]::-webkit-outer-spin-button{
 }
 
 .categories__history{
-  grid-template-columns: 15% 18% 15% 1fr 15%;
+  grid-template-columns: 15% 18% 20% 1fr 15%;
 }
 
 .employees__history{
@@ -4288,6 +4290,7 @@ html.dark{
 
       & .input__search{
         width: 85%;
+        color: #ccc;
       }
     }
 
@@ -4407,7 +4410,7 @@ html.dark{
     }
   }
 
-  & .permisos__header:hover{
+  & .permisos__header:hover, .permissions__header:hover, .permissions__item:hover{
     background-color: var(--color__table__head__dark) !important;
   }
 

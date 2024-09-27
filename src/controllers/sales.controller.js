@@ -10,6 +10,7 @@ const Balance = require("../models/balanceModel");
 const Store = require("../models/storeModel");
 const Client = require("../models/clientModel");
 const Company = require("../models/companyModel");
+const Record = require("../models/recordModel");
 
 // Renderizar vista de nueva venta
 salesCtrl.renderRegisterSale = async (req, res) => {
@@ -111,7 +112,11 @@ salesCtrl.registerSale = async (req, res) => {
       const { productoVenta, cantidadVenta, descuentoProducto, importeProducto } = producto
 
       // Buscar el producto en el almacén
-      const productInStore = await Store.findById(productoVenta).populate('almacenProducto');
+      const productInStore = await Store.findById(productoVenta)
+        .populate({
+          path: "almacenProducto",
+          populate: "proveedorProducto categoriaProducto"
+        });
 
       if (productInStore) {
 
@@ -172,7 +177,35 @@ salesCtrl.registerSale = async (req, res) => {
       precioTotalVenta: precioTotalVentaRedondeado
     });
 
-    await newSale.save();
+    const savedSale = await newSale.save();
+
+    // Crear un registro por cada producto vendido
+    for (const producto of productosVenta) {
+      const { productoVenta, cantidadVenta } = producto;
+
+      const productoVentaStore = await Store.findById(productoVenta)
+        .populate({
+          path: "almacenProducto",
+          populate: {
+            path: "proveedorProducto categoriaProducto"
+          }
+        })
+        .populate("almacenStockUbicacion");
+
+      const newRecord = new Record({
+        usuarioRegistroRegistro: req.user._id,
+        tipoRegistro: "Salida",
+        productoRegistro: productoVentaStore.almacenProducto,
+        sucursalRegistro: productoVentaStore.almacenStockUbicacion,
+        ventaAsociada: savedSale,
+        proveedorProductoRegistro: productoVentaStore.almacenProducto.proveedorProducto,
+        categoriaProductoRegistro: productoVentaStore.almacenProducto.categoriaProducto,
+        cantidadProductoRegistro: cantidadVenta
+      });
+
+      console.log("Registro creado: ", newRecord);
+      await newRecord.save();
+    }
 
     req.flash("success", "Venta registrada exitosamente.");
     console.log("Venta registrada exitosamente.");
@@ -669,15 +702,33 @@ salesCtrl.cancelSale = async (req, res) => {
     const productosVendidos = sale.productosVenta;
 
     for (const producto of productosVendidos) {
-      const productInStore = await Store.findById(producto.productoVenta);
+      const productInStore = await Store.findById(producto.productoVenta)
+        .populate({
+          path: "almacenProducto",
+          populate: "proveedorProducto categoriaProducto"
+        });
 
       if (productInStore) {
         const cantidadProductoNum = parseInt(producto.cantidadVenta);
         
         if (!isNaN(cantidadProductoNum)) {
           productInStore.almacenStock += cantidadProductoNum;
-          console.log("cantidadProductNum", cantidadProductoNum);
           await productInStore.save();
+
+          // Guardar registro como Re-ingreso
+          const newRecord = new Record({
+            usuarioRegistroRegistro: req.user._id,
+            tipoRegistro: "Re-ingreso",
+            productoRegistro: productInStore.almacenProducto,
+            sucursalRegistro: productInStore.almacenStockUbicacion,
+            ventaAsociada: sale,
+            proveedorProductoRegistro: productInStore.almacenProducto.proveedorProducto,
+            categoriaProductoRegistro: productInStore.almacenProducto.categoriaProducto,
+            cantidadProductoRegistro: cantidadProductoNum
+          });
+
+          console.log("Registro creado: ", newRecord);
+          await newRecord.save();
         } else {
           // Manejar el caso en que cantidadProducto no sea un número válido
           req.flash("wrong", "La cantidad de productos vendidos no es un número válido.");

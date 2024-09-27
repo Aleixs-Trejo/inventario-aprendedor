@@ -74,7 +74,7 @@ helpers.havePermission = (permission) => {
         return next();
       }
       req.flash("wrong", "No tienes permisos para realizar esta acción.");
-      console.log("No tienes permiso para realizar esta acción");
+      console.log(`No tienes permiso para: ${permission}`);
       return res.redirect("/");
     } catch (error) {
       console.error("Error:", error);
