@@ -144,18 +144,33 @@ companyCtrl.updateCompany = async (req, res) => {
       nombreCompany,
       celularCompany,
       correoCompany,
-      direccionCompany,
-      imagenCompany
+      direccionCompany
     } = req.body;
+    
+    console.log("req.body: ", req.body);
+    console.log("req.file: ", req.file);
+    const imagenCompany = req.file.filename;
+    console.log("imagenCompany: ", imagenCompany);
 
-    if (!comercioCompany || !rucCompany || !nombreCompany || !celularCompany || !correoCompany || !direccionCompany || !imagenCompany) {
-      req.flash("wrong", "Los campos obligatorios no han sido llenados, intente nuevamente.");
+    const validationError = validateCompanyFields(req);
+    if (validationError) {
+      req.flash("wrong", validationError + ", intente nuevamente.");
+      console.log("Error al validar campos de registro: ", validationError);
       return res.redirect(`company/${id}/edit`);
     }
 
-    await Company.findByIdAndUpdate(id, req.body);
+
+    await Company.findByIdAndUpdate(id, {
+      comercioCompany,
+      rucCompany,
+      nombreCompany,
+      celularCompany,
+      correoCompany,
+      direccionCompany,
+      imagenCompany
+    });
     req.flash("success", "Datos de la empresa actualizados exitosamente.");
-    return res.redirect("/");
+    return res.redirect("/principal");
   } catch (error) {
     req.flash("wrong", "Ocurrió un error al actualizar la empresa, intente nuevamente.");
     console.log("Error: ", error);

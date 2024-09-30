@@ -8,7 +8,7 @@
             <h2 class="form__title">Editar Trabajador</h2>
             <div class="form__img">
               <figure class="login__figure">
-                <img src="/assets/logo-aprendedor.webp" alt="Logo Aprendedor" class="login__img">
+                <img src="{{logoUrl}}" alt="Logo Aprendedor" class="login__img">
               </figure>
             </div>
             <section class="form__container">
@@ -48,13 +48,8 @@
               <article class="form__group">
                 <select name="estadoTrabajador" id="estado_trabajador" class="form__input">
                   <option disabled>Estado:</option>
-                  {{#if (eq "activo" employee.estadoTrabajador)}}
-                    <option value="activo" selected>Activo</option>
-                    <option value="inactivo">Inactivo</option>
-                  {{else}}
-                    <option value="activo">Activo</option>
-                    <option value="inactivo" selected>Inactivo</option>
-                  {{/if}}
+                    <option value="activo" {{#if (eq "activo" employee.estadoTrabajador)}}selected{{/if}}>Activo</option>
+                    <option value="inactivo" {{#if (eq "inactivo" employee.estadoTrabajador)}}selected{{/if}}>Inactivo</option>
                 </select>
               </article>
               <button class="form__submit">Actualizar</button>

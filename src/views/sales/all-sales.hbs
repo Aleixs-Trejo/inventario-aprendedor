@@ -30,17 +30,17 @@
                           <span class="sub__header__span">Nueva Venta</span>
                         </div>
                       {{/hasPermission}}
+                      {{#hasPermission permisosRol "historial-venta"}}
+                        <div class="sub__header__action">
+                          <a href="/sales/history" class="sub__header__link">
+                            <figure class="sub__header__figure">
+                              <img src="/assets/icon-history.svg" alt="Icon History" class="sub__header__img">
+                            </figure>
+                          </a>
+                          <span class="sub__header__span">Historial</span>
+                        </div>
+                      {{/hasPermission}}
                       {{#if sales}}
-                        {{#hasPermission permisosRol "historial-venta"}}
-                          <div class="sub__header__action">
-                            <a href="/sales/history" class="sub__header__link">
-                              <figure class="sub__header__figure">
-                                <img src="/assets/icon-history.svg" alt="Icon History" class="sub__header__img">
-                              </figure>
-                            </a>
-                            <span class="sub__header__span">Historial</span>
-                          </div>
-                        {{/hasPermission}}
                         {{#hasPermission permisosRol "exportar-venta"}}
                           <div class="sub__header__action action__export--excel">
                             <a href="/sales/export-excel" class="sub__header__link">

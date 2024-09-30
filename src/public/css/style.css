@@ -2401,7 +2401,7 @@ input[type="number"]::-webkit-outer-spin-button{
 }
 
 .sales{
-  grid-template-columns: 8% 1fr 13% 13% 6% 7% 7% 7% 7% 10% 20rem;
+  grid-template-columns: 8% 1fr 11% 11% 6% 7% 7% 7% 7% 10% 20rem;
 }
 
 .items__container.sales:not(:has(.option__pending)) .sales{
