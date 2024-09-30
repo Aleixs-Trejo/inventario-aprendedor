@@ -26,44 +26,40 @@
           </div>
         </div>
         {{#if checkOutHotelHistory}}
-          {{#if userRole}}
-            {{#if (eq userRole "Admin")}}
-              <section class="items">
-                <div class="items__container__elements">
-                  <section class="views__container--elements view__scrollbar">
-                    <div class="views__content--elements items__container checkouts__history">
-                      <article class="items__header items__grid checkouts__history">
-                        <div class="flex-c-c">Tipo Historial:</div>
-                        <div class="flex-c-c">Cerrado por:</div>
-                        <div class="flex-c-c">ID:</div>
-                        <div class="flex-c-c">Cantidad Checkouts:</div>
-                        <div class="flex-c-c">Total Adicional:</div>
-                        <div class="flex-c-c">Total Descuentos:</div>
-                        <div class="flex-c-c">Total Ingresos:</div>
-                        <div class="flex-c-c">Fecha Cierre:</div>
-                      </article>
-                      <div class="items__data--values">
-                        {{#each checkOutHotelHistory}}
-                          <div class="container__data">
-                            <article class="items__data items__grid checkouts__history">
-                              <div class="flex-c-c"><span class="span__data__item tipo__historial">{{this.tipoHistorial}}</span></div>
-                              <div class="flex-c-c">{{usuarioCierreCheckOuts.usuario}}</div>
-                              <div class="flex-c-c">{{_id}}</div>
-                              <div class="flex-c-c">{{cantidadCierreCheckOuts}}</div>
-                              <div class="flex-c-c">S/{{formatCurrency totalAdicionalesCheckOuts}}</div>
-                              <div class="flex-c-c">-S/{{formatCurrency totalDescuentosCheckOuts}}</div>
-                              <div class="flex-c-c">+S/{{formatCurrency totalImporteCheckOuts}}</div>
-                              <div class="flex-c-c">{{formatDateTime createdAt}}</div>
-                            </article>
-                          </div>
-                        {{/each}}
+          <section class="items">
+            <div class="items__container__elements">
+              <section class="views__container--elements view__scrollbar">
+                <div class="views__content--elements items__container checkouts__history">
+                  <article class="items__header items__grid checkouts__history">
+                    <div class="flex-c-c">Tipo Historial:</div>
+                    <div class="flex-c-c">Cerrado por:</div>
+                    <div class="flex-c-c">ID:</div>
+                    <div class="flex-c-c">Cantidad Checkouts:</div>
+                    <div class="flex-c-c">Total Adicional:</div>
+                    <div class="flex-c-c">Total Descuentos:</div>
+                    <div class="flex-c-c">Total Ingresos:</div>
+                    <div class="flex-c-c">Fecha Cierre:</div>
+                  </article>
+                  <div class="items__data--values">
+                    {{#each checkOutHotelHistory}}
+                      <div class="container__data">
+                        <article class="items__data items__grid checkouts__history">
+                          <div class="flex-c-c"><span class="span__data__item tipo__historial">{{this.tipoHistorial}}</span></div>
+                          <div class="flex-c-c">{{usuarioCierreCheckOuts.usuario}}</div>
+                          <div class="flex-c-c">{{_id}}</div>
+                          <div class="flex-c-c">{{cantidadCierreCheckOuts}}</div>
+                          <div class="flex-c-c">S/{{formatCurrency totalAdicionalesCheckOuts}}</div>
+                          <div class="flex-c-c">-S/{{formatCurrency totalDescuentosCheckOuts}}</div>
+                          <div class="flex-c-c">+S/{{formatCurrency totalImporteCheckOuts}}</div>
+                          <div class="flex-c-c">{{formatDateTime createdAt}}</div>
+                        </article>
                       </div>
-                    </div>
-                  </section>
+                    {{/each}}
+                  </div>
                 </div>
               </section>
-            {{/if}}
-          {{/if}}
+            </div>
+          </section>
         {{else}}
           <h5 class="items__empty">No hay Historial de Checkouts para mostrar 😿</h5>
         {{/if}}

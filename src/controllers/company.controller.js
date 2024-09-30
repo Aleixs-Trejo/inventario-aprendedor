@@ -2,7 +2,6 @@ const companyCtrl = {};
 
 const Company = require("../models/companyModel");
 const User = require("../models/userModel");
-const getPlanLimits = require("../config/planLimits");
 
 // Renderizar vista para registrar empresa
 companyCtrl.renderRegisterCompany = async (req, res) => {
@@ -69,8 +68,6 @@ companyCtrl.registerCompany = async (req, res) => {
 
     const planCompany = "basico";
 
-    const limits = getPlanLimits(planCompany);
-
     // Validar si hay otra empresa registrada
 
     const newCompany = new Company({
@@ -81,8 +78,7 @@ companyCtrl.registerCompany = async (req, res) => {
       correoCompany,
       direccionCompany,
       imagenCompany,
-      planCompany,
-      ...limits
+      planCompany
     });
 
     await newCompany.save();

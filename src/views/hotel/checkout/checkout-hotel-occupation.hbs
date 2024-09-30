@@ -327,72 +327,74 @@
                   </div>
                 </div>
               </section>
-              <section class="details__footer details__footer--checkout">
-                <form action="{{actionUrl}}" method="POST" class="form__checkout">
-                  <div class="details__footer__container">
-                    <article class="card__content card__content__checkout">
-                      <div class="card card__info card__info__checkout">
-                        <div class="card__header">
-                          <h5 class="card__title">CheckOut</h5>
-                        </div>
-                        <div class="card__body">
-                          <div class="card__body__content">
-                            <ul class="card__body__content__ul">
-                              <li class="content__li">
-                                <article class="form__group form__group--select us__sel">
-                                  <label for="habitacion_checkout" class="form__label--select">Habitación:</label>
-                                  <select name="habitacionCheckOut" class="form__input us__sel" id="habitacion_checkout">
-                                    <option value="{{room._id}}" selected>{{room.numeroHabitacion}}</option>
-                                  </select>
-                                </article>
-                              </li>
-                              <li class="content__li">
-                                <label for="importe_adicional_checkout" class="label__checkout">Adicional:</label>
-                                <input type="number" name="importeAdicionalCheckOut" id="importe_adicional_checkout" class="form__input" required title="Importe Adicional" onkeypress="return event.charCode >= 48 && event.charCode <= 57">
-                              </li>
-                              <li class="content__li">
-                                <label for="descuento_checkout" class="label__checkout">Descuento:</label>
-                                <input type="number" name="descuentoCheckOut" id="descuento_checkout" class="form__input" required title="Descuento" onkeypress="return event.charCode >= 48 && event.charCode <= 57">
-                              </li>
-                              <li class="content__li">
-                                <label for="importe_total_checkout" class="label__checkout">Total:</label>
-                                <input type="number" name="importeTotalCheckOut" id="importe_total_checkout" class="form__input us__sel" required title="Importe Total" readonly>
-                              </li>
-                              <li class="content__li">
-                                <label for="comentarios_checkout" class="label__checkout">Comentarios:</label>
-                                <textarea name="comentariosCheckOut" id="comentarios_checkout" class="form__input form__textarea" required title="Comentarios"></textarea>
-                              </li>
-                            </ul>
+              {{#hasPermission permisosRol "finalizar-ocupacion"}}
+                <section class="details__footer details__footer--checkout">
+                  <form action="{{actionUrl}}" method="POST" class="form__checkout">
+                    <div class="details__footer__container">
+                      <article class="card__content card__content__checkout">
+                        <div class="card card__info card__info__checkout">
+                          <div class="card__header">
+                            <h5 class="card__title">CheckOut</h5>
                           </div>
-                        </div>
-                        <div class="card__footer">
-                          <div class="card__footer__content">
-                            <div class="card__footer__content__checkout">
-                              <button type="button" class="details__btn detail__btn--checkout">Checkout</button>
+                          <div class="card__body">
+                            <div class="card__body__content">
+                              <ul class="card__body__content__ul">
+                                <li class="content__li">
+                                  <article class="form__group form__group--select us__sel">
+                                    <label for="habitacion_checkout" class="form__label--select">Habitación:</label>
+                                    <select name="habitacionCheckOut" class="form__input us__sel" id="habitacion_checkout">
+                                      <option value="{{room._id}}" selected>{{room.numeroHabitacion}}</option>
+                                    </select>
+                                  </article>
+                                </li>
+                                <li class="content__li">
+                                  <label for="importe_adicional_checkout" class="label__checkout">Adicional:</label>
+                                  <input type="number" name="importeAdicionalCheckOut" id="importe_adicional_checkout" class="form__input" required title="Importe Adicional" onkeypress="return event.charCode >= 48 && event.charCode <= 57">
+                                </li>
+                                <li class="content__li">
+                                  <label for="descuento_checkout" class="label__checkout">Descuento:</label>
+                                  <input type="number" name="descuentoCheckOut" id="descuento_checkout" class="form__input" required title="Descuento" onkeypress="return event.charCode >= 48 && event.charCode <= 57">
+                                </li>
+                                <li class="content__li">
+                                  <label for="importe_total_checkout" class="label__checkout">Total:</label>
+                                  <input type="number" name="importeTotalCheckOut" id="importe_total_checkout" class="form__input us__sel" required title="Importe Total" readonly>
+                                </li>
+                                <li class="content__li">
+                                  <label for="comentarios_checkout" class="label__checkout">Comentarios:</label>
+                                  <textarea name="comentariosCheckOut" id="comentarios_checkout" class="form__input form__textarea" required title="Comentarios"></textarea>
+                                </li>
+                              </ul>
+                            </div>
+                          </div>
+                          <div class="card__footer">
+                            <div class="card__footer__content">
+                              <div class="card__footer__content__checkout">
+                                <button type="button" class="details__btn detail__btn--checkout">Checkout</button>
+                              </div>
                             </div>
                           </div>
                         </div>
-                      </div>
-                    </article>
-                  </div>
-                  <section class="modal__fixed">
-                    <div class="flex-c-c modal modal__checkout">
-                      <article class="flex-c-c article__modal">
-                        <h5 class="modal__title">¿Hacer checkout de la habitación?</h5>
-                        <div class="flex-c-c modal__btns">
-                          <button type="button" class="btn__modal__action btn__modal__action--cancelar cancel__modal--checkout">Cancelar</button>
-                          <button type="submit" class="btn__modal__action confirm__modal--checkout">Confirmar</button>
-                        </div>
-                        <div class="close__modal close__modal--checkout">
-                          <figure class="close__figure">
-                            <img src="/assets/icon-close.svg" alt="Icon Close" class="close__img">
-                          </figure>
-                        </div>
                       </article>
                     </div>
-                  </section>
-                </form>
-              </section>
+                    <section class="modal__fixed">
+                      <div class="flex-c-c modal modal__checkout">
+                        <article class="flex-c-c article__modal">
+                          <h5 class="modal__title">¿Hacer checkout de la habitación?</h5>
+                          <div class="flex-c-c modal__btns">
+                            <button type="button" class="btn__modal__action btn__modal__action--cancelar cancel__modal--checkout">Cancelar</button>
+                            <button type="submit" class="btn__modal__action confirm__modal--checkout">Confirmar</button>
+                          </div>
+                          <div class="close__modal close__modal--checkout">
+                            <figure class="close__figure">
+                              <img src="/assets/icon-close.svg" alt="Icon Close" class="close__img">
+                            </figure>
+                          </div>
+                        </article>
+                      </div>
+                    </section>
+                  </form>
+                </section>
+              {{/hasPermission}}
             </article>
           </div>
         {{else}}

@@ -6,33 +6,33 @@ const ProductHistory = require("../models/productHistoryModel");
 productHistoryCtrl.renderProductsHistory = async (req, res) => {
   try {
     const productsHistory = await ProductHistory.find()
-    .populate({
-      path: "usuarioHistorial",
-      populate: {
-        path: "trabajadorUsuario",
-        populate: "rolTrabajador"
-      }
-    })
-    .populate({
-      path: "productoHistorial",
-      populate: [
-        { path: "usuarioProducto" },
-        { path: "proveedorProducto",
+      .populate({
+        path: "usuarioHistorial",
         populate: {
-          path: "nombreProveedor"
-          }
-        },
-        { path: "categoriaProducto", 
-          populate: {
-            path: "nombreCategoria"
-          }
+          path: "trabajadorUsuario",
+          populate: "rolTrabajador"
         }
-      ]
-    })
-    .populate("proveedorProductoHistorial")
-    .populate("categoriaProductoHistorial")
-    .sort({createdAt: -1})
-    .lean();
+      })
+      .populate({
+        path: "productoHistorial",
+        populate: [
+          { path: "usuarioProducto" },
+          { path: "proveedorProducto",
+          populate: {
+            path: "nombreProveedor"
+            }
+          },
+          { path: "categoriaProducto", 
+            populate: {
+              path: "nombreCategoria"
+            }
+          }
+        ]
+      })
+      .populate("proveedorProductoHistorial")
+      .populate("categoriaProductoHistorial")
+      .sort({createdAt: -1})
+      .lean();
 
     res.render("products/history-products", {
       productsHistory

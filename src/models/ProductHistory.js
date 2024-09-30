@@ -38,9 +38,21 @@ const productHistorySchema = new Schema(
       type: String,
       required: true
     },
-    precioProductoHistorial: {
+    precioCompraProductoHistorial: {
       type: Number,
       required: true
+    },
+    precioVentaProductoHistorial: {
+      type: Number,
+      default: 0
+    },
+    stockSeguridadProductoHistorial: {
+      type: Number,
+      default: 10
+    },
+    stockMinimoProductoHistorial: {
+      type: Number,
+      default: 5
     }
   },
   {

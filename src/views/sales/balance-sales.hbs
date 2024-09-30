@@ -20,14 +20,16 @@
                       <span class="sub__header__span">Volver</span>
                     </div>
                     {{#if balances}}
-                      <div class="sub__header__action action__export--excel">
-                        <button class="sub__header__link" id="exportExcel">
-                          <figure class="sub__header__figure">
-                            <img src="/assets/icon-excel.svg" alt="Icon History" class="sub__header__img">
-                          </figure>
-                        </button>
-                        <span class="sub__header__span">Exportar</span>
-                      </div>
+                      {{#hasPermission permisosRol "exportar-balance"}}
+                        <div class="sub__header__action action__export--excel">
+                          <a href="/sales/balance/export-excel" class="sub__header__link" id="exportExcel">
+                            <figure class="sub__header__figure">
+                              <img src="/assets/icon-excel.svg" alt="Icon History" class="sub__header__img">
+                            </figure>
+                          </a>
+                          <span class="sub__header__span">Exportar</span>
+                        </div>
+                      {{/hasPermission}}
                     {{/if}}
                   </div>
                 </article>
@@ -68,7 +70,10 @@
                   <article class="items__header items__grid balances">
                     <div class="flex-c-c">Usuario:</div>
                     <div class="flex-c-c">Total de Ventas:</div>
+                    <div class="flex-c-c">Costos:</div>
                     <div class="flex-c-c">Ingresos:</div>
+                    <div class="flex-c-c">Descuentos:</div>
+                    <div class="flex-c-c">Ganancias:</div>
                     <div class="flex-c-c">Fecha de Cierre:</div>
                   </article>
                   <div class="items__data--values" id="balancesData">
@@ -77,7 +82,10 @@
                         <article class="items__data items__grid balances balance__data">
                           <div class="flex-c-c">{{usuarioRegistroBalance.usuario}}</div>
                           <div class="flex-c-c">{{totalVentas}}</div>
-                          <div class="flex-c-c">S/ <span class="ganancias__netas">{{formatCurrency gananciasNetas}}</span></div>
+                          <div class="flex-c-c">S/<span>{{formatCurrency costosNetos}}</span></div>
+                          <div class="flex-c-c">S/<span>{{formatCurrency totalIngresosBalance}}</span></div>
+                          <div class="flex-c-c">-S/<span>{{formatCurrency ventasBalance.totalDescuentosVentas}}</span></div>
+                          <div class="flex-c-c"><div class="balances__ganancias">S/<span class="ganancias__netas">{{formatCurrency gananciasNetas}}</span></div></div>
                           <div class="flex-c-c fecha__balance">{{formatDateTime ventasBalance.createdAt}}</div>
                         </article>
                       </div>
@@ -125,12 +133,9 @@
     function setInitialAndFinalDate() {
       const today = new Date();
       const firstDayOfMonth = new Date(today.getFullYear(), today.getMonth(), 1);
-      const lastDayOfMonth = new Date(today.getFullYear(), today.getMonth() + 1, 0);
 
-      if (filterButton) {
-        fechaInicialInput.value = firstDayOfMonth.toISOString().split("T")[0];
-        fechaFinalInput.value = lastDayOfMonth.toISOString().split("T")[0];
-      }
+      fechaInicialInput.value = firstDayOfMonth.toISOString().split("T")[0];
+      fechaFinalInput.value = today.toISOString().split("T")[0];
     }
 
     function initialize() {
@@ -164,8 +169,26 @@
       }
     }
 
+    // Validar fechas
+    function validateDates() {
+      const fechaInicial = new Date(fechaInicialInput.value);
+      const fechaFinal = new Date(fechaFinalInput.value);
+
+      if (fechaInicial > fechaFinal) {
+        alert("La fecha final debe ser mayor a la fecha inicial.");
+        return false;
+      }
+      return true;
+    }
+
     // Función para filtrar balances
     function filterBalances(fechaInicial, fechaFinal) {
+      if (!validateDates()) return;
+
+      // Establecer la hora de fecha inicial a las 00:00:00 y la fecha final a las 23:59:59
+      fechaInicial.setHours(0, 0, 0, 0);
+      fechaFinal.setHours(23, 59, 59, 999);
+
       const balances = document.querySelectorAll(".balance__views");
       balances.forEach(balance => {
         const balanceDateString = balance.querySelector(".fecha__balance").textContent;
@@ -197,6 +220,8 @@
         const fechaInicial = fechaInicialInput.value;
         const fechaFinal = fechaFinalInput.value;
 
+        if (!validateDates()) return;
+
         // Actualizar URL con los parámetros de fecha
         updateURL(fechaInicial, fechaFinal);
 
@@ -223,6 +248,7 @@
         const url = `/sales/balance/export-excel?fechaInicial=${fechaInicial}&fechaFinal=${fechaFinal}`;
         window.location.href = url;
         console.log("URL de exportación de Excel: ", url);
+        exportExcel.setAttribute("href", url);
       });
     }
   });

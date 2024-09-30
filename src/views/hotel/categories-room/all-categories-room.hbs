@@ -19,14 +19,16 @@
                       </a>
                       <span class="sub__header__span">Volver</span>
                     </div>
-                    <div class="sub__header__action">
-                      <a href="/categories-room/register" class="sub__header__link">
-                        <figure class="sub__header__figure">
-                          <img src="/assets/icon-add.svg" alt="Icon Add" class="sub__header__img">
-                        </figure>
-                      </a>
-                      <span class="sub__header__span">Nueva Categoría</span>
-                    </div>
+                    {{#hasPermission permisosRol "crear-categoria-habitacion"}}
+                      <div class="sub__header__action">
+                        <a href="/categories-room/register" class="sub__header__link">
+                          <figure class="sub__header__figure">
+                            <img src="/assets/icon-add.svg" alt="Icon Add" class="sub__header__img">
+                          </figure>
+                        </a>
+                        <span class="sub__header__span">Nueva Categoría</span>
+                      </div>
+                    {{/hasPermission}}
                   </div>
                 </article>
               </section>
@@ -34,84 +36,49 @@
           </div>
         </div>
         {{#if categoriesRooms}}
-          {{#if userRole}}
-            {{#if (eq userRole "Admin")}}
-              <section class="items">
-                <div class="items__container__elements">
-                  <section class="views__container--elements view__scrollbar">
-                    <div class="views__content--elements items__container categories__rooms">
-                      <article class="items__header items__grid categories__rooms">
-                        <div class="flex-c-c">Agregado por:</div>
-                        <div class="flex-c-c">Categoría:</div>
-                        <div class="flex-c-c">Descripción:</div>
-                        <div class="flex-c-c">Fecha Registro:</div>
-                        <div class="flex-c-c">Acciones</div>
-                      </article>
-                      <div class="items__data--values">
-                        {{#each categoriesRooms}}
-                          <div class="container__data">
-                            <article class="items__data items__grid categories__rooms">
-                              <div class="flex-c-c">{{usuarioRegistroCategoriaHabitacion.usuario}}</div>
-                              <div class="flex-c-c">{{nombreCategoriaHabitacion}}</div>
-                              <div class="flex-c-c">{{descripcionCategoriaHabitacion}}</div>
-                              <div class="flex-c-c">{{formatDateTime createdAt}}</div>
-                              <div class="flex-c-c items__data--options">
-                                <a href="/categories-room/{{_id}}/edit" class="options__action">
-                                  <figure class="options__figure">
-                                    <img src="../assets/icon-edit.svg" alt="Icon Edit" class="options__img">
-                                  </figure>
-                                </a>
-                                <a href="/categories-room/{{_id}}/confirm-delete" class="options__action">
-                                  <figure class="options__figure">
-                                    <img src="../assets/icon-delete.svg" alt="Icon Delete" class="options__img">
-                                  </figure>
-                                </a>
-                              </div>
-                            </article>
+          <section class="items">
+            <div class="items__container__elements">
+              <section class="views__container--elements view__scrollbar">
+                <div class="views__content--elements items__container categories__rooms">
+                  <article class="items__header items__grid categories__rooms">
+                    <div class="flex-c-c">Agregado por:</div>
+                    <div class="flex-c-c">Categoría:</div>
+                    <div class="flex-c-c">Descripción:</div>
+                    <div class="flex-c-c">Fecha Registro:</div>
+                    <div class="flex-c-c">Acciones</div>
+                  </article>
+                  <div class="items__data--values">
+                    {{#each categoriesRooms}}
+                      <div class="container__data">
+                        <article class="items__data items__grid categories__rooms">
+                          <div class="flex-c-c">{{usuarioRegistroCategoriaHabitacion.usuario}}</div>
+                          <div class="flex-c-c">{{nombreCategoriaHabitacion}}</div>
+                          <div class="flex-c-c">{{descripcionCategoriaHabitacion}}</div>
+                          <div class="flex-c-c">{{formatDateTime createdAt}}</div>
+                          <div class="flex-c-c items__data--options">
+                            {{#hasPermission ../permisosRol "editar-categoria-habitacion"}}
+                              <a href="/categories-room/{{_id}}/edit" class="options__action">
+                                <figure class="options__figure">
+                                  <img src="../assets/icon-edit.svg" alt="Icon Edit" class="options__img">
+                                </figure>
+                              </a>
+                            {{/hasPermission}}
+                            {{#hasPermission ../permisosRol "eliminar-categoria-habitacion"}}
+                              <a href="/categories-room/{{_id}}/confirm-delete" class="options__action">
+                                <figure class="options__figure">
+                                  <img src="../assets/icon-delete.svg" alt="Icon Delete" class="options__img">
+                                </figure>
+                              </a>
+                            {{/hasPermission}}
                           </div>
-                        {{/each}}
+                        </article>
                       </div>
-                    </div>
-                  </section>
+                    {{/each}}
+                  </div>
                 </div>
               </section>
-            {{else}}
-              <section class="items">
-                <div class="items__container__elements">
-                  <section class="views__container--elements view__scrollbar">
-                    <div class="views__content--elements items__container categories__rooms">
-                      <article class="items__header items__grid categories__rooms">
-                        <div class="flex-c-c">Agregado por:</div>
-                        <div class="flex-c-c">Categoría:</div>
-                        <div class="flex-c-c">Descripción:</div>
-                        <div class="flex-c-c">Fecha Registro:</div>
-                        <div class="flex-c-c">Acciones</div>
-                      </article>
-                      <div class="items__data--values">
-                        {{#each categoriesRooms}}
-                          <div class="container__data">
-                            <article class="items__data items__grid categories__rooms">
-                              <div class="flex-c-c">{{usuarioRegistroCategoriaHabitacion.usuario}}</div>
-                              <div class="flex-c-c">{{nombreCategoriaHabitacion}}</div>
-                              <div class="flex-c-c">{{descripcionCategoriaHabitacion}}</div>
-                              <div class="flex-c-c">{{formatDateTime createdAt}}</div>
-                              <div class="flex-c-c items__data--options">
-                                <a href="/categories-room/{{_id}}/edit" class="options__action">
-                                  <figure class="options__figure">
-                                    <img src="../assets/icon-edit.svg" alt="Icon Edit" class="options__img">
-                                  </figure>
-                                </a>
-                              </div>
-                            </article>
-                          </div>
-                        {{/each}}
-                      </div>
-                    </div>
-                  </section>
-                </div>
-              </section>
-            {{/if}}
-          {{/if}}
+            </div>
+          </section>
         {{else}}
           <h5 class="items__empty">No hay Categorías para mostrar 😿</h5>
         {{/if}}

@@ -349,14 +349,24 @@
                   <div class="details__btns">
                     {{#unless cleaningComplete}}
                       {{#if (eq occupation.estadoOcupacion "Limpieza Intermedia")}}
-                        <button type="button" class="details__btn detail__btn--clean__fin">Fin Limpieza</button>
+                        {{#hasPermission permisosRol "limpieza-ocupacion"}}
+                          <button type="button" class="details__btn detail__btn--clean__fin">Fin Limpieza</button>
+                        {{/hasPermission}}
                       {{else}}
-                        <button type="button" class="details__btn detail__btn--clean">Limpieza intermedia</button>
+                        {{#hasPermission permisosRol "limpieza-ocupacion"}}
+                          <button type="button" class="details__btn detail__btn--clean">Limpieza intermedia</button>
+                        {{/hasPermission}}
                       {{/if}}
                     {{/unless}}
-                    <button type="button" class="details__btn detail__btn--edit">Modificar</button>
-                    <button type="button" class="details__btn detail__btn--sale">Vender</button>
-                    <button type="button" class="details__btn detail__btn--finalize">Finalizar</button>
+                    {{#hasPermission permisosRol "editar-ocupacion"}}
+                      <button type="button" class="details__btn detail__btn--edit">Modificar</button>
+                    {{/hasPermission}}
+                    {{#hasPermission permisosRol "venta-ocupacion"}}
+                      <button type="button" class="details__btn detail__btn--sale">Vender</button>
+                    {{/hasPermission}}
+                    {{#hasPermission permisosRol "finalizar-ocupacion"}}
+                      <button type="button" class="details__btn detail__btn--finalize">Finalizar</button>
+                    {{/hasPermission}}
                   </div>
                 </div>
               </section>

@@ -16,7 +16,7 @@
                 <select name="almacenProducto" id="edit_almacen_producto" class="form__input" required>
                   <option disabled value="">Producto:</option>
                   {{#each products}}
-                    <option value="{{_id}}" {{#if (eq ../store.almacenProducto._id _id)}} selected{{/if}}>{{nombreProducto}}//{{proveedorProducto.nombreProveedor}}//{{categoriaProducto.nombreCategoria}}</option>
+                    <option value="{{_id}}" {{#if (eq ../store.almacenProducto._id _id)}} selected{{/if}}>{{nombreProducto}}/{{proveedorProducto.nombreProveedor}}//{{categoriaProducto.nombreCategoria}}</option>
                   {{/each}}
                 </select>
               </article>
@@ -31,11 +31,6 @@
               <article class="form__group">
                 <input class="form__input" type="number" name="almacenStock" id="edit_almacen_stock" placeholder=" " title="Stock" value="{{store.almacenStock}}" required>
                 <label for="edit_almacen_stock" class="form__label">Stock:</label>
-                <span class="form__line"></span>
-              </article>
-              <article class="form__group">
-                <input class="form__input" type="number" name="almacenMinStock" id="edit_almacen_min_stock" placeholder=" " title="Mínimo Stock" value="{{store.almacenMinStock}}" required>
-                <label for="edit_almacen_min_stock" class="form__label">Min Stock:</label>
                 <span class="form__line"></span>
               </article>
               <button class="form__submit">Actualizar</button>

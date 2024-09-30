@@ -19,23 +19,27 @@
                       </a>
                       <span class="sub__header__span">Volver</span>
                     </div>
-                    <div class="sub__header__action">
-                      <a href="/providers/register" class="sub__header__link">
-                        <figure class="sub__header__figure">
-                          <img src="/assets/icon-add.svg" alt="Icon Add" class="sub__header__img">
-                        </figure>
-                      </a>
-                      <span class="sub__header__span">Nuevo Proveedor</span>
-                    </div>
-                    <div class="sub__header__action">
-                      <a href="/providers/history" class="sub__header__link">
-                        <figure class="sub__header__figure">
-                          <img src="/assets/icon-history.svg" alt="Icon History" class="sub__header__img">
-                        </figure>
-                      </a>
-                      <span class="sub__header__span">Historial</span>
-                    </div>
+                    {{#hasPermission permisosRol "crear-proveedor"}}
+                      <div class="sub__header__action">
+                        <a href="/providers/register" class="sub__header__link">
+                          <figure class="sub__header__figure">
+                            <img src="/assets/icon-add.svg" alt="Icon Add" class="sub__header__img">
+                          </figure>
+                        </a>
+                        <span class="sub__header__span">Nuevo Proveedor</span>
+                      </div>
+                    {{/hasPermission}}
                     {{#if providers}}
+                      {{#hasPermission permisosRol "historial-proveedor"}}
+                        <div class="sub__header__action">
+                          <a href="/providers/history" class="sub__header__link">
+                            <figure class="sub__header__figure">
+                              <img src="/assets/icon-history.svg" alt="Icon History" class="sub__header__img">
+                            </figure>
+                          </a>
+                          <span class="sub__header__span">Historial</span>
+                        </div>
+                      {{/hasPermission}}
                       <div class="sub__header__action action__export--excel">
                         <a href="/providers/export-excel" class="sub__header__link">
                           <figure class="sub__header__figure">
@@ -47,39 +51,41 @@
                     {{/if}}
                   </div>
                 </article>
-                <article class="article__sub__header sub__header__filters">
-                  <div class="sub__header__filters__container">
-                    <div class="sub__header__filter search__by">
-                      <select name="search" id="select-search">
-                        <option selected value="dni">Buscar por DNI/RUC</option>
-                        <option value="nombre">Buscar por Nombre</option>
-                        <option value="celular">Buscar por Celular</option>
-                        <option value="correo">Buscar por Correo</option>
-                      </select>
+                {{#if providers}}
+                  <article class="article__sub__header sub__header__filters">
+                    <div class="sub__header__filters__container">
+                      <div class="sub__header__filter search__by">
+                        <select name="search" id="select-search">
+                          <option selected value="dni">Buscar por DNI/RUC</option>
+                          <option value="nombre">Buscar por Nombre</option>
+                          <option value="celular">Buscar por Celular</option>
+                          <option value="correo">Buscar por Correo</option>
+                        </select>
+                      </div>
+                      <div class="sub__header__filter flex-c-c input__search--container">
+                        <label for="search-element" class="label__search">
+                          <figure class="search__figure">
+                            <img src="/assets/icon-search.svg" alt="Icon Search" class="search__img">
+                          </figure>
+                        </label>
+                        <input class="input__search" type="search" id="search-element" placeholder="Busca un Cliente" title="Busca un Cliente">
+                      </div>
+                      <div class="sub__header__filter flex-c-c order__items">
+                        <button type="button" class="order__container">
+                          <figure class="order__figure">
+                            <img src="/assets/icon-order.svg" alt="Icon Filter" class="filter__img">
+                          </figure>
+                          <div class="order__by">
+                            <select name="order" id="select-order">
+                              <option value="asc" selected>Ascendente</option>
+                              <option value="desc">Descendente</option>
+                            </select>
+                          </div>
+                        </button>
+                      </div>
                     </div>
-                    <div class="sub__header__filter flex-c-c input__search--container">
-                      <label for="search-element" class="label__search">
-                        <figure class="search__figure">
-                          <img src="/assets/icon-search.svg" alt="Icon Search" class="search__img">
-                        </figure>
-                      </label>
-                      <input class="input__search" type="search" id="search-element" placeholder="Busca un Cliente" title="Busca un Cliente">
-                    </div>
-                    <div class="sub__header__filter flex-c-c order__items">
-                      <button type="button" class="order__container">
-                        <figure class="order__figure">
-                          <img src="/assets/icon-order.svg" alt="Icon Filter" class="filter__img">
-                        </figure>
-                        <div class="order__by">
-                          <select name="order" id="select-order">
-                            <option value="asc" selected>Ascendente</option>
-                            <option value="desc">Descendente</option>
-                          </select>
-                        </div>
-                      </button>
-                    </div>
-                  </div>
-                </article>
+                  </article>
+                {{/if}}
               </section>
             </article>
           </div>
@@ -143,103 +149,105 @@
     </div>
   </div>
 </section>
-<script>
-  document.addEventListener("DOMContentLoaded", () => {
-    const selectSearch = document.getElementById("select-search");
-    const searchElement = document.getElementById("search-element");
-    const selectOrder = document.getElementById("select-order");
-    const itemsDataValues = document.querySelector(".items__data--values");
-    const productData = document.querySelectorAll(".product__data");
+{{#if providers}}
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const selectSearch = document.getElementById("select-search");
+      const searchElement = document.getElementById("search-element");
+      const selectOrder = document.getElementById("select-order");
+      const itemsDataValues = document.querySelector(".items__data--values");
+      const productData = document.querySelectorAll(".product__data");
 
-    function getUrlParams() {
-      const urlParams = new URLSearchParams(window.location.search);
-      return urlParams;
-    }
+      function getUrlParams() {
+        const urlParams = new URLSearchParams(window.location.search);
+        return urlParams;
+      }
 
-    function filterAndSortItems(selectedFilter, searchQuery, selectedOrder, page) {
-      // Filtrar y ordenar los elementos de la lista 
-      productData.forEach(item => {
-        const childElement = item.querySelector(`[data-${selectedFilter}]`);
-        if (!childElement || !childElement.textContent.toLowerCase().includes(searchQuery)) {
-          item.style.display = "none";
-        } else {
-          item.style.display = "grid";
-        }
-      });
-
-      // Ordenar los elementos de la lista
-      const sortedItems = Array.from(productData)
-        .sort((a, b) => {
-          // Función para verificar si un valor es numérico
-          function isNumeric(value) {
-            return /^\d+$/.test(value);
-          };
-
-          const aValueElement = a.querySelector(`[data-${selectedFilter}]`);
-          const bValueElement = b.querySelector(`[data-${selectedFilter}]`);
-
-          const aValue = aValueElement.getAttribute(`data-${selectedFilter}`);
-          const bValue = bValueElement.getAttribute(`data-${selectedFilter}`);
-
-          const aNumericValue = isNumeric(aValue) ? parseFloat(aValue) : null;
-          const bNumericValue = isNumeric(bValue) ? parseFloat(bValue) : null;
-
-          if (aNumericValue !== null && bNumericValue !== null) {
-            return selectedOrder === "asc" ? aNumericValue - bNumericValue : bNumericValue - aNumericValue;
-          } else if (aNumericValue !== null) {
-            return -1;
-          } else if (bNumericValue !== null) {
-            return 1;
+      function filterAndSortItems(selectedFilter, searchQuery, selectedOrder, page) {
+        // Filtrar y ordenar los elementos de la lista 
+        productData.forEach(item => {
+          const childElement = item.querySelector(`[data-${selectedFilter}]`);
+          if (!childElement || !childElement.textContent.toLowerCase().includes(searchQuery)) {
+            item.style.display = "none";
           } else {
-            return selectedOrder === "asc" ? aValue.localeCompare(bValue) : bValue.localeCompare(aValue)
+            item.style.display = "grid";
           }
         });
 
-      if (sortedItems.length > 0) {
-        itemsDataValues.innerHTML = "";
-        sortedItems.forEach(item => itemsDataValues.appendChild(item));
-      } else {
-        console.log("No se encontraron Proveedores: ", sortedItems);
+        // Ordenar los elementos de la lista
+        const sortedItems = Array.from(productData)
+          .sort((a, b) => {
+            // Función para verificar si un valor es numérico
+            function isNumeric(value) {
+              return /^\d+$/.test(value);
+            };
+
+            const aValueElement = a.querySelector(`[data-${selectedFilter}]`);
+            const bValueElement = b.querySelector(`[data-${selectedFilter}]`);
+
+            const aValue = aValueElement.getAttribute(`data-${selectedFilter}`);
+            const bValue = bValueElement.getAttribute(`data-${selectedFilter}`);
+
+            const aNumericValue = isNumeric(aValue) ? parseFloat(aValue) : null;
+            const bNumericValue = isNumeric(bValue) ? parseFloat(bValue) : null;
+
+            if (aNumericValue !== null && bNumericValue !== null) {
+              return selectedOrder === "asc" ? aNumericValue - bNumericValue : bNumericValue - aNumericValue;
+            } else if (aNumericValue !== null) {
+              return -1;
+            } else if (bNumericValue !== null) {
+              return 1;
+            } else {
+              return selectedOrder === "asc" ? aValue.localeCompare(bValue) : bValue.localeCompare(aValue)
+            }
+          });
+
+        if (sortedItems.length > 0) {
+          itemsDataValues.innerHTML = "";
+          sortedItems.forEach(item => itemsDataValues.appendChild(item));
+        } else {
+          console.log("No se encontraron Proveedores: ", sortedItems);
+        }
+
+        // Actualizar los parámetros de la URL después de filtrar y ordenar
+        const urlParams = getUrlParams();
+        urlParams.set("f", selectedFilter);
+        urlParams.set("q", searchQuery);
+        urlParams.set("o", selectedOrder);
+        window.history.replaceState({}, "", `${location.pathname}?${urlParams}`);
       }
 
-      // Actualizar los parámetros de la URL después de filtrar y ordenar
-      const urlParams = getUrlParams();
-      urlParams.set("f", selectedFilter);
-      urlParams.set("q", searchQuery);
-      urlParams.set("o", selectedOrder);
-      window.history.replaceState({}, "", `${location.pathname}?${urlParams}`);
-    }
+      // Llamar a la función filtrar al cargar la vista
+      const initialSearchQuery = searchElement.value.toLowerCase();
+      filterAndSortItems(selectSearch.value, initialSearchQuery, selectOrder.value);
 
-    // Llamar a la función filtrar al cargar la vista
-    const initialSearchQuery = searchElement.value.toLowerCase();
-    filterAndSortItems(selectSearch.value, initialSearchQuery, selectOrder.value);
+      // Select de busqueda y ordenamiento
+      selectSearch.addEventListener("change", () => {
+        const selectedFilter = selectSearch.value;
+        const searchQuery = searchElement.value.toLowerCase();
+        const selectedOrder = selectOrder.value;
 
-    // Select de busqueda y ordenamiento
-    selectSearch.addEventListener("change", () => {
-      const selectedFilter = selectSearch.value;
-      const searchQuery = searchElement.value.toLowerCase();
-      const selectedOrder = selectOrder.value;
+        filterAndSortItems(selectedFilter, searchQuery, selectedOrder);
+      });
 
-      filterAndSortItems(selectedFilter, searchQuery, selectedOrder);
+      // Input search
+      searchElement.addEventListener("input", () => {
+        const selectedFilter = selectSearch.value;
+        const searchQuery = searchElement.value.toLowerCase();
+        const selectedOrder = selectOrder.value;
+
+        filterAndSortItems(selectedFilter, searchQuery, selectedOrder);
+      });
+
+      selectOrder.addEventListener("change", () => {
+        const selectedFilter = selectSearch.value;
+        const searchQuery = searchElement.value.toLowerCase();
+        const selectedOrder = selectOrder.value;
+
+        filterAndSortItems(selectedFilter, searchQuery, selectedOrder);
+      });
+
     });
 
-    // Input search
-    searchElement.addEventListener("input", () => {
-      const selectedFilter = selectSearch.value;
-      const searchQuery = searchElement.value.toLowerCase();
-      const selectedOrder = selectOrder.value;
-
-      filterAndSortItems(selectedFilter, searchQuery, selectedOrder);
-    });
-
-    selectOrder.addEventListener("change", () => {
-      const selectedFilter = selectSearch.value;
-      const searchQuery = searchElement.value.toLowerCase();
-      const selectedOrder = selectOrder.value;
-
-      filterAndSortItems(selectedFilter, searchQuery, selectedOrder);
-    });
-
-  });
-
-</script>
+  </script>
+{{/if}}

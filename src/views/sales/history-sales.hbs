@@ -19,22 +19,26 @@
                       </a>
                       <span class="sub__header__span">Volver</span>
                     </div>
-                    <div class="sub__header__action">
-                      <a href="/sales/register" class="sub__header__link">
-                        <figure class="sub__header__figure">
-                          <img src="/assets/icon-add.svg" alt="Icon Add" class="sub__header__img">
-                        </figure>
-                      </a>
-                      <span class="sub__header__span">Nueva Venta</span>
-                    </div>
-                    <div class="sub__header__action">
-                      <a href="/sales/balance" class="sub__header__link">
-                        <figure class="sub__header__figure">
-                          <img src="/assets/icon-balance.svg" alt="Icon Balance" class="sub__header__img">
-                        </figure>
-                      </a> 
-                      <span class="sub__header__span">Balances</span>
-                    </div>
+                    {{#hasPermission permisosRol "crear-venta"}}
+                      <div class="sub__header__action">
+                        <a href="/sales/register" class="sub__header__link">
+                          <figure class="sub__header__figure">
+                            <img src="/assets/icon-add.svg" alt="Icon Add" class="sub__header__img">
+                          </figure>
+                        </a>
+                        <span class="sub__header__span">Nueva Venta</span>
+                      </div>
+                    {{/hasPermission}}
+                    {{#hasPermission permisosRol "ver-balance"}}
+                      <div class="sub__header__action">
+                        <a href="/sales/balance" class="sub__header__link">
+                          <figure class="sub__header__figure">
+                            <img src="/assets/icon-balance.svg" alt="Icon Balance" class="sub__header__img">
+                          </figure>
+                        </a> 
+                        <span class="sub__header__span">Balances</span>
+                      </div>
+                    {{/hasPermission}}
                   </div>
                 </article>
               </section>
@@ -53,8 +57,10 @@
                     <div class="flex-c-c">Ventas</div>
                     <div class="flex-c-c">Conf</div>
                     <div class="flex-c-c">Canc</div>
+                    <div class="flex-c-c">Costos</div>
                     <div class="flex-c-c">Dsctos</div>
-                    <div class="flex-c-c">Balance</div>
+                    <div class="flex-c-c">Importe</div>
+                    <div class="flex-c-c">Ganancia</div>
                     <div class="flex-c-c">Fecha</div>
                     <div class="flex-c-c">Ver</div>
                   </article>
@@ -68,16 +74,20 @@
                           <div class="flex-c-c">{{cantidadCierreVentas}}</div>
                           <div class="flex-c-c">{{totalVentasConfirmadas}}</div>
                           <div class="flex-c-c">{{totalVentasCanceladas}}</div>
+                          <div class="flex-c-c">S/{{formatCurrency totalCostosVentas}}</div>
                           <div class="flex-c-c">-S/{{formatCurrency totalDescuentosVentas}}</div>
                           <div class="flex-c-c">S/{{formatCurrency totalCierreVentas}}</div>
+                          <div class="flex-c-c">S/{{formatCurrency totalGananciasVentas}}</div>
                           <div class="flex-c-c">{{formatDateTime createdAt}}</div>
                           <div class="flex-c-c items__data--options">
-                            <a href="/sales-history/{{_id}}/detail-close-register" class="options__action">
-                              <figure class="options__figure">
-                                <img src="/assets/icon-edit.svg" alt="Icon Edit" class="options__img">
-                              </figure>
-                              <span class="span__detail">Detalles</span>
-                            </a>
+                            {{#hasPermission ../permisosRol "ver-venta-cierre-detalle"}}
+                              <a href="/sales-history/{{_id}}/detail-close-register" class="options__action">
+                                <figure class="options__figure">
+                                  <img src="/assets/icon-edit.svg" alt="Icon Edit" class="options__img">
+                                </figure>
+                                <span class="span__detail">Detalles</span>
+                              </a>
+                            {{/hasPermission}}
                           </div>
                         </article>
                       </div>

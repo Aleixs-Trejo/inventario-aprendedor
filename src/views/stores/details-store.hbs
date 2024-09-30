@@ -21,22 +21,26 @@
                           </a>
                           <span class="sub__header__span">Volver</span>
                         </div>
-                        <div class="sub__header__action">
-                          <a href="/stores/{{store._id}}/edit" class="sub__header__link">
-                            <figure class="sub__header__figure">
-                              <img src="/assets/icon-edit.svg" alt="Icon Edit" class="sub__header__img">
-                            </figure>
-                          </a>
-                          <span class="sub__header__span">Editar</span>
-                        </div>
-                        <div class="sub__header__action action__delete__item">
-                          <a href="/stores/{{store._id}}/delete" class="sub__header__link">
-                            <figure class="sub__header__figure">
-                              <img src="/assets/icon-delete.svg" alt="Icon Delete" class="sub__header__img">
-                            </figure>
-                          </a>
-                          <span class="sub__header__span">Eliminar</span>
-                        </div>
+                        {{#hasPermission permisosRol "editar-almacen"}}
+                          <div class="sub__header__action">
+                            <a href="/stores/{{store._id}}/edit" class="sub__header__link">
+                              <figure class="sub__header__figure">
+                                <img src="/assets/icon-edit.svg" alt="Icon Edit" class="sub__header__img">
+                              </figure>
+                            </a>
+                            <span class="sub__header__span">Editar</span>
+                          </div>
+                        {{/hasPermission}}
+                        {{#hasPermission permisosRol "eliminar-almacen"}}
+                          <div class="sub__header__action action__delete__item">
+                            <a href="/stores/{{store._id}}/delete" class="sub__header__link">
+                              <figure class="sub__header__figure">
+                                <img src="/assets/icon-delete.svg" alt="Icon Delete" class="sub__header__img">
+                              </figure>
+                            </a>
+                            <span class="sub__header__span">Eliminar</span>
+                          </div>
+                        {{/hasPermission}}
                       </div>
                     </article>
                   </section>
@@ -85,8 +89,12 @@
                                 <span class="content__li__span content__li__span--data">{{store.almacenStock}}</span>
                               </li>
                               <li class="content__li">
+                                <span class="content__li__span">Stock seguridad</span>
+                                <span class="content__li__span content__li__span--data">{{store.almacenProducto.stockSeguridadProducto}}</span>
+                              </li>
+                              <li class="content__li">
                                 <span class="content__li__span">Stock mínimo</span>
-                                <span class="content__li__span content__li__span--data">{{store.almacenMinStock}}</span>
+                                <span class="content__li__span content__li__span--data">{{store.almacenProducto.stockMinimoProducto}}</span>
                               </li>
                               <li class="content__li">
                                 <span class="content__li__span">Ubicación</span>
@@ -132,10 +140,6 @@
                                     <li class="content__li">
                                       <span class="content__li__span">Stock entrante</span>
                                       <span class="content__li__span content__li__span--data">{{#if almacenStockHistorial}}{{almacenStockHistorial}}{{else}}-{{/if}}</span>
-                                    </li>
-                                    <li class="content__li">
-                                      <span class="content__li__span">Stock mínimo</span>
-                                      <span class="content__li__span content__li__span--data">{{#if almacenMinStockHistorial}}{{almacenMinStockHistorial}}{{else}}-{{/if}}</span>
                                     </li>
                                     <li class="content__li">
                                       <span class="content__li__span">Ubicación</span>

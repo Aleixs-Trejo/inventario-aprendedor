@@ -15,7 +15,15 @@ const balanceSchema = new Schema(
       type: Number,
       required: true
     },
+    costosNetos: {
+      type: Number,
+      default: 0
+    },
     gananciasNetas: {
+      type: Number,
+      required: true
+    },
+    totalIngresosBalance: {
       type: Number,
       required: true
     },

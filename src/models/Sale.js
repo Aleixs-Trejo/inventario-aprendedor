@@ -33,7 +33,15 @@ const saleSchema = new Schema(
         type: Number,
         required: true
       },
+      costoTotalProducto: {
+        type: Number,
+        default: 0
+      },
       precioTotalProducto: {
+        type: Number,
+        required: true
+      },
+      gananciaTotalProducto: {
         type: Number,
         required: true
       }
@@ -42,6 +50,10 @@ const saleSchema = new Schema(
       type: Number,
       required: true
     },
+    costoTotalVenta: {
+      type: Number,
+      default: 0
+    },
     precioTotalVenta: {
       type: Number,
       required: true
@@ -49,6 +61,10 @@ const saleSchema = new Schema(
     descuentoTotalVenta: {
       type: Number,
       default: 0,
+    },
+    gananciaTotalVenta: {
+      type: Number,
+      required: true
     },
     ventaCerrada: {
       type: Boolean,

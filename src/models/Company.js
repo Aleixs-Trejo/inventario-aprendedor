@@ -1,4 +1,5 @@
 const {Schema} = require("mongoose");
+const getPlanLimits = require("../config/planLimits");
 
 const CompanySchema = new Schema(
   {
@@ -66,5 +67,18 @@ const CompanySchema = new Schema(
     versionKey: false
   }
 );
+
+// Actializar limites al cambiar el plan
+CompanySchema.pre("save", function (next) {
+  if (this.isModified("planCompany")) {
+    const limits = getPlanLimits(this.planCompany);
+    this.maxProveedoresCompany = limits.maxProveedoresCompany;
+    this.maxCategoriasCompany = limits.maxCategoriasCompany;
+    this.maxProductosCompany = limits.maxProductosCompany;
+    this.maxStoresCompany = limits.maxStoresCompany;
+    this.maxTrabajadoresCompany = limits.maxTrabajadoresCompany;
+  }
+  next();
+});
 
 module.exports = CompanySchema;

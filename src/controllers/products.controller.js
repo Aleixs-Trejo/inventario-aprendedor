@@ -55,18 +55,14 @@ productsCtrl.registerProduct = async (req, res) => {
       categoriaProducto,
       nombreProducto,
       descripcionProducto,
-      precioProducto
+      precioCompraProducto,
+      precioVentaProducto,
+      stockSeguridadProducto,
+      stockMinimoProducto
     } = req.body;
 
-    const existingProducts = await Product.find({eliminadoProducto: false}).lean();
-
-    if (existingProducts.length >= process.env.MAX_PRODUCTS) {
-      req.flash("wrong", "Ya tienes más de " + process.env.MAX_PRODUCTS + " productos registrados.");
-      console.log(`Máximo número de Productos alcanzado, el máximo permitido es de ${process.env.MAX_PRODUCTS} y tienes ${existingProducts.length}`);
-      return res.redirect("/");
-    }
-
     const isExistsProduct = await Product.findOne({
+      cod,
       proveedorProducto,
       categoriaProducto,
       nombreProducto,
@@ -80,19 +76,21 @@ productsCtrl.registerProduct = async (req, res) => {
     } else{
 
       // Guardamos el precio del producto con dos decimales
-      const precioProductoDecimal = parseFloat(precioProducto).toFixed(2);
+      const precioCompraProductoDecimal = parseFloat(precioCompraProducto).toFixed(2);
+      const precioVentaProductoDecimal = parseFloat(precioVentaProducto).toFixed(2);
 
-      const newProduct = new Product(
-        {
-          usuarioProducto: req.user._id,
-          cod,
-          proveedorProducto,
-          categoriaProducto,
-          nombreProducto,
-          descripcionProducto,
-          precioProducto: precioProductoDecimal
-        }
-      );
+      const newProduct = new Product({
+        usuarioProducto: req.user._id,
+        cod,
+        proveedorProducto,
+        categoriaProducto,
+        nombreProducto,
+        descripcionProducto,
+        precioCompraProducto: precioCompraProductoDecimal,
+        precioVentaProducto: precioVentaProductoDecimal,
+        stockSeguridadProducto,
+        stockMinimoProducto
+      });
 
       
       // Agregar al historial
@@ -102,7 +100,10 @@ productsCtrl.registerProduct = async (req, res) => {
       const categoriaProductoHistorial = newProduct.categoriaProducto;
       const nombreProductoHistorial = newProduct.nombreProducto;
       const descripcionProductoHistorial = newProduct.descripcionProducto;
-      const precioProductoHistorial = newProduct.precioProducto;
+      const precioCompraProductoHistorial = newProduct.precioCompraProducto;
+      const precioVentaProductoHistorial = newProduct.precioVentaProducto;
+      const stockSeguridadProductoHistorial = newProduct.stockSeguridadProducto;
+      const stockMinimoProductoHistorial = newProduct.stockMinimoProducto;
 
       const newProductHistory = new ProductHistory({
         tipoHistorial: "Registro",
@@ -113,7 +114,10 @@ productsCtrl.registerProduct = async (req, res) => {
         categoriaProductoHistorial,
         nombreProductoHistorial,
         descripcionProductoHistorial,
-        precioProductoHistorial
+        precioCompraProductoHistorial,
+        precioVentaProductoHistorial,
+        stockSeguridadProductoHistorial,
+        stockMinimoProductoHistorial
       });
 
       // Guardar Historial en la BD
@@ -212,7 +216,10 @@ productsCtrl.updateProduct = async (req, res) => {
     const categoriaProductoHistorial = productUpdated.categoriaProducto;
     const nombreProductoHistorial = productUpdated.nombreProducto;
     const descripcionProductoHistorial = productUpdated.descripcionProducto;
-    const precioProductoHistorial = productUpdated.precioProducto;
+    const precioCompraProductoHistorial = productUpdated.precioCompraProducto;
+    const precioVentaProductoHistorial = productUpdated.precioVentaProducto;
+    const stockSeguridadProductoHistorial = productUpdated.stockSeguridadProducto;
+    const stockMinimoProductoHistorial = productUpdated.stockMinimoProducto;
 
     const newProductHistory = new ProductHistory({
       tipoHistorial: "Modificado",
@@ -223,7 +230,10 @@ productsCtrl.updateProduct = async (req, res) => {
       categoriaProductoHistorial,
       nombreProductoHistorial,
       descripcionProductoHistorial,
-      precioProductoHistorial
+      precioCompraProductoHistorial,
+      precioVentaProductoHistorial,
+      stockSeguridadProductoHistorial,
+      stockMinimoProductoHistorial
     });
 
     await newProductHistory.save();
@@ -336,7 +346,10 @@ productsCtrl.exportToExcel = async (req, res) => {
         "Usuario": product.usuarioProducto.usuario,
         "Nombre": product.nombreProducto,
         "Descripción": product.descripcionProducto,
-        "Precio": product.precioProducto,
+        "Precio/Compra": product.precioCompraProducto,
+        "Precio/Venta": product.precioVentaProducto,
+        "Stock Seguridad": product.stockSeguridadProducto,
+        "Stock Mínimo": product.stockMinimoProducto,
         "Proveedor": product.proveedorProducto.nombreProveedor,
         "Categoría": product.categoriaProducto.nombreCategoria,
         "Fecha": product.createdAt.toLocaleDateString("es-PE"),
@@ -353,7 +366,10 @@ productsCtrl.exportToExcel = async (req, res) => {
       {wch: 20}, // Usuario
       {wch: 25}, // Nombre
       {wch: 35}, // Descripción
-      {wch: 12}, // Precio
+      {wch: 12}, // PrecioCompra
+      {wch: 12}, // PrecioVenta
+      {wch: 12}, // Stock Seguridad
+      {wch: 12}, // Stock Mínimo
       {wch: 25}, // Proveedor
       {wch: 25}, // Categoría
       {wch: 25}, // Fecha
@@ -376,7 +392,7 @@ productsCtrl.exportToExcel = async (req, res) => {
     console.log("Error: ", error);
     res.status(500).send("Error interno, posiblemente haya escrito algo mal, así que perdón por ello 😿, puede reportar el error para corregirlo en la próxima actualización. Detalles del error " + error.message);
   }
-}
+};
 
 //Eliminar producto
 productsCtrl.renderDeleteProduct = async (req, res) => {
@@ -395,7 +411,7 @@ productsCtrl.renderDeleteProduct = async (req, res) => {
     console.log("Error: ", error);
     res.status(500).send("Error interno, posiblemente haya escrito algo mal, así que perdón por ello 😿, puede reportar el error para corregirlo en la próxima actualización. Detalles del error " + error.message);
   }
-}
+};
 
 productsCtrl.deleteProduct = async (req, res) => {
   try {
@@ -444,6 +460,6 @@ productsCtrl.deleteProduct = async (req, res) => {
     console.error("Error:", error);
     res.status(500).send("Error interno, posiblemente haya escrito algo mal, así que perdón por ello 😿, puede reportar el error para corregirlo en la próxima actualización. Detalles del error " + error.message);
   }
-}
+};
 
 module.exports = productsCtrl;

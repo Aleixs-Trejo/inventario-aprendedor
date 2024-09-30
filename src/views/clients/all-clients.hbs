@@ -19,57 +19,65 @@
                       </a>
                       <span class="sub__header__span">Volver</span>
                     </div>
-                    <div class="sub__header__action">
-                      <a href="/clients/register" class="sub__header__link">
-                        <figure class="sub__header__figure">
-                          <img src="/assets/icon-add.svg" alt="Icon Add" class="sub__header__img">
-                        </figure>
-                      </a>
-                      <span class="sub__header__span">Nuevo Cliente</span>
-                    </div>
-                    <div class="sub__header__action">
-                      <a href="/clients/history" class="sub__header__link">
-                        <figure class="sub__header__figure">
-                          <img src="/assets/icon-history.svg" alt="Icon History" class="sub__header__img">
-                        </figure>
-                      </a>
-                      <span class="sub__header__span">Historial</span>
-                    </div>
-                  </div>
-                </article>
-                <article class="article__sub__header sub__header__filters">
-                  <div class="sub__header__filters__container">
-                    <div class="sub__header__filter search__by">
-                      <select name="search" id="select-search">
-                        <option selected value="dni">Buscar por DNI/RUC</option>
-                        <option value="nombre">Buscar por Nombre</option>
-                        <option value="celular">Buscar por Celular</option>
-                        <option value="correo">Buscar por Correo</option>
-                      </select>
-                    </div>
-                    <div class="sub__header__filter flex-c-c input__search--container">
-                      <label for="search-element" class="label__search">
-                        <figure class="search__figure">
-                          <img src="/assets/icon-search.svg" alt="Icon Search" class="search__img">
-                        </figure>
-                      </label>
-                      <input class="input__search" type="search" id="search-element" placeholder="Busca un Cliente" title="Busca un Cliente">
-                    </div>
-                    <div class="sub__header__filter flex-c-c order__items">
-                      <button type="button" class="order__container">
-                        <figure class="order__figure">
-                          <img src="/assets/icon-order.svg" alt="Icon Filter" class="filter__img">
-                        </figure>
-                        <div class="order__by">
-                          <select name="order" id="select-order">
-                            <option value="asc" selected>Ascendente</option>
-                            <option value="desc">Descendente</option>
-                          </select>
+                    {{#hasPermission permisosRol "crear-cliente"}}
+                      <div class="sub__header__action">
+                        <a href="/clients/register" class="sub__header__link">
+                          <figure class="sub__header__figure">
+                            <img src="/assets/icon-add.svg" alt="Icon Add" class="sub__header__img">
+                          </figure>
+                        </a>
+                        <span class="sub__header__span">Nuevo Cliente</span>
+                      </div>
+                    {{/hasPermission}}
+                    {{#if clients}}
+                      {{#hasPermission permisosRol "historial-cliente"}}
+                        <div class="sub__header__action">
+                          <a href="/clients/history" class="sub__header__link">
+                            <figure class="sub__header__figure">
+                              <img src="/assets/icon-history.svg" alt="Icon History" class="sub__header__img">
+                            </figure>
+                          </a>
+                          <span class="sub__header__span">Historial</span>
                         </div>
-                      </button>
-                    </div>
+                      {{/hasPermission}}
+                    {{/if}}
                   </div>
                 </article>
+                {{#if clients}}
+                  <article class="article__sub__header sub__header__filters">
+                    <div class="sub__header__filters__container">
+                      <div class="sub__header__filter search__by">
+                        <select name="search" id="select-search">
+                          <option selected value="dni">Buscar por DNI/RUC</option>
+                          <option value="nombre">Buscar por Nombre</option>
+                          <option value="celular">Buscar por Celular</option>
+                          <option value="correo">Buscar por Correo</option>
+                        </select>
+                      </div>
+                      <div class="sub__header__filter flex-c-c input__search--container">
+                        <label for="search-element" class="label__search">
+                          <figure class="search__figure">
+                            <img src="/assets/icon-search.svg" alt="Icon Search" class="search__img">
+                          </figure>
+                        </label>
+                        <input class="input__search" type="search" id="search-element" placeholder="Busca un Cliente" title="Busca un Cliente">
+                      </div>
+                      <div class="sub__header__filter flex-c-c order__items">
+                        <button type="button" class="order__container">
+                          <figure class="order__figure">
+                            <img src="/assets/icon-order.svg" alt="Icon Filter" class="filter__img">
+                          </figure>
+                          <div class="order__by">
+                            <select name="order" id="select-order">
+                              <option value="asc" selected>Ascendente</option>
+                              <option value="desc">Descendente</option>
+                            </select>
+                          </div>
+                        </button>
+                      </div>
+                    </div>
+                  </article>
+                {{/if}}
               </section>
             </article>
           </div>
@@ -99,22 +107,28 @@
                           <div class="flex-c-c" data-correo="{{correoCliente}}">{{#if correoCliente}}{{correoCliente}}{{else}}-{{/if}}</div>
                           <div class="flex-c-c">{{formatDateTime createdAt}}</div>
                           <div class="flex-c-c items__data--options">
-                            <a href="/client/{{_id}}/details" class="options__action">
-                              <figure class="options__figure">
-                                <img src="/assets/icon-edit.svg" alt="Icon Details" class="options__img">
-                              </figure>
-                              <span class="span__detail">Detalles</span>
-                            </a>
-                            <a href="/clients/{{_id}}/edit" class="options__action">
-                              <figure class="options__figure">
-                                <img src="/assets/icon-edit.svg" alt="Icon Edit" class="options__img">
-                              </figure>
-                            </a>
-                            <a href="/clients/{{_id}}/confirm-delete" class="options__action">
-                              <figure class="options__figure">
-                                <img src="/assets/icon-delete.svg" alt="Icon Delete" class="options__img">
-                              </figure>
-                            </a>
+                            {{#hasPermission ../permisosRol "ver-cliente-detalle"}}
+                              <a href="/client/{{_id}}/details" class="options__action">
+                                <figure class="options__figure">
+                                  <img src="/assets/icon-edit.svg" alt="Icon Details" class="options__img">
+                                </figure>
+                                <span class="span__detail">Detalles</span>
+                              </a>
+                            {{/hasPermission}}
+                            {{#hasPermission ../permisosRol "editar-cliente"}}
+                              <a href="/clients/{{_id}}/edit" class="options__action">
+                                <figure class="options__figure">
+                                  <img src="/assets/icon-edit.svg" alt="Icon Edit" class="options__img">
+                                </figure>
+                              </a>
+                            {{/hasPermission}}
+                            {{#hasPermission ../permisosRol "eliminar-cliente"}}
+                              <a href="/clients/{{_id}}/confirm-delete" class="options__action">
+                                <figure class="options__figure">
+                                  <img src="/assets/icon-delete.svg" alt="Icon Delete" class="options__img">
+                                </figure>
+                              </a>
+                            {{/hasPermission}}
                           </div>
                         </article>
                       </div>

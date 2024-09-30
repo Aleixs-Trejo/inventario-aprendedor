@@ -331,23 +331,37 @@
                 <div class="details__footer__container">
                   <div class="details__btns">
                     {{#if (or (eq reservation.estadoReserva "Proxima") (eq reservation.estadoReserva "Tardada"))}}
-                      <button type="button" class="details__btn detail__btn--entering">Ingreso Huésped</button>
+                      {{#hasPermission permisosRol "ingresar-huesped"}}
+                        <button type="button" class="details__btn detail__btn--entering">Ingreso Huésped</button>
+                      {{/hasPermission}}
                     {{/if}}
                     {{#unless cleaningComplete}}
                       {{#if (eq reservation.estadoReserva "Limpieza Intermedia")}}
-                        <button type="button" class="details__btn detail__btn--clean__fin">Fin Limpieza</button>
+                        {{#hasPermission permisosRol "limpieza-reserva"}}
+                          <button type="button" class="details__btn detail__btn--clean__fin">Fin Limpieza</button>
+                        {{/hasPermission}}
                       {{else}}
                         {{#if (eq reservation.estadoReserva "Ocupada")}}
-                          <button type="button" class="details__btn detail__btn--clean">Limpieza intermedia</button>
+                          {{#hasPermission permisosRol "limpieza-reserva"}}
+                            <button type="button" class="details__btn detail__btn--clean">Limpieza intermedia</button>
+                          {{/hasPermission}}
                         {{/if}}
                       {{/if}}
                     {{/unless}}
                     {{#if (or (eq reservation.estadoReserva "Ocupada") (eq reservation.estadoReserva "Limpieza Intermedia"))}}
-                      <button type="button" class="details__btn detail__btn--sale">Vender</button>
-                      <button type="button" class="details__btn detail__btn--finalize">CheckOut</button>
-                      <button type="button" class="details__btn detail__btn--edit">Modificar</button>
+                      {{#hasPermission permisosRol "venta-reserva"}}
+                        <button type="button" class="details__btn detail__btn--sale">Vender</button>
+                      {{/hasPermission}}
+                      {{#hasPermission permisosRol "finalizar-reserva"}}
+                        <button type="button" class="details__btn detail__btn--finalize">CheckOut</button>
+                      {{/hasPermission}}
+                      {{#hasPermission permisosRol "editar-reserva"}}
+                        <button type="button" class="details__btn detail__btn--edit">Modificar</button>
+                      {{/hasPermission}}
                     {{else}}
-                      <button type="button" class="details__btn detail__btn--cancel__reservation">Cancelar</button>
+                      {{#hasPermission permisosRol "cancelar-reserva"}}
+                        <button type="button" class="details__btn detail__btn--cancel__reservation">Cancelar</button>
+                      {{/hasPermission}}
                     {{/if}}
                   </div>
                 </div>

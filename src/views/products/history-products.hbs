@@ -19,14 +19,16 @@
                       </a>
                       <span class="sub__header__span">Volver</span>
                     </div>
-                    <div class="sub__header__action">
-                      <a href="/products/register" class="sub__header__link">
-                        <figure class="sub__header__figure">
-                          <img src="/assets/icon-add.svg" alt="Icon Add" class="sub__header__img">
-                        </figure>
-                      </a>
-                      <span class="sub__header__span">Nuevo Producto</span>
-                    </div>
+                    {{#hasPermission permisosRol "crear-producto"}}
+                      <div class="sub__header__action">
+                        <a href="/products/register" class="sub__header__link">
+                          <figure class="sub__header__figure">
+                            <img src="/assets/icon-add.svg" alt="Icon Add" class="sub__header__img">
+                          </figure>
+                        </a>
+                        <span class="sub__header__span">Nuevo Producto</span>
+                      </div>
+                    {{/hasPermission}}
                   </div>
                 </article>
               </section>
@@ -39,15 +41,18 @@
               <section class="views__container--elements view__scrollbar">
                 <div class="views__content--elements items__container products__history">
                   <article class="items__header items__grid products__history">
-                    <div class="flex-c-c">Tipo de Registro:</div>
-                    <div class="flex-c-c">Hecho por:</div>
-                    <div class="flex-c-c">Cod:</div>
-                    <div class="flex-c-c">Producto:</div>
-                    <div class="flex-c-c">Descripción:</div>
-                    <div class="flex-c-c">Proveedor:</div>
-                    <div class="flex-c-c">Categoría:</div>
-                    <div class="flex-c-c">Precio:</div>
-                    <div class="flex-c-c">Fecha:</div>
+                    <div class="flex-c-c">Tipo Registro</div>
+                    <div class="flex-c-c">Hecho por</div>
+                    <div class="flex-c-c">Cod</div>
+                    <div class="flex-c-c">Producto</div>
+                    <div class="flex-c-c">Descripción</div>
+                    <div class="flex-c-c">Proveedor</div>
+                    <div class="flex-c-c">Categoría</div>
+                    <div class="flex-c-c">P/Compra</div>
+                    <div class="flex-c-c">P/Venta</div>
+                    <div class="flex-c-c">Stock Seg</div>
+                    <div class="flex-c-c">Stock Min</div>
+                    <div class="flex-c-c">Fecha</div>
                   </article>
                   <div class="items__data--values" id="data-container">
                     {{#each productsHistory}}
@@ -60,7 +65,10 @@
                           <div class="flex-c-c">{{#if descripcionProductoHistorial}}{{descripcionProductoHistorial}}{{else}}-{{/if}}</div>
                           <div class="flex-c-c">{{#if proveedorProductoHistorial}}{{proveedorProductoHistorial.nombreProveedor}}{{else}}-{{/if}}</div>
                           <div class="flex-c-c">{{#if categoriaProductoHistorial}}{{categoriaProductoHistorial.nombreCategoria}}{{else}}-{{/if}}</div>
-                          <div class="flex-c-c">{{#if precioProductoHistorial}}S/{{formatCurrency precioProductoHistorial}}{{else}}-{{/if}}</div>
+                          <div class="flex-c-c">{{#if precioCompraProductoHistorial}}S/{{formatCurrency precioCompraProductoHistorial}}{{else}}-{{/if}}</div>
+                          <div class="flex-c-c">{{#if precioVentaProductoHistorial}}S/{{formatCurrency precioVentaProductoHistorial}}{{else}}-{{/if}}</div>
+                          <div class="flex-c-c">{{#if stockSeguridadProductoHistorial}}{{stockSeguridadProductoHistorial}}{{else}}-{{/if}}</div>
+                          <div class="flex-c-c">{{#if stockMinimoProductoHistorial}}{{stockMinimoProductoHistorial}}{{else}}-{{/if}}</div>
                           <div class="flex-c-c">{{formatDateTime createdAt}}</div>
                         </article>
                       </div>

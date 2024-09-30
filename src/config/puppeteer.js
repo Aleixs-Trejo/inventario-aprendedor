@@ -1,6 +1,6 @@
 const puppeteer = require("puppeteer");
 
-// Creamos función para enviar el PDF a Gmail
+// Creamos función para generar PDF
 async function generatePDF(url) {
   const browser = await puppeteer.launch({
     headless: true,

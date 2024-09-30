@@ -94,6 +94,18 @@
                           </a>
                         </li>
                       {{/hasPermission}}
+                      {{#hasPermission permisosRol "ver-registro"}}
+                        <li class="fast__btn fast__btn--registros" style="--color__area: #25ac8a">
+                          <a href="/records" class="fast__link">
+                            <div class="fast__icon">
+                              <figure class="fast__figure">
+                                <img src="/assets/icon-record.svg" alt="Icon Record" class="fast__img">
+                              </figure>
+                            </div>
+                            <h4 class="fast__title">Registros</h4>
+                          </a>
+                        </li>
+                      {{/hasPermission}}
                       {{#hasPermission permisosRol "ver-almacen"}}
                         <li class="fast__btn fast__btn--almacen" style="--color__area: #9c27b0">
                           <a href="/stores" class="fast__link">
@@ -251,6 +263,18 @@
                               </figure>
                             </div>
                             <h4 class="fast__title">Ventas</h4>
+                          </a>
+                        </li>
+                      {{/hasPermission}}
+                      {{#hasPermission permisosRol "ver-registro"}}
+                        <li class="fast__btn fast__btn--ventas" style="--color__area: #25ac8a">
+                          <a href="/records" class="fast__link">
+                            <div class="fast__icon">
+                              <figure class="fast__figure">
+                                <img src="/assets/icon-record.svg" alt="Icon Record" class="fast__img">
+                              </figure>
+                            </div>
+                            <h4 class="fast__title">Registros</h4>
                           </a>
                         </li>
                       {{/hasPermission}}

@@ -50,7 +50,7 @@
                             <div class="sale__dropdown--item nombre__producto" data-nombre="{{almacenProducto.descripcionProducto}}">{{almacenProducto.descripcionProducto}}</div>
                             <div class="sale__dropdown--item proveedor__producto" data-proveedor="{{almacenProducto.proveedorProducto.nombreProveedor}}">{{almacenProducto.proveedorProducto.nombreProveedor}}</div>
                             <div class="sale__dropdown--item stock__producto" data-stock="{{almacenStock}}">{{almacenStock}}</div>
-                            <div class="sale__dropdown--item precio__producto" data-precio="{{almacenProducto.precioProducto}}">S/{{formatCurrency almacenProducto.precioProducto}}</div>
+                            <div class="sale__dropdown--item precio__venta__producto" data-precio="{{almacenProducto.precioVentaProducto}}">S/{{formatCurrency almacenProducto.precioVentaProducto}}</div>
                           </article>
                         </div>
                       {{/each}}
@@ -273,7 +273,7 @@
 
     // Añadir productos al carrito
     const addProductToCart = (productoVenta) => {
-      const {idProducto, codProducto, nombreProducto, stockProducto, precioProducto} = productoVenta;
+      const {idProducto, codProducto, nombreProducto, stockProducto, precioVentaProducto} = productoVenta;
       let productoExistente = null;
       const productosEnCarrito = document.querySelectorAll(".products__store--list");
 
@@ -308,7 +308,7 @@
           console.log("No hay suficiente Stock del producto 😿: ", cantidadActual, stockProducto);
         }
 
-        const precioProductoActual = parseFloat(productoExistenteChild.querySelector(".precio__producto").textContent);
+        const precioProductoActual = parseFloat(productoExistenteChild.querySelector(".precio__venta__producto").dataset.precio);
         const importeProducto = (precioProductoActual * cantidadActual) - descuentoActual;
         productoExistenteChild.querySelector(".importe__producto").textContent = importeProducto.toFixed(2);
         
@@ -319,7 +319,7 @@
 
         let cantidad = 1;
         let descuento = 0;
-        const importe = (precioProducto * cantidad) - descuento;
+        const importe = (precioVentaProducto * cantidad) - descuento;
 
         // Crear contenido para el nuevo elemento
         nuevoProducto.innerHTML = `
@@ -329,7 +329,7 @@
             <div class="flex-c-c product__list--item cantidad__container">
               <input type="text" value="${cantidad}" class="cantidad__input" data-cant minlength="1" maxlength="2" onkeypress="return event.charCode >= 48 && event.charCode <= 57">
             </div>
-            <div class="flex-c-c product__list--item precio__producto" data-precio="${productoVenta.precioProducto}">${productoVenta.precioProducto.toFixed(2)}</div>
+            <div class="flex-c-c product__list--item precio__venta__producto" data-precio="${productoVenta.precioVentaProducto}">${productoVenta.precioVentaProducto.toFixed(2)}</div>
             <div class="flex-c-c product__list--item descuento__container">
               <input type="text" value="${descuento}" class="descuento__input" data-descuento minlength="1" maxlength="4">
             </div>
@@ -366,8 +366,8 @@
       const cantidadInput = e.target;
       let cantidadValue = cantidadInput.value.trim();
       const producto = cantidadInput.closest(".products__list--data");
-      const stock = parseInt(producto.querySelector(".stock__producto").textContent);
-      const precioElement = parseFloat(producto.querySelector(".precio__producto").textContent);
+      const stock = parseInt(producto.querySelector(".stock__producto").dataset.stock);
+      const precioElement = parseFloat(producto.querySelector(".precio__venta__producto").dataset.precio);
       const descuentoElement = producto.querySelector(".descuento__input");
       let descuentoValue = descuentoElement.value.trim() || 0;
 
@@ -434,7 +434,7 @@
       const descuentoInput = e.target;
       let descuentoValue = descuentoInput.value.trim();
       const producto = descuentoInput.closest(".products__list--data");
-      const precioElement = parseFloat(producto.querySelector(".precio__producto").textContent);
+      const precioElement = parseFloat(producto.querySelector(".precio__venta__producto").dataset.precio);
       const cantidadElement = parseInt(producto.querySelector(".cantidad__input").value);
       const importeSinDescuento = (precioElement * cantidadElement);
 
@@ -497,8 +497,8 @@
 
       // Iterar sobre los productos y sumar los precios
       productosEnCarrito.forEach(producto => {
-        const precioProducto = parseFloat(producto.querySelector(".importe__producto").textContent);
-        totalVenta += precioProducto;
+        const precioVentaProducto = parseFloat(producto.querySelector(".importe__producto").textContent);
+        totalVenta += precioVentaProducto;
       });
 
       // Actualizar el total de la venta
@@ -543,7 +543,7 @@
         const idProducto = item.querySelector(".id__producto").dataset.id;
         const codProducto = itemChild.querySelector(".cod__producto").dataset.cod;
         const descripcionProducto = itemChild.querySelector(".nombre__producto").dataset.nombre;
-        const precioProducto = parseFloat(itemChild.querySelector(".precio__producto").dataset.precio);
+        const precioVentaProducto = parseFloat(itemChild.querySelector(".precio__venta__producto").dataset.precio);
         const stockProducto = parseInt(itemChild.querySelector(".stock__producto").dataset.stock);
 
         // Crear objeto con la información del producto
@@ -551,7 +551,7 @@
           idProducto,
           codProducto,
           nombreProducto: descripcionProducto,
-          precioProducto,
+          precioVentaProducto,
           stockProducto
         };
 
@@ -628,14 +628,14 @@
       $productElements.forEach(producto => {
         const $idProducto = producto.querySelector(".products__list--data").dataset.id;
         const $cantidadProducto = parseInt(producto.querySelector(".cantidad__input").value);
-        const $precioProducto = parseFloat(producto.querySelector(".precio__producto").textContent);
+        const $precioVentaProducto = parseFloat(producto.querySelector(".precio__venta__producto").dataset.precio);
         const $descuentoProducto = parseFloat(producto.querySelector(".descuento__input").value);
         const $importeProducto = parseFloat(producto.querySelector(".importe__producto").textContent);
 
         const productoVenta = {
           idProducto: $idProducto,
           cantidadProducto: $cantidadProducto,
-          precioProducto: $precioProducto,
+          precioVentaProducto: $precioVentaProducto,
           descuentoProducto: $descuentoProducto,
           importeProducto: $importeProducto
         };
@@ -664,7 +664,7 @@
         const productosVenta = productosCarrito.map(producto => ({
           productoVenta: producto.idProducto,
           cantidadVenta: producto.cantidadProducto,
-          precioProducto: producto.precioProducto,
+          precioVentaProducto: producto.precioVentaProducto,
           descuentoProducto: producto.descuentoProducto,
           importeProducto: producto.importeProducto
         }));

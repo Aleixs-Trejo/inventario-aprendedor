@@ -19,14 +19,16 @@
                       </a>
                       <span class="sub__header__span">Volver</span>
                     </div>
-                    <div class="sub__header__action">
-                      <a href="/occupations/history" class="sub__header__link">
-                        <figure class="sub__header__figure">
-                          <img src="/assets/icon-history.svg" alt="Icon History" class="sub__header__img">
-                        </figure>
-                      </a>
-                      <span class="sub__header__span">Historial</span>
-                    </div>
+                    {{#hasPermission permisosRol "historial-ocupacion"}}
+                      <div class="sub__header__action">
+                        <a href="/occupations/history" class="sub__header__link">
+                          <figure class="sub__header__figure">
+                            <img src="/assets/icon-history.svg" alt="Icon History" class="sub__header__img">
+                          </figure>
+                        </a>
+                        <span class="sub__header__span">Historial</span>
+                      </div>
+                    {{/hasPermission}}
                   </div>
                 </article>
               </section>
@@ -66,9 +68,11 @@
                           <div class="flex-c-c">S/ {{formatCurrency importeOcupacion}}</div>
                           <div class="flex-c-c">{{formatDateTime createdAt}}</div>
                           <div class="flex-c-c items__data--options">
-                            <a href="/occupation/{{_id}}/details" class="options__action--span">
-                              <span class="span__details">Detalles</span>
-                            </a>
+                            {{#hasPermission ../permisosRol "ver-detalle-ocupacion"}}
+                              <a href="/occupation/{{_id}}/details" class="options__action--span">
+                                <span class="span__details">Detalles</span>
+                              </a>
+                            {{/hasPermission}}
                           </div>
                         </article>
                       </div>

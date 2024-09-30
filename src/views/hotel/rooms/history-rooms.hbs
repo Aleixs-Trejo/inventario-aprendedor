@@ -19,14 +19,16 @@
                       </a>
                       <span class="sub__header__span">Volver</span>
                     </div>
-                    <div class="sub__header__action">
-                      <a href="/rooms/register" class="sub__header__link">
-                        <figure class="sub__header__figure">
-                          <img src="/assets/icon-add.svg" alt="Icon Add" class="sub__header__img">
-                        </figure>
-                      </a>
-                      <span class="sub__header__span">Nueva Habitación</span>
-                    </div>
+                    {{#hasPermission permisosRol "crear-habitacion"}}
+                      <div class="sub__header__action">
+                        <a href="/rooms/register" class="sub__header__link">
+                          <figure class="sub__header__figure">
+                            <img src="/assets/icon-add.svg" alt="Icon Add" class="sub__header__img">
+                          </figure>
+                        </a>
+                        <span class="sub__header__span">Nueva Habitación</span>
+                      </div>
+                    {{/hasPermission}}
                   </div>
                 </article>
               </section>

@@ -19,22 +19,26 @@
                       </a>
                       <span class="sub__header__span">Volver</span>
                     </div>
-                    <div class="sub__header__action">
-                      <a href="/users/register" class="sub__header__link">
-                        <figure class="sub__header__figure">
-                          <img src="/assets/icon-add.svg" alt="Icon Add" class="sub__header__img">
-                        </figure>
-                      </a>
-                      <span class="sub__header__span">Nuevo Usuario</span>
-                    </div>
-                    <div class="sub__header__action">
-                      <a href="/users/history" class="sub__header__link">
-                        <figure class="sub__header__figure">
-                          <img src="/assets/icon-history.svg" alt="Icon History" class="sub__header__img">
-                        </figure>
-                      </a>
-                      <span class="sub__header__span">Historial</span>
-                    </div>
+                    {{#hasPermission permisosRol "crear-usuario"}}
+                      <div class="sub__header__action">
+                        <a href="/users/register" class="sub__header__link">
+                          <figure class="sub__header__figure">
+                            <img src="/assets/icon-add.svg" alt="Icon Add" class="sub__header__img">
+                          </figure>
+                        </a>
+                        <span class="sub__header__span">Nuevo Usuario</span>
+                      </div>
+                    {{/hasPermission}}
+                    {{#hasPermission permisosRol "historial-usuario"}}
+                      <div class="sub__header__action">
+                        <a href="/users/history" class="sub__header__link">
+                          <figure class="sub__header__figure">
+                            <img src="/assets/icon-history.svg" alt="Icon History" class="sub__header__img">
+                          </figure>
+                        </a>
+                        <span class="sub__header__span">Historial</span>
+                      </div>
+                    {{/hasPermission}}
                   </div>
                 </article>
               </section>
@@ -68,16 +72,20 @@
                           <div class="flex-c-c">{{usuario}}</div>
                           <div class="flex-c-c">{{formatDateTime trabajadorUsuario.createdAt}}</div>
                           <div class="flex-c-c items__data--options">
-                            <a href="/users/{{_id}}/edit" class="options__action">
-                              <figure class="options__figure">
-                                <img src="../assets/icon-edit.svg" alt="Icon Edit" class="options__img">
-                              </figure>
-                            </a>
-                            <a href="/users/{{_id}}/confirm-delete" class="options__action">
-                              <figure class="options__figure">
-                                <img src="../assets/icon-delete.svg" alt="Icon Delete" class="options__img">
-                              </figure>
-                            </a>
+                            {{#hasPermission ../permisosRol "editar-usuario"}}
+                              <a href="/users/{{_id}}/edit" class="options__action">
+                                <figure class="options__figure">
+                                  <img src="../assets/icon-edit.svg" alt="Icon Edit" class="options__img">
+                                </figure>
+                              </a>
+                            {{/hasPermission}}
+                            {{#hasPermission ../permisosRol "eliminar-usuario"}}
+                              <a href="/users/{{_id}}/confirm-delete" class="options__action">
+                                <figure class="options__figure">
+                                  <img src="../assets/icon-delete.svg" alt="Icon Delete" class="options__img">
+                                </figure>
+                              </a>
+                            {{/hasPermission}}
                           </div>
                         </article>
                       </div>

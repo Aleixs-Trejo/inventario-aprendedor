@@ -191,6 +191,10 @@
                               <input type="checkbox" name="permisosRol" id="ver-usuario" class="child__checkbox" value="ver-usuario" {{#hasPermission permisosRol "ver-usuario"}}checked{{/hasPermission}}>
                               <label for="ver-usuario" class="permissions__label">Ver usuarios</label>
                             </div>
+                            <div class="permissions__item">
+                              <input type="checkbox" name="permisosRol" id="historial-usuario" class="child__checkbox" value="historial-usuario" {{#hasPermission permisosRol "historial-usuario"}}checked{{/hasPermission}}>
+                              <label for="historial-usuario" class="permissions__label">Ver Historial</label>
+                            </div>
                           </div>
                         </div>
                       </section>
@@ -547,6 +551,33 @@
                               <div class="permissions__item">
                                 <input type="checkbox" name="permisosRol" id="exportar-balance" class="child__checkbox" value="exportar-balance" {{#hasPermission permisosRol "exportar-balance"}}checked{{/hasPermission}}>
                                 <label for="exportar-balance" class="permissions__label">Exportar</label>
+                              </div>
+                            </div>
+                          </div>
+                        </section>
+                      </article>
+                      <!-- REGISTROS -->
+                      <article class="form__group form__group--permisos">
+                        <div class="permisos__header">
+                          <span class="permisos__span">Registros</span>
+                          <figure class="permisos__header__figure">
+                            <img src="/assets/icon-arrow--blue.svg" alt="Icon Arrow" class="permisos__header__img">
+                          </figure>
+                        </div>
+                        <section class="permisos__container permisos__container--show">
+                          <div class="permisos__group form__group--permisos">
+                            <div class="permissions__header">
+                              <input type="checkbox" id="record-all" class="parent__checkbox">
+                              <label for="record-all" class="permissions__label">Todo</label>
+                            </div>
+                            <div class="permissions__container">
+                              <div class="permissions__item">
+                                <input type="checkbox" name="permisosRol" id="ver-registro" class="child__checkbox" value="ver-registro" {{#hasPermission permisosRol "ver-registro"}}checked{{/hasPermission}}>
+                                <label for="ver-registro" class="permissions__label">Ver registros</label>
+                              </div>
+                              <div class="permissions__item">
+                                <input type="checkbox" name="permisosRol" id="exportar-registro" class="child__checkbox" value="exportar-registro" {{#hasPermission permisosRol "exportar-registro"}}checked{{/hasPermission}}>
+                                <label for="exportar-registro" class="permissions__label">Exportar</label>
                               </div>
                             </div>
                           </div>
@@ -1113,6 +1144,33 @@
                               <div class="permissions__item">
                                 <input type="checkbox" name="permisosRol" id="exportar-balance" class="child__checkbox" value="exportar-balance" {{#hasPermission permisosRol "exportar-balance"}}checked{{/hasPermission}}>
                                 <label for="exportar-balance" class="permissions__label">Exportar</label>
+                              </div>
+                            </div>
+                          </div>
+                        </section>
+                      </article>
+                      <!-- REGISTROS -->
+                      <article class="form__group form__group--permisos">
+                        <div class="permisos__header">
+                          <span class="permisos__span">Registros</span>
+                          <figure class="permisos__header__figure">
+                            <img src="/assets/icon-arrow--blue.svg" alt="Icon Arrow" class="permisos__header__img">
+                          </figure>
+                        </div>
+                        <section class="permisos__container permisos__container--show">
+                          <div class="permisos__group form__group--permisos">
+                            <div class="permissions__header">
+                              <input type="checkbox" id="record-all" class="parent__checkbox">
+                              <label for="record-all" class="permissions__label">Todo</label>
+                            </div>
+                            <div class="permissions__container">
+                              <div class="permissions__item">
+                                <input type="checkbox" name="permisosRol" id="ver-registro" class="child__checkbox" value="ver-registro" {{#hasPermission permisosRol "ver-registro"}}checked{{/hasPermission}}>
+                                <label for="ver-registro" class="permissions__label">Ver registros</label>
+                              </div>
+                              <div class="permissions__item">
+                                <input type="checkbox" name="permisosRol" id="exportar-registro" class="child__checkbox" value="exportar-registro" {{#hasPermission permisosRol "exportar-registro"}}checked{{/hasPermission}}>
+                                <label for="exportar-registro" class="permissions__label">Exportar</label>
                               </div>
                             </div>
                           </div>

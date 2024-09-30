@@ -19,14 +19,16 @@
                       </a>
                       <span class="sub__header__span">Volver</span>
                     </div>
-                    <div class="sub__header__action">
-                      <a href="/users/register" class="sub__header__link">
-                        <figure class="sub__header__figure">
-                          <img src="/assets/icon-add.svg" alt="Icon Add" class="sub__header__img">
-                        </figure>
-                      </a>
-                      <span class="sub__header__span">Nuevo Usuario</span>
-                    </div>
+                    {{#hasPermission permisosRol "crear-usuario"}}
+                      <div class="sub__header__action">
+                        <a href="/users/register" class="sub__header__link">
+                          <figure class="sub__header__figure">
+                            <img src="/assets/icon-add.svg" alt="Icon Add" class="sub__header__img">
+                          </figure>
+                        </a>
+                        <span class="sub__header__span">Nuevo Usuario</span>
+                      </div>
+                    {{/hasPermission}}
                   </div>
                 </article>
               </section>
@@ -75,21 +77,3 @@
     </div>
   </div>
 </section>
-<script>
-  document.addEventListener("DOMContentLoaded", function() {
-    const tipoHistorial = document.querySelectorAll(".tipo__historial");
-    function initialize() {
-      tipoHistorial.forEach(item => {
-        const text = item.textContent;
-        if (text === "Registro") {
-          item.style.color = "#fff";
-          item.style.backgroundColor = "#58b56d";
-        } else if (text === "Eliminado") {
-          item.style.color = "#fff";
-          item.style.backgroundColor = "#ff0000";
-        }
-      });
-    }
-    initialize();
-  });
-</script>

@@ -21,10 +21,6 @@ const storeSchema = new Schema(
       type: Number,
       required: true
     },
-    almacenMinStock: {
-      type: Number,
-      required: true
-    },
     eliminadoProductoAlmacen: {
       type: Boolean,
       default: false

@@ -19,31 +19,37 @@
                       </a>
                       <span class="sub__header__span">Volver</span>
                     </div>
-                    <div class="sub__header__action">
-                      <a href="/stores/register" class="sub__header__link">
-                        <figure class="sub__header__figure">
-                          <img src="/assets/icon-add.svg" alt="Icon Add" class="sub__header__img">
-                        </figure>
-                      </a>
-                      <span class="sub__header__span">Agregar Producto</span>
-                    </div>
-                    <div class="sub__header__action">
-                      <a href="/stores/history" class="sub__header__link">
-                        <figure class="sub__header__figure">
-                          <img src="/assets/icon-history.svg" alt="Icon History" class="sub__header__img">
-                        </figure>
-                      </a>
-                      <span class="sub__header__span">Historial</span>
-                    </div>
-                    {{#if stores}}
-                      <div class="sub__header__action action__export--excel">
-                        <a href="/stores/export-excel" class="sub__header__link">
+                    {{#hasPermission permisosRol "crear-almacen"}}
+                      <div class="sub__header__action">
+                        <a href="/stores/register" class="sub__header__link">
                           <figure class="sub__header__figure">
-                            <img src="/assets/icon-excel.svg" alt="Icon History" class="sub__header__img">
+                            <img src="/assets/icon-add.svg" alt="Icon Add" class="sub__header__img">
                           </figure>
                         </a>
-                        <span class="sub__header__span">Exportar</span>
+                        <span class="sub__header__span">Agregar Producto</span>
                       </div>
+                    {{/hasPermission}}
+                    {{#if stores}}
+                      {{#hasPermission permisosRol "historial-almacen"}}
+                        <div class="sub__header__action">
+                          <a href="/stores/history" class="sub__header__link">
+                            <figure class="sub__header__figure">
+                              <img src="/assets/icon-history.svg" alt="Icon History" class="sub__header__img">
+                            </figure>
+                          </a>
+                          <span class="sub__header__span">Historial</span>
+                        </div>
+                      {{/hasPermission}}
+                      {{#hasPermission permisosRol "exportar-almacen"}}
+                        <div class="sub__header__action action__export--excel">
+                          <a href="/stores/export-excel" class="sub__header__link">
+                            <figure class="sub__header__figure">
+                              <img src="/assets/icon-excel.svg" alt="Icon History" class="sub__header__img">
+                            </figure>
+                          </a>
+                          <span class="sub__header__span">Exportar</span>
+                        </div>
+                      {{/hasPermission}}
                     {{/if}}
                   </div>
                 </article>
@@ -100,8 +106,10 @@
                     <div class="flex-c-c">Proveedor</div>
                     <div class="flex-c-c">Categoría</div>
                     <div class="flex-c-c">Ubicacion</div>
-                    <div class="flex-c-c">Precio</div>
+                    <div class="flex-c-c">P/Compra</div>
+                    <div class="flex-c-c">P/Venta</div>
                     <div class="flex-c-c">Stock</div>
+                    <div class="flex-c-c">Stock-Seg</div>
                     <div class="flex-c-c">Min-Stock</div>
                     <div class="flex-c-c">Fecha Registro</div>
                     <div class="flex-c-c">Acciones</div>
@@ -117,27 +125,35 @@
                           <div class="flex-c-c" data-proveedor="{{almacenProducto.proveedorProducto.nombreProveedor}}">{{almacenProducto.proveedorProducto.nombreProveedor}}</div>
                           <div class="flex-c-c" data-categoria="{{almacenProducto.categoriaProducto.nombreCategoria}}">{{almacenProducto.categoriaProducto.nombreCategoria}}</div>
                           <div class="flex-c-c">{{almacenStockUbicacion.nombreStockUbicacion}}</div>
-                          <div class="flex-c-c">S/{{formatCurrency almacenProducto.precioProducto}}</div>
+                          <div class="flex-c-c">S/{{formatCurrency almacenProducto.precioCompraProducto}}</div>
+                          <div class="flex-c-c">S/{{formatCurrency almacenProducto.precioVentaProducto}}</div>
                           <div class="flex-c-c stocks">{{almacenStock}}</div>
-                          <div class="flex-c-c stocks__min">{{almacenMinStock}}</div>
+                          <div class="flex-c-c stocks__seg">{{almacenProducto.stockSeguridadProducto}}</div>
+                          <div class="flex-c-c stocks__min">{{almacenProducto.stockMinimoProducto}}</div>
                           <div class="flex-c-c">{{formatDateTime createdAt}}</div>
                           <div class="flex-c-c items__data--options">
-                            <a href="/stores/{{_id}}/details" class="options__action">
-                              <figure class="options__figure">
-                                <img src="/assets/icon-edit.svg" alt="Icon Details" class="options__img">
-                              </figure>
-                              <span class="span__detail">Detalles</span>
-                            </a>
-                            <a href="/stores/{{_id}}/edit" class="options__action">
-                              <figure class="options__figure">
-                                <img src="/assets/icon-edit.svg" alt="Icon Edit" class="options__img">
-                              </figure>
-                            </a>
-                            <a href="/stores/{{_id}}/confirm-delete" class="options__action">
-                              <figure class="options__figure">
-                                <img src="/assets/icon-delete.svg" alt="Icon Delete" class="options__img">
-                              </figure>
-                            </a>
+                            {{#hasPermission ../permisosRol "ver-detalle-almacen"}}
+                              <a href="/stores/{{_id}}/details" class="options__action">
+                                <figure class="options__figure">
+                                  <img src="/assets/icon-edit.svg" alt="Icon Details" class="options__img">
+                                </figure>
+                                <span class="span__detail">Detalles</span>
+                              </a>
+                            {{/hasPermission}}
+                            {{#hasPermission ../permisosRol "editar-almacen"}}
+                              <a href="/stores/{{_id}}/edit" class="options__action">
+                                <figure class="options__figure">
+                                  <img src="/assets/icon-edit.svg" alt="Icon Edit" class="options__img">
+                                </figure>
+                              </a>
+                            {{/hasPermission}}
+                            {{#hasPermission ../permisosRol "eliminar-almacen"}}
+                              <a href="/stores/{{_id}}/confirm-delete" class="options__action">
+                                <figure class="options__figure">
+                                  <img src="/assets/icon-delete.svg" alt="Icon Delete" class="options__img">
+                                </figure>
+                              </a>
+                            {{/hasPermission}}
                           </div>
                         </article>
                       </div>
@@ -164,20 +180,20 @@
     const stocks = document.querySelectorAll(".stocks");
     const stocksMin = document.querySelectorAll(".stocks__min");
 
-    ((d) => {
-      stocks.forEach((stock, index) => {
+    (() => {
+      stocks.forEach(stock => {
         const stockValue = parseInt(stock.textContent);
-        const stockMinValue = parseInt(stocksMin[index].textContent);
+        const stockSegValue = parseInt(stock.nextElementSibling.textContent);
+        const stockMinValue = parseInt(stock.nextElementSibling.nextElementSibling.textContent);
         const parentStockMin = stock.parentElement;
-
-        if (stockValue <= stockMinValue) {
+        
+        if (stockValue > stockMinValue && stockValue <= stockSegValue) {
+          parentStockMin.classList.add("stock__seg__bg");
+        } else if (stockValue <= stockMinValue) {
           parentStockMin.classList.add("stock__min__bg");
-        } else if (stockValue > stockMinValue) {
-          parentStockMin.classList.remove("stock__min__bg");
         }
-      })
-      
-    })(document)
+      });
+    })()
 
     function getUrlParams() {
       const urlParams = new URLSearchParams(window.location.search);

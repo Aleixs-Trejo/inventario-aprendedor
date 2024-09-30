@@ -29,9 +29,21 @@ const productSchema = new Schema(
       type: String,
       required: true
     },
-    precioProducto: {
+    precioCompraProducto: {
+      type: Number,
+      default: 0
+    },
+    precioVentaProducto: {
       type: Number,
       required: true
+    },
+    stockSeguridadProducto: {
+      type: Number,
+      default: 10
+    },
+    stockMinimoProducto: {
+      type: Number,
+      default: 5
     },
     eliminadoProducto: {
       type: Boolean,

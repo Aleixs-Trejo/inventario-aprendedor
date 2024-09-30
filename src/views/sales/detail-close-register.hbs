@@ -19,22 +19,26 @@
                       </a>
                       <span class="sub__header__span">Volver</span>
                     </div>
-                    <div class="sub__header__action">
-                      <a href="/sales/register" class="sub__header__link">
-                        <figure class="sub__header__figure">
-                          <img src="/assets/icon-add.svg" alt="Icon Add" class="sub__header__img">
-                        </figure>
-                      </a>
-                      <span class="sub__header__span">Nueva Venta</span>
-                    </div>
-                    <div class="sub__header__action">
-                      <a href="/sales/balance" class="sub__header__link">
-                        <figure class="sub__header__figure">
-                          <img src="/assets/icon-balance.svg" alt="Icon Balance" class="sub__header__img">
-                        </figure>
-                      </a>
-                      <span class="sub__header__span">Balances</span>
-                    </div>
+                    {{#hasPermission permisosRol "crear-venta"}}
+                      <div class="sub__header__action">
+                        <a href="/sales/register" class="sub__header__link">
+                          <figure class="sub__header__figure">
+                            <img src="/assets/icon-add.svg" alt="Icon Add" class="sub__header__img">
+                          </figure>
+                        </a>
+                        <span class="sub__header__span">Nueva Venta</span>
+                      </div>
+                    {{/hasPermission}}
+                    {{#hasPermission permisosRol "ver-balance"}}
+                      <div class="sub__header__action">
+                        <a href="/sales/balance" class="sub__header__link">
+                          <figure class="sub__header__figure">
+                            <img src="/assets/icon-balance.svg" alt="Icon Balance" class="sub__header__img">
+                          </figure>
+                        </a>
+                        <span class="sub__header__span">Balances</span>
+                      </div>
+                    {{/hasPermission}}
                   </div>
                 </article>
               </section>
@@ -52,8 +56,10 @@
                     <div class="flex-c-c">Vendedor</div>
                     <div class="flex-c-c">Cliente</div>
                     <div class="flex-c-c">Núm de Prod</div>
-                    <div class="flex-c-c">Precio total</div>
+                    <div class="flex-c-c">Importe total</div>
                     <div class="flex-c-c">Descuento total</div>
+                    <div class="flex-c-c">Costos totales</div>
+                    <div class="flex-c-c">Ganancias totales</div>
                     <div class="flex-c-c">Fecha</div>
                     <div class="flex-c-c detail__options">Ver</div>
                   </article>
@@ -68,27 +74,35 @@
                           <div class="flex-c-c">{{cierreVentas.tipoProductosVenta}}</div>
                           <div class="flex-c-c total__venta">S/{{formatCurrency cierreVentas.precioTotalVenta}}</div>
                           <div class="flex-c-c total__venta">-S/{{formatCurrency cierreVentas.descuentoTotalVenta}}</div>
+                          <div class="flex-c-c total__venta">S/{{formatCurrency cierreVentas.costoTotalVenta}}</div>
+                          <div class="flex-c-c total__venta">S/{{formatCurrency cierreVentas.gananciaTotalVenta}}</div>
                           <div class="flex-c-c">{{formatDateTime cierreVentas.createdAt}}</div>
                           <div class="flex-c-c items__data--options">
-                            <a href="/sales/{{cierreVentas._id}}/details" class="options__action">
-                              <figure class="options__figure">
-                                <img src="/assets/icon-edit.svg" alt="Icon Edit" class="options__img">
-                              </figure>
-                              <span class="span__detail">Detalles</span>
-                            </a>
+                            {{#hasPermission ../permisosRol "ver-detalle-cierre-venta"}}
+                              <a href="/sales/{{cierreVentas._id}}/details" class="options__action">
+                                <figure class="options__figure">
+                                  <img src="/assets/icon-edit.svg" alt="Icon Edit" class="options__img">
+                                </figure>
+                                <span class="span__detail">Detalles</span>
+                              </a>
+                            {{/hasPermission}}
                             {{#if (eq cierreVentas.estadoVenta "Confirmada")}}
-                              <a href="/sales/{{cierreVentas._id}}/voucher" class="options__action option__pending">
-                                <figure class="options__figure">
-                                  <img src="/assets/icon-edit.svg" alt="Icon Edit" class="options__img">
-                                </figure>
-                                <span class="span__detail">Ticket</span>
-                              </a>
-                              <a href="/sales/{{cierreVentas._id}}/bill" class="options__action option__pending">
-                                <figure class="options__figure">
-                                  <img src="/assets/icon-edit.svg" alt="Icon Edit" class="options__img">
-                                </figure>
-                                <span class="span__detail">Boleta</span>
-                              </a>
+                              {{#hasPermission ../permisosRol "ticket-venta"}}
+                                <a href="/sales/{{cierreVentas._id}}/voucher" class="options__action option__pending">
+                                  <figure class="options__figure">
+                                    <img src="/assets/icon-edit.svg" alt="Icon Edit" class="options__img">
+                                  </figure>
+                                  <span class="span__detail">Ticket</span>
+                                </a>
+                              {{/hasPermission}}
+                              {{#hasPermission ../permisosRol "boleta-venta"}}
+                                <a href="/sales/{{cierreVentas._id}}/bill" class="options__action option__pending">
+                                  <figure class="options__figure">
+                                    <img src="/assets/icon-edit.svg" alt="Icon Edit" class="options__img">
+                                  </figure>
+                                  <span class="span__detail">Boleta</span>
+                                </a>
+                              {{/hasPermission}}
                             {{/if}}
                           </div>
                         </article>

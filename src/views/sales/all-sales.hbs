@@ -20,50 +20,60 @@
                         </a>
                         <span class="sub__header__span">Volver</span>
                       </div>
-                      <div class="sub__header__action">
-                        <a href="/sales/register" class="sub__header__link">
-                          <figure class="sub__header__figure">
-                            <img src="/assets/icon-add.svg" alt="Icon Add" class="sub__header__img">
-                          </figure>
-                        </a>
-                        <span class="sub__header__span">Nueva Venta</span>
-                      </div>
-                      <div class="sub__header__action">
-                        <a href="/sales/history" class="sub__header__link">
-                          <figure class="sub__header__figure">
-                            <img src="/assets/icon-history.svg" alt="Icon History" class="sub__header__img">
-                          </figure>
-                        </a>
-                        <span class="sub__header__span">Historial</span>
-                      </div>
-                      {{#if sales}}
-                        <div class="sub__header__action action__export--excel">
-                          <a href="/sales/export-excel" class="sub__header__link">
+                      {{#hasPermission permisosRol "crear-venta"}}
+                        <div class="sub__header__action">
+                          <a href="/sales/register" class="sub__header__link">
                             <figure class="sub__header__figure">
-                              <img src="/assets/icon-excel.svg" alt="Icon Excel" class="sub__header__img">
+                              <img src="/assets/icon-add.svg" alt="Icon Add" class="sub__header__img">
                             </figure>
                           </a>
-                          <span class="sub__header__span">Exportar Excel</span>
+                          <span class="sub__header__span">Nueva Venta</span>
                         </div>
+                      {{/hasPermission}}
+                      {{#if sales}}
+                        {{#hasPermission permisosRol "historial-venta"}}
+                          <div class="sub__header__action">
+                            <a href="/sales/history" class="sub__header__link">
+                              <figure class="sub__header__figure">
+                                <img src="/assets/icon-history.svg" alt="Icon History" class="sub__header__img">
+                              </figure>
+                            </a>
+                            <span class="sub__header__span">Historial</span>
+                          </div>
+                        {{/hasPermission}}
+                        {{#hasPermission permisosRol "exportar-venta"}}
+                          <div class="sub__header__action action__export--excel">
+                            <a href="/sales/export-excel" class="sub__header__link">
+                              <figure class="sub__header__figure">
+                                <img src="/assets/icon-excel.svg" alt="Icon Excel" class="sub__header__img">
+                              </figure>
+                            </a>
+                            <span class="sub__header__span">Exportar Excel</span>
+                          </div>
+                        {{/hasPermission}}
+                        {{#hasPermission permisosRol "ver-balance"}}
+                          <div class="sub__header__action">
+                            <a href="/sales/balance" class="sub__header__link">
+                              <figure class="sub__header__figure">
+                                <img src="/assets/icon-balance.svg" alt="Icon Balance" class="sub__header__img">
+                              </figure>
+                            </a>
+                            <span class="sub__header__span">Balances</span>
+                          </div>
+                        {{/hasPermission}}
                       {{/if}}
-                      <div class="sub__header__action">
-                        <a href="/sales/balance" class="sub__header__link">
-                          <figure class="sub__header__figure">
-                            <img src="/assets/icon-balance.svg" alt="Icon Balance" class="sub__header__img">
-                          </figure>
-                        </a>
-                        <span class="sub__header__span">Balances</span>
-                      </div>
                     </div>
                   </article>
                   {{#if sales}}
-                    <article class="article__sub__header sub__header__buttons">
-                      <div class="sub__header__buttons__container">
-                        <article class="items__actions">
-                          <div class="flex-c-c confirm__sales"><span class="span__confirm">Cerrar Caja</span></div>
-                        </article>
-                      </div>
-                    </article>
+                    {{#hasPermission permisosRol "cerrar-caja-venta"}}
+                      <article class="article__sub__header sub__header__buttons">
+                        <div class="sub__header__buttons__container">
+                          <article class="items__actions">
+                            <div class="flex-c-c confirm__sales"><span class="span__confirm">Cerrar Caja</span></div>
+                          </article>
+                        </div>
+                      </article>
+                    {{/hasPermission}}
                   {{/if}}
                 </section>
               </article>
@@ -126,38 +136,46 @@
                               <div class="card__footer__content">
                                 <div class="card__footer__actions">
                                   <div class="links__actions">
-                                    <a href="/sales/{{_id}}/details" class="link__action">
-                                      <div class="link__action__content">
-                                        <figure class="link__action__figure">
-                                          <img src="/assets/icon-details-white.svg" alt="Icon Details" class="link__action__img">
-                                        </figure>
-                                        <span class="link__action__span">Detalles</span>
-                                      </div>
-                                    </a>
-                                    <a href="/sales/{{_id}}/voucher" class="link__action link__action--pending">
-                                      <div class="link__action__content">
-                                        <figure class="link__action__figure">
-                                          <img src="/assets/icon-ticket-white.svg" alt="Icon Ticket" class="link__action__img">
-                                        </figure>
-                                        <span class="link__action__span">Ticket</span>
-                                      </div>
-                                    </a>
-                                    <a href="/sales/{{_id}}/download" class="link__action link__action--pending">
-                                      <div class="link__action__content">
-                                        <figure class="link__action__figure">
-                                          <img src="/assets/icon-pdf.svg" alt="Icon Bill" class="link__action__img">
-                                        </figure>
-                                        <span class="link__action__span">Boleta</span>
-                                      </div>
-                                    </a>
-                                    <a href="/sales/{{_id}}/bill" class="link__action link__action--pending">
-                                      <div class="link__action__content">
-                                        <figure class="link__action__figure">
-                                          <img src="/assets/icon-details-white.svg" alt="Icon Cart" class="link__action__img">
-                                        </figure>
-                                        <span class="link__action__span">Boleta</span>
-                                      </div>
-                                    </a>
+                                    {{#hasPermission ../permisosRol "ver-venta-detalle"}}
+                                      <a href="/sales/{{_id}}/details" class="link__action">
+                                        <div class="link__action__content">
+                                          <figure class="link__action__figure">
+                                            <img src="/assets/icon-details-white.svg" alt="Icon Details" class="link__action__img">
+                                          </figure>
+                                          <span class="link__action__span">Detalles</span>
+                                        </div>
+                                      </a>
+                                    {{/hasPermission}}
+                                    {{#hasPermission ../permisosRol "ticket-venta"}}
+                                      <a href="/sales/{{_id}}/voucher" class="link__action link__action--pending">
+                                        <div class="link__action__content">
+                                          <figure class="link__action__figure">
+                                            <img src="/assets/icon-ticket-white.svg" alt="Icon Ticket" class="link__action__img">
+                                          </figure>
+                                          <span class="link__action__span">Ticket</span>
+                                        </div>
+                                      </a>
+                                    {{/hasPermission}}
+                                    {{#hasPermission ../permisosRol "email-venta"}}
+                                      <a href="/sales/{{_id}}/download" class="link__action link__action--pending">
+                                        <div class="link__action__content">
+                                          <figure class="link__action__figure">
+                                            <img src="/assets/icon-pdf.svg" alt="Icon Bill" class="link__action__img">
+                                          </figure>
+                                          <span class="link__action__span">Correo/Descargar</span>
+                                        </div>
+                                      </a>
+                                    {{/hasPermission}}
+                                    {{#hasPermission ../permisosRol "boleta-venta"}}
+                                      <a href="/sales/{{_id}}/bill" class="link__action link__action--pending">
+                                        <div class="link__action__content">
+                                          <figure class="link__action__figure">
+                                            <img src="/assets/icon-details-white.svg" alt="Icon Cart" class="link__action__img">
+                                          </figure>
+                                          <span class="link__action__span">Boleta</span>
+                                        </div>
+                                      </a>
+                                    {{/hasPermission}}
                                   </div>
                                 </div>
                               </div>

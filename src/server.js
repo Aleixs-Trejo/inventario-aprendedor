@@ -27,7 +27,7 @@ app.engine(".hbs", exphbs.engine(
     extname: ".hbs",
     helpers: {
       eq: function (a, b){
-        return a === b; // devuelve true si son iguales
+        return a.toString() == b.toString(); // devuelve true si son iguales
       },
       or: (...args) => {
         return args.some(Boolean);

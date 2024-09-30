@@ -89,8 +89,20 @@
                                 <span class="content__li__span content__li__span--data">{{#if product.categoriaProducto}}{{product.categoriaProducto.nombreCategoria}}{{else}}-{{/if}}</span>
                               </li>
                               <li class="content__li">
-                                <span class="content__li__span">Precio</span>
-                                <span class="content__li__span content__li__span--data">{{#if product.precioProducto}}S/{{formatCurrency product.precioProducto}}{{else}}-{{/if}}</span>
+                                <span class="content__li__span">Precio Compra</span>
+                                <span class="content__li__span content__li__span--data">{{#if product.precioCompraProducto}}S/{{formatCurrency product.precioCompraProducto}}{{else}}-{{/if}}</span>
+                              </li>
+                              <li class="content__li">
+                                <span class="content__li__span">Precio Venta</span>
+                                <span class="content__li__span content__li__span--data">{{#if product.precioVentaProducto}}S/{{formatCurrency product.precioVentaProducto}}{{else}}-{{/if}}</span>
+                              </li>
+                              <li class="content__li">
+                                <span class="content__li__span">Stock de Seguridad</span>
+                                <span class="content__li__span content__li__span--data">{{#if product.stockSeguridadProducto}}{{product.stockSeguridadProducto}}{{else}}-{{/if}}</span>
+                              </li>
+                              <li class="content__li">
+                                <span class="content__li__span">Stock Minimo</span>
+                                <span class="content__li__span content__li__span--data">{{#if product.stockMinimoProducto}}{{product.stockMinimoProducto}}{{else}}-{{/if}}</span>
                               </li>
                               <li class="content__li">
                                 <span class="content__li__span">Fecha Registro</span>
@@ -146,8 +158,20 @@
                                       <span class="content__li__span content__li__span--data">{{#if categoriaProductoHistorial}}{{categoriaProductoHistorial.nombreCategoria}}{{else}}-{{/if}}</span>
                                     </li>
                                     <li class="content__li">
-                                      <span class="content__li__span">Precio</span>
-                                      <span class="content__li__span content__li__span--data">{{#if precioProductoHistorial}}S/{{formatCurrency precioProductoHistorial}}{{else}}-{{/if}}</span>
+                                      <span class="content__li__span">Precio Compra</span>
+                                      <span class="content__li__span content__li__span--data">{{#if precioCompraProductoHistorial}}S/{{formatCurrency precioCompraProductoHistorial}}{{else}}-{{/if}}</span>
+                                    </li>
+                                    <li class="content__li">
+                                      <span class="content__li__span">Precio Venta</span>
+                                      <span class="content__li__span content__li__span--data">{{#if precioVentaProductoHistorial}}S/{{formatCurrency precioVentaProductoHistorial}}{{else}}-{{/if}}</span>
+                                    </li>
+                                    <li class="content__li">
+                                      <span class="content__li__span">Stock de Seguridad</span>
+                                      <span class="content__li__span content__li__span--data">{{#if stockSeguridadProductoHistorial}}{{stockSeguridadProductoHistorial}}{{else}}-{{/if}}</span>
+                                    </li>
+                                    <li class="content__li">
+                                      <span class="content__li__span">Stock Minimo</span>
+                                      <span class="content__li__span content__li__span--data">{{#if stockMinimoProductoHistorial}}{{stockMinimoProductoHistorial}}{{else}}-{{/if}}</span>
                                     </li>
                                     <li class="content__li">
                                       <span class="content__li__span">Fecha</span>

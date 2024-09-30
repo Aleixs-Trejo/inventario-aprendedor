@@ -19,22 +19,16 @@
                       </a>
                       <span class="sub__header__span">Volver</span>
                     </div>
-                    <div class="sub__header__action">
-                      <a href="/stores/register" class="sub__header__link">
-                        <figure class="sub__header__figure">
-                          <img src="/assets/icon-add.svg" alt="Icon Add" class="sub__header__img">
-                        </figure>
-                      </a>
-                      <span class="sub__header__span">Agregar Producto</span>
-                    </div>
-                    <div class="sub__header__action">
-                      <a href="/stores/export-excel" class="sub__header__link">
-                        <figure class="sub__header__figure">
-                          <img src="/assets/icon-excel.svg" alt="Icon History" class="sub__header__img">
-                        </figure>
-                      </a>
-                      <span class="sub__header__span">Exportar</span>
-                    </div>
+                    {{#hasPermission permisosRol "crear-almacen"}}
+                      <div class="sub__header__action">
+                        <a href="/stores/register" class="sub__header__link">
+                          <figure class="sub__header__figure">
+                            <img src="/assets/icon-add.svg" alt="Icon Add" class="sub__header__img">
+                          </figure>
+                        </a>
+                        <span class="sub__header__span">Agregar Producto</span>
+                      </div>
+                    {{/hasPermission}}
                   </div>
                 </article>
               </section>
@@ -55,7 +49,7 @@
                     <div class="flex-c-c">Proveedor</div>
                     <div class="flex-c-c">Categoría</div>
                     <div class="flex-c-c">Ubicacion</div>
-                    <div class="flex-c-c">Precio</div>
+                    <div class="flex-c-c">P/Compra</div>
                     <div class="flex-c-c">Stock</div>
                     <div class="flex-c-c">Min-Stock</div>
                     <div class="flex-c-c">Fecha</div>
@@ -72,7 +66,8 @@
                           <div class="flex-c-c">{{#if almacenProductoHistorial}}{{almacenProductoHistorial.proveedorProducto.nombreProveedor}}{{else}}-{{/if}}</div>
                           <div class="flex-c-c">{{#if almacenProductoHistorial}}{{almacenProductoHistorial.categoriaProducto.nombreCategoria}}{{else}}-{{/if}}</div>
                           <div class="flex-c-c">{{#if almacenStockUbicacionHistorial}}{{almacenStockUbicacionHistorial.nombreStockUbicacion}}{{else}}-{{/if}}</div>
-                          <div class="flex-c-c">{{#if almacenProductoHistorial}}S/{{formatCurrency almacenProductoHistorial.precioProducto}}{{else}}-{{/if}}</div>
+                          <div class="flex-c-c">{{#if almacenProductoHistorial}}S/{{formatCurrency almacenProductoHistorial.precioCompraProducto}}{{else}}-{{/if}}</div>
+                          <div class="flex-c-c">{{#if almacenProductoHistorial}}S/{{formatCurrency almacenProductoHistorial.precioVentaProducto}}{{else}}-{{/if}}</div>
                           <div class="flex-c-c">{{#if almacenStockUbicacionHistorial}}{{almacenStockHistorial}}{{else}}-{{/if}}</div>
                           <div class="flex-c-c">{{#if almacenStockUbicacionHistorial}}{{almacenMinStockHistorial}}{{else}}-{{/if}}</div>
                           <div class="flex-c-c">{{formatDateTime createdAt}}</div>

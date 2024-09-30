@@ -56,12 +56,14 @@
                           <div class="flex-c-c">S/{{formatCurrency importeTotalCierreVentasHotel}}</div>
                           <div class="flex-c-c">{{formatDateTime createdAt}}</div>
                           <div class="flex-c-c items__data--options">
-                            <a href="/hotel/sales/history/{{_id}}/details" class="options__action">
-                              <figure class="options__figure">
-                                <img src="/assets/icon-edit.svg" alt="Icon Details" class="options__img">
-                              </figure>
-                              <span class="span__detail">Detalles</span>
-                            </a>
+                            {{#hasPermission ../permisosRol "ver-detalle-historial-venta-hotel"}}
+                              <a href="/hotel/sales/history/{{_id}}/details" class="options__action">
+                                <figure class="options__figure">
+                                  <img src="/assets/icon-edit.svg" alt="Icon Details" class="options__img">
+                                </figure>
+                                <span class="span__detail">Detalles</span>
+                              </a>
+                            {{/hasPermission}}
                           </div>
                         </article>
                       </div>

@@ -35,7 +35,15 @@ const salesHistorySchema = new Schema(
       default: 0,
       required: true
     },
+    totalCostosVentas: {
+      type: Number,
+      default: 0
+    },
     totalCierreVentas: {
+      type: Number,
+      required: true
+    },
+    totalGananciasVentas: {
       type: Number,
       required: true
     }

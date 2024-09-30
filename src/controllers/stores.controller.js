@@ -16,8 +16,6 @@ storeCtrl.renderRegisterStore = async (req, res) => {
       .sort({cod: 1})
       .lean();
 
-    console.log("Productos: ", products);
-
     if (!products || products.length === 0) {
       req.flash("wrong", "No hay productos registrados.");
       console.log("No hay productos registrados.");
@@ -53,7 +51,7 @@ storeCtrl.registerStore = async (req, res) => {
 
     // Recorrer almacenProductos
     for (const producto of almacenProductos) {
-      const { almacenProducto, almacenStock, almacenMinStock, almacenStockUbicacion} = producto
+      const { almacenProducto, almacenStock, almacenStockUbicacion} = producto
 
       // Buscar el producto en la bd de productos
       const productInProducts = await Product.findById(almacenProducto)
@@ -62,9 +60,8 @@ storeCtrl.registerStore = async (req, res) => {
       if (productInProducts) {
         // Nos aseguramos de que el stock y el stock minimo sean números
         const stock = Number(almacenStock);
-        const minStock = Number(almacenMinStock);
 
-        if (isNaN(stock) || isNaN(minStock) || stock === 0 || minStock === 0) {
+        if (isNaN(stock) || stock === 0) {
           throw new Error("El stock no es un número válido");
         }
 
@@ -82,7 +79,6 @@ storeCtrl.registerStore = async (req, res) => {
         if (existingProductSameLocation) {
           // Producto con la misma ubicación, actualizar el stock
           existingProductSameLocation.almacenStock += stock;
-          existingProductSameLocation.almacenMinStock = minStock;
           await existingProductSameLocation.save();
 
           // Guartar el existinsProductSameLocation como objeto lean
@@ -95,8 +91,7 @@ storeCtrl.registerStore = async (req, res) => {
             almacenHistorial: existingProductSameLocationLean._id,
             almacenProductoHistorial: almacenProducto,
             almacenStockUbicacionHistorial: almacenStockUbicacion,
-            almacenStockHistorial: stock,
-            almacenMinStockHistorial: almacenMinStock
+            almacenStockHistorial: stock
           });
           await newStoreHistory.save();
 
@@ -119,7 +114,6 @@ storeCtrl.registerStore = async (req, res) => {
             almacenUsuario: req.user,
             almacenProducto,
             almacenStock: stock,
-            almacenMinStock: minStock,
             almacenStockUbicacion
           });
           await newStore.save();
@@ -131,8 +125,7 @@ storeCtrl.registerStore = async (req, res) => {
             almacenHistorial: newStore._id,
             almacenProductoHistorial: almacenProducto,
             almacenStockUbicacionHistorial: almacenStockUbicacion,
-            almacenStockHistorial: stock,
-            almacenMinStockHistorial: minStock
+            almacenStockHistorial: stock
           });
           await newStoreHistory.save();
 
@@ -167,16 +160,30 @@ storeCtrl.registerStore = async (req, res) => {
   }
 };
 
-// Buscar productos menores a su stock minimo
+// Buscar productos menores o igual es a su stock de seguridad ya también menores o iguales a su stock minimo
 storeCtrl.findLowStockProducts = async (req, res) => {
   try {
-    // Buscar productos menores a su stock minimo
-    const lowStockProducts = await Store.countDocuments({
-      eliminadoProductoAlmacen: false,
-      $expr: { $lte: ["$almacenStock", "$almacenMinStock"] }
+    const storeProducts = await Store.find({eliminadoProductoAlmacen: false})
+      .populate("almacenProducto")
+      .populate("almacenUsuario")
+      .lean();
+
+    // Filtrar los productos con stock bajo
+    const lowStockSecurity = [];
+    const lowStockMinimum = [];
+
+    // Recorrer los productos del almacén
+    storeProducts.forEach(storeProduct => {
+      const product = storeProduct.almacenProducto;
+
+      if (storeProduct.almacenStock > product.stockMinimoProducto && storeProduct.almacenStock <= product.stockSeguridadProducto) { lowStockSecurity.push(storeProduct); }
+      if (storeProduct.almacenStock <= product.stockMinimoProducto) { lowStockMinimum.push(storeProduct); }
     });
 
-    res.json({lowStockProducts});
+    res.json({
+      lowStockSecurity,
+      lowStockMinimum
+    });
   } catch (error) {
     req.flash("wrong", "Ocurrió un error, intente nuevamente.");
     console.log("Error: ", error);
@@ -209,7 +216,7 @@ storeCtrl.renderStores = async (req, res) => {
     console.log("Error: ", error);
     res.status(500).send("Error interno, posiblemente haya escrito algo mal, así que perdón por ello 😿, puede reportar el error para corregirlo en la próxima actualización. Detalles del error " + error.message);
   }
-}
+};
 
 //Editar y actualizar un producto de almacén
 storeCtrl.renderEditStore = async (req, res) => {
@@ -247,7 +254,7 @@ storeCtrl.renderEditStore = async (req, res) => {
     console.log("Error: ", error);
     res.status(500).send("Error interno, posiblemente haya escrito algo mal, así que perdón por ello 😿, puede reportar el error para corregirlo en la próxima actualización. Detalles del error " + error.message);
   }
-}
+};
 
 storeCtrl.updateStore = async (req, res) => {
   try {
@@ -294,8 +301,7 @@ storeCtrl.updateStore = async (req, res) => {
         almacenHistorial: existingProductSameLocationLean._id,
         almacenProductoHistorial: editedStoreItem.almacenProducto,
         almacenStockUbicacionHistorial: editedStoreItem.almacenStockUbicacion,
-        almacenStockHistorial: editedStoreItem.almacenStock,
-        almacenMinStockHistorial: editedStoreItem.almacenMinStock
+        almacenStockHistorial: editedStoreItem.almacenStock
       });
       await newStoreHistory.save();
 
@@ -332,8 +338,7 @@ storeCtrl.updateStore = async (req, res) => {
         almacenHistorial: updatedStore._id,
         almacenProductoHistorial: updatedStoreItem.almacenProducto,
         almacenStockUbicacionHistorial: updatedStoreItem.almacenStockUbicacion,
-        almacenStockHistorial: updatedStoreItem.almacenStock,
-        almacenMinStockHistorial: updatedStoreItem.almacenMinStock
+        almacenStockHistorial: updatedStoreItem.almacenStock
       });
       await newStoreHistory.save();
 
@@ -359,7 +364,7 @@ storeCtrl.updateStore = async (req, res) => {
     console.log("Error: ", error);
     res.status(500).send("Error interno, posiblemente haya escrito algo mal, así que perdón por ello 😿, puede reportar el error para corregirlo en la próxima actualización. Detalles del error " + error.message);
   }
-}
+};
 
 // Mostrar datos detallados de un producto en el almacén
 storeCtrl.renderDetailsStore = async (req, res) => {

@@ -19,30 +19,36 @@
                       </a>
                       <span class="sub__header__span">Volver</span>
                     </div>
-                    <div class="sub__header__action">
-                      <a href="/rooms/register" class="sub__header__link">
-                        <figure class="sub__header__figure">
-                          <img src="/assets/icon-add.svg" alt="Icon Add" class="sub__header__img">
-                        </figure>
-                      </a>
-                      <span class="sub__header__span">Nueva Habitación</span>
-                    </div>
-                    <div class="sub__header__action">
-                      <a href="/rooms/history" class="sub__header__link">
-                        <figure class="sub__header__figure">
-                          <img src="/assets/icon-history.svg" alt="Icon History" class="sub__header__img">
-                        </figure>
-                      </a>
-                      <span class="sub__header__span">Historial</span>
-                    </div>
-                    <div class="sub__header__action">
-                      <a href="/floors" class="sub__header__link">
-                        <figure class="sub__header__figure">
-                          <img src="/assets/icon-floor.svg" alt="Icon Floor" class="sub__header__img">
-                        </figure>
-                      </a>
-                      <span class="sub__header__span">Pisos</span>
-                    </div>
+                    {{#hasPermission permisosRol "crear-habitacion"}}
+                      <div class="sub__header__action">
+                        <a href="/rooms/register" class="sub__header__link">
+                          <figure class="sub__header__figure">
+                            <img src="/assets/icon-add.svg" alt="Icon Add" class="sub__header__img">
+                          </figure>
+                        </a>
+                        <span class="sub__header__span">Nueva Habitación</span>
+                      </div>
+                    {{/hasPermission}}
+                    {{#hasPermission permisosRol "historial-habitacion"}}
+                      <div class="sub__header__action">
+                        <a href="/rooms/history" class="sub__header__link">
+                          <figure class="sub__header__figure">
+                            <img src="/assets/icon-history.svg" alt="Icon History" class="sub__header__img">
+                          </figure>
+                        </a>
+                        <span class="sub__header__span">Historial</span>
+                      </div>
+                    {{/hasPermission}}
+                    {{#hasPermission permisosRol "ver-piso-hotel"}}
+                      <div class="sub__header__action">
+                        <a href="/floors" class="sub__header__link">
+                          <figure class="sub__header__figure">
+                            <img src="/assets/icon-floor.svg" alt="Icon Floor" class="sub__header__img">
+                          </figure>
+                        </a>
+                        <span class="sub__header__span">Pisos</span>
+                      </div>
+                    {{/hasPermission}}
                   </div>
                 </article>
               </section>
@@ -80,22 +86,28 @@
                           <div class="flex-c-c">{{cantidadUsosHabitacion}}</div>
                           <div class="flex-c-c">{{formatDateTime createdAt}}</div>
                           <div class="flex-c-c items__data--options">
-                            <a href="/rooms/{{_id}}/details" class="options__action">
-                              <figure class="options__figure">
-                                <img src="/assets/icon-edit.svg" alt="Icon Details" class="options__img">
-                              </figure>
-                              <span class="span__detail">Detalles</span>
-                            </a>
-                            <a href="/rooms/{{_id}}/edit" class="options__action">
-                              <figure class="options__figure">
-                                <img src="/assets/icon-edit.svg" alt="Icon Edit" class="options__img">
-                              </figure>
-                            </a>
-                            <a href="/rooms/{{_id}}/confirm-delete" class="options__action">
-                              <figure class="options__figure">
-                                <img src="/assets/icon-delete.svg" alt="Icon Delete" class="options__img">
-                              </figure>
-                            </a>
+                            {{#hasPermission ../permisosRol "ver-detalle-habitacion"}}
+                              <a href="/rooms/{{_id}}/details" class="options__action">
+                                <figure class="options__figure">
+                                  <img src="/assets/icon-edit.svg" alt="Icon Details" class="options__img">
+                                </figure>
+                                <span class="span__detail">Detalles</span>
+                              </a>
+                            {{/hasPermission}}
+                            {{#hasPermission ../permisosRol "editar-habitacion"}}
+                              <a href="/rooms/{{_id}}/edit" class="options__action">
+                                <figure class="options__figure">
+                                  <img src="/assets/icon-edit.svg" alt="Icon Edit" class="options__img">
+                                </figure>
+                              </a>
+                            {{/hasPermission}}
+                            {{#hasPermission ../permisosRol "eliminar-habitacion"}}
+                              <a href="/rooms/{{_id}}/confirm-delete" class="options__action">
+                                <figure class="options__figure">
+                                  <img src="/assets/icon-delete.svg" alt="Icon Delete" class="options__img">
+                                </figure>
+                              </a>
+                            {{/hasPermission}}
                           </div>
                         </article>
                       </div>

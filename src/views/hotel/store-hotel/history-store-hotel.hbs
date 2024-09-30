@@ -19,14 +19,16 @@
                       </a>
                       <span class="sub__header__span">Volver</span>
                     </div>
-                    <div class="sub__header__action">
-                      <a href="/store-hotel/register" class="sub__header__link">
-                        <figure class="sub__header__figure">
-                          <img src="/assets/icon-add.svg" alt="Icon Add" class="sub__header__img">
-                        </figure>
-                      </a>
-                      <span class="sub__header__span">Agregar Producto</span>
-                    </div>
+                    {{#hasPermission permisosRol "registrar-producto-almacen-hotel"}}
+                      <div class="sub__header__action">
+                        <a href="/store-hotel/register" class="sub__header__link">
+                          <figure class="sub__header__figure">
+                            <img src="/assets/icon-add.svg" alt="Icon Add" class="sub__header__img">
+                          </figure>
+                        </a>
+                        <span class="sub__header__span">Agregar Producto</span>
+                      </div>
+                    {{/hasPermission}}
                   </div>
                 </article>
               </section>
@@ -81,23 +83,3 @@
     </div>
   </div>
 </section>
-<script>
-  document.addEventListener("DOMContentLoaded", () => {
-    const $tipoHistorial = document.querySelectorAll(".tipo__historial");
-
-    function tipoHistorial() {
-      $tipoHistorial.forEach(item => {
-        const estado = item.textContent;
-        if (estado === "Registro") {
-          item.style.backgroundColor = "#58b56d";
-          item.style.color = "#fff"
-        } else if (estado === "Finalización" || estado === "Eliminación" || estado === "Eliminado") {
-          item.style.backgroundColor = "#ad2831";
-          item.style.color = "#fff"
-        }
-      });
-    };
-
-    tipoHistorial();
-  });
-</script>

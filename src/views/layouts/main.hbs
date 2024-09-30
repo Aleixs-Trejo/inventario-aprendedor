@@ -40,7 +40,7 @@
       if (tipoHistorial) {
         tipoHistorial.forEach(item => {
           const text = item.textContent;
-          if (text === "Registro" || text === "Confirmada" || text === "Finalizada" || text === "Finalizado") {
+          if (text === "Registro" || text === "Confirmada" || text === "Finalizada" || text === "Finalizado" || text === "Ingreso") {
             item.style.color = "#fff";
             item.style.backgroundColor = "#58b56d";
           } else if (text === "Eliminado") {
@@ -49,16 +49,16 @@
           } else if (text === "Occupation") {
             item.style.color = "#fff";
             item.style.backgroundColor = "#772600";
-          } else if (text === "Reservation") {
+          } else if (text === "Reservation" || text === "Re-ingreso") {
             item.style.color = "#fff";
             item.style.backgroundColor = "#007bff";
-          } else if (text === "Pendiente" || text === "Modificado" || text === "Actualizado"){
+          } else if (text === "Pendiente" || text === "Modificado" || text === "Actualizado" || text === "Modificacion" || text === "Modificacion-sucursal"){
             item.style.color = "#fff";
             item.style.backgroundColor = "#ff6700";
           } else if (text === "Cancelada"){
             item.style.color = "#444";
             item.style.textDecoration = "line-through";
-          } else if (text === "Relleno"){
+          } else if (text === "Relleno" || text === "Salida"){
             item.style.color = "#fff";
             item.style.backgroundColor = "#ffbd00";
           }

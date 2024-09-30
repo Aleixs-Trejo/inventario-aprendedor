@@ -1,23 +1,4 @@
-<div class="sub__header sub__header--fixed">
-  <div class="sub__header__container">
-    <article class="sub__header__content">
-      <section class="section__sub__header">
-        <article class="article__sub__header sub__header__actions">
-          <div class="sub__header__actions__container">
-            <div class="sub__header__action">
-              <a href="/stores" class="sub__header__link">
-                <figure class="sub__header__figure">
-                  <img src="/assets/icon-back.svg" alt="Icon Back" class="sub__header__img">
-                </figure>
-              </a>
-              <span class="sub__header__span">Volver</span>
-            </div>
-          </div>
-        </article>
-      </section>
-    </article>
-  </div>
-</div>
+{{> back-form backUrl = "/stores"}}
 <section class="section__all--views">
   <section class="flex-c-c section__stores">
     <section class="section__form">
@@ -40,7 +21,8 @@
                       <div class="store__dropdown--item">Producto:</div>
                       <div class="store__dropdown--item">Proveedor:</div>
                       <div class="store__dropdown--item">Categoría:</div>
-                      <div class="store__dropdown--item">Precio Unit:</div>
+                      <div class="store__dropdown--item">Precio Compra:</div>
+                      <div class="store__dropdown--item">Precio Venta:</div>
                     </article>
                     <div class="products__container--dropdown">
                       {{#each products}}
@@ -50,7 +32,8 @@
                             <div class="store__dropdown--item nombre__producto" data-nombre="{{nombreProducto}}">{{nombreProducto}}</div>
                             <div class="store__dropdown--item proveedor__producto" data-proveedor="{{proveedorProducto.nombreProveedor}}">{{proveedorProducto.nombreProveedor}}</div>
                             <div class="store__dropdown--item categoria__producto" data-categoria="{{categoriaProducto.nombreCategoria}}">{{categoriaProducto.nombreCategoria}}</div>
-                            <div class="store__dropdown--item precio__producto" data-precio="{{precioProducto}}">S/{{formatCurrency precioProducto}}</div>
+                            <div class="store__dropdown--item precio__compra__producto" data-preciocompra="{{precioCompraProducto}}">S/{{formatCurrency precioCompraProducto}}</div>
+                            <div class="store__dropdown--item precio__venta__producto" data-precioventa="{{precioVentaProducto}}">S/{{formatCurrency precioVentaProducto}}</div>
                           </article>
                         </div>
                       {{/each}}
@@ -70,8 +53,8 @@
                     <div class="flex-c-c product__list--item">Categoría</div>
                     <div class="flex-c-c product__list--item">Ubicación</div>
                     <div class="flex-c-c product__list--item">Stock</div>
-                    <div class="flex-c-c product__list--item">Stock-min</div>
-                    <div class="flex-c-c product__list--item">Precio</div>
+                    <div class="flex-c-c product__list--item">P/Compra</div>
+                    <div class="flex-c-c product__list--item">P/Venta</div>
                     <div class="flex-c-c product__list--item">Opciones</div>
                   </article>
                   <div class="products__store__list--container">
@@ -197,7 +180,7 @@
 
     // Añadir productos al carrito
     const addProductToCart = (almacenProducto) => {
-      const {idProducto, codProducto, nombreProducto, proveedorProducto, ubicacionProducto, precioProducto} = almacenProducto;
+      const {idProducto, codProducto, nombreProducto, proveedorProducto, ubicacionProducto, precioCompraProducto, precioVentaProducto} = almacenProducto;
       let productoExistente = null;
       const productosEnCarrito = document.querySelectorAll(".products__store--list");
 
@@ -218,8 +201,6 @@
         // Incrementar stock si está en el carrito
         const stockElement = productoExistenteChild.querySelector(".stock__container");
         const stockInput = stockElement.querySelector(".stock__input");
-        const minStockElement = productoExistenteChild.querySelector(".min__stock__container");
-        const minStockInput = minStockElement.querySelector(".min__stock__input");
         let stockActual = parseInt(stockInput.value);
         
         stockActual++;
@@ -230,7 +211,6 @@
         nuevoProducto.classList.add("products__store--list");
 
         let stock = 1;
-        let minStock = 1;
 
         // Crear contenido para el nuevo elemento
         nuevoProducto.innerHTML = `
@@ -249,10 +229,8 @@
             <div class="flex-c-c product__list--item stock__container">
               <input type="number" value="${stock}" class="stock__input" data-stock="${almacenProducto.stockProducto}">
             </div>
-            <div class="flex-c-c product__list--item min__stock__container">
-              <input type="number" value="${minStock}" class="min__stock__input" data-minstock="${almacenProducto.minStockProducto}">
-            </div>
-            <div class="flex-c-c product__list--item precio__producto" data-precio="${almacenProducto.precioProducto}">S/${almacenProducto.precioProducto.toFixed(2)}</div>
+            <div class="flex-c-c product__list--item precio__compra__producto" data-preciocompra="${almacenProducto.precioCompraProducto}">S/${almacenProducto.precioCompraProducto.toFixed(2)}</div>
+            <div class="flex-c-c product__list--item precio__venta__producto" data-precioventa="${almacenProducto.precioVentaProducto}">S/${almacenProducto.precioVentaProducto.toFixed(2)}</div>
             <button type="button" class="flex-c-c product__list--item delete__product--cart delete__item">
               <figure class="options__figure">
                 <img src="../assets/icon-delete.svg" alt="Icon Delete" class="options__img">
@@ -267,13 +245,10 @@
         // Agregar nuevo elemento al carrito
         const $nuevoProductoChild = nuevoProducto.querySelector(".products__list--data");
         const $stockInput = $nuevoProductoChild.querySelector(".stock__input");
-        const $minStockInput = $nuevoProductoChild.querySelector(".min__stock__input");
 
         // Eventos dentro del carrito
         $stockInput.addEventListener("input", handleStockInput);
         $stockInput.addEventListener("blur", handleStockBlur);
-        $minStockInput.addEventListener("input", handleMinStockInput);
-        $minStockInput.addEventListener("blur", handleMinStockBlur);
       }
       $noProducts.style.display = "none";
     };
@@ -315,41 +290,6 @@
       }
     };
 
-    const handleMinStockInput = e => {
-      const minStockInput = e.target;
-      let minStockValue = minStockInput.value.trim();
-
-      if (minStockValue === "") {
-        minStockInput.value = "";
-        return
-      }
-
-      let minStock = parseInt(minStockValue);
-
-      if (isNaN(minStock)) {
-        minStockInput.value = "";
-        return
-      }
-
-      if (minStock === 0) {
-        minStock = 1;
-        minStockInput.value = minStock;
-      }
-    };
-
-    const handleMinStockBlur = e => {
-      const minStockInput = e.target;
-      let minStockValue = minStockInput.value.trim();
-
-      let minStock = parseInt(minStockValue);
-
-      if (isNaN(parseInt(minStockValue)) || parseInt(minStockValue) === 0) {
-        minStockInput.value = 1;
-        minStockValue = 1;
-        handleMinStockInput(e);
-      }
-    };
-
     // Función para eliminar un producto del carrito
     const removeProductFromCart = (productElement) => {
       // Verificar si el producto existe en el carrito
@@ -388,7 +328,8 @@
         const nombreProducto = item.querySelector(".nombre__producto").dataset.nombre;
         const proveedorProducto = item.querySelector(".proveedor__producto").dataset.proveedor;
         const categoriaProducto = item.querySelector(".categoria__producto").dataset.categoria;
-        const precioProducto = parseFloat(item.querySelector(".precio__producto").dataset.precio);
+        const precioCompraProducto = parseFloat(item.querySelector(".precio__compra__producto").dataset.preciocompra);
+        const precioVentaProducto = parseFloat(item.querySelector(".precio__venta__producto").dataset.precioventa);
 
         // Crear objeto con la información del producto
         const almacenProducto = {
@@ -397,7 +338,8 @@
           nombreProducto,
           proveedorProducto,
           categoriaProducto,
-          precioProducto
+          precioCompraProducto,
+          precioVentaProducto
         };
 
         console.log("Producto seleccionado: ", almacenProducto);
@@ -472,20 +414,20 @@
       $productElements.forEach(producto => {
         const $idProducto = producto.querySelector(".products__list--data").dataset.id;
         const $stockAlmacenProducto = producto.querySelector(".stock__input").value;
-        const $minStockAlmacenProducto = producto.querySelector(".min__stock__input").value;
         const $stockUbicacionProducto = producto.querySelector(".ubicacion__producto--select").value;
-        const $precioProducto = parseFloat(producto.querySelector(".precio__producto").textContent);
+        const $precioCompraProducto = parseFloat(producto.querySelector(".precio__compra__producto").dataset.preciocompra);
+        const $precioVentaProducto = parseFloat(producto.querySelector(".precio__venta__producto").dataset.precioventa);
 
         const almacenProducto = {
           idProducto: $idProducto,
           stockProducto: $stockAlmacenProducto,
-          minStockProducto: $minStockAlmacenProducto,
           ubicacionProducto: $stockUbicacionProducto,
-          precioProducto: Number($precioProducto)
+          precioCompraProducto: Number($precioCompraProducto),
+          precioVentaProducto: Number($precioVentaProducto)
         };
 
         almacenProductos.push(almacenProducto);
-        console.log("Producto del carrito 4796: ", almacenProducto);
+        console.log("Producto del carrito: ", almacenProducto);
       });
       return almacenProductos;
     };
@@ -498,7 +440,6 @@
         const almacenProductos = productosCarrito.map(producto => ({
           almacenProducto: producto.idProducto,
           almacenStock: producto.stockProducto,
-          almacenMinStock: producto.minStockProducto,
           almacenStockUbicacion: producto.ubicacionProducto
         }));
 

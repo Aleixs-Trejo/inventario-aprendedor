@@ -7,6 +7,8 @@ const Category = require("../models/categoryModel");
 const Product = require("../models/productModel");
 const StockLocation = require("../models/stockLocationModel");
 
+const getPlanLimits = require("../config/planLimits");
+
 // Validar la capacidad de company
 capacity.maxCompanies = async (req, res, next) => {
   try {
@@ -115,10 +117,20 @@ capacity.maxProducts = async (req, res, next) => {
 capacity.maxStockLocations = async (req, res, next) => {
   try{
     const company = req.company;
-    const stockLocations = await StockLocation.find({eliminadoStockUbicacion: false}).lean();
+    const stockLocations = await StockLocation.find().lean();
     const currentStockLocations = stockLocations.length;
 
-    if (currentStockLocations >= company.maxStoresCompany) {
+    const limits = getPlanLimits(company.planCompany);
+
+    const companyMaxStores = limits.maxStoresCompany;
+
+    console.log("Company desde capacity: ", company);
+    console.log("limits: ", limits);
+    console.log("companyMaxStores: ", companyMaxStores);
+    console.log("currentStockLocations: ", currentStockLocations);
+    console.log("currentStockLocations >= companyMaxStores: ", currentStockLocations >= companyMaxStores);
+
+    if (currentStockLocations >= companyMaxStores) {
       req.flash("wrong", `Ya tienes ${company.maxStoresCompany} sucursales registradas.`);
       console.log(`Ya tienes ${company.maxStoresCompany} sucursales registradas.`);
       return res.redirect("/");

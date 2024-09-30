@@ -58,12 +58,14 @@
                           <div class="flex-c-c">S/{{formatCurrency cierreVentasHotel.precioTotalVentaHotel}}</div>
                           <div class="flex-c-c">{{formatDateTime cierreVentasHotel.createdAt}}</div>
                           <div class="flex-c-c items__data__options">
-                            <a href="/hotel/sales/{{cierreVentasHotel._id}}/details" class="options__action">
-                              <figure class="options__figure">
-                                <img src="/assets/icon-edit.svg" alt="Icon Edit" class="options__img">
-                              </figure>
-                              <span class="span__detail">Detalles</span>
-                            </a>
+                            {{#hasPermission ../permisosRol "ver-detalle-cierre-venta-hotel"}}
+                              <a href="/hotel/sales/{{cierreVentasHotel._id}}/details" class="options__action">
+                                <figure class="options__figure">
+                                  <img src="/assets/icon-edit.svg" alt="Icon Edit" class="options__img">
+                                </figure>
+                                <span class="span__detail">Detalles</span>
+                              </a>
+                            {{/hasPermission}}
                           </div>
                         </article>
                       </div>

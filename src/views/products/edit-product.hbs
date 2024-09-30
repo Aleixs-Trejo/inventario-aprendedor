@@ -44,8 +44,23 @@
                 <span class="form__line"></span>
               </article>
               <article class="form__group">
-                <input class="form__input" type="text" name="precioProducto" id="edit_precio_product" placeholder=" " title="Precio del producto" value="{{product.precioProducto}}" required>
-                <label for="edit_precio_product" class="form__label">Precio:</label>
+                <input class="form__input" type="text" name="precioCompraProducto" id="edit_precio_compra_producto" placeholder=" " title="Precio de compra del producto" required value="{{product.precioCompraProducto}}">
+                <label for="edit_precio_compra_producto" class="form__label">Precio compra:</label>
+                <span class="form__line"></span>
+              </article>
+              <article class="form__group">
+                <input class="form__input" type="text" name="precioVentaProducto" id="edit_precio_venta_venta" placeholder=" " title="Precio de venta del producto" required value="{{product.precioVentaProducto}}">
+                <label for="edit_precio_venta_venta" class="form__label">Precio venta:</label>
+                <span class="form__line"></span>
+              </article>
+              <article class="form__group">
+                <input class="form__input" type="number" name="stockSeguridadProducto" id="edit_stock_seguridad_producto" placeholder=" " title="Stock de seguridad del producto" required value="{{product.stockSeguridadProducto}}">
+                <label for="edit_stock_seguridad_producto" class="form__label">Stock seguridad:</label>
+                <span class="form__line"></span>
+              </article>
+              <article class="form__group">
+                <input class="form__input" type="number" name="stockMinimoProducto" id="edit_stock_minimo_producto" placeholder=" " title="Stock minimo del producto" required value="{{product.stockMinimoProducto}}">
+                <label for="edit_stock_minimo_producto" class="form__label">Stock minimo:</label>
                 <span class="form__line"></span>
               </article>
               <button class="form__submit">Actualizar</button>

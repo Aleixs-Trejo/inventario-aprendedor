@@ -107,6 +107,10 @@ salesCtrl.registerSale = async (req, res) => {
     // Array para almacenar productos vendidos
     const productosVendidos = [];
 
+    function redondearCentesimas(numero){
+      return (Math.round(parseFloat(numero) * 100) / 100).toFixed(2);
+    }
+
     // Recorrer productosVenta
     for (const producto of productosVenta) {
       const { productoVenta, cantidadVenta, descuentoProducto, importeProducto } = producto
@@ -118,11 +122,19 @@ salesCtrl.registerSale = async (req, res) => {
           populate: "proveedorProducto categoriaProducto"
         });
 
+      console.log("productInStore: ", productInStore);
+      console.log("precioCompraProducto: ", productInStore.almacenProducto.precioCompraProducto);
+      console.log("precioVentaProducto: ", productInStore.almacenProducto.precioVentaProducto);
+
       if (productInStore) {
 
         // Nos aseguramos que la cantidad de venta y el precio unitario sean numeros
-        const cantidadVentaNumber = Number(cantidadVenta);
-        const importeProductoNumber = Number(importeProducto);
+        const cantidadVentaNumber = parseInt(cantidadVenta);
+        const descuentoProductoNumber = parseFloat(descuentoProducto);
+        const importeProductoNumber = parseFloat(importeProducto);
+        const precioCompraProductoNumber = parseFloat(productInStore.almacenProducto.precioCompraProducto);
+        const costoTotalProductoNumber = precioCompraProductoNumber * cantidadVentaNumber;
+        const gananciaTotalProductoNumber = importeProductoNumber - costoTotalProductoNumber;
 
         // Verificar si cantidadVenta y precioTotalProducto son números válidos
         if (isNaN(cantidadVentaNumber) || isNaN(importeProductoNumber)) {
@@ -130,7 +142,6 @@ salesCtrl.registerSale = async (req, res) => {
         }
 
         // Verificar si descuentoProductoVenta es un número válido
-        const descuentoProductoNumber = Number(descuentoProducto);
         if (isNaN(descuentoProductoNumber)) {
           throw new Error("descuentoProductoNumber debe ser un número.");
         }
@@ -140,7 +151,9 @@ salesCtrl.registerSale = async (req, res) => {
           productoVenta,
           cantidadVenta: cantidadVentaNumber,
           descuentoProductoVenta: descuentoProductoNumber,
-          precioTotalProducto: importeProductoNumber
+          costoTotalProducto: costoTotalProductoNumber,
+          precioTotalProducto: importeProductoNumber,
+          gananciaTotalProducto: gananciaTotalProductoNumber
         });
 
         // Actualizar el stock del almacén
@@ -154,6 +167,10 @@ salesCtrl.registerSale = async (req, res) => {
     }
 
     // Calcular el precio total de la venta
+    const costoTotalVenta = productosVendidos.reduce((total, producto) => {
+      return total + producto.costoTotalProducto;
+    }, 0);
+
     const precioTotalVenta = productosVendidos.reduce((total, producto) => {
       return total + producto.precioTotalProducto;
     }, 0);
@@ -163,8 +180,16 @@ salesCtrl.registerSale = async (req, res) => {
     }, 0);
 
     // Redondear el precio total de la venta y darle dos decimales
-    const precioTotalVentaRedondeado = Math.round(precioTotalVenta).toFixed(2);
-    const descuentoTotalVentaRedondeado = Math.round(descuentoTotalVenta).toFixed(2);
+    const precioTotalVentaRedondeado = redondearCentesimas(parseFloat(precioTotalVenta));
+    const descuentoTotalVentaRedondeado = redondearCentesimas(parseFloat(descuentoTotalVenta));
+    const gananciaTotalVentaRedondeado = redondearCentesimas(parseFloat(precioTotalVentaRedondeado) - parseFloat(costoTotalVenta));
+
+    console.log("costoTotalVenta: ", costoTotalVenta);
+    console.log("precioTotalVenta: ", precioTotalVenta);
+    console.log("descuentoTotalVenta: ", descuentoTotalVenta);
+    console.log("precioTotalVentaRedondeado: ", precioTotalVentaRedondeado);
+    console.log("descuentoTotalVentaRedondeado: ", descuentoTotalVentaRedondeado);
+    console.log("gananciaTotalVentaRedondeado: ", gananciaTotalVentaRedondeado);
 
     // Crear la nueva venta
     const newSale = new Sale({
@@ -173,8 +198,10 @@ salesCtrl.registerSale = async (req, res) => {
       clienteVenta,
       productosVenta: productosVendidos,
       tipoProductosVenta,
+      costoTotalVenta,
       descuentoTotalVenta: descuentoTotalVentaRedondeado,
-      precioTotalVenta: precioTotalVentaRedondeado
+      precioTotalVenta: precioTotalVentaRedondeado,
+      gananciaTotalVenta: gananciaTotalVentaRedondeado
     });
 
     const savedSale = await newSale.save();
@@ -487,7 +514,7 @@ salesCtrl.exportPendingSalesToExcel = async (req, res) => {
     // Transformar las ventas para el archivo Excel
     const transformedVentas = filteredVentas.map(venta => {
       return {
-        "ID Venta": venta._id.toString(),
+        "ID Venta": venta.ventaID,
         "Vendedor": venta.usuarioVenta.usuario,
         "Cliente": venta.clienteVenta.nombreCliente,
         "Productos": venta.productosVenta.length,
@@ -531,7 +558,7 @@ salesCtrl.exportPendingSalesToExcel = async (req, res) => {
 
     // Ajustar ancho de columnas
     worksheet["!cols"] = [
-      {wch: 30}, // ID Venta
+      {wch: 15}, // ID Venta
       {wch: 15}, // Vendedor
       {wch: 35}, // Cliente
       {wch: 10}, // Productos
@@ -573,9 +600,13 @@ salesCtrl.closeRegister = async (req, res) => {
 
     const ventaHistorial = [...ventasPendientes, ...ventasCanceladas].map(venta => ({ cierreVentas: venta._id }));
 
+    const totalCostosVentas = ventasPendientes.reduce((total, venta) => total + parseFloat(venta.costoTotalVenta), 0);
+
     const totalDescuentosVentas = ventasPendientes.reduce((total, venta) => total + parseFloat(venta.descuentoTotalVenta), 0);
 
     const totalCierreVentas = ventasPendientes.reduce((total, venta) => total + parseFloat(venta.precioTotalVenta), 0);
+
+    const totalGananciasVentas = ventasPendientes.reduce((total, venta) => total + parseFloat(venta.gananciaTotalVenta), 0);
 
     // Confirmar ventas pendientes y mantener canceladas las ventas canceladas
     await Sale.updateMany({estadoVenta: "Pendiente"}, {estadoVenta: "Confirmada", ventaCerrada: true});
@@ -589,22 +620,30 @@ salesCtrl.closeRegister = async (req, res) => {
       cantidadCierreVentas,
       totalVentasConfirmadas: totalVentasPendientes,
       totalVentasCanceladas,
+      totalDescuentosVentas,
+      totalCostosVentas,
       totalCierreVentas,
-      totalDescuentosVentas
+      totalGananciasVentas
     });
 
+    console.log("nuevoCierreCaja: ", nuevoCierreCaja);
     await nuevoCierreCaja.save();
 
     const totalVentas = totalVentasPendientes;
-    const gananciasNetas = totalCierreVentas;
+    const costosNetos = totalCostosVentas;
+    const totalIngresosBalance = totalCierreVentas;
+    const gananciasNetas = totalGananciasVentas;
 
     const newBalance = new Balance({
       usuarioRegistroBalance: req.user._id,
       ventasBalance: nuevoCierreCaja._id,
       totalVentas,
-      gananciasNetas
+      costosNetos,
+      gananciasNetas,
+      totalIngresosBalance
     });
 
+    console.log("newBalance: ", newBalance);
     await newBalance.save();
 
     req.flash("success", "Ventas cerradas exitosamente.");
@@ -666,7 +705,8 @@ salesCtrl.cancelSale = async (req, res) => {
     // Verificar si la venta está cerrada
     if (sale.ventaCerrada) {
       // Actualizar el historial de ventas
-      const saleHistory = await SaleHistory.findOne({"ventaHistorial.cierreVentas": id});
+      const saleHistory = await SaleHistory.findOne({"ventaHistorial.cierreVentas": id}).lean();
+      const balance = await Balance.findOne({_id: sale.usuarioVenta.trabajadorUsuario.dniTrabajador}).lean();
 
       if (saleHistory) {
         await SaleHistory.updateOne(
@@ -677,7 +717,9 @@ salesCtrl.cancelSale = async (req, res) => {
               totalVentasConfirmadas: -1,
               totalVentasCanceladas: +1,
               totalCierreVentas: -sale.precioTotalVenta,
-              totalDescuentosVentas: -sale.descuentoTotalVenta
+              totalDescuentosVentas: -sale.descuentoTotalVenta,
+              totalCostosVentas: -sale.costoTotalVenta,
+              totalGananciasVentas: -sale.gananciaTotalVenta
             }
           }
         );
@@ -688,15 +730,22 @@ salesCtrl.cancelSale = async (req, res) => {
           {
             $inc: {
               totalVentas: -1,
-              gananciasNetas: -sale.precioTotalVenta,
+              gananciasNetas: -sale.gananciaTotalVenta,
+              costosNetos: -sale.costoTotalVenta,
+              totalIngresosBalance: -sale.precioTotalVenta
             }
           }
         );
+
+        console.log("saleHistory: ", saleHistory);
+        console.log("balance: ", balance);
       }
     }
     
     // Cambiar el estado a Cancelada
     sale.estadoVenta = "Cancelada";
+
+    console.log("sale: ", sale);
 
     // Devolver productos al almacén
     const productosVendidos = sale.productosVenta;
@@ -780,7 +829,6 @@ salesCtrl.renderBalanceSales = async (req, res) => {
       .lean();
 
     const currentPage = `balances`;
-    console.log("balances: ", balances);
     res.render("sales/balance-sales", {
       balances,
       currentPage
@@ -795,7 +843,6 @@ salesCtrl.renderBalanceSales = async (req, res) => {
 // Exportar balances de un periodo de tiempo a Excel
 salesCtrl.exportToExcelBalance = async (req, res) => {
   try {
-
     // Obtener fecha actual
     const now = new Date();
     const year = now.getFullYear();
@@ -815,25 +862,36 @@ salesCtrl.exportToExcelBalance = async (req, res) => {
       return res.redirect("/sales/balance");
     }
 
-    const fechaInicialDate = new Date(fechaInicial);
-    fechaInicialDate.setHours(0, 0, 0, 0);
-    const fechaFinalDate = new Date(fechaFinal);
-    fechaFinalDate.setHours(23, 59, 59, 999);
-    if (fechaFinalDate < fechaInicialDate) {
+    const fechaInicio = new Date(`${fechaInicial}T00:00:00`);
+    const fechaFin = new Date(`${fechaFinal}T23:59:59`);
+
+    console.log("Fecha inicial: ", fechaInicio);
+    console.log("Fecha final: ", fechaFin);
+
+    if (fechaFin < fechaInicio) {
       req.flash("wrong", "La fecha final debe ser mayor a la fecha inicial.");
       return res.redirect("/sales/balance");
     }
 
     // Obtener los balances en el intervalo de tiempo especificado
     const balances = await Balance.find({
-      createdAt: {
-        $gte: fechaInicialDate,
-        $lte: fechaFinalDate
-      }
-    }).populate({
-      path: "usuarioRegistroBalance",
-      select: "usuario"
-    });
+        createdAt: {
+          $gte: fechaInicio,
+          $lte: fechaFin
+        }
+      })
+      .populate({
+        path: "usuarioRegistroBalance",
+        select: "usuario"
+      })
+      .populate("ventasBalance")
+      .sort({createdAt: -1})
+      .lean();
+
+    if (balances.length === 0) {
+      req.flash("wrong", "No hay balances para mostrar 😿");
+      return res.redirect("/sales/balance");
+    }
 
     // Excluir campos
     const excludedFields = ["updatedAt", "_id", "eliminadoBalance"];
@@ -851,19 +909,28 @@ salesCtrl.exportToExcelBalance = async (req, res) => {
       return {
         "Usuario": balance._doc.usuarioRegistroBalance?.usuario || "NE",
         "Ventas": balance._doc.totalVentas,
+        "Costos": parseFloat(balance._doc.costosNetos).toFixed(2),
         "Ingresos": parseFloat(balance._doc.gananciasNetas).toFixed(2),
+        "Descuentos": parseFloat(balance._doc.ventasBalance.totalDescuentosVentas).toFixed(2),
+        "Ganancias": parseFloat(balance._doc.gananciasNetas).toFixed(2),
         "Fecha de Cierre": new Date(balance._doc.createdAt).toLocaleDateString("es-PE")
       };
     });
 
     // Calcular el total de ingresos
+    const costosNetos = transformedBalances.reduce((total, balance) => total + parseFloat(balance.Costos), 0);
     const totalIngresos = transformedBalances.reduce((total, balance) => total + parseFloat(balance.Ingresos), 0);
+    const totalDescuentos = transformedBalances.reduce((total, balance) => total + parseFloat(balance.Descuentos), 0);
+    const gananciasNetas = transformedBalances.reduce((total, balance) => total + parseFloat(balance.Ganancias), 0);
 
     // Agregar una fila con el total de ingresos al final de los balances transformados
     transformedBalances.push({
-      "Usuario": "Total",
+      "Usuario": "TOTAL",
       "Ventas": "",
+      "Costos": parseFloat(costosNetos).toFixed(2),
       "Ingresos": parseFloat(totalIngresos).toFixed(2),
+      "Descuentos": parseFloat(totalDescuentos).toFixed(2),
+      "Ganancias": parseFloat(gananciasNetas).toFixed(2),
       "Fecha de Cierre": ""
     });
 
@@ -874,7 +941,10 @@ salesCtrl.exportToExcelBalance = async (req, res) => {
     worksheet["!cols"] = [
       {wch: 15}, // Usuario
       {wch: 12}, // Total de Ventas
+      {wch: 15}, // Costos
       {wch: 15}, // Ingresos
+      {wch: 15}, // Descuentos
+      {wch: 15}, // Ganancias
       {wch: 20}, // Fecha de Cierre
     ];
 

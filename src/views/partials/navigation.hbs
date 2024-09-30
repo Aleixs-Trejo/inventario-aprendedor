@@ -223,6 +223,18 @@
                       </a>
                     </li>
                   {{/hasPermission}}
+                  {{#hasPermission permisosRol "ver-registro"}}
+                    <li class="nav__element {{#if currentPage}}{{#if (eq currentPage "records")}}current__page{{/if}}{{/if}}"></li>
+                      <a href="/records" class="nav__link">
+                        <div class="figure__content">
+                          <figure class="nav__figure">
+                            <img src="/assets/icon-record.svg" alt="Icon Record" class="nav__img">
+                          </figure>
+                        </div>
+                        <span class="element__span">Registros</span>
+                      </a>
+                    </li>
+                  {{/hasPermission}}
                   {{#hasPermission permisosRol "ver-balance"}}
                     <li class="nav__element {{#if currentPage}}{{#if (eq currentPage "balances")}}current__page{{/if}}{{/if}}">
                       <a href="/sales/balance" class="nav__link">
@@ -380,6 +392,18 @@
                           </figure>
                         </div>
                         <span class="element__span">Ventas</span>
+                      </a>
+                    </li>
+                  {{/hasPermission}}
+                  {{#hasPermission permisosRol "ver-registro"}}
+                    <li class="nav__element {{#if currentPage}}{{#if (eq currentPage "records")}}current__page{{/if}}{{/if}}">
+                      <a href="/records" class="nav__link">
+                        <div class="figure__content">
+                          <figure class="nav__figure">
+                            <img src="/assets/icon-record.svg" alt="Icon Record" class="nav__img">
+                          </figure>
+                        </div>
+                        <span class="element__span">Registros</span>
                       </a>
                     </li>
                   {{/hasPermission}}
@@ -548,14 +572,26 @@
             const data = await response.json();
 
             if (data) {
-              const lowStockCount = data.lowStockProducts || 0;
+              const lowStockSecurity = data.lowStockSecurity || [];
+              const lowStockMinimum = data.lowStockMinimum || [];
 
               const listElement = document.querySelector(".element__store");
-              if (lowStockCount > 0) {
+
+              // Si hay productos de bajo stock de seguridad
+              if (lowStockSecurity.length > 0) {
+                listElement.classList.add("stock__alert__security");
+                const spanElement = document.createElement("span");
+                spanElement.classList.add("stock__count");
+                spanElement.textContent = lowStockSecurity.length;
+                listElement.appendChild(spanElement);
+              }
+
+              // Si hay productos de bajo stock minimo
+              if (lowStockMinimum.length > 0) {
                 listElement.classList.add("stock__alert__min");
                 const spanElement = document.createElement("span");
                 spanElement.classList.add("stock__count");
-                spanElement.textContent = lowStockCount;
+                spanElement.textContent = lowStockMinimum.length;
                 listElement.appendChild(spanElement);
               }
             }

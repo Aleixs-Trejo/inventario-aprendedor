@@ -21,34 +21,40 @@
                           </a>
                           <span class="sub__header__span">Volver</span>
                         </div>
-                        <div class="sub__header__action">
-                          <a href="/sales/register" class="sub__header__link">
-                            <figure class="sub__header__figure">
-                              <img src="/assets/icon-add.svg" alt="Icon Add" class="sub__header__img">
-                            </figure>
-                          </a>
-                          <span class="sub__header__span">Nueva Venta</span>
-                        </div>
-                        <div class="sub__header__action">
-                          <a href="/sales/balance" class="sub__header__link">
-                            <figure class="sub__header__figure">
-                              <img src="/assets/icon-balance.svg" alt="Icon Balance" class="sub__header__img">
-                            </figure>
-                          </a>
-                          <span class="sub__header__span">Balances</span>
-                        </div>
+                        {{#hasPermission permisosRol "crear-venta"}}
+                          <div class="sub__header__action">
+                            <a href="/sales/register" class="sub__header__link">
+                              <figure class="sub__header__figure">
+                                <img src="/assets/icon-add.svg" alt="Icon Add" class="sub__header__img">
+                              </figure>
+                            </a>
+                            <span class="sub__header__span">Nueva Venta</span>
+                          </div>
+                        {{/hasPermission}}
+                        {{#hasPermission permisosRol "ver-balance"}}
+                          <div class="sub__header__action">
+                            <a href="/sales/balance" class="sub__header__link">
+                              <figure class="sub__header__figure">
+                                <img src="/assets/icon-balance.svg" alt="Icon Balance" class="sub__header__img">
+                              </figure>
+                            </a>
+                            <span class="sub__header__span">Balances</span>
+                          </div>
+                        {{/hasPermission}}
                       </div>
                     </article>
                     {{#if (or (eq sale.estadoVenta "Pendiente") (eq sale.estadoVenta "Confirmada"))}}
-                      <article class="article__sub__header sub__header__buttons">
-                        <div class="sub__header__buttons__container">
-                          <article class="items__actions">
-                            <div class="flex-c-c confirm__sales">
-                              <button type="button" class="btn__cancel__sale--cancel btn__cancel--sale">Cancelar Venta</button>
-                            </div>
-                          </article>
-                        </div>
-                      </article>
+                      {{#hasPermission permisosRol "cancelar-venta"}}
+                        <article class="article__sub__header sub__header__buttons">
+                          <div class="sub__header__buttons__container">
+                            <article class="items__actions">
+                              <div class="flex-c-c confirm__sales">
+                                <button type="button" class="btn__cancel__sale--cancel btn__cancel--sale">Cancelar Venta</button>
+                              </div>
+                            </article>
+                          </div>
+                        </article>
+                      {{/hasPermission}}
                     {{/if}}
                   </section>
                 </article>
@@ -84,12 +90,20 @@
                                 <span class="content__li__span content__li__span--data">{{sale.tipoProductosVenta}}</span>
                               </li>
                               <li class="content__li">
+                                <span class="content__li__span">Costos</span>
+                                <span class="content__li__span content__li__span--data">S/{{formatCurrency sale.costoTotalVenta}}</span>
+                              </li>
+                              <li class="content__li">
                                 <span class="content__li__span">Importe</span>
                                 <span class="content__li__span content__li__span--data">S/{{formatCurrency sale.precioTotalVenta}}</span>
                               </li>
                               <li class="content__li">
                                 <span class="content__li__span">Descuento</span>
                                 <span class="content__li__span content__li__span--data">-S/{{formatCurrency sale.descuentoTotalVenta}}</span>
+                              </li>
+                              <li class="content__li">
+                                <span class="content__li__span">Ganancia</span>
+                                <span class="content__li__span content__li__span--data">S/{{formatCurrency sale.gananciaTotalVenta}}</span>
                               </li>
                               <li class="content__li">
                                 <span class="content__li__span">Vendedor</span>
@@ -203,16 +217,28 @@
                                       <span class="content__li__span content__li__span--data">{{productoVenta.almacenProducto.categoriaProducto.nombreCategoria}}</span>
                                     </li>
                                     <li class="content__li">
-                                      <span class="content__li__span">Precio Unitario</span>
-                                      <span class="content__li__span content__li__span--data">S/{{formatCurrency productoVenta.almacenProducto.precioProducto}}</span>
+                                      <span class="content__li__span">P/costo Unitario</span>
+                                      <span class="content__li__span content__li__span--data">S/{{formatCurrency productoVenta.almacenProducto.precioCompraProducto}}</span>
+                                    </li>
+                                    <li class="content__li">
+                                      <span class="content__li__span">P/venta Unitario</span>
+                                      <span class="content__li__span content__li__span--data">S/{{formatCurrency productoVenta.almacenProducto.precioVentaProducto}}</span>
+                                    </li>
+                                    <li class="content__li">
+                                      <span class="content__li__span">Costos</span>
+                                      <span class="content__li__span content__li__span--data">S/{{formatCurrency costoTotalProducto}}</span>
+                                    </li>
+                                    <li class="content__li">
+                                      <span class="content__li__span">Importe</span>
+                                      <span class="content__li__span content__li__span--data">S/{{formatCurrency precioTotalProducto}}</span>
                                     </li>
                                     <li class="content__li">
                                       <span class="content__li__span">Descuento</span>
-                                      <span class="content__li__span content__li__span--data">- S/{{formatCurrency descuentoProductoVenta}}</span>
+                                      <span class="content__li__span content__li__span--data">-S/{{formatCurrency descuentoProductoVenta}}</span>
                                     </li>
                                     <li class="content__li">
-                                      <span class="content__li__span">Precio Total</span>
-                                      <span class="content__li__span content__li__span--data">S/{{formatCurrency this.precioTotalProducto}}</span>
+                                      <span class="content__li__span">Ganancia</span>
+                                      <span class="content__li__span content__li__span--data">S/{{formatCurrency gananciaTotalProducto}}</span>
                                     </li>
                                   </ul>
                                 </div>

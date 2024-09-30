@@ -21,22 +21,26 @@
                           </a>
                           <span class="sub__header__span">Volver</span>
                         </div>
-                        <div class="sub__header__action">
-                          <a href="/clients/{{client._id}}/edit" class="sub__header__link">
-                            <figure class="sub__header__figure">
-                              <img src="/assets/icon-edit.svg" alt="Icon Edit" class="sub__header__img">
-                            </figure>
-                          </a>
-                          <span class="sub__header__span">Editar</span>
-                        </div>
-                        <div class="sub__header__action action__delete__item">
-                          <a href="/clients/{{client._id}}/delete" class="sub__header__link">
-                            <figure class="sub__header__figure">
-                              <img src="/assets/icon-delete.svg" alt="Icon Delete" class="sub__header__img">
-                            </figure>
-                          </a>
-                          <span class="sub__header__span">Eliminar</span>
-                        </div>
+                        {{#hasPermission permisosRol "editar-cliente"}}
+                          <div class="sub__header__action">
+                            <a href="/clients/{{client._id}}/edit" class="sub__header__link">
+                              <figure class="sub__header__figure">
+                                <img src="/assets/icon-edit.svg" alt="Icon Edit" class="sub__header__img">
+                              </figure>
+                            </a>
+                            <span class="sub__header__span">Editar</span>
+                          </div>
+                        {{/hasPermission}}
+                        {{#hasPermission permisosRol "eliminar-cliente"}}
+                          <div class="sub__header__action action__delete__item">
+                            <a href="/clients/{{client._id}}/delete" class="sub__header__link">
+                              <figure class="sub__header__figure">
+                                <img src="/assets/icon-delete.svg" alt="Icon Delete" class="sub__header__img">
+                              </figure>
+                            </a>
+                            <span class="sub__header__span">Eliminar</span>
+                          </div>
+                        {{/hasPermission}}
                       </div>
                     </article>
                   </section>

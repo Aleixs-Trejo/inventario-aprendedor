@@ -4,12 +4,6 @@ const StockLocation = require("../models/stockLocationModel");
 //Registrar ubicación del stock
 stockLocationCtrl.renderRegisterStockLocation = async (req, res) => {
   try {
-    const existingLocations = await StockLocation.find().lean();
-    if (existingLocations && existingLocations.length >= process.env.MAX_STORES) {
-      req.flash("wrong", "Ya tienes más de " + process.env.MAX_STORES + " ubicaciones registradas.");
-      console.log(`Máximo número de sucursales alcanzado, el máximo permitido es de ${process.env.MAX_STORES} y tienes ${existingLocations.length}`);
-      return res.redirect("/");
-    }
     res.render("stockLocations/new-stockLocation");
   } catch (error) {
     req.flash("wrong", "Ocurrió un error, intente nuevamente.");
@@ -24,14 +18,6 @@ stockLocationCtrl.registerStockLocation = async (req, res) => {
       nombreStockUbicacion,
       descripcionStockUbicacion
     } = req.body;
-
-    const existingLocations = await StockLocation.find().lean();
-
-    if (existingLocations && existingLocations.length >= process.env.MAX_STORES) {
-      req.flash("wrong", "Ya tienes más de " + process.env.MAX_STORES + " ubicaciones registradas.");
-      console.log(`Máximo número de sucursales alcanzado, el máximo permitido es de ${process.env.MAX_STORES} y tienes ${existingLocations.length}`);
-      return res.redirect("/");
-    }
 
     const nombreStock = await StockLocation.findOne({nombreStockUbicacion});
 

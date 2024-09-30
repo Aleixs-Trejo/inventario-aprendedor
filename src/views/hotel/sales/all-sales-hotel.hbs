@@ -20,23 +20,27 @@
                       <span class="sub__header__span">Volver</span>
                     </div>
                     {{#if salesHotel}}
-                      <div class="sub__header__action action__export--excel">
-                        <a href="/hotel/sales/export-excel" class="sub__header__link">
+                      {{#hasPermission permisosRol "exportar-venta-hotel"}}
+                        <div class="sub__header__action action__export--excel">
+                          <a href="/hotel/sales/export-excel" class="sub__header__link">
+                            <figure class="sub__header__figure">
+                              <img src="/assets/icon-excel.svg" alt="Icon Export" class="sub__header__img">
+                            </figure>
+                          </a>
+                          <span class="sub__header__span">Exportar</span>
+                        </div>
+                      {{/hasPermission}}
+                    {{/if}}
+                    {{#hasPermission permisosRol "historial-venta-hotel"}}
+                      <div class="sub__header__action">
+                        <a href="/hotel/sales/history" class="sub__header__link">
                           <figure class="sub__header__figure">
-                            <img src="/assets/icon-excel.svg" alt="Icon Export" class="sub__header__img">
+                            <img src="/assets/icon-history.svg" alt="Icon History" class="sub__header__img">
                           </figure>
                         </a>
-                        <span class="sub__header__span">Exportar</span>
+                        <span class="sub__header__span">Historial</span>
                       </div>
-                    {{/if}}
-                    <div class="sub__header__action">
-                      <a href="/hotel/sales/history" class="sub__header__link">
-                        <figure class="sub__header__figure">
-                          <img src="/assets/icon-history.svg" alt="Icon History" class="sub__header__img">
-                        </figure>
-                      </a>
-                      <span class="sub__header__span">Historial</span>
-                    </div>
+                    {{/hasPermission}}
                   </div>
                 </article>
               </section>
@@ -76,12 +80,14 @@
                           <div class="flex-c-c"><span class="span__data__item tipo__historial">{{#if (eq tipoEntidad "Occupation")}}No{{else}}Sí{{/if}}</span></div>
                           <div class="flex-c-c">{{formatDateTime createdAt}}</div>
                           <div class="flex-c-c items__data--options">
-                            <a href="/hotel/sales/{{_id}}/details" class="options__action">
-                              <figure class="options__figure">
-                                <img src="../assets/icon-edit.svg" alt="Icon Details" class="options__img">
-                              </figure>
-                              <span class="span__detail">Detalles</span>
-                            </a>
+                            {{#hasPermission ../permisosRol "ver-detalle-venta-hotel"}}
+                              <a href="/hotel/sales/{{_id}}/details" class="options__action">
+                                <figure class="options__figure">
+                                  <img src="../assets/icon-edit.svg" alt="Icon Details" class="options__img">
+                                </figure>
+                                <span class="span__detail">Detalles</span>
+                              </a>
+                            {{/hasPermission}}
                           </div>
                         </article>
                       </div>

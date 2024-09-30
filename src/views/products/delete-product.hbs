@@ -32,13 +32,16 @@
                 <div class="views__content--elements view__scrollbar product">
                   <div class="item__info product">
                     <article class="items__header items__grid product">
-                      <div class="flex-c-c">Usuario:</div>
-                      <div class="flex-c-c">Producto:</div>
-                      <div class="flex-c-c">Descripción:</div>
-                      <div class="flex-c-c">Proveedor:</div>
-                      <div class="flex-c-c">Categoría:</div>
-                      <div class="flex-c-c">Precio:</div>
-                      <div class="flex-c-c">Fecha Registro:</div>
+                      <div class="flex-c-c">Usuario</div>
+                      <div class="flex-c-c">Producto</div>
+                      <div class="flex-c-c">Descripción</div>
+                      <div class="flex-c-c">Proveedor</div>
+                      <div class="flex-c-c">Categoría</div>
+                      <div class="flex-c-c">P/Compra</div>
+                      <div class="flex-c-c">P/Venta</div>
+                      <div class="flex-c-c">Stock Seg</div>
+                      <div class="flex-c-c">Stock Min</div>
+                      <div class="flex-c-c">Fecha Registro</div>
                     </article>
                     <article class="items__data items__grid product">
                       <div class="flex-c-c">{{product.usuarioProducto.usuario}}</div>
@@ -46,7 +49,10 @@
                       <div class="flex-c-c">{{product.descripcionProducto}}</div>
                       <div class="flex-c-c">{{product.proveedorProducto.nombreProveedor}}</div>
                       <div class="flex-c-c">{{product.categoriaProducto.nombreCategoria}}</div>
-                      <div class="flex-c-c">S/{{formatCurrency product.precioProducto}}</div>
+                      <div class="flex-c-c">S/{{formatCurrency product.precioCompraProducto}}</div>
+                      <div class="flex-c-c">S/{{formatCurrency product.precioVentaProducto}}</div>
+                      <div class="flex-c-c">{{product.stockSeguridadProducto}}</div>
+                      <div class="flex-c-c">{{product.stockMinimoProducto}}</div>
                       <div class="flex-c-c">{{formatDateTime product.createdAt}}</div>
                     </article>
                   </div>

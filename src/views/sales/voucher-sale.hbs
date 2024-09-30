@@ -39,7 +39,7 @@
             {{#each sale.productosVenta}}
               <article class="data__body items__grid voucher__product">
                 <div class="flex-c-c descripcion">{{productoVenta.almacenProducto.descripcionProducto}}</div>
-                <div class="flex-c-c precio">S/{{formatCurrency productoVenta.almacenProducto.precioProducto}}</div>
+                <div class="flex-c-c precio">S/{{formatCurrency productoVenta.almacenProducto.precioVentaProducto}}</div>
                 <div class="flex-c-c cantidad">{{cantidadVenta}}</div>
                 <div class="flex-c-c descuento">-S/{{formatCurrency descuentoProductoVenta}}</div>
                 <div class="flex-c-c precio__descuento">S/{{formatCurrency precioTotalProducto}}</div>

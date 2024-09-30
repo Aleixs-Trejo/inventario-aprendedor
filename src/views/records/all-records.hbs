@@ -21,7 +21,7 @@
                     </div>
                     {{#if records}}
                       <div class="sub__header__action action__export--excel">
-                        <a href="/records/export-excel" class="sub__header__link">
+                        <a href="/records/export-excel" class="sub__header__link" id="exportExcel">
                           <figure class="sub__header__figure">
                             <img src="/assets/icon-excel.svg" alt="Icon Excel" class="sub__header__img">
                           </figure>
@@ -31,12 +31,34 @@
                     {{/if}}
                   </div>
                 </article>
+                {{#if records}}
+                  <article class="article__sub__header sub__header__filters">
+                    <div class="sub__header__filters__container">
+                      <div class="sub__header__filter filter__date">
+                        <div class="filter__data--record">
+                          <h5 class="filter__title">Ver registros entre:</h5>
+                          <article class="flex-c-c data__record">
+                            <div class="filter__data">
+                              <label for="fechaInicial" class="filter__label">Fecha inicial:</label>
+                              <input type="date" id="fechaInicial" name="fechaInicial" class="input__data--record">
+                            </div>
+                            <div class="filter__data">
+                              <label for="fechaFinal" class="filter__label">Fecha Final:</label>
+                              <input type="date" id="fechaFinal" name="fechaFinal" class="input__data--record">
+                            </div>
+                            <button type="button" id="filterButton" class="filter__button">Filtrar</button>
+                          </article>
+                        </div>
+                      </div>
+                    </div>
+                  </article>
+                {{/if}}
               </section>
             </article>
           </div>
         </div>
         {{#if records}}
-          <section class="items">
+          <section class="items" id="recordsContainer">
             <div class="items__container__elements">
               <section class="views__container--elements view__scrollbar">
                 <div class="views__content--elements items__container records">
@@ -53,12 +75,12 @@
                     <div class="flex-c-c">Cantidad</div>
                     <div class="flex-c-c">Fecha Registro</div>
                   </article>
-                  <div class="items__data--values" id="data-container">
+                  <div class="items__data--values" id="recordsData">
                     {{#each records}}
-                      <div class="container__data">
+                      <div class="record__views">
                         <article class="items__data items__grid records record__data">
                           <div class="flex-c-c">{{usuarioRegistroRegistro.usuario}}</div>
-                          <div class="flex-c-c tipo__registro" data-tipo="{{tipoRegistro}}">{{tipoRegistro}}</div>
+                          <div class="flex-c-c tipo__registro" data-tipo="{{tipoRegistro}}"><span class="span__data__item tipo__historial">{{tipoRegistro}}</span></div>
                           <div class="flex-c-c nombre__producto" data-cod="{{productoRegistro.cod}}">{{productoRegistro.cod}}</div>
                           <div class="flex-c-c nombre__producto" data-nombre="{{productoRegistro.nombreProducto}}">{{productoRegistro.nombreProducto}}</div>
                           <div class="flex-c-c descripcion__producto" data-descripcion="{{productoRegistro.descripcionProducto}}">{{productoRegistro.descripcionProducto}}</div>
@@ -67,7 +89,7 @@
                           <div class="flex-c-c sucursal__producto" data-sucursal="{{sucursalRegistro.nombreStockUbicacion}}">{{sucursalRegistro.nombreStockUbicacion}}</div>
                           <div class="flex-c-c venta__producto" data-venta="{{ventaAsociada.ventaID}}">{{#if ventaAsociada}}{{ventaAsociada.ventaID}}{{else}}-{{/if}}</div>
                           <div class="flex-c-c cantidad__producto" data-cantidad="{{cantidadProductoRegistro}}">{{cantidadProductoRegistro}}</div>
-                          <div class="flex-c-c fecha__producto">{{formatDateTime createdAt}}</div>
+                          <div class="flex-c-c fecha__registro">{{formatDateTime createdAt}}</div>
                         </article>
                       </div>
                     {{/each}}
@@ -79,7 +101,137 @@
         {{else}}
           <h5 class="items__empty">No hay Registros para mostrar 😿</h5>
         {{/if}}
+        <h5 class="record__empty">No hay registros para mostrar</h5>
       </div>
     </div>
   </div>
 </section>
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const fechaInicialInput = document.getElementById("fechaInicial");
+    const fechaFinalInput = document.getElementById("fechaFinal");
+    const filterButton = document.getElementById("filterButton");
+    const noRecord = document.querySelector(".record__empty");
+
+    // Actualizar URL con los parámetros de fecha
+    function updateURL(fechaInicial, fechaFinal) {
+      const url = new URL(window.location.href);
+      url.searchParams.set("fechaInicial", fechaInicial);
+      url.searchParams.set("fechaFinal", fechaFinal);
+      window.history.replaceState({}, "", url);
+    }
+
+    // Obtener los parámetros de fecha del URL
+    function getURLParams() {
+      const urlParams = new URLSearchParams(window.location.search);
+      return {
+        fechaInicial: urlParams.get("fechaInicial"),
+        fechaFinal: urlParams.get("fechaFinal")
+      };
+    }
+
+    // Establecer fechas inicial y final como el primer y último día del mes actual
+    function setInitialAndFinalDate() {
+      const today = new Date();
+      const firstDayOfMonth = new Date(today.getFullYear(), today.getMonth(), 1);
+
+      fechaInicialInput.value = firstDayOfMonth.toISOString().split("T")[0];
+      fechaFinalInput.value = today.toISOString().split("T")[0];
+    }
+
+    function initialize() {
+      noRecord.style.display = "none";
+
+      // Leer parámetro de la url y establecer los valores de los campos de fecha
+      const {fechaInicial, fechaFinal} = getURLParams();
+      console.log("fechaInicial obtenida del URL: ", fechaInicial);
+      console.log("fechaFinal obtenida del URL: ", fechaFinal);
+      if (fechaInicial && fechaFinal) {
+        fechaInicialInput.value = fechaInicial;
+        fechaFinalInput.value = fechaFinal;
+      } else {
+        setInitialAndFinalDate();
+      }
+
+      // Filtrar registros por fecha
+      if (fechaInicial && fechaFinal) {
+        filterRecords(new Date(fechaInicial), new Date(fechaFinal));
+      }
+    }
+
+    // Validar fechas
+    function validateDates() {
+      const fechaInicial = new Date(fechaInicialInput.value);
+      const fechaFinal = new Date(fechaFinalInput.value);
+
+      if (fechaInicial > fechaFinal) {
+        alert("La fecha final debe ser mayor a la fecha inicial.");
+        return false;
+      }
+      return true;
+    }
+
+    // Función para filtrar registros
+    function filterRecords(fechaInicial, fechaFinal) {
+      if (!validateDates()) return;
+
+      // Establecer la hora de fecha inicial a las 00:00:00 y la fecha final a las 23:59:59
+      fechaInicial.setHours(0, 0, 0, 0);
+      fechaFinal.setHours(23, 59, 59, 999);
+
+      const records = document.querySelectorAll(".record__views");
+      records.forEach(record => {
+        const recordDateString = record.querySelector(".fecha__registro").textContent;
+        const parts = recordDateString.split(", ")[0].split("/"); // Dividir la cadena en fecha y hora, y luego dividir la fecha en partes [DD, MM, AAAA]
+        const formattedRecordDate = `${parts[2]}-${parts[1]}-${parts[0]}`;
+        const recordDate = new Date(formattedRecordDate); // Crear un nuevo objeto Date con el formato correcto (AAAA-MM-DD)
+
+        recordDate.setHours(0, 0, 0, 0);
+
+        // Comprobar si la fecha del registro está entre las fechas de inicio y fin
+        if (recordDate >= fechaInicial && recordDate <= fechaFinal) {
+          record.style.display = "block";
+        } else {
+          record.style.display = "none";
+        }
+      });
+
+      // Mostrar mensaje si no hay registros para mostrar
+      const visibleRecords = document.querySelectorAll(".record__views[style='display: block;']");
+      noRecord.style.display = visibleRecords.length === 0 ? "block" : "none";
+    }
+
+    initialize();
+
+    if (fechaInicialInput && fechaFinalInput && filterButton) {
+      filterButton.addEventListener("click", () => {
+        const fechaInicial = fechaInicialInput.value;
+        const fechaFinal = fechaFinalInput.value;
+
+        if (!validateDates()) return;
+
+        // Actualizar URL con los parámetros de fecha
+        updateURL(fechaInicial, fechaFinal);
+
+        // Filtrar registros por fecha
+        filterRecords(new Date(fechaInicial), new Date(fechaFinal));
+      });
+    }
+
+    const exportExcel = document.getElementById("exportExcel");
+
+    if (exportExcel) {
+      exportExcel.addEventListener("click", () => {
+        const fechaInicial = fechaInicialInput.value;
+        const fechaFinal = fechaFinalInput.value;
+
+        if (!validateDates()) return;
+
+        const url = `/records/export-excel?fechaInicial=${fechaInicial}&fechaFinal=${fechaFinal}`;
+        window.location.href = url;
+        console.log("URL de exportación de Excel: ", url);
+        exportExcel.setAttribute("href", url);
+      });
+    }
+  });
+</script>
